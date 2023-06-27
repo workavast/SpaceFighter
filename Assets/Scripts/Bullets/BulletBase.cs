@@ -10,10 +10,10 @@ public class BulletBase : MonoBehaviour, IPoolable<BulletBase>
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float damage;
-        
+
     void Update()
     {
-        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+        transform.Translate(Vector3.up * (moveSpeed * Time.deltaTime));
     }
 
     public void OnElementExtractFromPool()
@@ -33,5 +33,15 @@ public class BulletBase : MonoBehaviour, IPoolable<BulletBase>
             iDamageable.TakeDamage(damage);
             ReturnElementEvent?.Invoke(this);
         }
+    }
+
+    private void OnDestroy()
+    {
+        DestroyElementEvent?.Invoke(this);
+    }
+
+    public void ReturnInPool()
+    {
+        ReturnElementEvent?.Invoke(this);
     }
 }

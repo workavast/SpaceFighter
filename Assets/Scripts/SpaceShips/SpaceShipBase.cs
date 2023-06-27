@@ -12,6 +12,7 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected DictionaryInspector<int, List<Transform>> shootPositions;
+    [SerializeField] protected Transform bulletsParent;
     private Pool<BulletBase> _bulletsPool;
 
     private void Awake() => OnAwake();
@@ -21,7 +22,7 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
     
     protected virtual void OnAwake()
     {
-        _bulletsPool = new Pool<BulletBase>(PlayerBulletInstantiate);
+        _bulletsPool = new Pool<BulletBase>(BulletInstantiate);
     }
 
     protected virtual void OnStart() { }
@@ -44,9 +45,9 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
                 bullet.transform.position = shootPos.position;
     }
 
-    private PlayerBullet PlayerBulletInstantiate()
+    private BulletBase BulletInstantiate()
     {
-        return Instantiate(bulletPrefab).GetComponent<PlayerBullet>();
+        return Instantiate(bulletPrefab, bulletsParent).GetComponent<BulletBase>();
     }
 
     public void TakeDamage(float damage)
