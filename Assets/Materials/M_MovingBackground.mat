@@ -117,7 +117,7 @@ Material:
     - _XScroll: 0
     - _Xmove: 0
     - _Xs: 0
-    - _YScroll: 0.2
+    - _YScroll: 0.05
     m_Colors:
     - Color_53ee269102454975a18cbcf600cb8c2c: {r: 1, g: 1, b: 1, a: 0}
     - Vector2_f7da7bf223254232a73611314e685d78: {r: 2, g: 1, b: 0, a: 0}

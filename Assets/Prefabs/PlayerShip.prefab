@@ -348,6 +348,7 @@ MonoBehaviour:
   levels:
     maxValue: 5
     currentValue: 1
+  canShoot: 1
   fireRate:
     maxValue: 0.25
     currentValue: 0

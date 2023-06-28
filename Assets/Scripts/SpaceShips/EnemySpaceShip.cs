@@ -14,6 +14,7 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShip
     [SerializeField] private bool fixedRotation;
     [SerializeField] private bool accelerated;
     [SerializeField] private AnimationCurve acceleration;
+    [SerializeField] private float contactDamage;
     private float _accelerationTimer = 0;
     private float _distanceTravelled;
     private float _currentMoveSpeed;
@@ -34,6 +35,8 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShip
             // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
             pathCreator.pathUpdated += OnPathChanged;
         }
+
+        IsDead += Dead;
     }
 
     protected override void OnUpdate()
@@ -46,13 +49,22 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShip
         if (pathCreator)
         {
             _distanceTravelled += _currentMoveSpeed * Time.deltaTime;
+            Vector3 prevPosition = transform.position;
             transform.position = pathCreator.path.GetPointAtDistance(_distanceTravelled, endOfPathInstruction);
 
             if(!fixedRotation)
             {
                 Quaternion oldRotation = transform.rotation;
                 Quaternion newRotation = pathCreator.path.GetRotationAtDistance(_distanceTravelled, endOfPathInstruction);
-                transform.rotation = Quaternion.Euler(oldRotation.eulerAngles.x, oldRotation.eulerAngles.y, -90-newRotation.eulerAngles.x);
+                if (prevPosition.x < transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(oldRotation.eulerAngles.x, oldRotation.eulerAngles.y, -90-newRotation.eulerAngles.x);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(oldRotation.eulerAngles.x, oldRotation.eulerAngles.y, +90+newRotation.eulerAngles.x);
+                }
+                // transform.rotation = pathCreator.path.GetRotationAtDistance(_distanceTravelled, endOfPathInstruction);
             }
 
             if (accelerated)
@@ -100,5 +112,19 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShip
     public void OnElementReturnInPool()
     {
         gameObject.SetActive(false);
+    }
+
+    private void Dead()
+    {
+        ReturnElementEvent?.Invoke(this);
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        PlayerSpaceShip playerSpaceShip = col.gameObject.GetComponentInChildren<PlayerSpaceShip>();
+        if (playerSpaceShip)
+        {
+            playerSpaceShip.TakeDamage(contactDamage);
+        }
     }
 }

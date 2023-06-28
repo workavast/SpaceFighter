@@ -8,13 +8,14 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
 {
     [SerializeField] protected SomeStorage healthPoints;
     [SerializeField] protected SomeStorage levels;
+    [SerializeField] protected bool canShoot;
     [SerializeField] protected SomeStorage fireRate;
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected DictionaryInspector<int, List<Transform>> shootPositions;
     [SerializeField] protected Transform bulletsParent;
     private Pool<BulletBase> _bulletsPool;
-
+    protected Action IsDead;
     private void Awake() => OnAwake();
     private void Start() => OnStart();
     private void Update() => OnUpdate();
@@ -40,6 +41,8 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
 
     protected void Shoot()
     {
+        if(!canShoot) return;
+        
         foreach (var shootPos in shootPositions[(int)levels.CurrentValue])
             if (_bulletsPool.ExtractElement(out BulletBase bullet))
                 bullet.transform.position = shootPos.position;
@@ -57,6 +60,7 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
         if (healthPoints.IsEmpty)
         {
             Debug.Log("dead");
+            IsDead?.Invoke();
         }
     }
 }
