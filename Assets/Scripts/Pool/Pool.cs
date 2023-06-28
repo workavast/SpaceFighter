@@ -256,7 +256,11 @@ public class Pool<TElement, TId> where TElement : IPoolable<TElement, TId>
 
     private void OnReturnElement(TElement element)
     {
-        if (!_busyElements.ContainsKey(element.PoolId)) return;
+        if (!_busyElements.ContainsKey(element.PoolId))
+        {
+            Debug.LogWarning("You try return pool element that id don't contained in _busyElements");
+            return;
+        }
         
         if (_busyElements[element.PoolId].Contains(element))
         {
@@ -268,6 +272,10 @@ public class Pool<TElement, TId> where TElement : IPoolable<TElement, TId>
             _busyElements[element.PoolId].Remove(element);
             
             element.OnElementReturnInPool();
+        }
+        else
+        {
+            Debug.LogWarning("You try return pool element that don't contained in _busyElements["+element.PoolId+"]");
         }
     }
 
