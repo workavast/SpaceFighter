@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,9 @@ using UnityEngine.Serialization;
 using PathCreation;
 using Unity.VisualScripting;
 
-public class EnemySpaceShip : SpaceShipBase
+public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShips>
 {
+
     [SerializeField] private PathCreator pathCreator;
     [SerializeField] private EndOfPathInstruction endOfPathInstruction;
     [SerializeField] private bool fixedRotation;
@@ -16,6 +18,13 @@ public class EnemySpaceShip : SpaceShipBase
     private float _distanceTravelled;
     private float _currentMoveSpeed;
     
+    
+    [SerializeField] private SpaceShips poolId;
+    public SpaceShips PoolId => poolId;
+    public event Action<EnemySpaceShip> ReturnElementEvent;
+    public event Action<EnemySpaceShip> DestroyElementEvent;
+    
+
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -31,14 +40,21 @@ public class EnemySpaceShip : SpaceShipBase
     {
         base.OnUpdate();
         
-        if (_distanceTravelled >= pathCreator.path.length) _distanceTravelled -= pathCreator.path.length;
+        // if (_distanceTravelled >= pathCreator.path.length) _distanceTravelled -= pathCreator.path.length;
+        if (_distanceTravelled >= pathCreator.path.length) ReturnElementEvent?.Invoke(this);
         
         if (pathCreator)
         {
             _distanceTravelled += _currentMoveSpeed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(_distanceTravelled, endOfPathInstruction);
-            if(!fixedRotation) transform.rotation = pathCreator.path.GetRotationAtDistance(_distanceTravelled, endOfPathInstruction);
-            
+
+            if(!fixedRotation)
+            {
+                Quaternion oldRotation = transform.rotation;
+                Quaternion newRotation = pathCreator.path.GetRotationAtDistance(_distanceTravelled, endOfPathInstruction);
+                transform.rotation = Quaternion.Euler(oldRotation.eulerAngles.x, oldRotation.eulerAngles.y, -90-newRotation.eulerAngles.x);
+            }
+
             if (accelerated)
             {
                 _accelerationTimer += Time.deltaTime;
@@ -56,5 +72,33 @@ public class EnemySpaceShip : SpaceShipBase
     
     void OnPathChanged() {
         _distanceTravelled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
+    }
+
+    public void ChangePathWay(PathCreator newPathWay)
+    {
+        pathCreator.pathUpdated -= OnPathChanged;
+        
+        pathCreator = newPathWay;
+        _distanceTravelled = 0;
+        pathCreator.pathUpdated += OnPathChanged;
+    }
+
+    public void OnElementExtractFromPool()
+    {
+        gameObject.SetActive(true);
+
+        _accelerationTimer = 0;
+        _distanceTravelled = 0;
+        _currentMoveSpeed = moveSpeed;
+        
+        healthPoints.SetCurrentValue(healthPoints.MaxValue);
+        fireRate.SetCurrentValue(0);
+        
+        if(fixedRotation) transform.rotation = Quaternion.Euler(0,0,180);
+    }
+
+    public void OnElementReturnInPool()
+    {
+        gameObject.SetActive(false);
     }
 }
