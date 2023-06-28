@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
+using UnityEngine.Serialization;
 
 public class EnemiesSpawner : MonoBehaviour
 {
@@ -16,9 +17,9 @@ public class EnemiesSpawner : MonoBehaviour
         public PathCreator path;
     }
 
-    [SerializeField] private List<MyStruct> list;
+    [SerializeField] private List<MyStruct> enemiesWaves;
 
-    [SerializeField] private DictionaryInspector<SpaceShips, GameObject> dictionaryInspector;
+    [SerializeField] private DictionaryInspector<SpaceShips, GameObject> enemiesPrefabs;
     private Pool<EnemySpaceShip, SpaceShips> _spaceShipsPool;
 
     private void Awake()
@@ -33,18 +34,18 @@ public class EnemiesSpawner : MonoBehaviour
 
     IEnumerator SpawnShips(int index)
     {
-        for (int i = 0; i < list[index].groupsCount; i++)
+        for (int i = 0; i < enemiesWaves[index].groupsCount; i++)
         {
-            for (int j = 0; j < list[index].enemyGroup.Count; j++)
+            for (int j = 0; j < enemiesWaves[index].enemyGroup.Count; j++)
             {
-                if(_spaceShipsPool.ExtractElement(list[index].enemyGroup[j], out EnemySpaceShip enemySpaceShip))
+                if(_spaceShipsPool.ExtractElement(enemiesWaves[index].enemyGroup[j], out EnemySpaceShip enemySpaceShip))
                 {
-                    enemySpaceShip.ChangePathWay(list[index].path);
+                    enemySpaceShip.ChangePathWay(enemiesWaves[index].path);
                 }
-                yield return new WaitForSeconds(list[index].timePauseInGroup);
+                yield return new WaitForSeconds(enemiesWaves[index].timePauseInGroup);
             }
 
-            yield return new WaitForSeconds(list[index].timePauseBetweenGroups);
+            yield return new WaitForSeconds(enemiesWaves[index].timePauseBetweenGroups);
         }
     }
     void Update()
@@ -54,6 +55,6 @@ public class EnemiesSpawner : MonoBehaviour
     
     private EnemySpaceShip EnemySpaceShipInstantiate(SpaceShips id)
     {
-        return Instantiate(dictionaryInspector[id], transform).GetComponentInChildren<EnemySpaceShip>();
+        return Instantiate(enemiesPrefabs[id], transform).GetComponentInChildren<EnemySpaceShip>();
     }
 }

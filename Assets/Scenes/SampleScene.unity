@@ -217,13 +217,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47dc369e2ac8ca4ba31937a2b8beb53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  list:
+  enemiesWaves:
   - enemyGroup: 000000000000000000000000
     groupsCount: 3
-    timePauseInGroup: 0.5
-    timePauseBetweenGroups: 2
+    timePauseInGroup: 0.75
+    timePauseBetweenGroups: 1.5
     path: {fileID: 1098018437}
-  dictionaryInspector:
+  enemiesPrefabs:
     dictionaryCells:
     - key: 0
       value: {fileID: 158878037633063282, guid: 7f7fa72c1ba5829419def21819cb3283, type: 3}
