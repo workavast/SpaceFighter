@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3777598027315875667}
   m_Layer: 0
-  m_Name: EnemyShip
+  m_Name: EnemyShip 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1316312603198075756}
   - component: {fileID: 2059990195319256387}
-  - component: {fileID: 1925499582556488850}
+  - component: {fileID: 6193117092261799208}
+  - component: {fileID: 2404734293595197364}
   - component: {fileID: 6503354798745221900}
   m_Layer: 7
   m_Name: Ship
@@ -210,16 +211,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints:
-    maxValue: 10
-    currentValue: 10
+    maxValue: 5
+    currentValue: 5
   levels:
     maxValue: 1
     currentValue: 1
+  canShoot: 0
   fireRate:
     maxValue: 2
     currentValue: 0
   bulletPrefab: {fileID: 4218289864165732433, guid: 2c75c9ff0c3483a40a016ae01f7806bc, type: 3}
-  moveSpeed: 2
+  moveSpeed: 5
   shootPositions:
     dictionaryCells:
     - key: 1
@@ -281,9 +283,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  contactDamage: 1
   poolId: 0
---- !u!61 &1925499582556488850
-BoxCollider2D:
+--- !u!60 &6193117092261799208
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -305,9 +308,49 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.2, y: 0.94}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.1, y: 0.08}
+      - {x: 0.05, y: 0.5}
+      - {x: -0.05, y: 0.5}
+      - {x: -0.1, y: 0.08}
+      - {x: -0.6, y: -0.2}
+      - {x: -0.6, y: -0.5}
+      - {x: 0.6, y: -0.5}
+      - {x: 0.6, y: -0.2}
+--- !u!60 &2404734293595197364
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406208012618265226}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.1, y: 0.08}
+      - {x: 0.05, y: 0.5}
+      - {x: -0.05, y: 0.5}
+      - {x: -0.1, y: 0.08}
+      - {x: -0.6, y: -0.2}
+      - {x: -0.6, y: -0.5}
+      - {x: 0.6, y: -0.5}
+      - {x: 0.6, y: -0.2}
 --- !u!50 &6503354798745221900
 Rigidbody2D:
   serializedVersion: 4
