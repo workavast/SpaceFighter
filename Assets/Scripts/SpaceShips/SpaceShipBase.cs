@@ -35,7 +35,7 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
     {
         float finalSpeed = Mathf.Clamp(Vector3.Distance(transform.position, targetPosition), 0, moveSpeed * Time.deltaTime);
 
-        transform.Translate( (targetPosition - transform.position).normalized * finalSpeed);
+        transform.Translate((targetPosition - transform.position).normalized * finalSpeed);
     }
 
     protected void Shoot()
@@ -47,7 +47,7 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
 
     private BulletBase BulletInstantiate()
     {
-        return Instantiate(bulletPrefab, bulletsParent).GetComponent<BulletBase>();
+        return Instantiate(bulletPrefab, transform.position, transform.rotation, bulletsParent).GetComponent<BulletBase>();
     }
 
     public void TakeDamage(float damage)
