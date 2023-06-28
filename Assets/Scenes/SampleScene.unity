@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesWaves:
-  - enemyGroup: 00000000000000000000000000000000
+  - enemyGroup: 00000000010000000100000000000000
     groupsCount: 4
     timePauseInGroup: 0.5
     timePauseBetweenGroups: 1
@@ -227,6 +227,8 @@ MonoBehaviour:
     dictionaryCells:
     - key: 0
       value: {fileID: 158878037633063282, guid: 7f7fa72c1ba5829419def21819cb3283, type: 3}
+    - key: 1
+      value: {fileID: 158878037633063282, guid: 81e9fc6611a41274490f2bc38a5d1c3a, type: 3}
 --- !u!4 &250841976
 Transform:
   m_ObjectHideFlags: 0
