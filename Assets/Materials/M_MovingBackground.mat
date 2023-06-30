@@ -74,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: 862bb56dac5b91d42adf043d48993ac0, type: 3}
+        m_Texture: {fileID: 2800000, guid: d580eb7297eff9e408bd666aafad954c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_02e8fb1f56814f40a9aaff8458d06c6d_Out_0:
@@ -117,7 +117,7 @@ Material:
     - _XScroll: 0
     - _Xmove: 0
     - _Xs: 0
-    - _YScroll: 0.05
+    - _YScroll: 0.01
     m_Colors:
     - Color_53ee269102454975a18cbcf600cb8c2c: {r: 1, g: 1, b: 1, a: 0}
     - Vector2_f7da7bf223254232a73611314e685d78: {r: 2, g: 1, b: 0, a: 0}
@@ -129,5 +129,5 @@ Material:
     - _MainTint: {r: 1, g: 1, b: 1, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _TexturTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _Tiling: {r: 2, g: 2, b: 0, a: 0}
+    - _Tiling: {r: 2, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
