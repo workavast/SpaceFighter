@@ -239,7 +239,7 @@ MonoBehaviour:
       - {fileID: 2217000792331175656}
   bulletsParent: {fileID: 4823825524855346203}
   pathCreator: {fileID: 9005936212918651771, guid: 524d077c10f92a14b963789e18f42b0f, type: 3}
-  endOfPathInstruction: 0
+  endOfPathInstruction: 2
   accelerated: 0
   acceleration:
     serializedVersion: 2

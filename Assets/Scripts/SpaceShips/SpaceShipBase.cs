@@ -45,7 +45,10 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
         
         foreach (var shootPos in shootPositions[(int)levels.CurrentValue])
             if (_bulletsPool.ExtractElement(out BulletBase bullet))
+            {
                 bullet.transform.position = shootPos.position;
+                bullet.transform.rotation = shootPos.rotation;
+            }
     }
 
     private BulletBase BulletInstantiate()
