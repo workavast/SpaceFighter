@@ -9,6 +9,7 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
     [SerializeField] protected SomeStorage healthPoints;
     [SerializeField] protected SomeStorage levels;
     [SerializeField] protected bool canShoot;
+    [SerializeField] protected bool canMove;
     [SerializeField] protected SomeStorage fireRate;
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected float moveSpeed;
@@ -20,10 +21,16 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
     private void Start() => OnStart();
     private void Update() => OnUpdate();
     private void FixedUpdate() => OnFixedUpdate();
+
+    protected bool CanShoot;
+    protected bool CanMove;
     
     protected virtual void OnAwake()
     {
         _bulletsPool = new Pool<BulletBase>(BulletInstantiate);
+
+        CanShoot = canShoot;
+        CanMove = canMove;
     }
 
     protected virtual void OnStart() { }
@@ -32,16 +39,9 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
 
     protected virtual void OnFixedUpdate() { }
     
-    protected void Move(Vector3 targetPosition)
-    {
-        float finalSpeed = Mathf.Clamp(Vector3.Distance(transform.position, targetPosition), 0, moveSpeed * Time.deltaTime);
-
-        transform.Translate((targetPosition - transform.position).normalized * finalSpeed);
-    }
-
     protected void Shoot()
     {
-        if(!canShoot) return;
+        if(!CanShoot) return;
         
         foreach (var shootPos in shootPositions[(int)levels.CurrentValue])
             if (_bulletsPool.ExtractElement(out BulletBase bullet))

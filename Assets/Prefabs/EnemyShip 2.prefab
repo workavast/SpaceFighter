@@ -216,7 +216,8 @@ MonoBehaviour:
   levels:
     maxValue: 1
     currentValue: 1
-  canShoot: 0
+  canShoot: 1
+  canMove: 1
   fireRate:
     maxValue: 2
     currentValue: 0
@@ -239,7 +240,6 @@ MonoBehaviour:
   bulletsParent: {fileID: 4823825524855346203}
   pathCreator: {fileID: 9005936212918651771, guid: 524d077c10f92a14b963789e18f42b0f, type: 3}
   endOfPathInstruction: 0
-  fixedRotation: 0
   accelerated: 0
   acceleration:
     serializedVersion: 2
@@ -284,6 +284,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   contactDamage: 1
+  rotationType: 1
+  moveType: 2
   poolId: 1
 --- !u!60 &6992739338877687535
 PolygonCollider2D:

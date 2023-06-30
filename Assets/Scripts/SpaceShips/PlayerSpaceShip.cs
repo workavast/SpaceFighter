@@ -9,10 +9,18 @@ public class PlayerSpaceShip : SpaceShipBase
 {
     private Transform _playAreaLeftDownPivot;
     private Camera _camera;
+    public static PlayerSpaceShip Instance { get; private set; }
 
     protected override void OnAwake()
     {
+        if (Instance)
+        {
+            Destroy(this);
+            return;
+        }
+        
         base.OnAwake();
+        Instance = this;
         _camera = Camera.main;
     }
 
@@ -25,16 +33,8 @@ public class PlayerSpaceShip : SpaceShipBase
     protected override void OnUpdate()
     {
         base.OnUpdate();
-
-        Vector3 targetPoint = _camera.ScreenToWorldPoint(Input.mousePosition) - _camera.transform.position;
-        Vector3 playAreaPivotPosition = _playAreaLeftDownPivot.position;
-
-        float x = Mathf.Clamp(targetPoint.x, playAreaPivotPosition.x, -playAreaPivotPosition.x);
-        float y = Mathf.Clamp(targetPoint.y, playAreaPivotPosition.y, -playAreaPivotPosition.y);
-
-        targetPoint = new Vector3(x, y, targetPoint.z);
-            
-        Move(targetPoint);
+        
+        Move();
         
         fireRate.ChangeCurrentValue(Time.deltaTime);
         if (fireRate.IsFull)
@@ -42,5 +42,20 @@ public class PlayerSpaceShip : SpaceShipBase
             Shoot();
             fireRate.SetCurrentValue(0);
         }
+    }
+    
+    protected void Move()
+    {
+        Vector3 targetPosition = _camera.ScreenToWorldPoint(Input.mousePosition) - _camera.transform.position;
+        Vector3 playAreaPivotPosition = _playAreaLeftDownPivot.position;
+
+        float x = Mathf.Clamp(targetPosition.x, playAreaPivotPosition.x, -playAreaPivotPosition.x);
+        float y = Mathf.Clamp(targetPosition.y, playAreaPivotPosition.y, -playAreaPivotPosition.y);
+
+        targetPosition = new Vector3(x, y, targetPosition.z);
+        
+        float finalSpeed = Mathf.Clamp(Vector3.Distance(transform.position, targetPosition), 0, moveSpeed * Time.deltaTime);
+
+        transform.Translate((targetPosition - transform.position).normalized * finalSpeed);
     }
 }
