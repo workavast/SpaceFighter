@@ -171,6 +171,7 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShip
         if (playerSpaceShip)
         {
             playerSpaceShip.TakeDamage(contactDamage);
+            TakeDamage(healthPoints.CurrentValue);
         }
     }
 }
