@@ -190,7 +190,7 @@ Transform:
   m_GameObject: {fileID: 1406208012618265226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3885596603736712702}
@@ -222,7 +222,7 @@ MonoBehaviour:
     maxValue: 2
     currentValue: 0
   bulletPrefab: {fileID: 4218289864165732433, guid: 2c75c9ff0c3483a40a016ae01f7806bc, type: 3}
-  moveSpeed: 5
+  moveSpeed: 4
   shootPositions:
     dictionaryCells:
     - key: 1
@@ -462,7 +462,7 @@ Transform:
   m_GameObject: {fileID: 4546139524227581183}
   m_LocalRotation: {x: -0, y: -0, z: 0.0000004768371, w: -1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1316312603198075756}
@@ -509,10 +509,10 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 32766
-  m_Sprite: {fileID: 21300000, guid: 5106a46d68e88094283508a4020fef2d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1b2f398b946f245428f6d8a026db671d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 1
+  m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.58, y: 0.46}
   m_AdaptiveModeThreshold: 0.5
