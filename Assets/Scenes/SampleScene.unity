@@ -1001,18 +1001,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1865232057239004466, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2658007648888168662, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
-      propertyPath: canMove
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2658007648888168662, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
-      propertyPath: canShoot
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: SpaceshipModel
+      value: 
+      objectReference: {fileID: 21300000, guid: f16bacb1a9eb117478d9dc8bd87dac8e, type: 3}
     - target: {fileID: 5315443559598703890, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
       propertyPath: m_Name
       value: PlayerShip

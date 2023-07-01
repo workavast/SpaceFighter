@@ -15,10 +15,11 @@ public class SomeStorage
 
     public bool IsFull => currentValue >= maxValue;
     public bool IsEmpty => currentValue <= 0;
+    public float FillingPercentage => currentValue / maxValue;
 
     public SomeStorage()
     {
-        maxValue = 0;
+        maxValue = int.MaxValue;
         currentValue = 0;
     }
 

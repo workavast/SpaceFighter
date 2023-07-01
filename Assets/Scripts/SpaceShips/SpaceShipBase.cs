@@ -56,7 +56,7 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
         return Instantiate(bulletPrefab, transform.position, transform.rotation, bulletsParent).GetComponent<BulletBase>();
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         healthPoints.ChangeCurrentValue(-damage);
 

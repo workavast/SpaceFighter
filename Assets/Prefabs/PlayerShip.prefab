@@ -386,6 +386,16 @@ MonoBehaviour:
       - {fileID: 8270348344883625402}
       - {fileID: 7869243826559754592}
   bulletsParent: {fileID: 0}
+  spaceshipModelAnimator: {fileID: 3522066648862070055}
+  damageAnimatorTriggerData:
+  - animatorTriggerName: 0
+    healthPointsPercent: 1
+  - animatorTriggerName: 1
+    healthPointsPercent: 0.75
+  - animatorTriggerName: 2
+    healthPointsPercent: 0.5
+  - animatorTriggerName: 3
+    healthPointsPercent: 0.25
 --- !u!60 &1865232057239004466
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -675,7 +685,7 @@ Animator:
   m_GameObject: {fileID: 3694132488983528169}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 4c0a23268d772bd40b5325b25b227e84, type: 2}
+  m_Controller: {fileID: 9100000, guid: 565c8e6a57a13c248862b38d9814b622, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
