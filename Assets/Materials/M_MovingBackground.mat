@@ -74,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: d580eb7297eff9e408bd666aafad954c, type: 3}
+        m_Texture: {fileID: 2800000, guid: a006ac58c68c7694795f9b65ed9d1923, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_02e8fb1f56814f40a9aaff8458d06c6d_Out_0:
@@ -129,5 +129,5 @@ Material:
     - _MainTint: {r: 1, g: 1, b: 1, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _TexturTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _Tiling: {r: 2, g: 1, b: 0, a: 0}
+    - _Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
