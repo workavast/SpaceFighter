@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
+using SomeStorages;
 
 public class PlayerSpaceShip : SpaceShipBase
 {
@@ -33,7 +31,7 @@ public class PlayerSpaceShip : SpaceShipBase
     private Transform _playAreaLeftDownPivot;
     private Camera _camera;
     
-    private SomeStorage _currentDamageSprite;
+    private SomeStorageInt _currentDamageSprite;
 
     protected override void OnAwake()
     {
@@ -54,7 +52,7 @@ public class PlayerSpaceShip : SpaceShipBase
             Debug.LogWarning("You dont Serialize spaceshipModelAnimator");
         }
 
-        _currentDamageSprite = new SomeStorage((int)(damageAnimatorTriggerData.Count - 1));
+        _currentDamageSprite = new SomeStorageInt(damageAnimatorTriggerData.Count - 1);
     }
 
     protected override void OnStart()
@@ -98,17 +96,17 @@ public class PlayerSpaceShip : SpaceShipBase
 
         if (_currentDamageSprite.CurrentValue >= 0 && _currentDamageSprite.CurrentValue < damageAnimatorTriggerData.Count)
         {
-            if (!_currentDamageSprite.IsFull && damageAnimatorTriggerData[(int)_currentDamageSprite.CurrentValue + 1].healthPointsPercent > healthPoints.FillingPercentage)
+            if (!_currentDamageSprite.IsFull && damageAnimatorTriggerData[_currentDamageSprite.CurrentValue + 1].healthPointsPercent > healthPoints.FillingPercentage)
             {
                 _currentDamageSprite.ChangeCurrentValue(1);
-                spaceshipModelAnimator.SetTrigger(damageAnimatorTriggerData[(int)_currentDamageSprite.CurrentValue].animatorTriggerName.ToString());
+                spaceshipModelAnimator.SetTrigger(damageAnimatorTriggerData[_currentDamageSprite.CurrentValue].animatorTriggerName.ToString());
             }
             else
             {
-                if (_currentDamageSprite.CurrentValue > 0 && damageAnimatorTriggerData[(int)_currentDamageSprite.CurrentValue].healthPointsPercent <= healthPoints.FillingPercentage)
+                if (_currentDamageSprite.CurrentValue > 0 && damageAnimatorTriggerData[_currentDamageSprite.CurrentValue].healthPointsPercent <= healthPoints.FillingPercentage)
                 {
                     _currentDamageSprite.ChangeCurrentValue(-1);
-                    spaceshipModelAnimator.SetTrigger(damageAnimatorTriggerData[(int)_currentDamageSprite.CurrentValue].animatorTriggerName.ToString());
+                    spaceshipModelAnimator.SetTrigger(damageAnimatorTriggerData[_currentDamageSprite.CurrentValue].animatorTriggerName.ToString());
                 }
             }
         }

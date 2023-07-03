@@ -348,14 +348,17 @@ MonoBehaviour:
   healthPoints:
     maxValue: 100
     currentValue: 100
+    minValue: 0
   levels:
     maxValue: 5
     currentValue: 1
+    minValue: 0
   canShoot: 1
   canMove: 1
   fireRate:
     maxValue: 0.25
     currentValue: 0
+    minValue: 0
   bulletPrefab: {fileID: 7790572107985275066, guid: e1c6ce1080a7cf547be5a1bef0136b39, type: 3}
   moveSpeed: 10
   shootPositions:

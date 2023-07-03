@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using SomeStorages;
 
 public class SpaceShipBase : MonoBehaviour, IDamageable
 {
-    [SerializeField] protected SomeStorage healthPoints;
-    [SerializeField] protected SomeStorage levels;
+    [SerializeField] protected SomeStorageFloat healthPoints;
+    [SerializeField] protected SomeStorageInt levels;
     [SerializeField] protected bool canShoot;
     [SerializeField] protected bool canMove;
-    [SerializeField] protected SomeStorage fireRate;
+    [SerializeField] protected SomeStorageFloat fireRate;
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected DictionaryInspector<int, List<Transform>> shootPositions;
@@ -43,7 +44,7 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
     {
         if(!CanShoot) return;
         
-        foreach (var shootPos in shootPositions[(int)levels.CurrentValue])
+        foreach (var shootPos in shootPositions[levels.CurrentValue])
             if (_bulletsPool.ExtractElement(out BulletBase bullet))
             {
                 bullet.transform.position = shootPos.position;
