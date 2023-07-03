@@ -1,45 +1,47 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using PathCreation;
-using Unity.VisualScripting;
 
-enum EnemyRotationType
-{
-    Forward,
-    PlayerTarget,
-    PathWayRotation
-}
-
-enum PathWayMoveType
-{
-    Loop,
-    OnEndRemove,
-    OnEndStop
-}
 public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShips>
 {
+    private enum EnemyRotationType
+    {
+        Forward,
+        PlayerTarget,
+        PathWayRotation
+    }
 
+    private enum PathWayMoveType
+    {
+        Loop,
+        OnEndRemove,
+        OnEndStop
+    }
+    
+    [Space]
     [SerializeField] private PathCreator pathCreator;
     [SerializeField] private EndOfPathInstruction endOfPathInstruction;
+    [SerializeField] private PathWayMoveType moveType;
+    [SerializeField] private EnemyRotationType rotationType;
+    [Space]
     [SerializeField] private bool accelerated;
     [SerializeField] private AnimationCurve acceleration;
-    [SerializeField] private float contactDamage;
-    [SerializeField] private EnemyRotationType rotationType;
-    [SerializeField] private PathWayMoveType moveType;
+    [Space]
+    [SerializeField] private float collisionDamage = 1;
+    
     private float _accelerationTimer = 0;
     private float _distanceTravelled;
     private float _currentMoveSpeed;
     private Vector3 _prevPosition;
+    public float CollisionDamage => collisionDamage;
+
     
     [SerializeField] private SpaceShips poolId;
     public SpaceShips PoolId => poolId;
     public event Action<EnemySpaceShip> ReturnElementEvent;
     public event Action<EnemySpaceShip> DestroyElementEvent;
-    
 
+    
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -87,7 +89,6 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShip
                 case PathWayMoveType.OnEndRemove:
                     ReturnElementEvent?.Invoke(this);
                     return;
-                    break;
                 
                 case PathWayMoveType.OnEndStop:
                     _distanceTravelled = pathCreator.path.length;
@@ -165,13 +166,8 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShip
         ReturnElementEvent?.Invoke(this);
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnDestroy()
     {
-        PlayerSpaceShip playerSpaceShip = col.gameObject.GetComponentInChildren<PlayerSpaceShip>();
-        if (playerSpaceShip)
-        {
-            playerSpaceShip.TakeDamage(contactDamage);
-            TakeDamage(healthPoints.CurrentValue);
-        }
+        DestroyElementEvent?.Invoke(this);
     }
 }

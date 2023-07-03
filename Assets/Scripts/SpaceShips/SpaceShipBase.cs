@@ -9,13 +9,17 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
 {
     [SerializeField] protected SomeStorageFloat healthPoints;
     [SerializeField] protected SomeStorageInt levels;
+    [SerializeField] protected SomeStorageFloat fireRate;
+    [Space]
     [SerializeField] protected bool canShoot;
     [SerializeField] protected bool canMove;
-    [SerializeField] protected SomeStorageFloat fireRate;
-    [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected float moveSpeed;
-    [SerializeField] protected DictionaryInspector<int, List<Transform>> shootPositions;
+    [Space]
+    [SerializeField] protected GameObject bulletPrefab;
+    [Space]
     [SerializeField] protected Transform bulletsParent;
+    [SerializeField] protected DictionaryInspector<int, List<Transform>> shootPositions;
+    
     private Pool<BulletBase> _bulletsPool;
     protected Action IsDead;
     private void Awake() => OnAwake();
@@ -25,7 +29,8 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
 
     protected bool CanShoot;
     protected bool CanMove;
-    
+    public IReadOnlySomeStorage<float> HealthPoints => healthPoints;
+
     protected virtual void OnAwake()
     {
         _bulletsPool = new Pool<BulletBase>(BulletInstantiate);

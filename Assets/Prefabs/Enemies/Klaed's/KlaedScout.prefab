@@ -172,7 +172,6 @@ GameObject:
   - component: {fileID: 1316312603198075756}
   - component: {fileID: 2059990195319256387}
   - component: {fileID: 6193117092261799208}
-  - component: {fileID: 2404734293595197364}
   - component: {fileID: 6503354798745221900}
   m_Layer: 7
   m_Name: Ship
@@ -190,7 +189,7 @@ Transform:
   m_GameObject: {fileID: 1406208012618265226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3885596603736712702}
@@ -315,47 +314,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.1, y: 0.08}
-      - {x: 0.05, y: 0.5}
-      - {x: -0.05, y: 0.5}
-      - {x: -0.1, y: 0.08}
-      - {x: -0.6, y: -0.2}
-      - {x: -0.6, y: -0.5}
-      - {x: 0.6, y: -0.5}
-      - {x: 0.6, y: -0.2}
---- !u!60 &2404734293595197364
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406208012618265226}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.1, y: 0.08}
-      - {x: 0.05, y: 0.5}
-      - {x: -0.05, y: 0.5}
-      - {x: -0.1, y: 0.08}
-      - {x: -0.6, y: -0.2}
-      - {x: -0.6, y: -0.5}
-      - {x: 0.6, y: -0.5}
-      - {x: 0.6, y: -0.2}
+    - - {x: 0.22, y: -0.14}
+      - {x: 0.22, y: 0.06}
+      - {x: 0.14, y: 0.16}
+      - {x: -0.14, y: 0.16}
+      - {x: -0.22, y: 0.06}
+      - {x: -0.22, y: -0.14}
+      - {x: -0.1, y: -0.26}
+      - {x: 0.100000024, y: -0.26}
 --- !u!50 &6503354798745221900
 Rigidbody2D:
   serializedVersion: 4

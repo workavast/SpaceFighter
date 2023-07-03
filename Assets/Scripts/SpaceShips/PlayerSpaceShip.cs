@@ -111,4 +111,14 @@ public class PlayerSpaceShip : SpaceShipBase
             }
         }
     }
+    
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        EnemySpaceShip enemySpaceShip = col.gameObject.GetComponentInChildren<EnemySpaceShip>();
+        if (enemySpaceShip)
+        {
+            TakeDamage(enemySpaceShip.CollisionDamage);
+            enemySpaceShip.TakeDamage(float.MaxValue);
+        }
+    }
 }
