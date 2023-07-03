@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3777598027315875667}
   m_Layer: 0
-  m_Name: EnemyShip 2
+  m_Name: KlaedBomber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1316312603198075756}
   - component: {fileID: 2059990195319256387}
-  - component: {fileID: 6992739338877687535}
+  - component: {fileID: 6193117092261799208}
   - component: {fileID: 2404734293595197364}
   - component: {fileID: 6503354798745221900}
   m_Layer: 7
@@ -213,14 +213,17 @@ MonoBehaviour:
   healthPoints:
     maxValue: 5
     currentValue: 5
+    minValue: 0
   levels:
     maxValue: 1
     currentValue: 1
-  canShoot: 1
+    minValue: 0
+  canShoot: 0
   canMove: 1
   fireRate:
     maxValue: 2
     currentValue: 0
+    minValue: 0
   bulletPrefab: {fileID: 4218289864165732433, guid: 2c75c9ff0c3483a40a016ae01f7806bc, type: 3}
   moveSpeed: 4
   shootPositions:
@@ -239,7 +242,7 @@ MonoBehaviour:
       - {fileID: 2217000792331175656}
   bulletsParent: {fileID: 4823825524855346203}
   pathCreator: {fileID: 9005936212918651771, guid: 524d077c10f92a14b963789e18f42b0f, type: 3}
-  endOfPathInstruction: 2
+  endOfPathInstruction: 0
   accelerated: 0
   acceleration:
     serializedVersion: 2
@@ -284,10 +287,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   contactDamage: 1
-  rotationType: 1
-  moveType: 2
-  poolId: 1
---- !u!60 &6992739338877687535
+  rotationType: 2
+  moveType: 0
+  poolId: 0
+--- !u!60 &6193117092261799208
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -312,14 +315,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.8, y: 0.35}
-      - {x: 0.1, y: 0.7}
-      - {x: -0.1, y: 0.7}
-      - {x: -0.8, y: 0.35}
-      - {x: -0.9, y: 0}
-      - {x: -0.75, y: -0.65}
-      - {x: 0.75, y: -0.65}
-      - {x: 0.9, y: 0}
+    - - {x: 0.1, y: 0.08}
+      - {x: 0.05, y: 0.5}
+      - {x: -0.05, y: 0.5}
+      - {x: -0.1, y: 0.08}
+      - {x: -0.6, y: -0.2}
+      - {x: -0.6, y: -0.5}
+      - {x: 0.6, y: -0.5}
+      - {x: 0.6, y: -0.2}
 --- !u!60 &2404734293595197364
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -345,14 +348,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.8, y: 0.35}
-      - {x: 0.1, y: 0.7}
-      - {x: -0.1, y: 0.7}
-      - {x: -0.8, y: 0.35}
-      - {x: -0.9, y: 0}
-      - {x: -0.75, y: -0.65}
-      - {x: 0.75, y: -0.65}
-      - {x: 0.9, y: 0}
+    - - {x: 0.1, y: 0.08}
+      - {x: 0.05, y: 0.5}
+      - {x: -0.05, y: 0.5}
+      - {x: -0.1, y: 0.08}
+      - {x: -0.6, y: -0.2}
+      - {x: -0.6, y: -0.5}
+      - {x: 0.6, y: -0.5}
+      - {x: 0.6, y: -0.2}
 --- !u!50 &6503354798745221900
 Rigidbody2D:
   serializedVersion: 4
@@ -462,7 +465,7 @@ Transform:
   m_GameObject: {fileID: 4546139524227581183}
   m_LocalRotation: {x: -0, y: -0, z: 0.0000004768371, w: -1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1316312603198075756}
@@ -509,7 +512,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 32766
-  m_Sprite: {fileID: 21300000, guid: 1b2f398b946f245428f6d8a026db671d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8ed773cb80f05441b465285a84181c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
