@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917dd85d0b617af49a137538c67e7fd4, type: 3}
+  m_Name: EnemiesSpaceshipsPrefabsConfig
+  m_EditorClassIdentifier: 
+  spaceShipsData:
+    dictionaryCells:
+    - key: 0
+      value: {fileID: 158878037633063282, guid: c37aeb82e9ce0ad4eae8fcabdeb1681f, type: 3}
+    - key: 1
+      value: {fileID: 158878037633063282, guid: 7f7fa72c1ba5829419def21819cb3283, type: 3}
+    - key: 2
+      value: {fileID: 158878037633063282, guid: 6a1c259e1f970534dba18127c380914e, type: 3}
+    - key: 3
+      value: {fileID: 158878037633063282, guid: 630de1f0e98bf634b8818b95bdeec244, type: 3}
+    - key: 4
+      value: {fileID: 158878037633063282, guid: 81e9fc6611a41274490f2bc38a5d1c3a, type: 3}
+    - key: 5
+      value: {fileID: 158878037633063282, guid: 903b17b6f9b47d34996ba17af94c93b2, type: 3}
+    - key: 6
+      value: {fileID: 158878037633063282, guid: 1d5a9eb4a6c6a0b42b31b8cab17d5fe8, type: 3}
+    - key: 7
+      value: {fileID: 158878037633063282, guid: 1500a824ecf6f504a92b82ddf4e98ec6, type: 3}

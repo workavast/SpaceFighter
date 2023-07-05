@@ -217,14 +217,15 @@ MonoBehaviour:
     maxValue: 1
     currentValue: 1
     minValue: 0
-  canShoot: 1
-  canMove: 1
   fireRate:
     maxValue: 2
     currentValue: 0
     minValue: 0
-  bulletPrefab: {fileID: 4218289864165732433, guid: 2c75c9ff0c3483a40a016ae01f7806bc, type: 3}
+  canShoot: 1
+  canMove: 1
   moveSpeed: 4
+  bulletPrefab: {fileID: 4218289864165732433, guid: 2c75c9ff0c3483a40a016ae01f7806bc, type: 3}
+  bulletsParent: {fileID: 4823825524855346203}
   shootPositions:
     dictionaryCells:
     - key: 1
@@ -239,9 +240,10 @@ MonoBehaviour:
       - {fileID: 562855410455428124}
       - {fileID: 224378903769591477}
       - {fileID: 2217000792331175656}
-  bulletsParent: {fileID: 4823825524855346203}
   pathCreator: {fileID: 9005936212918651771, guid: 524d077c10f92a14b963789e18f42b0f, type: 3}
   endOfPathInstruction: 2
+  moveType: 2
+  rotationType: 1
   accelerated: 0
   acceleration:
     serializedVersion: 2
@@ -285,10 +287,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  contactDamage: 1
-  rotationType: 1
-  moveType: 2
-  poolId: 1
+  collisionDamage: 1
+  poolId: 4
 --- !u!60 &6992739338877687535
 PolygonCollider2D:
   m_ObjectHideFlags: 0

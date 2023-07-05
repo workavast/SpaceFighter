@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using PathCreation;
 
-public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShips>
+public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, EnemySpaceshipsEnum>
 {
     private enum EnemyRotationType
     {
@@ -36,8 +36,8 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, SpaceShip
     public float CollisionDamage => collisionDamage;
 
     
-    [SerializeField] private SpaceShips poolId;
-    public SpaceShips PoolId => poolId;
+    [SerializeField] private EnemySpaceshipsEnum poolId;
+    public EnemySpaceshipsEnum PoolId => poolId;
     public event Action<EnemySpaceShip> ReturnElementEvent;
     public event Action<EnemySpaceShip> DestroyElementEvent;
 

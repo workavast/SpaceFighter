@@ -1,6 +1,11 @@
-public enum SpaceShips
+public enum EnemySpaceshipsEnum
 {
-    Enemy1,
-    Enemy2,
-    Enemy3
+    KlaedBattlecruiser,
+    KlaedBomber,
+    KlaedDreadnought,
+    KlaedFighter,
+    KlaedFrigate,
+    KlaedScout,
+    KlaedSupportShip,
+    KlaedTorpedoShip
 }

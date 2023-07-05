@@ -10,7 +10,7 @@ public class EnemiesSpawner : MonoBehaviour
     [System.Serializable]
     private struct MyStruct
     {
-        public List<SpaceShips> enemyGroup;
+        public List<EnemySpaceshipsEnum> enemyGroup;
         public int groupsCount;
         public float timePauseInGroup;
         public float timePauseBetweenGroups;
@@ -19,12 +19,11 @@ public class EnemiesSpawner : MonoBehaviour
 
     [SerializeField] private List<MyStruct> enemiesWaves;
 
-    [SerializeField] private DictionaryInspector<SpaceShips, GameObject> enemiesPrefabs;
-    private Pool<EnemySpaceShip, SpaceShips> _spaceShipsPool;
+    private Pool<EnemySpaceShip, EnemySpaceshipsEnum> _spaceShipsPool;
 
     private void Awake()
     {
-        _spaceShipsPool = new Pool<EnemySpaceShip, SpaceShips>(EnemySpaceShipInstantiate);
+        _spaceShipsPool = new Pool<EnemySpaceShip, EnemySpaceshipsEnum>(EnemySpaceShipInstantiate);
     }
 
     void Start()
@@ -48,13 +47,9 @@ public class EnemiesSpawner : MonoBehaviour
             yield return new WaitForSeconds(enemiesWaves[index].timePauseBetweenGroups);
         }
     }
-    void Update()
-    {
-        
-    }
     
-    private EnemySpaceShip EnemySpaceShipInstantiate(SpaceShips id)
+    private EnemySpaceShip EnemySpaceShipInstantiate(EnemySpaceshipsEnum id)
     {
-        return Instantiate(enemiesPrefabs[id], transform).GetComponentInChildren<EnemySpaceShip>();
+        return EnemiesFactory.CreateEnemySpaceship(id, transform);
     }
 }
