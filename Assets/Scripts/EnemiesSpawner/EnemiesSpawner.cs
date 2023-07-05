@@ -10,17 +10,17 @@ public class EnemiesSpawner : MonoBehaviour
     [System.Serializable]
     private struct EnemyGroup
     {
-        public List<EnemySpaceshipsEnum> enemySubgroup;
+        [Range(0, 10)] public float timePause;
         [Range(0, 10)] public int subgroupsCount;
         [Range(0, 10)] public float timePauseInSubgroup;
         [Range(0, 10)] public float timePauseBetweenSubgroup;
         public PathCreator path;
+        public List<EnemySpaceshipsEnum> enemySubgroup;
     }
 
     [System.Serializable]
     private struct EnemyWave
     {
-        [Range(0, 10)] public float timePause;
         public List<EnemyGroup> enemyGroups;
     }
     
@@ -51,18 +51,21 @@ public class EnemiesSpawner : MonoBehaviour
 
     IEnumerator SpawnShips(int waveIndex, int groupIndex)
     {
-        for (int i = 0; i < enemyWaves[waveIndex].enemyGroups[groupIndex].subgroupsCount; i++)
+        EnemyGroup enemyGroup = enemyWaves[waveIndex].enemyGroups[groupIndex];
+        
+        yield return new WaitForSeconds(enemyGroup.timePause);
+        
+        for (int i = 0; i < enemyGroup.subgroupsCount; i++)
         {
-            for (int j = 0; j < enemyWaves[waveIndex].enemyGroups[groupIndex].enemySubgroup.Count; j++)
+            for (int j = 0; j < enemyGroup.enemySubgroup.Count; j++)
             {
-                if(_spaceShipsPool.ExtractElement(enemyWaves[waveIndex].enemyGroups[groupIndex].enemySubgroup[j], out EnemySpaceShip enemySpaceShip))
+                if(_spaceShipsPool.ExtractElement(enemyGroup.enemySubgroup[j], out EnemySpaceShip enemySpaceShip))
                 {
-                    enemySpaceShip.ChangePathWay(enemyWaves[waveIndex].enemyGroups[groupIndex].path);
+                    enemySpaceShip.ChangePathWay(enemyGroup.path);
                 }
-                yield return new WaitForSeconds(enemyWaves[waveIndex].enemyGroups[groupIndex].timePauseInSubgroup);
+                yield return new WaitForSeconds(enemyGroup.timePauseInSubgroup);
             }
-
-            yield return new WaitForSeconds(enemyWaves[waveIndex].enemyGroups[groupIndex].timePauseBetweenSubgroup);
+            yield return new WaitForSeconds(enemyGroup.timePauseBetweenSubgroup);
         }
     }
     
