@@ -8,16 +8,23 @@ using UnityEngine.Serialization;
 public class EnemiesSpawner : MonoBehaviour
 {
     [System.Serializable]
-    private struct MyStruct
+    private struct EnemyGroup
     {
-        public List<EnemySpaceshipsEnum> enemyGroup;
-        public int groupsCount;
-        public float timePauseInGroup;
-        public float timePauseBetweenGroups;
+        public List<EnemySpaceshipsEnum> enemySubgroup;
+        [Range(0, 10)] public int subgroupsCount;
+        [Range(0, 10)] public float timePauseInSubgroup;
+        [Range(0, 10)] public float timePauseBetweenSubgroup;
         public PathCreator path;
     }
 
-    [SerializeField] private List<MyStruct> enemiesWaves;
+    [System.Serializable]
+    private struct EnemyWave
+    {
+        [Range(0, 10)] public float timePause;
+        public List<EnemyGroup> enemyGroups;
+    }
+    
+    [FormerlySerializedAs("enemiesWaves")] [SerializeField] private List<EnemyWave> enemyWaves;
 
     private Pool<EnemySpaceShip, EnemySpaceshipsEnum> _spaceShipsPool;
 
@@ -28,23 +35,34 @@ public class EnemiesSpawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnShips(0));
+        CallWave();
     }
 
-    IEnumerator SpawnShips(int index)
+    private int _nextWave = 0;
+    private void CallWave()
     {
-        for (int i = 0; i < enemiesWaves[index].groupsCount; i++)
+        for (int i = 0; i < enemyWaves[_nextWave].enemyGroups.Count; i++)
         {
-            for (int j = 0; j < enemiesWaves[index].enemyGroup.Count; j++)
+            StartCoroutine(SpawnShips(_nextWave, i));
+        }
+        
+        _nextWave++;
+    }
+
+    IEnumerator SpawnShips(int waveIndex, int groupIndex)
+    {
+        for (int i = 0; i < enemyWaves[waveIndex].enemyGroups[groupIndex].subgroupsCount; i++)
+        {
+            for (int j = 0; j < enemyWaves[waveIndex].enemyGroups[groupIndex].enemySubgroup.Count; j++)
             {
-                if(_spaceShipsPool.ExtractElement(enemiesWaves[index].enemyGroup[j], out EnemySpaceShip enemySpaceShip))
+                if(_spaceShipsPool.ExtractElement(enemyWaves[waveIndex].enemyGroups[groupIndex].enemySubgroup[j], out EnemySpaceShip enemySpaceShip))
                 {
-                    enemySpaceShip.ChangePathWay(enemiesWaves[index].path);
+                    enemySpaceShip.ChangePathWay(enemyWaves[waveIndex].enemyGroups[groupIndex].path);
                 }
-                yield return new WaitForSeconds(enemiesWaves[index].timePauseInGroup);
+                yield return new WaitForSeconds(enemyWaves[waveIndex].enemyGroups[groupIndex].timePauseInSubgroup);
             }
 
-            yield return new WaitForSeconds(enemiesWaves[index].timePauseBetweenGroups);
+            yield return new WaitForSeconds(enemyWaves[waveIndex].enemyGroups[groupIndex].timePauseBetweenSubgroup);
         }
     }
     
