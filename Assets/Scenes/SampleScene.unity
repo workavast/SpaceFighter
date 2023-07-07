@@ -242,18 +242,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
-  - timePause: 0
-    enemyGroups:
-    - enemySubgroup: 01000000050000000500000001000000
-      subgroupsCount: 3
-      timePauseInSubgroup: 0.25
-      timePauseBetweenSubgroup: 0.5
+  - enemyGroups:
+    - timePause: 0
+      subgroupsCount: 5
+      timePauseInSubgroup: 2
+      timePauseBetweenSubgroup: 2
       path: {fileID: 308864390}
-    - enemySubgroup: 04000000
-      subgroupsCount: 1
-      timePauseInSubgroup: 0
-      timePauseBetweenSubgroup: 0
+      enemySubgroup: 0000000001000000020000000300000004000000
+    - timePause: 0
+      subgroupsCount: 3
+      timePauseInSubgroup: 5
+      timePauseBetweenSubgroup: 0.5
       path: {fileID: 247547822}
+      enemySubgroup: 04000000
 --- !u!4 &250841976
 Transform:
   m_ObjectHideFlags: 0
@@ -987,9 +988,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2658007648888168662, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
+      propertyPath: canMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658007648888168662, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
       propertyPath: SpaceshipModel
       value: 
       objectReference: {fileID: 21300000, guid: f16bacb1a9eb117478d9dc8bd87dac8e, type: 3}
+    - target: {fileID: 2658007648888168663, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.263
+      objectReference: {fileID: 0}
     - target: {fileID: 5315443559598703890, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
       propertyPath: m_Name
       value: PlayerShip

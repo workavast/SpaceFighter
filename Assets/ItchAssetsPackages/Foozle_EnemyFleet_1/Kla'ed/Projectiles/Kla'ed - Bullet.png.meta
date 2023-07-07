@@ -122,7 +122,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 8
+        width: 4
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -141,9 +141,9 @@ TextureImporter:
       name: Kla'ed - Bullet_1
       rect:
         serializedVersion: 2
-        x: 8
+        x: 4
         y: 0
-        width: 8
+        width: 4
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -154,6 +154,48 @@ TextureImporter:
       bones: []
       spriteID: 5163323466fdc5b409e832828fd02d97
       internalID: 1250330535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kla'ed - Bullet_2
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 4
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0455ff83811e3494a97fc7ed404b7f4d
+      internalID: 1690632318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kla'ed - Bullet_3
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 4
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36c3c8cade6d0a044b4c4abf82e9b834
+      internalID: -1429053194
       vertices: []
       indices: 
       edges: []
@@ -171,6 +213,8 @@ TextureImporter:
     nameFileIdTable:
       Kla'ed - Bullet_0: 1188850672
       Kla'ed - Bullet_1: 1250330535
+      Kla'ed - Bullet_2: 1690632318
+      Kla'ed - Bullet_3: -1429053194
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

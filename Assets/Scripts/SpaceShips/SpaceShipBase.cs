@@ -21,15 +21,18 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
     [SerializeField] protected DictionaryInspector<int, List<Transform>> shootPositions;
     
     private Pool<BulletBase> _bulletsPool;
-    protected Action IsDead;
+    protected Action OnDead;
+    
+    protected bool CanShoot;
+    protected bool CanMove;
+    protected bool IsDead = false;
+    
+    public IReadOnlySomeStorage<float> HealthPoints => healthPoints;
+    
     private void Awake() => OnAwake();
     private void Start() => OnStart();
     private void Update() => OnUpdate();
     private void FixedUpdate() => OnFixedUpdate();
-
-    protected bool CanShoot;
-    protected bool CanMove;
-    public IReadOnlySomeStorage<float> HealthPoints => healthPoints;
 
     protected virtual void OnAwake()
     {
@@ -68,8 +71,7 @@ public class SpaceShipBase : MonoBehaviour, IDamageable
 
         if (healthPoints.IsEmpty)
         {
-            Debug.Log("dead");
-            IsDead?.Invoke();
+            OnDead?.Invoke();
         }
     }
 }

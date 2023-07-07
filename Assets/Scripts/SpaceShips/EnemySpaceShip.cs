@@ -28,6 +28,7 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, EnemySpac
     [SerializeField] private AnimationCurve acceleration;
     [Space]
     [SerializeField] private float collisionDamage = 1;
+    private AnimationControllerEnemy _animationControllerEnemy;
     
     private float _accelerationTimer = 0;
     private float _distanceTravelled;
@@ -52,12 +53,16 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, EnemySpac
             pathCreator.pathUpdated += OnPathChanged;
         }
 
-        IsDead += Dead;
+        OnDead += StartDying;
+        _animationControllerEnemy = GetComponentInChildren<AnimationControllerEnemy>();
+        _animationControllerEnemy.OnAwake(this);
     }
 
     protected override void OnUpdate()
     {
         base.OnUpdate();
+        
+        if(IsDead) return;
         
         if (pathCreator && CanMove) Move();
         if (pathCreator) Rotate();
@@ -144,16 +149,20 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, EnemySpac
 
     public void OnElementExtractFromPool()
     {
-        gameObject.SetActive(true);
-
+        IsDead = false;
+        // _animationControllerEnemy.SetAliveTrigger();
+        
         _accelerationTimer = 0;
         _distanceTravelled = 0;
         _currentMoveSpeed = moveSpeed;
         CanMove = canMove;
         CanShoot = canShoot;
         
+        transform.position = pathCreator.path.GetPointAtDistance(_distanceTravelled, endOfPathInstruction);
         healthPoints.SetCurrentValue(healthPoints.MaxValue);
         fireRate.SetCurrentValue(0);
+        
+        gameObject.SetActive(true);
     }
 
     public void OnElementReturnInPool()
@@ -161,7 +170,15 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, EnemySpac
         gameObject.SetActive(false);
     }
 
-    private void Dead()
+    private void StartDying()
+    {
+        if (IsDead) return;
+
+        IsDead = true;
+        _animationControllerEnemy.SetDyingTrigger();
+    }
+
+    public void EndDying()
     {
         ReturnElementEvent?.Invoke(this);
     }

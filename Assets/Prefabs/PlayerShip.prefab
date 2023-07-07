@@ -322,7 +322,7 @@ Transform:
   m_GameObject: {fileID: 2658007648888168656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8803955744169316095}
@@ -354,14 +354,15 @@ MonoBehaviour:
     maxValue: 5
     currentValue: 1
     minValue: 0
-  canShoot: 1
-  canMove: 1
   fireRate:
     maxValue: 0.25
     currentValue: 0
     minValue: 0
-  bulletPrefab: {fileID: 7790572107985275066, guid: e1c6ce1080a7cf547be5a1bef0136b39, type: 3}
+  canShoot: 1
+  canMove: 1
   moveSpeed: 10
+  bulletPrefab: {fileID: 7790572107985275066, guid: e1c6ce1080a7cf547be5a1bef0136b39, type: 3}
+  bulletsParent: {fileID: 5037462127313350493}
   shootPositions:
     dictionaryCells:
     - key: 1
@@ -389,7 +390,6 @@ MonoBehaviour:
       - {fileID: 5534487340533888829}
       - {fileID: 8270348344883625402}
       - {fileID: 7869243826559754592}
-  bulletsParent: {fileID: 5037462127313350493}
   spaceshipModelAnimator: {fileID: 3522066648862070055}
   damageAnimatorTriggerData:
   - animatorTriggerName: 0
@@ -920,7 +920,7 @@ Transform:
   m_GameObject: {fileID: 5315443559598703890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2658007648888168663}

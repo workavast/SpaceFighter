@@ -65,7 +65,7 @@ public class PlayerSpaceShip : SpaceShipBase
     {
         base.OnUpdate();
         
-        Move();
+        if(canMove) Move();
         
         fireRate.ChangeCurrentValue(Time.deltaTime);
         if (fireRate.IsFull)
