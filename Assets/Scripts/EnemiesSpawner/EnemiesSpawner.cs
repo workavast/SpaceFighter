@@ -10,10 +10,11 @@ public class EnemiesSpawner : MonoBehaviour
     [System.Serializable]
     private struct EnemyGroup
     {
-        [Range(0, 10)] public float timePause;
+        [Range(0, 30)] public float timePause;
         [Range(0, 10)] public int subgroupsCount;
-        [Range(0, 10)] public float timePauseInSubgroup;
-        [Range(0, 10)] public float timePauseBetweenSubgroup;
+        [Range(0, 20)] public float distanceBetweenSubgroups;
+        [Range(0, 10)] public float moveSpeed;
+        [Range(0, 20)] public float distanceBetweenEnemies;
         public PathCreator path;
         public List<EnemySpaceshipsEnum> enemySubgroup;
     }
@@ -38,13 +39,28 @@ public class EnemiesSpawner : MonoBehaviour
         CallWave();
     }
 
+    private void Update()
+    {
+        IReadOnlyDictionary<EnemySpaceshipsEnum, IReadOnlyList<EnemySpaceShip>> buse = _spaceShipsPool.BusyElements;
+
+        bool buseEmpty = true;
+        foreach (var pair in buse)
+        {
+            if (pair.Value.Count > 0)
+            {
+                buseEmpty = false;
+                break;
+            }
+        }
+        
+        if (buseEmpty) CallWave();
+    }
+
     private int _nextWave = 0;
     private void CallWave()
     {
         for (int i = 0; i < enemyWaves[_nextWave].enemyGroups.Count; i++)
-        {
             StartCoroutine(SpawnShips(_nextWave, i));
-        }
         
         _nextWave++;
     }
@@ -53,7 +69,10 @@ public class EnemiesSpawner : MonoBehaviour
     {
         EnemyGroup enemyGroup = enemyWaves[waveIndex].enemyGroups[groupIndex];
         
-        yield return new WaitForSeconds(enemyGroup.timePause);
+        if(enemyGroup.timePause > 0) yield return new WaitForSeconds(enemyGroup.timePause);
+
+        float timePauseBetweenEnemies = enemyGroup.distanceBetweenEnemies / enemyGroup.moveSpeed;
+        float timePauseBetweenSubgroup = enemyGroup.distanceBetweenSubgroups / enemyGroup.moveSpeed;
         
         for (int i = 0; i < enemyGroup.subgroupsCount; i++)
         {
@@ -62,10 +81,11 @@ public class EnemiesSpawner : MonoBehaviour
                 if(_spaceShipsPool.ExtractElement(enemyGroup.enemySubgroup[j], out EnemySpaceShip enemySpaceShip))
                 {
                     enemySpaceShip.ChangePathWay(enemyGroup.path);
+                    enemySpaceShip.SetMoveSpeed(enemyGroup.moveSpeed);
                 }
-                yield return new WaitForSeconds(enemyGroup.timePauseInSubgroup);
+                yield return new WaitForSeconds(timePauseBetweenEnemies);
             }
-            yield return new WaitForSeconds(enemyGroup.timePauseBetweenSubgroup);
+            yield return new WaitForSeconds(timePauseBetweenSubgroup);
         }
     }
     

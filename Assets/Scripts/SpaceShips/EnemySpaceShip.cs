@@ -150,7 +150,6 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, EnemySpac
     public void OnElementExtractFromPool()
     {
         IsDead = false;
-        // _animationControllerEnemy.SetAliveTrigger();
         
         _accelerationTimer = 0;
         _distanceTravelled = 0;
@@ -186,5 +185,10 @@ public class EnemySpaceShip : SpaceShipBase, IPoolable<EnemySpaceShip, EnemySpac
     private void OnDestroy()
     {
         DestroyElementEvent?.Invoke(this);
+    }
+
+    public void SetMoveSpeed(float newMoveSpeed)
+    {
+        _currentMoveSpeed = newMoveSpeed;
     }
 }

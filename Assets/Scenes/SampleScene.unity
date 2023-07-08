@@ -205,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247547821}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5036447, y: -0.55831796, z: 0.17555264}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -245,16 +245,26 @@ MonoBehaviour:
   - enemyGroups:
     - timePause: 0
       subgroupsCount: 5
-      timePauseInSubgroup: 2
-      timePauseBetweenSubgroup: 2
+      distanceBetweenSubgroups: 10
+      moveSpeed: 10
+      distanceBetweenEnemies: 1
       path: {fileID: 308864390}
-      enemySubgroup: 0000000001000000020000000300000004000000
+      enemySubgroup: 0000000001000000020000000300000005000000
     - timePause: 0
       subgroupsCount: 3
-      timePauseInSubgroup: 5
-      timePauseBetweenSubgroup: 0.5
+      distanceBetweenSubgroups: 0
+      moveSpeed: 1
+      distanceBetweenEnemies: 2
       path: {fileID: 247547822}
       enemySubgroup: 04000000
+  - enemyGroups:
+    - timePause: 0
+      subgroupsCount: 5
+      distanceBetweenSubgroups: 10
+      moveSpeed: 10
+      distanceBetweenEnemies: 1
+      path: {fileID: 308864390}
+      enemySubgroup: 0500000005000000050000000500000005000000
 --- !u!4 &250841976
 Transform:
   m_ObjectHideFlags: 0
@@ -358,7 +368,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308864389}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5036447, y: -0.55831796, z: 0.17555264}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -767,7 +777,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1098018436}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5036447, y: -0.55831796, z: 0.17555264}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -926,7 +936,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800118721}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5036447, y: 0.55831796, z: -0.17555264}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -988,17 +998,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2658007648888168662, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
-      propertyPath: canMove
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2658007648888168662, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
       propertyPath: SpaceshipModel
       value: 
       objectReference: {fileID: 21300000, guid: f16bacb1a9eb117478d9dc8bd87dac8e, type: 3}
-    - target: {fileID: 2658007648888168663, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.263
-      objectReference: {fileID: 0}
     - target: {fileID: 5315443559598703890, guid: dcb4a133fe7b18e459a282c2eb821c3f, type: 3}
       propertyPath: m_Name
       value: PlayerShip
