@@ -40,10 +40,22 @@ public class UI_Controller : MonoBehaviour
     public static void SwitchScreen(ScreenEnum screen, bool setActive)
     {
         UI_ScreenBase addScreen = UI_ScreenRepository.GetScreenByEnum(screen);
+        
         if (addScreen.isActiveAndEnabled != setActive)
             addScreen.gameObject.SetActive(setActive);
     }
     
+    public static void SetScreen(ScreenEnum screen)
+    {
+        for (int i = 0; i < _instance.UI_Activies.Count; i++)
+            _instance.UI_Activies[i].SetActive(false);
+
+        _instance.UI_Activies = new List<GameObject>();
+        
+        UI_ScreenBase addScreen = UI_ScreenRepository.GetScreenByEnum(screen);
+        addScreen.gameObject.SetActive(true);
+        _instance.UI_Activies.Add(addScreen.gameObject);
+    }    
     public static void SetScreens(List<ScreenEnum> screens)
     {
         var newActiveScreens = new List<GameObject>();

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class UI_ScreenBase : MonoBehaviour
 {
+    public virtual void _SetScreen(int screen)
+    {
+        UI_Controller.SetScreen((ScreenEnum)screen);
+    }
+    
     public virtual void _ActivateScreen(int screen)
     {
         UI_Controller.SwitchScreen((ScreenEnum)screen, true);

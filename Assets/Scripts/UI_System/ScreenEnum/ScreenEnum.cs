@@ -1,7 +1,8 @@
 public enum ScreenEnum
 {
-    Previous = 0,
-    FirstScreen = 1,
-    SecondScreen = 2,
-    ThirdScreen = 3,
+    MainMenuHangarScreen = 0,
+    MainMenuLevelSelectionScreen = 10,
+    MainMenuSettingsScreen = 20,
+    GameplayMainScreen = 30,
+    GameplayMenuScreen = 40,
 }
