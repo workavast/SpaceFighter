@@ -36,21 +36,21 @@ public class UI_ScreenRepository : MonoBehaviour
 
         return default;
     }
-    public static UI_ScreenBase GetScreenByEnum(ScreenEnum screenEnum)
+    public static UI_ScreenBase GetScreenByEnum(ScreensEnum screensEnum)
     {
         if (Instance == null) throw new NullReferenceException($"Instance is null");
         
-        switch (screenEnum)
+        switch (screensEnum)
         {     
-            case ScreenEnum.MainMenuHangarScreen:
+            case ScreensEnum.MainMenuHangarScreen:
                 return GetScreen<MainMenuHangarScreen>();
-            case ScreenEnum.MainMenuLevelSelectionScreen:
+            case ScreensEnum.MainMenuLevelSelectionScreen:
                 return GetScreen<MainMenuLevelSelectionScreen>();
-            case ScreenEnum.MainMenuSettingsScreen:
+            case ScreensEnum.MainMenuSettingsScreen:
                 return GetScreen<MainMenuSettingsScreen>();
-            case ScreenEnum.GameplayMainScreen:
+            case ScreensEnum.GameplayMainScreen:
                 return GetScreen<GameplayMainScreen>();
-            case ScreenEnum.GameplayMenuScreen:
+            case ScreensEnum.GameplayMenuScreen:
                 return GetScreen<GameplayMenuScreen>();
             default:
                 Debug.LogWarning("Error: invalid parameter in SetWindow(ScreenEnum screen)");

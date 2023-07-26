@@ -6,12 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class AnimationControllerEnemy : MonoBehaviour
 {
-    private EnemySpaceShip _enemySpaceShip;
+    private EnemySpaceshipBase _enemySpaceshipBase;
     private Animator _animator;
     
-    public void OnAwake(EnemySpaceShip enemySpaceShip)
+    public void OnAwake(EnemySpaceshipBase enemySpaceshipBase)
     {
-        _enemySpaceShip = enemySpaceShip;
+        _enemySpaceshipBase = enemySpaceshipBase;
         _animator = GetComponent<Animator>();
     }
 
@@ -28,6 +28,6 @@ public class AnimationControllerEnemy : MonoBehaviour
     public void OnDyingEnd()
     {
         SetAliveTrigger();
-        _enemySpaceShip.EndDying();
+        _enemySpaceshipBase.EndDying();
     }
 }

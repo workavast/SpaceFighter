@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fef8afabcecb24289a86792d588e1a, type: 3}
+  m_Name: PlayerWeaponConfig
+  m_EditorClassIdentifier: 
+  playerWeaponsData:
+    dictionaryCells:
+    - key: 0
+      value:
+        <WeaponPrefab>k__BackingField: {fileID: 4281228658916097478, guid: d331ce5a94777694e808b5fe5df53e49, type: 3}
+        <WeaponLevels>k__BackingField:
+        - <WeaponDamage>k__BackingField: 2
+          <FireRate>k__BackingField: 2
+          <ShootsCountScale>k__BackingField: 1
+    - key: 1
+      value:
+        <WeaponPrefab>k__BackingField: {fileID: 2233624589621918819, guid: de32da1f07937e14595307f151d86fe9, type: 3}
+        <WeaponLevels>k__BackingField:
+        - <WeaponDamage>k__BackingField: 2
+          <FireRate>k__BackingField: 2
+          <ShootsCountScale>k__BackingField: 1
+    - key: 2
+      value:
+        <WeaponPrefab>k__BackingField: {fileID: 7986840376107898779, guid: da5f0b4879f3b7846b8478b97cdf8499, type: 3}
+        <WeaponLevels>k__BackingField:
+        - <WeaponDamage>k__BackingField: 2
+          <FireRate>k__BackingField: 2
+          <ShootsCountScale>k__BackingField: 1
+    - key: 3
+      value:
+        <WeaponPrefab>k__BackingField: {fileID: 5709595946922605314, guid: fe50ae6dcbcec9649bef5703b2cf7273, type: 3}
+        <WeaponLevels>k__BackingField:
+        - <WeaponDamage>k__BackingField: 2
+          <FireRate>k__BackingField: 2
+          <ShootsCountScale>k__BackingField: 1

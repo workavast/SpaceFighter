@@ -6,17 +6,17 @@ public class UI_ScreenBase : MonoBehaviour
 {
     public virtual void _SetScreen(int screen)
     {
-        UI_Controller.SetScreen((ScreenEnum)screen);
+        UI_Controller.SetScreen((ScreensEnum)screen);
     }
     
     public virtual void _ActivateScreen(int screen)
     {
-        UI_Controller.SwitchScreen((ScreenEnum)screen, true);
+        UI_Controller.SwitchScreen((ScreensEnum)screen, true);
     }
     
     public virtual void _DeactivateScreen(int screen)
     {
-        UI_Controller.SwitchScreen((ScreenEnum)screen, false);
+        UI_Controller.SwitchScreen((ScreensEnum)screen, false);
     }
     
     public virtual void _LoadScene(int sceneBuildIndex)

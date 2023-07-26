@@ -1,0 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Zenject;
+
+public class PlayerWeaponConfigInstaller : MonoInstaller
+{
+    [SerializeField] private PlayerWeaponConfig playerWeaponConfig;
+
+    public override void InstallBindings()
+    {
+        Container.Bind<PlayerWeaponConfig>().FromInstance(playerWeaponConfig).AsSingle();
+    }
+}

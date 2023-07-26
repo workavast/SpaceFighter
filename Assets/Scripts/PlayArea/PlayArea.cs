@@ -21,11 +21,15 @@ public class PlayArea : MonoBehaviour
         Instance = this;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<IPlayAreaCollision>(out IPlayAreaCollision projectile))
+            projectile.EnterInPlayArea();
+    }
+    
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.TryGetComponent<BulletBase>(out BulletBase bullet))
-        {
-            bullet.ReturnInPool();
-        }
+        if (other.gameObject.TryGetComponent<IPlayAreaCollision>(out IPlayAreaCollision projectile)) 
+            projectile.ExitFromPlayerArea();
     }
 }

@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SomeStorages;
+using UnityEditor;
+using Zenject;
 
-public class PlayerSpaceShip : SpaceShipBase
+public class PlayerSpaceship : SpaceshipBase
 {
     private enum DamageAnimatorTriggerName
     {
@@ -25,13 +27,21 @@ public class PlayerSpaceShip : SpaceShipBase
     [Space]
     [SerializeField] private Animator spaceshipModelAnimator;
     [SerializeField] private List<DamageAnimatorTriggerData> damageAnimatorTriggerData;
+    [SerializeField] private Transform weaponPosition;
 
-    public static PlayerSpaceShip Instance { get; private set; }
+    public IReadOnlySomeStorage<float> HealthPoints => healthPoints;
+
+    public static PlayerSpaceship Instance { get; private set; }
    
     private Transform _playAreaLeftDownPivot;
     private Camera _camera;
     
     private SomeStorageInt _currentDamageSprite;
+    private PlayerWeaponBase _weapon;
+    
+    [Inject] private PlayerGlobalData _playerGlobalData;
+    [Inject] private PlayerWeaponConfig _playerWeaponConfig;
+    [Inject] private DiContainer _diContainer;
 
     protected override void OnAwake()
     {
@@ -53,26 +63,37 @@ public class PlayerSpaceShip : SpaceShipBase
         }
 
         _currentDamageSprite = new SomeStorageInt(damageAnimatorTriggerData.Count - 1);
+
+        SpawnWeapon();
+        OnDead += StopShooting;
     }
 
+    private void SpawnWeapon()
+    {
+        if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(_playerGlobalData.CurrentSelectedPlayerWeapons,
+                out GameObject prefab))
+        {
+            GameObject weapon = _diContainer.InstantiatePrefab(prefab, weaponPosition);
+            _weapon = weapon.GetComponent<PlayerWeaponBase>();
+        }
+        else
+            throw new Exception("Dictionary don't contain this WeaponsEnum");
+    }
+
+    private void StopShooting()
+    {
+        _weapon.StopShoot();
+    }
+    
     protected override void OnStart()
     {
         base.OnStart();
         _playAreaLeftDownPivot = PlayArea.Instance.LeftDownPivot;
     }
     
-    protected override void OnUpdate()
+    private void Update()
     {
-        base.OnUpdate();
-        
         if(canMove) Move();
-        
-        fireRate.ChangeCurrentValue(Time.deltaTime);
-        if (fireRate.IsFull)
-        {
-            Shoot();
-            fireRate.SetCurrentValue(0);
-        }
     }
     
     protected void Move()
@@ -114,11 +135,11 @@ public class PlayerSpaceShip : SpaceShipBase
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        EnemySpaceShip enemySpaceShip = col.gameObject.GetComponentInChildren<EnemySpaceShip>();
-        if (enemySpaceShip)
+        EnemySpaceshipBase enemySpaceshipBase = col.gameObject.GetComponentInChildren<EnemySpaceshipBase>();
+        if (enemySpaceshipBase)
         {
-            TakeDamage(enemySpaceShip.CollisionDamage);
-            enemySpaceShip.TakeDamage(float.MaxValue);
+            TakeDamage(enemySpaceshipBase.CollisionDamage);
+            enemySpaceshipBase.TakeDamage(float.MaxValue);
         }
     }
 }

@@ -37,26 +37,26 @@ public class UI_Controller : MonoBehaviour
         UI_PrevActivies = UI_Activies;
     }
 
-    public static void SwitchScreen(ScreenEnum screen, bool setActive)
+    public static void SwitchScreen(ScreensEnum screens, bool setActive)
     {
-        UI_ScreenBase addScreen = UI_ScreenRepository.GetScreenByEnum(screen);
+        UI_ScreenBase addScreen = UI_ScreenRepository.GetScreenByEnum(screens);
         
         if (addScreen.isActiveAndEnabled != setActive)
             addScreen.gameObject.SetActive(setActive);
     }
     
-    public static void SetScreen(ScreenEnum screen)
+    public static void SetScreen(ScreensEnum screens)
     {
         for (int i = 0; i < _instance.UI_Activies.Count; i++)
             _instance.UI_Activies[i].SetActive(false);
 
         _instance.UI_Activies = new List<GameObject>();
         
-        UI_ScreenBase addScreen = UI_ScreenRepository.GetScreenByEnum(screen);
+        UI_ScreenBase addScreen = UI_ScreenRepository.GetScreenByEnum(screens);
         addScreen.gameObject.SetActive(true);
         _instance.UI_Activies.Add(addScreen.gameObject);
     }    
-    public static void SetScreens(List<ScreenEnum> screens)
+    public static void SetScreens(List<ScreensEnum> screens)
     {
         var newActiveScreens = new List<GameObject>();
         
