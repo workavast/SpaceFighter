@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KlaedDreadnought : EnemySpaceshipBase
+public class KlaedDreadnought : ShootingEnemySpaceshipBase
 {
     public override EnemySpaceshipsEnum PoolId => EnemySpaceshipsEnum.KlaedDreadnought;
-    public override EnemyProjectilesEnum ProjectileId => EnemyProjectilesEnum.Ray;
+    protected override EnemyProjectilesEnum ProjectileId => EnemyProjectilesEnum.Ray;
 
     private List<EnemyRay> _rays = new List<EnemyRay>();
 

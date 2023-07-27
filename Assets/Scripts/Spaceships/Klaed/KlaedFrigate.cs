@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KlaedFrigate : EnemySpaceshipBase
+public class KlaedFrigate : ShootingEnemySpaceshipBase
 {
     public override EnemySpaceshipsEnum PoolId => EnemySpaceshipsEnum.KlaedFrigate;
-    public override EnemyProjectilesEnum ProjectileId => EnemyProjectilesEnum.BigBullet;
+    protected override EnemyProjectilesEnum ProjectileId => EnemyProjectilesEnum.BigBullet;
 }

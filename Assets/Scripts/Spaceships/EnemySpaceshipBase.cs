@@ -21,10 +21,6 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     }
     
     [Space]
-    [SerializeField] protected List<Transform> shootPositions;
-    [SerializeField] protected SomeStorageFloat fireRate;
-    [SerializeField] protected bool canShoot;
-    [Space]
     [SerializeField] private PathCreator pathCreator;
     [SerializeField] private EndOfPathInstruction endOfPathInstruction;
     [SerializeField] private PathWayMoveType moveType;
@@ -44,14 +40,16 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     public float CollisionDamage => collisionDamage;
 
     public abstract EnemySpaceshipsEnum PoolId { get; }
-    public abstract EnemyProjectilesEnum ProjectileId { get; }
     public event Action<EnemySpaceshipBase> ReturnElementEvent;
     public event Action<EnemySpaceshipBase> DestroyElementEvent;
+
+    protected event Action OnElementExtractFromPoolEvent;
+    protected event Action OnElementReturnInPoolEvent;
+    protected event Action OnHandleUpdate;
     
     protected override void OnAwake()
     {
         base.OnAwake();
-        CanShoot = canShoot;
 
         _currentMoveSpeed = moveSpeed;
         if (pathCreator)
@@ -76,22 +74,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         if (pathCreator && CanMove) Move();
         if (pathCreator) Rotate();
         
-        fireRate.ChangeCurrentValue(Time.deltaTime);
-        if (fireRate.IsFull)
-        {
-            Shoot();
-            fireRate.SetCurrentValue(0);
-        }
-    }
-    
-    protected virtual void Shoot()
-    {
-        if(!CanShoot) return;
-
-        foreach (var shootPos in shootPositions)
-        {
-            EnemyProjectilesSpawner.SpawnProjectile(ProjectileId, shootPos, out EnemyProjectileBase enemyProjectileBase);
-        }
+        OnHandleUpdate?.Invoke();
     }
 
     private void Move()
@@ -166,7 +149,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         pathCreator.pathUpdated += OnPathUpdate;
     }
 
-    public void OnElementExtractFromPool()
+    public virtual void OnElementExtractFromPool()
     {
         IsDead = false;
         
@@ -174,18 +157,20 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         _distanceTravelled = 0;
         _currentMoveSpeed = moveSpeed;
         CanMove = canMove;
-        CanShoot = canShoot;
         
         transform.position = pathCreator.path.GetPointAtDistance(_distanceTravelled, endOfPathInstruction);
 
         healthPoints.SetCurrentValue(healthPoints.MaxValue);
-        fireRate.SetCurrentValue(0);
         
         gameObject.SetActive(true);
+        
+        OnElementExtractFromPoolEvent?.Invoke();
     }
 
     public void OnElementReturnInPool()
     {
+        OnElementReturnInPoolEvent?.Invoke();
+        
         gameObject.SetActive(false);
     }
 
