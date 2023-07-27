@@ -23,7 +23,11 @@ public class EnemyRay : EnemyProjectileBase
 
     protected override void Move()
     {
-        if (_follower) transform.position = _follower.position;
+        if (_follower)
+        {
+            transform.position = _follower.position;
+            transform.rotation = _follower.rotation;
+        }
     }
 
     private void CancelExistTimer()
