@@ -11,7 +11,8 @@ public abstract class ShootingEnemySpaceshipBase : EnemySpaceshipBase
     [SerializeField] protected List<Transform> shootPositions;
     [SerializeField] protected SomeStorageFloat fireRate;
     [SerializeField] protected bool canShoot;
-    
+    protected bool CanShoot;
+
     protected override void OnAwake()
     {
         base.OnAwake();

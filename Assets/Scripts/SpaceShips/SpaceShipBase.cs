@@ -9,24 +9,15 @@ using SomeStorages;
 public class SpaceshipBase : MonoBehaviour, IDamageable
 {
     [SerializeField] protected SomeStorageFloat healthPoints;
-    [Space]
-    [SerializeField] protected bool canMove;
-    [SerializeField] protected float moveSpeed;
     
     public event Action OnDead;
     
-    protected bool CanShoot;
-    protected bool CanMove;
     protected bool IsDead = false;
     
     private void Awake() => OnAwake();
     private void Start() => OnStart();
 
-    protected virtual void OnAwake()
-    {
-        CanMove = canMove;
-    }
-
+    protected virtual void OnAwake() { }
     protected virtual void OnStart() { }
     
     public virtual void TakeDamage(float damage)

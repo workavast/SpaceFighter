@@ -28,6 +28,9 @@ public class PlayerSpaceship : SpaceshipBase
     [SerializeField] private Animator spaceshipModelAnimator;
     [SerializeField] private List<DamageAnimatorTriggerData> damageAnimatorTriggerData;
     [SerializeField] private Transform weaponPosition;
+    [SerializeField] protected bool canMove;
+    [SerializeField] protected float moveSpeed;
+    [SerializeField] protected bool canShoot;
 
     public IReadOnlySomeStorage<float> HealthPoints => healthPoints;
 

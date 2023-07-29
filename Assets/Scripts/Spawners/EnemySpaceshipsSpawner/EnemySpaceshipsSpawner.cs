@@ -7,9 +7,23 @@ using PathCreation;
 using UnityEngine.Serialization;
 using PoolSystem;
 
+public enum EnemyRotationType
+{
+    Forward,
+    PlayerTarget,
+    PathWayRotation
+}
+
+public enum PathWayMoveType
+{
+    Loop,
+    OnEndRemove,
+    OnEndStop
+}
+
 public class EnemySpaceshipsSpawner : MonoBehaviour
 {
-    [System.Serializable]
+    [Serializable]
     private struct EnemyGroup
     {
         [Range(0, 30)] public float timePause;
@@ -17,11 +31,19 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
         [Range(0, 20)] public float distanceBetweenSubgroups;
         [Range(0, 10)] public float moveSpeed;
         [Range(0, 20)] public float distanceBetweenEnemies;
-        public PathCreator path;
         public List<EnemySpaceshipsEnum> enemySubgroup;
+        
+        [Space]
+        public PathCreator path;
+        public EndOfPathInstruction endOfPathInstruction;
+        public PathWayMoveType moveType;
+        public EnemyRotationType rotationType;
+        [Space]
+        public bool accelerated;
+        public AnimationCurve acceleration;
     }
 
-    [System.Serializable]
+    [Serializable]
     private struct EnemyWave
     {
         public List<EnemyGroup> enemyGroups;
@@ -32,6 +54,9 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
     private Pool<EnemySpaceshipBase, EnemySpaceshipsEnum> _spaceShipsPool;
 
     private Dictionary<EnemySpaceshipsEnum, GameObject> _spaceshipsParents = new Dictionary<EnemySpaceshipsEnum, GameObject>();
+
+    private int _currentGroupsCount = 0;
+    private int _nextWave = 0;
 
     private void Awake()
     {
@@ -63,7 +88,7 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
             }
         }
         
-        if (buseEmpty) CallWave();
+        if (buseEmpty && _currentGroupsCount <= 0 && _nextWave < enemyWaves.Count) CallWave();
         
         IReadOnlyList<IReadOnlyList<IHandleUpdate>> list = _spaceShipsPool.BusyElementsValues;
         for (int i = 0; i < list.Count(); i++)
@@ -71,7 +96,6 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
             list[i][j].HandleUpdate();
     }
 
-    private int _nextWave = 0;
     private void CallWave()
     {
         for (int i = 0; i < enemyWaves[_nextWave].enemyGroups.Count; i++)
@@ -82,6 +106,8 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
     
     IEnumerator SpawnShips(int waveIndex, int groupIndex)
     {
+        _currentGroupsCount++;
+        
         EnemyGroup enemyGroup = enemyWaves[waveIndex].enemyGroups[groupIndex];
         
         if(enemyGroup.timePause > 0) yield return new WaitForSeconds(enemyGroup.timePause);
@@ -94,13 +120,14 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
             {
                 if(_spaceShipsPool.ExtractElement(enemyGroup.enemySubgroup[j], out EnemySpaceshipBase enemySpaceShip))
                 {
-                    enemySpaceShip.ChangePathWay(enemyGroup.path);
-                    enemySpaceShip.SetMoveSpeed(enemyGroup.moveSpeed);
+                    enemySpaceShip.SetWaveData(enemyGroup.moveSpeed,enemyGroup.path,enemyGroup.endOfPathInstruction,enemyGroup.moveType,enemyGroup.rotationType,enemyGroup.accelerated,enemyGroup.acceleration);
                 }
                 yield return new WaitForSeconds(timePauseBetweenEnemies);
             }
             yield return new WaitForSeconds(timePauseBetweenSubgroup);
         }
+
+        _currentGroupsCount--;
     }
     
     private EnemySpaceshipBase EnemySpaceShipInstantiate(EnemySpaceshipsEnum id)

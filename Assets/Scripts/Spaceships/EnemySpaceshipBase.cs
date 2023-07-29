@@ -7,36 +7,23 @@ using PoolSystem;
 
 public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpaceshipBase, EnemySpaceshipsEnum>, IHandleUpdate
 {
-    private enum EnemyRotationType
-    {
-        Forward,
-        PlayerTarget,
-        PathWayRotation
-    }
-
-    private enum PathWayMoveType
-    {
-        Loop,
-        OnEndRemove,
-        OnEndStop
-    }
-    
-    [Space]
-    [SerializeField] private PathCreator pathCreator;
-    [SerializeField] private EndOfPathInstruction endOfPathInstruction;
-    [SerializeField] private PathWayMoveType moveType;
-    [SerializeField] private EnemyRotationType rotationType;
-    [Space]
-    [SerializeField] private bool accelerated;
-    [SerializeField] private AnimationCurve acceleration;
     [Space]
     [SerializeField] private float collisionDamage = 1;
+
+    private bool _canMove;
+    
+    private PathCreator _pathCreator;
+    private EndOfPathInstruction _endOfPathInstruction;
+    private PathWayMoveType _moveType;
+    private EnemyRotationType _rotationType;
+    private bool _accelerated;
+    private AnimationCurve _acceleration;
 
     private AnimationControllerEnemy _animationControllerEnemy;
     
     private float _accelerationTimer = 0;
     private float _distanceTravelled;
-    private float _currentMoveSpeed;
+    private float _moveSpeed;
     private Vector3 _prevPosition;
     public float CollisionDamage => collisionDamage;
 
@@ -52,16 +39,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     {
         base.OnAwake();
 
-        _currentMoveSpeed = moveSpeed;
-        if (pathCreator)
-        {
-            // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
-            pathCreator.pathUpdated += OnPathUpdate;
-        }
-        else
-        {
-            Debug.LogWarning("pathCreator is null");
-        }
+        _moveSpeed = 0;
 
         OnDead += StartDying;
         _animationControllerEnemy = GetComponentInChildren<AnimationControllerEnemy>();
@@ -72,26 +50,26 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     {
         if(IsDead) return;
         
-        if (pathCreator && CanMove) Move();
-        if (pathCreator) Rotate();
+        if (_pathCreator && _canMove) Move();
+        if (_pathCreator) Rotate();
         
         OnHandleUpdate?.Invoke();
     }
 
     private void Move()
     {
-        if (accelerated)
+        if (_accelerated)
         {
             _accelerationTimer += Time.deltaTime;
-            _currentMoveSpeed += acceleration.Evaluate(_accelerationTimer) * Time.deltaTime;
+            _moveSpeed += _acceleration.Evaluate(_accelerationTimer) * Time.deltaTime;
         }
         
-        _distanceTravelled += _currentMoveSpeed * Time.deltaTime;
-        if (_distanceTravelled >= pathCreator.path.length)
-            switch (moveType)
+        _distanceTravelled += _moveSpeed * Time.deltaTime;
+        if (_distanceTravelled >= _pathCreator.path.length)
+            switch (_moveType)
             {
                 case PathWayMoveType.Loop:
-                    _distanceTravelled -= pathCreator.path.length;
+                    _distanceTravelled -= _pathCreator.path.length;
                     break;
                 
                 case PathWayMoveType.OnEndRemove:
@@ -99,22 +77,22 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
                     return;
                 
                 case PathWayMoveType.OnEndStop:
-                    _distanceTravelled = pathCreator.path.length;
-                    canMove = false;
+                    _distanceTravelled = _pathCreator.path.length;
+                    _canMove = false;
                     _accelerationTimer = 0;
-                    _currentMoveSpeed = moveSpeed;
+                    _moveSpeed = 0;
                     break;
                 
                 default: throw new Exception("Undeclared moveType (enum PathWayMoveType) type");
             }
         
         _prevPosition = transform.position;
-        transform.position = pathCreator.path.GetPointAtDistance(_distanceTravelled, endOfPathInstruction);
+        transform.position = _pathCreator.path.GetPointAtDistance(_distanceTravelled, _endOfPathInstruction);
     }
 
     private void Rotate()
     {
-        switch (rotationType)
+        switch (_rotationType)
         {
             case EnemyRotationType.Forward:
                 transform.rotation = Quaternion.Euler(0,0,180);
@@ -126,7 +104,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
             
             case EnemyRotationType.PathWayRotation:
                 Quaternion oldRotation = transform.rotation;
-                Quaternion newRotation = pathCreator.path.GetRotationAtDistance(_distanceTravelled, endOfPathInstruction);
+                Quaternion newRotation = _pathCreator.path.GetRotationAtDistance(_distanceTravelled, _endOfPathInstruction);
                 if (_prevPosition.x < transform.position.x)
                     transform.rotation = Quaternion.Euler(oldRotation.eulerAngles.x, oldRotation.eulerAngles.y, -90-newRotation.eulerAngles.x);
                 else
@@ -138,29 +116,18 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     }
     
     void OnPathUpdate() {
-        _distanceTravelled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
+        _distanceTravelled = _pathCreator.path.GetClosestDistanceAlongPath(transform.position);
     }
-
-    public void ChangePathWay(PathCreator newPathWay)
-    {
-        pathCreator.pathUpdated -= OnPathUpdate;
-        
-        pathCreator = newPathWay;
-        _distanceTravelled = 0;
-        pathCreator.pathUpdated += OnPathUpdate;
-    }
-
+    
     public virtual void OnExtractFromPool()
     {
         IsDead = false;
         
         _accelerationTimer = 0;
         _distanceTravelled = 0;
-        _currentMoveSpeed = moveSpeed;
-        CanMove = canMove;
+        _moveSpeed = 0;
+        _canMove = true;
         
-        transform.position = pathCreator.path.GetPointAtDistance(_distanceTravelled, endOfPathInstruction);
-
         healthPoints.SetCurrentValue(healthPoints.MaxValue);
         
         gameObject.SetActive(true);
@@ -192,9 +159,29 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     {
         DestroyElementEvent?.Invoke(this);
     }
-
-    public void SetMoveSpeed(float newMoveSpeed)
+    
+    private void ChangePathWay(PathCreator newPathWay)
     {
-        _currentMoveSpeed = newMoveSpeed;
+        if(_pathCreator) _pathCreator.pathUpdated -= OnPathUpdate;
+        
+        _pathCreator = newPathWay;
+        _distanceTravelled = 0;
+        _pathCreator.pathUpdated += OnPathUpdate;
+    }
+    
+    public void SetWaveData(float newMoveSpeed, PathCreator newPath, EndOfPathInstruction newEndOfPathInstruction, 
+        PathWayMoveType newPathWayMoveType, EnemyRotationType newEnemyRotationType, bool newAccelerated, 
+        AnimationCurve newAcceleration)
+    {
+        _moveSpeed = newMoveSpeed;
+        ChangePathWay(newPath);
+        _endOfPathInstruction = newEndOfPathInstruction;
+        _moveType = newPathWayMoveType;
+        _rotationType = newEnemyRotationType;
+        _accelerated = newAccelerated;
+        _acceleration = newAcceleration;
+        
+        transform.position = _pathCreator.path.GetPointAtDistance(0, _endOfPathInstruction);
+
     }
 }
