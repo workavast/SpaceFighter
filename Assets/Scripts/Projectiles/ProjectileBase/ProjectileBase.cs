@@ -7,7 +7,7 @@ public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<
     where TScript : ProjectileBase<TEnum, TScript>
 {
     [SerializeField] protected float moveSpeed;
-    [SerializeField] private float damage;
+    [SerializeField] protected float damage;
     
     public abstract TEnum PoolId { get; }
     

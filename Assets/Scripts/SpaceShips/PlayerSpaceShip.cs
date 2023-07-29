@@ -67,7 +67,30 @@ public class PlayerSpaceship : SpaceshipBase
         SpawnWeapon();
         OnDead += StopShooting;
     }
+    
+    protected override void OnStart()
+    {
+        base.OnStart();
+        _playAreaLeftDownPivot = PlayArea.Instance.LeftDownPivot;
+    }
+    
+    private void Update()
+    {
+        if(canMove) Move();
 
+        _weapon.HandleUpdate();
+    }
+    
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        EnemySpaceshipBase enemySpaceshipBase = col.gameObject.GetComponentInChildren<EnemySpaceshipBase>();
+        if (enemySpaceshipBase)
+        {
+            TakeDamage(enemySpaceshipBase.CollisionDamage);
+            enemySpaceshipBase.TakeDamage(float.MaxValue);
+        }
+    }
+    
     private void SpawnWeapon()
     {
         if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(_playerGlobalData.CurrentSelectedPlayerWeapons,
@@ -79,21 +102,10 @@ public class PlayerSpaceship : SpaceshipBase
         else
             throw new Exception("Dictionary don't contain this WeaponsEnum");
     }
-
+    
     private void StopShooting()
     {
         _weapon.StopShoot();
-    }
-    
-    protected override void OnStart()
-    {
-        base.OnStart();
-        _playAreaLeftDownPivot = PlayArea.Instance.LeftDownPivot;
-    }
-    
-    private void Update()
-    {
-        if(canMove) Move();
     }
     
     protected void Move()
@@ -130,16 +142,6 @@ public class PlayerSpaceship : SpaceshipBase
                     spaceshipModelAnimator.SetTrigger(damageAnimatorTriggerData[_currentDamageSprite.CurrentValue].animatorTriggerName.ToString());
                 }
             }
-        }
-    }
-    
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        EnemySpaceshipBase enemySpaceshipBase = col.gameObject.GetComponentInChildren<EnemySpaceshipBase>();
-        if (enemySpaceshipBase)
-        {
-            TakeDamage(enemySpaceshipBase.CollisionDamage);
-            enemySpaceshipBase.TakeDamage(float.MaxValue);
         }
     }
 }

@@ -5,14 +5,6 @@ using SomeStorages;
 
 public class Rockets : PlayerWeaponBase
 {
-    public override PlayerWeaponsEnum PlayerWeaponsId => PlayerWeaponsEnum.Rockets;
-
-    protected override void Shoot()
-    {
-        for (int i = 0; i < ShootsPositions.Count; i++)
-        {
-            PlayerProjectilesSpawner.SpawnProjectile(PlayerProjectilesEnum.Rocket, ShootsPositions[i],
-                out PlayerProjectileBase playerProjectileBase);
-        }
-    }
+    public override PlayerWeaponsEnum PlayerWeaponId => PlayerWeaponsEnum.Rockets;
+    public override PlayerProjectilesEnum ProjectileId => PlayerProjectilesEnum.Rocket;
 }

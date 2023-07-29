@@ -6,7 +6,8 @@ using SomeStorages;
 
 public abstract class PlayerWeaponBase : MonoBehaviour
 {
-    public abstract PlayerWeaponsEnum PlayerWeaponsId { get; }
+    public abstract PlayerWeaponsEnum PlayerWeaponId { get; }
+    public abstract PlayerProjectilesEnum ProjectileId { get; }
     
     [Inject] protected PlayerWeaponConfig PlayerWeaponConfig;
     [Inject] protected PlayerGlobalData PlayerGlobalData;
@@ -20,16 +21,16 @@ public abstract class PlayerWeaponBase : MonoBehaviour
 
     private void Awake()
     {
-        if (!PlayerWeaponConfig.WeaponsLevelsData.ContainsKey(PlayerWeaponsId)) throw new Exception("Undefined WeaponsEnum WeaponsId");
+        if (!PlayerWeaponConfig.WeaponsLevelsData.ContainsKey(PlayerWeaponId)) throw new Exception("Undefined WeaponsEnum WeaponsId");
         
-        WeaponLevel weaponLevel2 = PlayerWeaponConfig.WeaponsLevelsData[PlayerWeaponsId][(int)PlayerGlobalData.WeaponsCurrentLevels[PlayerWeaponsId]-1];
+        WeaponLevel weaponLevel = PlayerWeaponConfig.WeaponsLevelsData[PlayerWeaponId][(int)PlayerGlobalData.WeaponsCurrentLevels[PlayerWeaponId]-1];
 
-        Damage = weaponLevel2.WeaponDamage;
-        FireRate = new SomeStorageFloat(weaponLevel2.FireRate);
-        ShootsCountScale = weaponLevel2.ShootsCountScale;
+        Damage = weaponLevel.WeaponDamage;
+        FireRate = new SomeStorageFloat(weaponLevel.FireRate);
+        ShootsCountScale = weaponLevel.ShootsCountScale;
     }
 
-    private void Update()
+    public void HandleUpdate()
     {
         FireRate.ChangeCurrentValue(Time.deltaTime);
 
@@ -40,7 +41,17 @@ public abstract class PlayerWeaponBase : MonoBehaviour
         }
     }
 
-    protected abstract void Shoot();
+    protected virtual void Shoot()
+    {
+        for (int i = 0; i < ShootsPositions.Count; i++)
+        {
+            if (PlayerProjectilesSpawner.SpawnProjectile(ProjectileId, ShootsPositions[i],
+                    out PlayerProjectileBase playerProjectileBase))
+            {
+                playerProjectileBase.SetData(Damage);
+            }
+        }
+    }
 
     public void StopShoot()
     {
