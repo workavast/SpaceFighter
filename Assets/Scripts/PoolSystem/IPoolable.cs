@@ -1,15 +1,18 @@
 using System;
 
-public interface IPoolable<TElement>
+namespace PoolSystem
 {
-    public event Action<TElement> ReturnElementEvent;
-    public event Action<TElement> DestroyElementEvent;
+    public interface IPoolable<TElement>
+    {
+        public event Action<TElement> ReturnElementEvent;
+        public event Action<TElement> DestroyElementEvent;
     
-    public void OnElementExtractFromPool();
-    public void OnElementReturnInPool();
-}
+        public void OnExtractFromPool();
+        public void OnReturnInPool();
+    }
 
-public interface IPoolable<TElement, TId> : IPoolable<TElement>
-{
-    public TId PoolId { get;}
+    public interface IPoolable<TElement, TId> : IPoolable<TElement>
+    {
+        public TId PoolId { get;}
+    }
 }

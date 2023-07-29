@@ -20,7 +20,7 @@ public class KlaedDreadnought : ShootingEnemySpaceshipBase
     {
         for (int i = 0; i < _rays.Count; i++)
         {
-            _rays[i].ReturnInPool();
+            _rays[i].HandleReturnInPool();
         }
         _rays.Clear();
     }

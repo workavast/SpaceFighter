@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PoolSystem;
 
 public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<TScript, TEnum>, IPlayAreaCollision, IHandleUpdate
     where TScript : ProjectileBase<TEnum, TScript>
@@ -27,25 +28,25 @@ public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<
         transform.Translate(Vector3.up * (moveSpeed * Time.deltaTime));
     }
     
-    public void OnElementExtractFromPool()
+    public void OnExtractFromPool()
     {
         gameObject.SetActive(true);
         OnElementExtractFromPoolEvent?.Invoke();
     }
 
-    public void OnElementReturnInPool()
+    public void OnReturnInPool()
     {
         OnElementReturnInPoolEvent?.Invoke();
         gameObject.SetActive(false);
     }
 
-    public void ReturnInPool() => ReturnElementEvent?.Invoke((TScript)this);
+    public void HandleReturnInPool() => ReturnElementEvent?.Invoke((TScript)this);
     
     public void EnterInPlayArea() { }
 
     public void ExitFromPlayerArea()
     {
-        if(ReturnInPoolOnExitFromPlayArea) ReturnInPool();
+        if(ReturnInPoolOnExitFromPlayArea) HandleReturnInPool();
     }
 
     private void OnDisable() => ReturnElementEvent?.Invoke((TScript)this);
@@ -58,7 +59,7 @@ public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<
         {
             iDamageable.TakeDamage(damage);
 
-            if (DestroyableOnCollision) ReturnInPool();
+            if (DestroyableOnCollision) HandleReturnInPool();
         }
     }
 }

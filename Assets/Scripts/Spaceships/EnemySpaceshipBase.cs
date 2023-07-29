@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 using SomeStorages;
+using PoolSystem;
 
 public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpaceshipBase, EnemySpaceshipsEnum>, IHandleUpdate
 {
@@ -149,7 +150,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         pathCreator.pathUpdated += OnPathUpdate;
     }
 
-    public virtual void OnElementExtractFromPool()
+    public virtual void OnExtractFromPool()
     {
         IsDead = false;
         
@@ -167,7 +168,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         OnElementExtractFromPoolEvent?.Invoke();
     }
 
-    public void OnElementReturnInPool()
+    public void OnReturnInPool()
     {
         OnElementReturnInPoolEvent?.Invoke();
         

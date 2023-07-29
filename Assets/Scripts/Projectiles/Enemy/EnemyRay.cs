@@ -43,7 +43,7 @@ public class EnemyRay : EnemyProjectileBase
     IEnumerator ExistTimer()
     {
         yield return new WaitForSeconds(existTime);
-        ReturnInPool();
+        HandleReturnInPool();
     }
 
     public void SetMount(Transform transform)
