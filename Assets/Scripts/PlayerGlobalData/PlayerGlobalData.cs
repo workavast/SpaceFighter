@@ -7,27 +7,28 @@ public class PlayerGlobalData
 {
     private struct Data
     {
-        public DictionaryInspector<uint, uint> LevelsData;
-        public DictionaryInspector<PlayerWeaponsEnum, uint> WeaponsCurrentLevels;
-        public uint SpaceshipCurrentLevel;
+        public DictionaryInspector<int, int> LevelsData;
+        public DictionaryInspector<PlayerWeaponsEnum, int> WeaponsCurrentLevels;
+        public int SpaceshipCurrentLevel;
         public PlayerWeaponsEnum CurrentSelectedPlayerWeapons;
-        public uint MoneyCount; 
+        public int MoneyCount; 
     }
-
+    
     private Data _data;
 
-    public IReadOnlyDictionary<uint, uint> LevelsData => _data.LevelsData;
-    public IReadOnlyDictionary<PlayerWeaponsEnum, uint> WeaponsCurrentLevels => _data.WeaponsCurrentLevels;
-    public uint SpaceshipCurrentLevel => _data.SpaceshipCurrentLevel;
+    public IReadOnlyDictionary<int, int> LevelsData => _data.LevelsData;
+    public IReadOnlyDictionary<PlayerWeaponsEnum, int> WeaponsCurrentLevels => _data.WeaponsCurrentLevels;
+    public int SpaceshipCurrentLevel => _data.SpaceshipCurrentLevel;
     public PlayerWeaponsEnum CurrentSelectedPlayerWeapons => _data.CurrentSelectedPlayerWeapons;
-    public uint MoneyCount => _data.MoneyCount;
-
-    public void ChangeMoneyCount(uint moneyChanged)
+    public int MoneyCount => _data.MoneyCount;
+    
+    
+    public void ChangeMoneyCount(int moneyChanged)
     {
         _data.MoneyCount += moneyChanged;
     }
     
-    public void ChangeLevelData(uint levelNum, uint starsCount)
+    public void ChangeLevelData(int levelNum, int starsCount)
     {
         if (LevelsData.ContainsKey(levelNum))
         {
@@ -67,12 +68,12 @@ public class PlayerGlobalData
         if(PlayerPrefs.HasKey("PlayerGlobalData")) _data = JsonUtility.FromJson<Data>(PlayerPrefs.GetString("PlayerGlobalData"));
         else
         {
-            _data.LevelsData = new DictionaryInspector<uint, uint>()
+            _data.LevelsData = new DictionaryInspector<int, int>()
                 { { 0, 1 }, { 1, 2 }, { 2, 3 }, { 3, 0 }, { 4, 0 } };
             _data.MoneyCount = 1000;
             _data.CurrentSelectedPlayerWeapons = PlayerWeaponsEnum.Rockets;
             _data.SpaceshipCurrentLevel = 1;
-            _data.WeaponsCurrentLevels = new DictionaryInspector<PlayerWeaponsEnum, uint>()
+            _data.WeaponsCurrentLevels = new DictionaryInspector<PlayerWeaponsEnum, int>()
             {
                 { PlayerWeaponsEnum.AutoCannon, 1 }, { PlayerWeaponsEnum.BigSpaceGun, 1 }, 
                 { PlayerWeaponsEnum.Rockets, 1 }, { PlayerWeaponsEnum.Zapper, 1 }
