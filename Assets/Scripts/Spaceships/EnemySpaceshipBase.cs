@@ -148,6 +148,8 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
 
         IsDead = true;
         _animationControllerEnemy.SetDyingTrigger();
+
+        MoneyStarsSpawner.Spawn(transform);
     }
 
     public void EndDying()

@@ -36,6 +36,7 @@ public class UI_ScreenRepository : MonoBehaviour
 
         return default;
     }
+    
     public static UI_ScreenBase GetScreenByEnum(ScreensEnum screensEnum)
     {
         if (Instance == null) throw new NullReferenceException($"Instance is null");
