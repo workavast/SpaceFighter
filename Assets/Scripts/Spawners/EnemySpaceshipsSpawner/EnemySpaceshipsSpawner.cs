@@ -58,6 +58,8 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
     private int _currentGroupsCount = 0;
     private int _nextWave = 0;
 
+    private bool _levelCompleted = false;
+    
     private void Awake()
     {
         _spaceShipsPool = new Pool<EnemySpaceshipBase, EnemySpaceshipsEnum>(EnemySpaceShipInstantiate);
@@ -86,6 +88,14 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
                 buseEmpty = false;
                 break;
             }
+        }
+
+
+        if (buseEmpty && _currentGroupsCount <= 0 && _nextWave >= enemyWaves.Count && !_levelCompleted)
+        {
+            _levelCompleted = true;
+            Debug.Log("level completed");
+            LevelMoneyStarsCounter.ApplyValue();    
         }
         
         if (buseEmpty && _currentGroupsCount <= 0 && _nextWave < enemyWaves.Count) CallWave();

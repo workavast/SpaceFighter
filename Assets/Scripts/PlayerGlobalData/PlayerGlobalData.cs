@@ -41,6 +41,7 @@ public class PlayerGlobalData : MonoBehaviour
     public static void ChangeMoneyStarsCount(int moneyChanged)
     {
         _instance._data.MoneyStarsCount += moneyChanged;
+        Debug.Log(_instance._data.MoneyStarsCount);
     }
     
     public static void ChangeLevelData(int levelNum, int starsCount)
