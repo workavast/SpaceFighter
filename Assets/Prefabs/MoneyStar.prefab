@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6372120924537781882}
   - component: {fileID: 8601057355610121346}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5540202700125997723}
   - component: {fileID: 4247489918565961360}
   - component: {fileID: 4789283676592700209}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MoneyStar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

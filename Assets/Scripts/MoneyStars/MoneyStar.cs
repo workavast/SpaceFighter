@@ -12,11 +12,13 @@ public class MoneyStar : MonoBehaviour, PoolSystem.IPoolable<MoneyStar>, IPlayAr
     public event Action<MoneyStar> ReturnElementEvent;
     public event Action<MoneyStar> DestroyElementEvent;
 
-    public void HandleUpdate()
+    public void HandleUpdate() => Move();
+
+    private void Move()
     {
         transform.Translate(Vector3.down * (moveSpeed * Time.deltaTime));
     }
-
+    
     public void OnExtractFromPool() => gameObject.SetActive(true);
 
     public void OnReturnInPool() => gameObject.SetActive(false);
@@ -32,5 +34,10 @@ public class MoneyStar : MonoBehaviour, PoolSystem.IPoolable<MoneyStar>, IPlayAr
             LevelMoneyStarsCounter.ChangeValue(1);
             ReturnElementEvent?.Invoke(this);
         }
+    }
+
+    private void OnDestroy()
+    {
+        DestroyElementEvent?.Invoke(this);
     }
 }
