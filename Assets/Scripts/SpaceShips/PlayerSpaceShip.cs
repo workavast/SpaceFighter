@@ -42,7 +42,6 @@ public class PlayerSpaceship : SpaceshipBase
     private SomeStorageInt _currentDamageSprite;
     private PlayerWeaponBase _weapon;
     
-    [Inject] private PlayerGlobalData _playerGlobalData;
     [Inject] private PlayerWeaponConfig _playerWeaponConfig;
     [Inject] private DiContainer _diContainer;
 
@@ -57,6 +56,7 @@ public class PlayerSpaceship : SpaceshipBase
         base.OnAwake();
         
         Instance = this;
+        
         _camera = Camera.main;
 
         if (!spaceshipModelAnimator)
@@ -66,14 +66,15 @@ public class PlayerSpaceship : SpaceshipBase
         }
 
         _currentDamageSprite = new SomeStorageInt(damageAnimatorTriggerData.Count - 1);
-
-        SpawnWeapon();
-        OnDead += StopShooting;
     }
     
     protected override void OnStart()
     {
         base.OnStart();
+        
+        SpawnWeapon();
+        OnDead += StopShooting;
+
         _playAreaLeftDownPivot = PlayArea.Instance.LeftDownPivot;
     }
     
@@ -96,11 +97,12 @@ public class PlayerSpaceship : SpaceshipBase
     
     private void SpawnWeapon()
     {
-        if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(_playerGlobalData.CurrentSelectedPlayerWeapons,
+        if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(PlayerGlobalData.CurrentSelectedPlayerWeapons,
                 out GameObject prefab))
         {
             GameObject weapon = _diContainer.InstantiatePrefab(prefab, weaponPosition);
             _weapon = weapon.GetComponent<PlayerWeaponBase>();
+            _weapon.Initialization();
         }
         else
             throw new Exception("Dictionary don't contain this WeaponsEnum");

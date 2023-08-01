@@ -10,7 +10,6 @@ public abstract class PlayerWeaponBase : MonoBehaviour
     public abstract PlayerProjectilesEnum ProjectileId { get; }
     
     [Inject] protected PlayerWeaponConfig PlayerWeaponConfig;
-    [Inject] protected PlayerGlobalData PlayerGlobalData;
 
     [SerializeField] protected List<Transform> ShootsPositions;
 
@@ -19,11 +18,11 @@ public abstract class PlayerWeaponBase : MonoBehaviour
     protected uint ShootsCountScale;
     protected bool CanShoot = true;
 
-    private void Awake()
+    public void Initialization()
     {
         if (!PlayerWeaponConfig.WeaponsLevelsData.ContainsKey(PlayerWeaponId)) throw new Exception("Undefined WeaponsEnum WeaponsId");
         
-        WeaponLevel weaponLevel = PlayerWeaponConfig.WeaponsLevelsData[PlayerWeaponId][(int)PlayerGlobalData.WeaponsCurrentLevels[PlayerWeaponId]-1];
+        WeaponLevel weaponLevel = PlayerWeaponConfig.WeaponsLevelsData[PlayerWeaponId][PlayerGlobalData.WeaponsCurrentLevels[PlayerWeaponId]-1];
 
         Damage = weaponLevel.WeaponDamage;
         FireRate = new SomeStorageFloat(weaponLevel.FireRate);
