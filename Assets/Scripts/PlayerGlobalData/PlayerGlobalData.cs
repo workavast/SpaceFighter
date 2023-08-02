@@ -7,8 +7,8 @@ public class PlayerGlobalData : MonoBehaviour
 {
     private struct Data
     {
-        public DictionaryInspector<int, int> LevelsData;
-        public DictionaryInspector<PlayerWeaponsEnum, int> WeaponsCurrentLevels;
+        public Dictionary<int, int> LevelsData;
+        public Dictionary<PlayerWeaponsEnum, int> WeaponsCurrentLevels;
         public int SpaceshipCurrentLevel;
         public PlayerWeaponsEnum CurrentSelectedPlayerWeapons;
         public int MoneyStarsCount; 
@@ -41,6 +41,8 @@ public class PlayerGlobalData : MonoBehaviour
     public static void ChangeMoneyStarsCount(int moneyChanged)
     {
         _instance._data.MoneyStarsCount += moneyChanged;
+        SaveData();
+        
         Debug.Log(_instance._data.MoneyStarsCount);
     }
     
