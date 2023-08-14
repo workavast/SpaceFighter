@@ -45,6 +45,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerWeaponConfig: {fileID: 11400000, guid: cfac1df866b877745aef91bbe1f2bd4f, type: 2}
+--- !u!1 &2386011718623060655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8554129824906358675}
+  - component: {fileID: 5714306401154576185}
+  m_Layer: 0
+  m_Name: PlayerSpaceshipLevelsConfigInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8554129824906358675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386011718623060655}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8133169780408886010}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5714306401154576185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386011718623060655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91860cef970d2054a8c5f0c80d6db8f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpaceshipLevelsConfig: {fileID: 11400000, guid: eac3bb0f2743d5b4c87792ba721687e6, type: 2}
 --- !u!1 &3296634557551359509
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,6 +124,8 @@ Transform:
   - {fileID: 3479648682493207886}
   - {fileID: 5457456433351719091}
   - {fileID: 7397293741004708030}
+  - {fileID: 8554129824906358675}
+  - {fileID: 6858791647448107002}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -101,6 +148,8 @@ MonoBehaviour:
   - {fileID: 4153293501806779177}
   - {fileID: 3632654711809414937}
   - {fileID: 5381207944491617329}
+  - {fileID: 5714306401154576185}
+  - {fileID: 7076018384849075119}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0
@@ -205,6 +254,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpaceshipsPrefabsConfig: {fileID: 11400000, guid: 7d0d76e3b9f28314696215653cda8a0e, type: 2}
+--- !u!1 &6460871268647083511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6858791647448107002}
+  - component: {fileID: 7076018384849075119}
+  m_Layer: 0
+  m_Name: MainMenuHangarScreenInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6858791647448107002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6460871268647083511}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8133169780408886010}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7076018384849075119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6460871268647083511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bed9e34f0adb7ef47882ef21a3881f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7742637484549090476
 GameObject:
   m_ObjectHideFlags: 0

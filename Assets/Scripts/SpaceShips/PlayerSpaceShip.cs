@@ -31,9 +31,7 @@ public class PlayerSpaceship : SpaceshipBase
     [SerializeField] protected bool canMove;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected bool canShoot;
-
-    public IReadOnlySomeStorage<float> HealthPoints => healthPoints;
-
+    
     public static PlayerSpaceship Instance { get; private set; }
    
     private Transform _playAreaLeftDownPivot;
@@ -43,6 +41,7 @@ public class PlayerSpaceship : SpaceshipBase
     private PlayerWeaponBase _weapon;
     
     [Inject] private PlayerWeaponConfig _playerWeaponConfig;
+    [Inject] private PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
     [Inject] private DiContainer _diContainer;
 
     protected override void OnAwake()
@@ -66,6 +65,7 @@ public class PlayerSpaceship : SpaceshipBase
         }
 
         _currentDamageSprite = new SomeStorageInt(damageAnimatorTriggerData.Count - 1);
+        healthPoints = new SomeStorageFloat(_playerSpaceshipLevelsConfig.LevelsHealthPoints[PlayerGlobalData.CurrentSpaceshipLevel]);
     }
     
     protected override void OnStart()
@@ -97,7 +97,7 @@ public class PlayerSpaceship : SpaceshipBase
     
     private void SpawnWeapon()
     {
-        if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(PlayerGlobalData.CurrentSelectedPlayerWeapons,
+        if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(PlayerGlobalData.EquippedPlayerWeapon,
                 out GameObject prefab))
         {
             GameObject weapon = _diContainer.InstantiatePrefab(prefab, weaponPosition);

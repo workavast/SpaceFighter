@@ -15,14 +15,14 @@ public abstract class PlayerWeaponBase : MonoBehaviour
 
     protected float Damage;
     protected SomeStorageFloat FireRate;
-    protected uint ShootsCountScale;
+    protected int ShootsCountScale;
     protected bool CanShoot = true;
 
     public void Initialization()
     {
         if (!PlayerWeaponConfig.WeaponsLevelsData.ContainsKey(PlayerWeaponId)) throw new Exception("Undefined WeaponsEnum WeaponsId");
         
-        WeaponLevel weaponLevel = PlayerWeaponConfig.WeaponsLevelsData[PlayerWeaponId][PlayerGlobalData.WeaponsCurrentLevels[PlayerWeaponId]-1];
+        WeaponLevel weaponLevel = PlayerWeaponConfig.WeaponsLevelsData[PlayerWeaponId][PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponId]-1];
 
         Damage = weaponLevel.WeaponDamage;
         FireRate = new SomeStorageFloat(weaponLevel.FireRate);

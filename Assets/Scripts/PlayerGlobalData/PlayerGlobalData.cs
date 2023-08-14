@@ -7,10 +7,10 @@ public class PlayerGlobalData : MonoBehaviour
 {
     private struct Data
     {
-        public Dictionary<int, int> LevelsData;
-        public Dictionary<PlayerWeaponsEnum, int> WeaponsCurrentLevels;
-        public int SpaceshipCurrentLevel;
-        public PlayerWeaponsEnum CurrentSelectedPlayerWeapons;
+        public Dictionary<int, int> LevelsData;//levelNum-starsCount
+        public Dictionary<PlayerWeaponsEnum, int> CurrentWeaponsLevels;
+        public int CurrentSpaceshipLevel;
+        public PlayerWeaponsEnum EquippedPlayerWeapon;
         public int MoneyStarsCount; 
     }
 
@@ -19,9 +19,9 @@ public class PlayerGlobalData : MonoBehaviour
     private Data _data;
 
     public static IReadOnlyDictionary<int, int> LevelsData => _instance._data.LevelsData;
-    public static IReadOnlyDictionary<PlayerWeaponsEnum, int> WeaponsCurrentLevels => _instance._data.WeaponsCurrentLevels;
-    public static int SpaceshipCurrentLevel => _instance._data.SpaceshipCurrentLevel;
-    public static PlayerWeaponsEnum CurrentSelectedPlayerWeapons => _instance._data.CurrentSelectedPlayerWeapons;
+    public static IReadOnlyDictionary<PlayerWeaponsEnum, int> CurrentWeaponsLevels => _instance._data.CurrentWeaponsLevels;
+    public static int CurrentSpaceshipLevel => _instance._data.CurrentSpaceshipLevel;
+    public static PlayerWeaponsEnum EquippedPlayerWeapon => _instance._data.EquippedPlayerWeapon;
     public static int MoneyStarsCount => _instance._data.MoneyStarsCount;
 
     private void Awake()
@@ -61,14 +61,14 @@ public class PlayerGlobalData : MonoBehaviour
 
     public static void LevelUpSpaceship()
     {
-        _instance._data.SpaceshipCurrentLevel++;
+        _instance._data.CurrentSpaceshipLevel++;
         
         SaveData();
     }
     
     public static void LevelUpWeapon(PlayerWeaponsEnum playerWeaponsId)
     {
-        if (WeaponsCurrentLevels.ContainsKey(playerWeaponsId)) _instance._data.WeaponsCurrentLevels[playerWeaponsId]++;
+        if (CurrentWeaponsLevels.ContainsKey(playerWeaponsId)) _instance._data.CurrentWeaponsLevels[playerWeaponsId]++;
         else throw new Exception("Unsigned weapon id");
         
         SaveData();
@@ -90,13 +90,18 @@ public class PlayerGlobalData : MonoBehaviour
             _instance._data.LevelsData = new DictionaryInspector<int, int>()
                 { { 0, 1 }, { 1, 2 }, { 2, 3 }, { 3, 0 }, { 4, 0 } };
             _instance._data.MoneyStarsCount = 1000;
-            _instance._data.CurrentSelectedPlayerWeapons = PlayerWeaponsEnum.Rockets;
-            _instance._data.SpaceshipCurrentLevel = 1;
-            _instance._data.WeaponsCurrentLevels = new DictionaryInspector<PlayerWeaponsEnum, int>()
+            _instance._data.EquippedPlayerWeapon = PlayerWeaponsEnum.AutoCannon;
+            _instance._data.CurrentSpaceshipLevel = 1;
+            _instance._data.CurrentWeaponsLevels = new DictionaryInspector<PlayerWeaponsEnum, int>()
             {
                 { PlayerWeaponsEnum.AutoCannon, 1 }, { PlayerWeaponsEnum.BigSpaceGun, 1 }, 
-                { PlayerWeaponsEnum.Rockets, 1 }, { PlayerWeaponsEnum.Zapper, 1 }
+                { PlayerWeaponsEnum.Rockets, 0 }, { PlayerWeaponsEnum.Zapper, 0 }
             };
         }
+    }
+
+    public static void ChangeEquippedWeapon(PlayerWeaponsEnum weaponsEnum)
+    {
+        _instance._data.EquippedPlayerWeapon = weaponsEnum;
     }
 }

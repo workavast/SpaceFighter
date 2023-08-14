@@ -135,7 +135,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 94577561343485000}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3694132488983528169
 GameObject:
@@ -276,8 +276,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8803955744169316095}
-  - {fileID: 3616244429633581169}
   - {fileID: 6207173929381397273}
+  - {fileID: 3616244429633581169}
   - {fileID: 2658007648887957163}
   - {fileID: 8935500215031767315}
   - {fileID: 1437042279759088826}
@@ -300,12 +300,6 @@ MonoBehaviour:
     maxValue: 100
     currentValue: 100
     minValue: 0
-  levels:
-    maxValue: 5
-    currentValue: 1
-    minValue: 0
-  canMove: 1
-  moveSpeed: 10
   spaceshipModelAnimator: {fileID: 3522066648862070055}
   damageAnimatorTriggerData:
   - animatorTriggerName: 0
@@ -317,6 +311,9 @@ MonoBehaviour:
   - animatorTriggerName: 3
     healthPointsPercent: 0.25
   weaponPosition: {fileID: 3616244429633581169}
+  canMove: 1
+  moveSpeed: 10
+  canShoot: 0
 --- !u!60 &2511909709696665914
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -540,12 +537,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8510424143184675979}
   m_LocalRotation: {x: -0, y: -0, z: 0.000000059604645, w: 1}
-  m_LocalPosition: {x: 0, y: -0.083, z: 0}
+  m_LocalPosition: {x: 0, y: -0.08, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 94577561343485000}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1234147962165053371
 SpriteRenderer:

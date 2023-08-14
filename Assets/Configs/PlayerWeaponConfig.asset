@@ -21,6 +21,15 @@ MonoBehaviour:
         - <WeaponDamage>k__BackingField: 2
           <FireRate>k__BackingField: 2
           <ShootsCountScale>k__BackingField: 1
+          <Price>k__BackingField: 0
+        - <WeaponDamage>k__BackingField: 2
+          <FireRate>k__BackingField: 2
+          <ShootsCountScale>k__BackingField: 1
+          <Price>k__BackingField: 100
+        - <WeaponDamage>k__BackingField: 2
+          <FireRate>k__BackingField: 2
+          <ShootsCountScale>k__BackingField: 1
+          <Price>k__BackingField: 200
     - key: 1
       value:
         <WeaponPrefab>k__BackingField: {fileID: 2233624589621918819, guid: de32da1f07937e14595307f151d86fe9, type: 3}
@@ -28,6 +37,7 @@ MonoBehaviour:
         - <WeaponDamage>k__BackingField: 2
           <FireRate>k__BackingField: 2
           <ShootsCountScale>k__BackingField: 1
+          <Price>k__BackingField: 1000
     - key: 2
       value:
         <WeaponPrefab>k__BackingField: {fileID: 7986840376107898779, guid: da5f0b4879f3b7846b8478b97cdf8499, type: 3}
@@ -35,6 +45,7 @@ MonoBehaviour:
         - <WeaponDamage>k__BackingField: 2
           <FireRate>k__BackingField: 2
           <ShootsCountScale>k__BackingField: 1
+          <Price>k__BackingField: 1000
     - key: 3
       value:
         <WeaponPrefab>k__BackingField: {fileID: 5709595946922605314, guid: fe50ae6dcbcec9649bef5703b2cf7273, type: 3}
@@ -42,3 +53,4 @@ MonoBehaviour:
         - <WeaponDamage>k__BackingField: 2
           <FireRate>k__BackingField: 2
           <ShootsCountScale>k__BackingField: 1
+          <Price>k__BackingField: 1000
