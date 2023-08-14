@@ -3,7 +3,8 @@ guid: 5067d2bdfa5ebfc4fb78d380f2cd1282
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - enemySpaceshipsPrefabsConfig: {fileID: 11400000, guid: 7d0d76e3b9f28314696215653cda8a0e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

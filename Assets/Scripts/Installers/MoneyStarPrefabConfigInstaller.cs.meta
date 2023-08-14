@@ -3,7 +3,8 @@ guid: 44870c95c7f480543bcba76b3b8dca66
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - moneyStarPrefabConfig: {fileID: 11400000, guid: fe3b24ae89a76b74e80954b8c7accb83, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
