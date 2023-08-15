@@ -5,6 +5,6 @@ public class MainMenuHangarScreenInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<MainMenuHangarScreen>().FromInstance(FindObjectOfType<MainMenuHangarScreen>()).AsSingle();
+        Container.Bind<MainMenuHangarScreen>().FromInstance(FindObjectOfType<MainMenuHangarScreen>(true)).AsSingle();
     }
 }
