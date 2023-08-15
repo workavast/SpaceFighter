@@ -10,6 +10,7 @@ public class HangarSelectItemButton : MonoBehaviour
 
     public void _SelectWeaponForLevelUp()
     {
+        if(_hangarScreen == null) Debug.LogWarning("null");
         _hangarScreen.SelectItem(hangarSelectItemEnum);
     }
 }

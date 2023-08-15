@@ -7,7 +7,7 @@ public class PlayerGlobalData : MonoBehaviour
 {
     private struct Data
     {
-        public Dictionary<int, int> LevelsData;//levelNum-starsCount
+        public Dictionary<int, int> MissionsData;//levelNum-starsCount
         public Dictionary<PlayerWeaponsEnum, int> CurrentWeaponsLevels;
         public int CurrentSpaceshipLevel;
         public PlayerWeaponsEnum EquippedPlayerWeapon;
@@ -18,7 +18,7 @@ public class PlayerGlobalData : MonoBehaviour
     
     private Data _data;
 
-    public static IReadOnlyDictionary<int, int> LevelsData => _instance._data.LevelsData;
+    public static IReadOnlyDictionary<int, int> MissionsData => _instance._data.MissionsData;
     public static IReadOnlyDictionary<PlayerWeaponsEnum, int> CurrentWeaponsLevels => _instance._data.CurrentWeaponsLevels;
     public static int CurrentSpaceshipLevel => _instance._data.CurrentSpaceshipLevel;
     public static PlayerWeaponsEnum EquippedPlayerWeapon => _instance._data.EquippedPlayerWeapon;
@@ -46,13 +46,13 @@ public class PlayerGlobalData : MonoBehaviour
         Debug.Log(_instance._data.MoneyStarsCount);
     }
     
-    public static void ChangeLevelData(int levelNum, int starsCount)
+    public static void ChangeMissionData(int missionNum, int missionStarsCount)
     {
-        if (LevelsData.ContainsKey(levelNum))
+        if (MissionsData.ContainsKey(missionNum))
         {
-            if(starsCount > 3) throw new Exception("Stars count more than 3");
+            if(missionStarsCount > 3) throw new Exception("Stars count more than 3");
             
-            _instance._data.LevelsData[levelNum] = starsCount;
+            _instance._data.MissionsData[missionNum] = missionStarsCount;
         }
         else throw new Exception("Unsigned level num");
         
@@ -87,7 +87,7 @@ public class PlayerGlobalData : MonoBehaviour
         else
         {
             Debug.Log("Created PGD data");
-            _instance._data.LevelsData = new DictionaryInspector<int, int>()
+            _instance._data.MissionsData = new DictionaryInspector<int, int>()
                 { { 0, 1 }, { 1, 2 }, { 2, 3 }, { 3, 0 }, { 4, 0 } };
             _instance._data.MoneyStarsCount = 1000;
             _instance._data.EquippedPlayerWeapon = PlayerWeaponsEnum.AutoCannon;

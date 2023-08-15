@@ -801,7 +801,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8651674126331709022}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MoneyStarsData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6927972533477122145}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EnemiesData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1436,7 +1436,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4739415030852327590}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WavesData
   m_TagString: Untagged
   m_Icon: {fileID: 0}

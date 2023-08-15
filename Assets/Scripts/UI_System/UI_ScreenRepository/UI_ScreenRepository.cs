@@ -46,7 +46,7 @@ public class UI_ScreenRepository : MonoBehaviour
             case ScreensEnum.MainMenuHangarScreen:
                 return GetScreen<MainMenuHangarScreen>();
             case ScreensEnum.MainMenuLevelSelectionScreen:
-                return GetScreen<MainMenuLevelSelectionScreen>();
+                return GetScreen<MainMenuMissionSelectionScreen>();
             case ScreensEnum.MainMenuSettingsScreen:
                 return GetScreen<MainMenuSettingsScreen>();
             case ScreensEnum.GameplayMainScreen:
