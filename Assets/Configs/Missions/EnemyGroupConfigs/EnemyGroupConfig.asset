@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518c909ab408ef64193a09aa89e7a7a1, type: 3}
+  m_Name: EnemyGroupConfig
+  m_EditorClassIdentifier: 
+  <timePause>k__BackingField: 3.5
+  <subgroupsCount>k__BackingField: 5
+  <distanceBetweenSubgroups>k__BackingField: 10
+  <moveSpeed>k__BackingField: 2
+  <distanceBetweenEnemies>k__BackingField: 5
+  <enemySubgroup>k__BackingField: 000000000100000002000000030000000400000005000000
+  <path>k__BackingField: {fileID: 798988843928783536, guid: c822a82a2df5b3347813e8f552a5b974, type: 3}
+  <endOfPathInstruction>k__BackingField: 0
+  <pathWayMoveType>k__BackingField: 0
+  <rotationType>k__BackingField: 2
+  <accelerated>k__BackingField: 0
+  <acceleration>k__BackingField:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

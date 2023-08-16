@@ -126,6 +126,7 @@ Transform:
   - {fileID: 7397293741004708030}
   - {fileID: 8554129824906358675}
   - {fileID: 6858791647448107002}
+  - {fileID: 8531239424555799122}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -150,6 +151,7 @@ MonoBehaviour:
   - {fileID: 5381207944491617329}
   - {fileID: 5714306401154576185}
   - {fileID: 7076018384849075119}
+  - {fileID: 986822365786091815}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0
@@ -254,6 +256,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpaceshipsPrefabsConfig: {fileID: 11400000, guid: 7d0d76e3b9f28314696215653cda8a0e, type: 2}
+--- !u!1 &5865878846062524240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8531239424555799122}
+  - component: {fileID: 986822365786091815}
+  m_Layer: 0
+  m_Name: MissionDataConfigInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8531239424555799122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5865878846062524240}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8133169780408886010}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &986822365786091815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5865878846062524240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe0433a42e3ecfa46a17d33605b02bf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionsDataConfig: {fileID: 11400000, guid: 6d50723b623458c46ac75ad9f59d6e04, type: 2}
 --- !u!1 &6460871268647083511
 GameObject:
   m_ObjectHideFlags: 0

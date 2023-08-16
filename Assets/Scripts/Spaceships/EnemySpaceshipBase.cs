@@ -14,7 +14,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     
     private PathCreator _pathCreator;
     private EndOfPathInstruction _endOfPathInstruction;
-    private PathWayMoveType _moveType;
+    private EnemyPathWayMoveType _moveType;
     private EnemyRotationType _rotationType;
     private bool _accelerated;
     private AnimationCurve _acceleration;
@@ -68,15 +68,15 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         if (_distanceTravelled >= _pathCreator.path.length)
             switch (_moveType)
             {
-                case PathWayMoveType.Loop:
+                case EnemyPathWayMoveType.Loop:
                     _distanceTravelled -= _pathCreator.path.length;
                     break;
                 
-                case PathWayMoveType.OnEndRemove:
+                case EnemyPathWayMoveType.OnEndRemove:
                     ReturnElementEvent?.Invoke(this);
                     return;
                 
-                case PathWayMoveType.OnEndStop:
+                case EnemyPathWayMoveType.OnEndStop:
                     _distanceTravelled = _pathCreator.path.length;
                     _canMove = false;
                     _accelerationTimer = 0;
@@ -172,13 +172,13 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     }
     
     public void SetWaveData(float newMoveSpeed, PathCreator newPath, EndOfPathInstruction newEndOfPathInstruction, 
-        PathWayMoveType newPathWayMoveType, EnemyRotationType newEnemyRotationType, bool newAccelerated, 
+        EnemyPathWayMoveType newEnemyPathWayMoveType, EnemyRotationType newEnemyRotationType, bool newAccelerated, 
         AnimationCurve newAcceleration)
     {
         _moveSpeed = newMoveSpeed;
         ChangePathWay(newPath);
         _endOfPathInstruction = newEndOfPathInstruction;
-        _moveType = newPathWayMoveType;
+        _moveType = newEnemyPathWayMoveType;
         _rotationType = newEnemyRotationType;
         _accelerated = newAccelerated;
         _acceleration = newAcceleration;
