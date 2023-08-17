@@ -13,38 +13,5 @@ MonoBehaviour:
   m_Name: EnemyWavesConfig 2
   m_EditorClassIdentifier: 
   <enemyWaves>k__BackingField:
-  - enemyGroups:
-    - timePause: 0
-      subgroupsCount: 0
-      distanceBetweenSubgroups: 0
-      moveSpeed: 0
-      distanceBetweenEnemies: 0
-      enemySubgroup: 
-      path: {fileID: 0}
-      endOfPathInstruction: 0
-      moveType: 0
-      rotationType: 0
-      accelerated: 0
-      acceleration:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-    - timePause: 0
-      subgroupsCount: 0
-      distanceBetweenSubgroups: 0
-      moveSpeed: 0
-      distanceBetweenEnemies: 0
-      enemySubgroup: 
-      path: {fileID: 0}
-      endOfPathInstruction: 0
-      moveType: 0
-      rotationType: 0
-      accelerated: 0
-      acceleration:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
+  - {fileID: 11400000, guid: 569648f66631e0645a56b74bb796bc05, type: 2}
+  - {fileID: 11400000, guid: c0291580eb40ffd4cad71b0a854f1b1c, type: 2}

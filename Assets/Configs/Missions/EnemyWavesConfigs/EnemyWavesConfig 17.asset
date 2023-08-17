@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5b84a86447bd884fb6c216b485e8c99, type: 3}
-  m_Name: EnemyWavesConfig 4
+  m_Name: EnemyWavesConfig 17
   m_EditorClassIdentifier: 
   <enemyWaves>k__BackingField:
   - {fileID: 11400000, guid: 569648f66631e0645a56b74bb796bc05, type: 2}

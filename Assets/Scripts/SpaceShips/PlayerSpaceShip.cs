@@ -110,6 +110,7 @@ public class PlayerSpaceship : SpaceshipBase
     
     private void StopShooting()
     {
+        Debug.LogWarning("Is die");
         _weapon.StopShoot();
     }
     

@@ -555,17 +555,13 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 1480604587}
-    - target: {fileID: 261505925759430594, guid: e26a1a6c1906a274f8c862c1bd3b953f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 261505925759430596, guid: e26a1a6c1906a274f8c862c1bd3b953f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 261505925998932889, guid: e26a1a6c1906a274f8c862c1bd3b953f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 261505926212322670, guid: e26a1a6c1906a274f8c862c1bd3b953f, type: 3}
       propertyPath: m_IsActive
