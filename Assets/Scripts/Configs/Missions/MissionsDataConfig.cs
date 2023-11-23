@@ -12,7 +12,8 @@ namespace MissionsDataConfigsSystem
         public EnemyWavesConfig GetMissionData(int missionNum)
         {
             if (missionNum < 0 || missionNum > missionsData.Count) throw new Exception("Incorrect mission num");
-
+            
+            Debug.Log(missionNum);
             return missionsData[missionNum];
         }
     }

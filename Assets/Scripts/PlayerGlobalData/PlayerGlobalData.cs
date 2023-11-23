@@ -5,9 +5,23 @@ using UnityEngine;
 
 public class PlayerGlobalData : MonoBehaviour
 {
+    public struct MissionCell
+    {
+        public bool star_1 { get; private set; }
+        public bool star_2 { get; private set; }
+        public bool star_3 { get; private set; }
+
+        public MissionCell(bool star1,bool star2, bool star3)
+        {
+            star_1 = star1;
+            star_2 = star2;
+            star_3 = star3;
+        }
+    }
+
     private struct Data
     {
-        public Dictionary<int, int> MissionsData;//levelNum-starsCount
+        public List<MissionCell> MissionsData;//levelNum-starsCount
         public Dictionary<PlayerWeaponsEnum, int> CurrentWeaponsLevels;
         public int CurrentSpaceshipLevel;
         public PlayerWeaponsEnum EquippedPlayerWeapon;
@@ -18,7 +32,7 @@ public class PlayerGlobalData : MonoBehaviour
     
     private Data _data;
 
-    public static IReadOnlyDictionary<int, int> MissionsData => _instance._data.MissionsData;
+    public static IReadOnlyList<MissionCell> MissionsData => _instance._data.MissionsData;
     public static IReadOnlyDictionary<PlayerWeaponsEnum, int> CurrentWeaponsLevels => _instance._data.CurrentWeaponsLevels;
     public static int CurrentSpaceshipLevel => _instance._data.CurrentSpaceshipLevel;
     public static PlayerWeaponsEnum EquippedPlayerWeapon => _instance._data.EquippedPlayerWeapon;
@@ -46,15 +60,22 @@ public class PlayerGlobalData : MonoBehaviour
         Debug.Log(_instance._data.MoneyStarsCount);
     }
     
-    public static void ChangeMissionData(int missionNum, int missionStarsCount)
+    public static void ChangeMissionData(int missionNum, int starCount)
     {
-        if (MissionsData.ContainsKey(missionNum))
+        if (missionNum < 0 && missionNum > MissionsData.Count) throw new Exception("Unsigned level num");
+        if (starCount < 0) throw new Exception("Unsigned level num");
+
+        MissionCell newMissionCell;
+        switch (starCount)
         {
-            if(missionStarsCount > 3) throw new Exception("Stars count more than 3");
-            
-            _instance._data.MissionsData[missionNum] = missionStarsCount;
+            case 0: newMissionCell = new MissionCell();break;
+            case 1: newMissionCell = new MissionCell(true, false, false); break;
+            case 2: newMissionCell = new MissionCell(true, true, false); break;
+            default: newMissionCell = new MissionCell(true, true, true); break;
         }
-        else throw new Exception("Unsigned level num");
+        
+        MissionCell oldMissionCell = _instance._data.MissionsData[missionNum];
+        _instance._data.MissionsData[missionNum] = new MissionCell(oldMissionCell.star_1 || newMissionCell.star_1, oldMissionCell.star_2 || newMissionCell.star_2, oldMissionCell.star_3 || newMissionCell.star_3);
         
         SaveData();
     }
@@ -87,8 +108,14 @@ public class PlayerGlobalData : MonoBehaviour
         else
         {
             Debug.Log("Created PGD data");
-            _instance._data.MissionsData = new DictionaryInspector<int, int>()
-                { { 0, 1 }, { 1, 2 }, { 2, 3 }, { 3, 0 }, { 4, 0 } };
+            _instance._data.MissionsData = new List<MissionCell>();
+
+            for (int i = 0; i < 21; i++)
+            {
+                _instance._data.MissionsData.Add(new MissionCell());
+            }
+            _instance._data.MissionsData[0] = new MissionCell(true,true, false);
+
             _instance._data.MoneyStarsCount = 1000;
             _instance._data.EquippedPlayerWeapon = PlayerWeaponsEnum.AutoCannon;
             _instance._data.CurrentSpaceshipLevel = 1;

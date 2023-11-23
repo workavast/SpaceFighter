@@ -44,6 +44,8 @@ public class PlayerSpaceship : SpaceshipBase
     [Inject] private PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
     [Inject] private DiContainer _diContainer;
 
+    public event Action OnTakeDamage;
+    
     protected override void OnAwake()
     {
         if (Instance)
@@ -133,6 +135,7 @@ public class PlayerSpaceship : SpaceshipBase
     {
         base.TakeDamage(damage);
 
+        OnTakeDamage?.Invoke();
         if (_currentDamageSprite.CurrentValue >= 0 && _currentDamageSprite.CurrentValue < damageAnimatorTriggerData.Count)
         {
             if (!_currentDamageSprite.IsFull && damageAnimatorTriggerData[_currentDamageSprite.CurrentValue + 1].healthPointsPercent > healthPoints.FillingPercentage)

@@ -19,6 +19,8 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
     private int _nextWave = 0;
 
     private bool _levelCompleted = false;
+
+    public event Action OnReturnUnDestroyedShip;
     
     private void Awake()
     {
@@ -103,6 +105,12 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
     
     private EnemySpaceshipBase EnemySpaceShipInstantiate(EnemySpaceshipsEnum id)
     {
-        return EnemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform).GetComponentInChildren<EnemySpaceshipBase>();
+        EnemySpaceshipBase enemySpaceshipBase = EnemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform).GetComponentInChildren<EnemySpaceshipBase>();
+        enemySpaceshipBase.OnDead += () => _destroyedShipsCount++;
+        enemySpaceshipBase.OnReturnWithoutDestroying += () => _unDestroyedShipsCount++;
+        return enemySpaceshipBase;
     }
+
+    private int _destroyedShipsCount = 0;
+    private int _unDestroyedShipsCount = 0;
 }

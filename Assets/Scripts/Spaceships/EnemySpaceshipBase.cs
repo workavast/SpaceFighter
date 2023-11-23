@@ -34,6 +34,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     protected event Action OnElementExtractFromPoolEvent;
     protected event Action OnElementReturnInPoolEvent;
     protected event Action OnHandleUpdate;
+    public event Action OnReturnWithoutDestroying;
     
     protected override void OnAwake()
     {
@@ -73,6 +74,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
                     break;
                 
                 case EnemyPathWayMoveType.OnEndRemove:
+                    OnReturnWithoutDestroying?.Invoke();
                     ReturnElementEvent?.Invoke(this);
                     return;
                 
