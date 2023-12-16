@@ -13,5 +13,6 @@ namespace SomeStorages
         public event System.Action<TDataType> OnMaxValueChange;
         public event System.Action<TDataType> OnCurrentValueChange;
         public event System.Action<TDataType> OnMinValueChange;
+        public event System.Action OnChange;
     }
 }

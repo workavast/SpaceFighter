@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SomeStorages
@@ -22,7 +20,8 @@ namespace SomeStorages
         public abstract event System.Action<TDataType> OnMaxValueChange;
         public abstract event System.Action<TDataType> OnCurrentValueChange;
         public abstract event System.Action<TDataType> OnMinValueChange;
-
+        public abstract event System.Action OnChange;
+        
         public abstract void SetMaxValue(TDataType newMaxValue);
 
         public abstract void SetCurrentValue(TDataType newCurrentValue);
