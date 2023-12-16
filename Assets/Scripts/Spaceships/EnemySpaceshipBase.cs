@@ -101,7 +101,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
                 break;
             
             case EnemyRotationType.PlayerTarget:
-                transform.up = PlayerSpaceship2.Instance.transform.position - transform.position;
+                transform.up = PlayerSpaceship.Instance.transform.position - transform.position;
                 break;
             
             case EnemyRotationType.PathWayRotation:

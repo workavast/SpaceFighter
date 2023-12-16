@@ -8,7 +8,7 @@ using Zenject.SpaceFighter;
 public class MissionStarsController : MonoBehaviour
 {
     private MissionCycleController _missionCycleController;
-    private PlayerSpaceship2 _playerSpaceship;
+    private PlayerSpaceship _playerSpaceship;
     private EnemySpaceshipsSpawner _enemySpawner;
     
     private int _currentStarsNum = 3;

@@ -5,7 +5,7 @@ using SomeStorages;
 using UnityEditor;
 using Zenject;
 
-public class PlayerSpaceship2 : SpaceshipBase
+public class PlayerSpaceship : SpaceshipBase
 {
     private enum DamageAnimatorTriggerName
     {
@@ -32,7 +32,7 @@ public class PlayerSpaceship2 : SpaceshipBase
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected bool canShoot;
     
-    public static PlayerSpaceship2 Instance { get; private set; }
+    public static PlayerSpaceship Instance { get; private set; }
    
     private Transform _playAreaLeftDownPivot;
     private Camera _camera;

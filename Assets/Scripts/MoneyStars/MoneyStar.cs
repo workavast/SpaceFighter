@@ -29,7 +29,7 @@ public class MoneyStar : MonoBehaviour, PoolSystem.IPoolable<MoneyStar>, IPlayAr
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.TryGetComponent<PlayerSpaceship2>(out PlayerSpaceship2 playerSpaceship))
+        if (col.TryGetComponent<PlayerSpaceship>(out PlayerSpaceship playerSpaceship))
         {
             LevelMoneyStarsCounter.ChangeValue(1);
             ReturnElementEvent?.Invoke(this);
