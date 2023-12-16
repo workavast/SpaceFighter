@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: PlayerSpaceshipLevelsConfig
   m_EditorClassIdentifier: 
   data:
-  - <HealthPoints>k__BackingField: 0
-    <Price>k__BackingField: 0
   - <HealthPoints>k__BackingField: 100
     <Price>k__BackingField: 100
   - <HealthPoints>k__BackingField: 110
@@ -23,3 +21,5 @@ MonoBehaviour:
     <Price>k__BackingField: 120
   - <HealthPoints>k__BackingField: 130
     <Price>k__BackingField: 130
+  - <HealthPoints>k__BackingField: 140
+    <Price>k__BackingField: 140

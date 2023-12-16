@@ -90,7 +90,7 @@ public class PlayerSpaceship : SpaceshipBase
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        EnemySpaceshipBase enemySpaceshipBase = col.gameObject.GetComponentInChildren<EnemySpaceshipBase>();
+        EnemySpaceshipBase enemySpaceshipBase = col.gameObject.GetComponent<EnemySpaceshipBase>();
         if (enemySpaceshipBase)
         {
             TakeDamage(enemySpaceshipBase.CollisionDamage);
