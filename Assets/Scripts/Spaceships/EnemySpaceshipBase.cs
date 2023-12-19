@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
-using SomeStorages;
 using PoolSystem;
 
-public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpaceshipBase, EnemySpaceshipsEnum>, IHandleUpdate
+public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpaceshipBase, EnemySpaceshipsEnum>
 {
     [Space]
     [SerializeField] private float collisionDamage = 1;
@@ -47,7 +45,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         _animationControllerEnemy.OnAwake(this);
     }
 
-    public void HandleUpdate()
+    public override void HandleUpdate()
     {
         if(IsDead) return;
         

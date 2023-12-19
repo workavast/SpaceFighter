@@ -39,7 +39,7 @@ public class EnemySpaceshipsManager : ManagerBase
         }
     }
 
-    protected override void OnStart()
+    protected void Start()
     {
         enemyWaves = SelectedMissionData.EnemyWavesConfig.enemyWaves;
         CallWave();

@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using SomeStorages;
 
 [RequireComponent(typeof(PolygonCollider2D), typeof(Rigidbody2D))]
-public class SpaceshipBase : MonoBehaviour, IDamageable
+public class SpaceshipBase : MonoBehaviour, IDamageable, IHandleUpdate
 {
     [SerializeField] protected SomeStorageFloat healthPoints;
     
@@ -29,4 +26,6 @@ public class SpaceshipBase : MonoBehaviour, IDamageable
             OnDead?.Invoke();
         }
     }
+
+    public virtual void HandleUpdate() { }
 }

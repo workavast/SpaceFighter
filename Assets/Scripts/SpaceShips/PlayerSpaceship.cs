@@ -2,59 +2,34 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SomeStorages;
-using UnityEditor;
-using Zenject;
 
 public class PlayerSpaceship : SpaceshipBase
 {
-    private enum DamageAnimatorTriggerName
-    {
-        NoDamage,
-        SlightDamage,
-        AverageDamage,
-        SignificantDamage
-    }
-    
-    [Serializable]
-    private struct DamageAnimatorTriggerData
-    {
-        public DamageAnimatorTriggerName animatorTriggerName;
-        
-        [Tooltip("Percent of health points at which animatorTriggerName apply in animator (0 -> 0%; 1 -> 100%)")] 
-        [Range(0,1)] public float healthPointsPercent;
-    }
-    
     [Space]
     [SerializeField] private Animator spaceshipModelAnimator;
     [SerializeField] private List<DamageAnimatorTriggerData> damageAnimatorTriggerData;
     [SerializeField] private Transform weaponPosition;
     [SerializeField] protected bool canMove;
     [SerializeField] protected float moveSpeed;
-    [SerializeField] protected bool canShoot;
-    
+
+    public Transform WeaponPosition => weaponPosition;
+
     public static PlayerSpaceship Instance { get; private set; }
    
     private Transform _playAreaLeftDownPivot;
     private Camera _camera;
     
     private SomeStorageInt _currentDamageSprite;
-    private PlayerWeaponBase _weapon;
     
-    [Inject] private PlayerWeaponConfig _playerWeaponConfig;
-    [Inject] private PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
-    [Inject] private DiContainer _diContainer;
-
     public event Action OnTakeDamage;
-    
-    protected override void OnAwake()
+
+    public void Initialization(PlayerSpaceshipLevelsConfig playerSpaceshipLevelsConfig)
     {
         if (Instance)
         {
             Destroy(this);
             return;
         }
-        
-        base.OnAwake();
         
         Instance = this;
         
@@ -67,7 +42,8 @@ public class PlayerSpaceship : SpaceshipBase
         }
 
         _currentDamageSprite = new SomeStorageInt(damageAnimatorTriggerData.Count - 1);
-        float healthPointsValue = _playerSpaceshipLevelsConfig.LevelsHealthPoints[PlayerGlobalData.CurrentSpaceshipLevel];
+        
+        float healthPointsValue = playerSpaceshipLevelsConfig.LevelsHealthPoints[PlayerGlobalData.CurrentSpaceshipLevel];
         healthPoints = new SomeStorageFloat(healthPointsValue,healthPointsValue);
     }
     
@@ -75,19 +51,14 @@ public class PlayerSpaceship : SpaceshipBase
     {
         base.OnStart();
         
-        SpawnWeapon();
-        OnDead += StopShooting;
-
         _playAreaLeftDownPivot = PlayArea.Instance.LeftDownPivot;
     }
-    
-    private void Update()
+
+    public override void HandleUpdate()
     {
         if(canMove) Move();
-
-        _weapon.HandleUpdate();
     }
-    
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         EnemySpaceshipBase enemySpaceshipBase = col.gameObject.GetComponent<EnemySpaceshipBase>();
@@ -96,25 +67,6 @@ public class PlayerSpaceship : SpaceshipBase
             TakeDamage(enemySpaceshipBase.CollisionDamage);
             enemySpaceshipBase.TakeDamage(float.MaxValue);
         }
-    }
-    
-    private void SpawnWeapon()
-    {
-        if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(PlayerGlobalData.EquippedPlayerWeapon,
-                out GameObject prefab))
-        {
-            GameObject weapon = _diContainer.InstantiatePrefab(prefab, weaponPosition);
-            _weapon = weapon.GetComponent<PlayerWeaponBase>();
-            _weapon.Initialization();
-        }
-        else
-            throw new Exception("Dictionary don't contain this WeaponsEnum");
-    }
-    
-    private void StopShooting()
-    {
-        Debug.LogWarning("Is die");
-        _weapon.StopShoot();
     }
     
     protected void Move()
@@ -153,5 +105,22 @@ public class PlayerSpaceship : SpaceshipBase
                 }
             }
         }
+    }
+    
+    private enum DamageAnimatorTriggerName
+    {
+        NoDamage,
+        SlightDamage,
+        AverageDamage,
+        SignificantDamage
+    }
+    
+    [Serializable]
+    private struct DamageAnimatorTriggerData
+    {
+        public DamageAnimatorTriggerName animatorTriggerName;
+        
+        [Tooltip("Percent of health points at which animatorTriggerName apply in animator (0 -> 0%; 1 -> 100%)")] 
+        [Range(0,1)] public float healthPointsPercent;
     }
 }

@@ -15,12 +15,8 @@ namespace Managers
             
             OnAwake();
         }
-
-        private void Start() => OnStart();
         
         protected virtual void OnAwake() { }
-        
-        protected virtual void OnStart() { }
         
         public virtual void GameCycleUpdate() { }
     }
