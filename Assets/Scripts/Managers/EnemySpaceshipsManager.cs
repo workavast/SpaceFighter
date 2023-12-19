@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GameCycle;
+using Managers;
 using UnityEngine;
 using MissionsDataConfigsSystem;
 using PoolSystem;
-using Zenject;
 
-public class EnemySpaceshipsManager : MonoBehaviour
+public class EnemySpaceshipsManager : ManagerBase
 {
+    protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+
     [SerializeField] private List<EnemyWaveConfig> enemyWaves;
     
     private Pool<EnemySpaceshipBase, EnemySpaceshipsEnum> _spaceShipsPool;
@@ -18,12 +20,15 @@ public class EnemySpaceshipsManager : MonoBehaviour
 
     private int _currentGroupsCount = 0;
     private int _nextWave = 0;
-
+    
+    private int _destroyedShipsCount = 0;
+    private int _unDestroyedShipsCount = 0;
+    
     private bool _levelCompleted = false;
 
     public event Action OnReturnUnDestroyedShip;
-    
-    private void Awake()
+
+    protected override void OnAwake()
     {
         _spaceShipsPool = new Pool<EnemySpaceshipBase, EnemySpaceshipsEnum>(EnemySpaceShipInstantiate);
         
@@ -34,13 +39,13 @@ public class EnemySpaceshipsManager : MonoBehaviour
         }
     }
 
-    void Start()
+    protected override void OnStart()
     {
         enemyWaves = SelectedMissionData.EnemyWavesConfig.enemyWaves;
         CallWave();
     }
-
-    public void Update()
+    
+    public override void GameCycleUpdate()
     {
         IReadOnlyDictionary<EnemySpaceshipsEnum, IReadOnlyList<EnemySpaceshipBase>> buse = _spaceShipsPool.BusyElements;
 
@@ -53,7 +58,6 @@ public class EnemySpaceshipsManager : MonoBehaviour
                 break;
             }
         }
-
 
         if (buseEmpty && _currentGroupsCount <= 0 && _nextWave >= enemyWaves.Count && !_levelCompleted)
         {
@@ -111,7 +115,4 @@ public class EnemySpaceshipsManager : MonoBehaviour
         enemySpaceshipBase.OnReturnWithoutDestroying += () => _unDestroyedShipsCount++;
         return enemySpaceshipBase;
     }
-
-    private int _destroyedShipsCount = 0;
-    private int _unDestroyedShipsCount = 0;
 }

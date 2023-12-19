@@ -1,19 +1,22 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GameCycle;
+using Managers;
 using UnityEngine;
 using PoolSystem;
 
-public class EnemyProjectilesManager : MonoBehaviour
+public class EnemyProjectilesManager : ManagerBase
 {
+    protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+
     private static EnemyProjectilesManager _instance;
     
     private Pool<EnemyProjectileBase, EnemyProjectilesEnum> _projectilesPool;
 
     private Dictionary<EnemyProjectilesEnum, GameObject> _projectilesParents = new Dictionary<EnemyProjectilesEnum, GameObject>();
 
-    private void Awake()
+    protected override void OnAwake()
     {
         if (_instance)
         {
@@ -32,7 +35,7 @@ public class EnemyProjectilesManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public override void GameCycleUpdate()
     {
         IReadOnlyList<IReadOnlyList<IHandleUpdate>> list = _projectilesPool.BusyElementsValues;
         for (int i = 0; i < list.Count(); i++)

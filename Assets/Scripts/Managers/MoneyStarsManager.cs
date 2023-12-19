@@ -1,18 +1,18 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using GameCycle;
+using Managers;
 using PoolSystem;
 using UnityEngine;
-using Zenject;
 
-public class MoneyStarsManager : MonoBehaviour
+public class MoneyStarsManager : ManagerBase
 {
+    protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+
     private static MoneyStarsManager _instance;
     
     private Pool<MoneyStar> _projectilesPool;
     
-    private void Awake()
+    protected override void OnAwake()
     {
         if (_instance)
         {
@@ -25,7 +25,7 @@ public class MoneyStarsManager : MonoBehaviour
         _projectilesPool = new Pool<MoneyStar>(EnemySpaceShipInstantiate);
     }
     
-    private void Update()
+    public override void GameCycleUpdate()
     {
         IReadOnlyList<IHandleUpdate> list = _projectilesPool.BusyElements;
         for (int i = 0; i < list.Count; i++)
