@@ -44,7 +44,7 @@ public abstract class PlayerWeaponBase : MonoBehaviour
     {
         for (int i = 0; i < ShootsPositions.Count; i++)
         {
-            if (PlayerProjectilesSpawner.SpawnProjectile(ProjectileId, ShootsPositions[i],
+            if (PlayerProjectilesManager.SpawnProjectile(ProjectileId, ShootsPositions[i],
                     out PlayerProjectileBase playerProjectileBase))
             {
                 playerProjectileBase.SetData(Damage);

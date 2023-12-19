@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GameCycle;
 using UnityEngine;
-
 using MissionsDataConfigsSystem;
 using PoolSystem;
+using Zenject;
 
-public class EnemySpaceshipsSpawner : MonoBehaviour
+public class EnemySpaceshipsManager : MonoBehaviour
 {
     [SerializeField] private List<EnemyWaveConfig> enemyWaves;
     
@@ -39,7 +40,7 @@ public class EnemySpaceshipsSpawner : MonoBehaviour
         CallWave();
     }
 
-    private void Update()
+    public void Update()
     {
         IReadOnlyDictionary<EnemySpaceshipsEnum, IReadOnlyList<EnemySpaceshipBase>> buse = _spaceShipsPool.BusyElements;
 

@@ -9,7 +9,7 @@ public class MissionStarsController : MonoBehaviour
 {
     private MissionCycleController _missionCycleController;
     private PlayerSpaceship _playerSpaceship;
-    private EnemySpaceshipsSpawner _enemySpawner;
+    private EnemySpaceshipsManager _enemyManager;
     
     private int _currentStarsNum = 3;
 

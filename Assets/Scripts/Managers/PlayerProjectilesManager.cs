@@ -5,9 +5,9 @@ using System.Linq;
 using UnityEngine;
 using PoolSystem;
 
-public class PlayerProjectilesSpawner : MonoBehaviour
+public class PlayerProjectilesManager : MonoBehaviour
 {
-    private static PlayerProjectilesSpawner _instance;
+    private static PlayerProjectilesManager _instance;
     
     private Pool<PlayerProjectileBase, PlayerProjectilesEnum> _projectilesPool;
 

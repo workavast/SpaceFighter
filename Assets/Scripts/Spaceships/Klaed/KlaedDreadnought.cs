@@ -31,7 +31,7 @@ public class KlaedDreadnought : ShootingEnemySpaceshipBase
 
         foreach (var shootPos in shootPositions)
         {
-            if (EnemyProjectilesSpawner.SpawnProjectile(ProjectileId, shootPos,
+            if (EnemyProjectilesManager.SpawnProjectile(ProjectileId, shootPos,
                     out EnemyProjectileBase enemyProjectileBase))
             {
                 (enemyProjectileBase as EnemyRay).SetMount(shootPos);

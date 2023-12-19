@@ -6,9 +6,9 @@ using PoolSystem;
 using UnityEngine;
 using Zenject;
 
-public class MoneyStarsSpawner : MonoBehaviour
+public class MoneyStarsManager : MonoBehaviour
 {
-    private static MoneyStarsSpawner _instance;
+    private static MoneyStarsManager _instance;
     
     private Pool<MoneyStar> _projectilesPool;
     
