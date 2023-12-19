@@ -26,7 +26,7 @@ public class PlayerProjectilesManager : ManagerBase
 
         _instance = this;
         
-        _projectilesPool = new Pool<PlayerProjectileBase, PlayerProjectilesEnum>(EnemySpaceShipInstantiate);
+        _projectilesPool = new Pool<PlayerProjectileBase, PlayerProjectilesEnum>(PlayerProjectileInstantiate);
         
         foreach (var enemyShipId in Enum.GetValues(typeof(PlayerProjectilesEnum)).Cast<PlayerProjectilesEnum>())
         {
@@ -43,7 +43,7 @@ public class PlayerProjectilesManager : ManagerBase
             list[i][j].HandleUpdate();
     }
     
-    private PlayerProjectileBase EnemySpaceShipInstantiate(PlayerProjectilesEnum id)
+    private PlayerProjectileBase PlayerProjectileInstantiate(PlayerProjectilesEnum id)
     {
         return PlayerProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponentInChildren<PlayerProjectileBase>();
     }
