@@ -22,7 +22,7 @@ public class ZapperProjectile : PlayerProjectileBase
         OnElementReturnInPoolEvent += OnElementReturnInPoolMethod;
     }
 
-    protected override void Move()
+    protected override void Move(float time)
     {
         if (_follower) transform.position = _follower.position;
     }

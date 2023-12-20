@@ -71,7 +71,7 @@ public class EnemySpaceshipsManager : ManagerBase
         IReadOnlyList<IReadOnlyList<IHandleUpdate>> list = _spaceShipsPool.BusyElementsValues;
         for (int i = 0; i < list.Count(); i++)
         for (int j = 0; j < list[i].Count; j++)
-            list[i][j].HandleUpdate();
+            list[i][j].HandleUpdate(Time.deltaTime);
     }
 
     private void CallWave()
@@ -98,7 +98,9 @@ public class EnemySpaceshipsManager : ManagerBase
             {
                 if(_spaceShipsPool.ExtractElement(enemyGroup.enemySubgroup[j], out EnemySpaceshipBase enemySpaceShip))
                 {
-                    enemySpaceShip.SetWaveData(enemyGroup.moveSpeed,enemyGroup.path,enemyGroup.endOfPathInstruction,enemyGroup.pathWayMoveType,enemyGroup.rotationType,enemyGroup.accelerated,enemyGroup.acceleration);
+                    enemySpaceShip.SetWaveData(enemyGroup.moveSpeed, enemyGroup.path, enemyGroup.endOfPathInstruction,
+                        enemyGroup.pathWayMoveType, enemyGroup.rotationType, enemyGroup.accelerated,
+                        enemyGroup.acceleration);
                 }
                 yield return new WaitForSeconds(timePauseBetweenEnemies);
             }
@@ -110,7 +112,8 @@ public class EnemySpaceshipsManager : ManagerBase
     
     private EnemySpaceshipBase EnemySpaceShipInstantiate(EnemySpaceshipsEnum id)
     {
-        EnemySpaceshipBase enemySpaceshipBase = EnemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform).GetComponentInChildren<EnemySpaceshipBase>();
+        EnemySpaceshipBase enemySpaceshipBase = EnemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform)
+            .GetComponentInChildren<EnemySpaceshipBase>();
         enemySpaceshipBase.OnDead += () => _destroyedShipsCount++;
         enemySpaceshipBase.OnReturnWithoutDestroying += () => _unDestroyedShipsCount++;
         return enemySpaceshipBase;

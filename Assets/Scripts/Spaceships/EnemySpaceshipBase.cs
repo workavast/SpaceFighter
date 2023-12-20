@@ -45,25 +45,25 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         _animationControllerEnemy.OnAwake(this);
     }
 
-    public override void HandleUpdate()
+    public override void HandleUpdate(float time)
     {
         if(IsDead) return;
         
-        if (_pathCreator && _canMove) Move();
+        if (_pathCreator && _canMove) Move(time);
         if (_pathCreator) Rotate();
         
         OnHandleUpdate?.Invoke();
     }
 
-    private void Move()
+    private void Move(float time)
     {
         if (_accelerated)
         {
-            _accelerationTimer += Time.deltaTime;
-            _moveSpeed += _acceleration.Evaluate(_accelerationTimer) * Time.deltaTime;
+            _accelerationTimer += time;
+            _moveSpeed += _acceleration.Evaluate(_accelerationTimer) * time;
         }
         
-        _distanceTravelled += _moveSpeed * Time.deltaTime;
+        _distanceTravelled += _moveSpeed * time;
         if (_distanceTravelled >= _pathCreator.path.length)
             switch (_moveType)
             {

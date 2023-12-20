@@ -29,7 +29,7 @@ public class MoneyStarsManager : ManagerBase
     {
         IReadOnlyList<IHandleUpdate> list = _projectilesPool.BusyElements;
         for (int i = 0; i < list.Count; i++)
-            list[i].HandleUpdate();
+            list[i].HandleUpdate(Time.deltaTime);
     }
     
     private MoneyStar EnemySpaceShipInstantiate()

@@ -1,4 +1,4 @@
 public interface IHandleUpdate
 {
-    public void HandleUpdate();
+    public void HandleUpdate(float time);
 }

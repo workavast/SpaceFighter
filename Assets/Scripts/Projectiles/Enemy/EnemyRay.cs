@@ -21,7 +21,7 @@ public class EnemyRay : EnemyProjectileBase
         OnElementReturnInPoolEvent += CancelExistTimer;
     }
 
-    protected override void Move()
+    protected override void Move(float time)
     {
         if (_follower)
         {

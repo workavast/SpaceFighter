@@ -21,11 +21,11 @@ public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<
     protected event Action OnElementExtractFromPoolEvent;
     protected event Action OnElementReturnInPoolEvent;
     
-    public void HandleUpdate() => Move();
+    public void HandleUpdate(float time) => Move(time);
 
-    protected virtual void Move()
+    protected virtual void Move(float time)
     {
-        transform.Translate(Vector3.up * (moveSpeed * Time.deltaTime));
+        transform.Translate(Vector3.up * (moveSpeed * time));
     }
     
     public void OnExtractFromPool()

@@ -40,7 +40,7 @@ public class PlayerProjectilesManager : ManagerBase
         IReadOnlyList<IReadOnlyList<IHandleUpdate>> list = _projectilesPool.BusyElementsValues;
         for (int i = 0; i < list.Count(); i++)
         for (int j = 0; j < list[i].Count; j++)
-            list[i][j].HandleUpdate();
+            list[i][j].HandleUpdate(Time.deltaTime);
     }
     
     private PlayerProjectileBase PlayerProjectileInstantiate(PlayerProjectilesEnum id)

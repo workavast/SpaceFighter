@@ -28,7 +28,7 @@ namespace Managers
         
         public override void GameCycleUpdate()
         {
-            _playerSpaceship.HandleUpdate();
+            _playerSpaceship.HandleUpdate(Time.deltaTime);
             _weapon.HandleUpdate();
         }
         

@@ -9,8 +9,8 @@ public class RocketProjectile : PlayerProjectileBase
     protected override bool DestroyableOnCollision => true;
     protected override bool ReturnInPoolOnExitFromPlayArea => true;
     
-    protected override void Move()
+    protected override void Move(float time)
     {
-        transform.Translate(Vector3.up * (moveSpeed * Time.deltaTime));
+        transform.Translate(Vector3.up * (moveSpeed * time));
     }
 }

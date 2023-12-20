@@ -54,7 +54,7 @@ public class PlayerSpaceship : SpaceshipBase
         _playAreaLeftDownPivot = PlayArea.Instance.LeftDownPivot;
     }
 
-    public override void HandleUpdate()
+    public override void HandleUpdate(float time)
     {
         if(canMove) Move();
     }

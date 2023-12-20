@@ -27,5 +27,5 @@ public class SpaceshipBase : MonoBehaviour, IDamageable, IHandleUpdate
         }
     }
 
-    public virtual void HandleUpdate() { }
+    public virtual void HandleUpdate(float time) { }
 }
