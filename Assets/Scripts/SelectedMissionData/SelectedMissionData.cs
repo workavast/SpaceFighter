@@ -5,11 +5,11 @@ namespace MissionsDataConfigsSystem
 {
     public class SelectedMissionData : MonoBehaviour
     {
-        [Inject] private MissionsDataConfig _missionsDataConfig;
+        [Inject] private MissionsConfig _missionsConfig;
         private static SelectedMissionData _instance;
 
-        private EnemyWavesConfig _enemyWavesConfig;
-        public static EnemyWavesConfig EnemyWavesConfig => _instance._enemyWavesConfig;
+        private MissionConfig _missionConfig;
+        public static MissionConfig MissionConfig => _instance._missionConfig;
 
         private void Awake()
         {
@@ -21,7 +21,7 @@ namespace MissionsDataConfigsSystem
 
             _instance = this;
 
-            _enemyWavesConfig = null;
+            _missionConfig = null;
 
             DontDestroyOnLoad(this);
             
@@ -30,7 +30,7 @@ namespace MissionsDataConfigsSystem
 
         public static void SetMissionData(int missionNum)
         {
-            _instance._enemyWavesConfig = _instance._missionsDataConfig.GetMissionData(missionNum);
+            _instance._missionConfig = _instance._missionsConfig.GetMissionData(missionNum);
         }
     }
 }

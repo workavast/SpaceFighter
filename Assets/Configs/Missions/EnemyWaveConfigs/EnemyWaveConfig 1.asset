@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3169d36eaf9204da994c9e2b4f2882, type: 3}
   m_Name: EnemyWaveConfig 1
   m_EditorClassIdentifier: 
-  <enemyWave>k__BackingField:
+  <GroupsConfigs>k__BackingField:
   - {fileID: 11400000, guid: 2512b2b8f0883d547b24a81eae214333, type: 2}
   - {fileID: 11400000, guid: f7266c412d81b0245a493b589bfa2cf6, type: 2}

@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 8531239424555799122}
   - component: {fileID: 986822365786091815}
   m_Layer: 0
-  m_Name: MissionDataConfigInstaller
+  m_Name: MissionConfigInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0433a42e3ecfa46a17d33605b02bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionsDataConfig: {fileID: 11400000, guid: 6d50723b623458c46ac75ad9f59d6e04, type: 2}
+  missionsConfig: {fileID: 11400000, guid: 6d50723b623458c46ac75ad9f59d6e04, type: 2}
 --- !u!1 &6460871268647083511
 GameObject:
   m_ObjectHideFlags: 0

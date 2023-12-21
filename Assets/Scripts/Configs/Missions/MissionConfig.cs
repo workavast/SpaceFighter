@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace MissionsDataConfigsSystem
 {
-    [CreateAssetMenu(fileName = "EnemyWavesConfig", menuName = "SO/EnemyWavesConfig")]
-    public class EnemyWavesConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "MissionConfig", menuName = "SO/MissionConfig")]
+    public class MissionConfig : ScriptableObject
     {
         [field: SerializeField] public List<EnemyWaveConfig> enemyWaves { get; private set; }
     }
