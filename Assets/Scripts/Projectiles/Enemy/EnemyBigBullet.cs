@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EnemyBigBullet : EnemyProjectileBase
 {
     public override EnemyProjectilesEnum PoolId => EnemyProjectilesEnum.BigBullet;

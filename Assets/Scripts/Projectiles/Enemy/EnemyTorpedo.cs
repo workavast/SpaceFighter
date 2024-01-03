@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EnemyTorpedo : EnemyProjectileBase
 {
     public override EnemyProjectilesEnum PoolId => EnemyProjectilesEnum.Torpedo;

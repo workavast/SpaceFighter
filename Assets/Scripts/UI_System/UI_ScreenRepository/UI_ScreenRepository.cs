@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.ComponentModel;
 using System.Linq;
 
 public class UI_ScreenRepository : MonoBehaviour

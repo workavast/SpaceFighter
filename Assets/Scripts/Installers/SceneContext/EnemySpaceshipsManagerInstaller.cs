@@ -1,6 +1,5 @@
 ﻿using Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Installers.SceneContext

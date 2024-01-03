@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-using UnityEngine.UI;
 
 [Serializable]
 public class DictionaryInspector<TKey, TValue> : Dictionary<TKey,TValue>, ISerializationCallbackReceiver

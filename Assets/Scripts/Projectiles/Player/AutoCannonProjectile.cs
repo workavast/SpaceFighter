@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class AutoCannonProjectile : PlayerProjectileBase
 {
     public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.AutoCannon;
