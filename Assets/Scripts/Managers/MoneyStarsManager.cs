@@ -10,7 +10,7 @@ public class MoneyStarsManager : ManagerBase
 
     private static MoneyStarsManager _instance;
     
-    private Pool<MoneyStar> _projectilesPool;
+    private Pool<MoneyStar> _pool;
     
     protected override void OnAwake()
     {
@@ -22,30 +22,38 @@ public class MoneyStarsManager : ManagerBase
 
         _instance = this;
         
-        _projectilesPool = new Pool<MoneyStar>(EnemySpaceShipInstantiate);
+        _pool = new Pool<MoneyStar>(MoneyStarInstantiate);
     }
     
     public override void GameCycleUpdate()
     {
-        IReadOnlyList<IHandleUpdate> list = _projectilesPool.BusyElements;
+        IReadOnlyList<IHandleUpdate> list = _pool.BusyElements;
         for (int i = 0; i < list.Count; i++)
             list[i].HandleUpdate(Time.deltaTime);
     }
     
-    private MoneyStar EnemySpaceShipInstantiate()
+    private MoneyStar MoneyStarInstantiate()
     {
-        return MoneyStarsFactory.Create(transform).GetComponentInChildren<MoneyStar>();
+        var moneyStar = MoneyStarsFactory.Create(transform).GetComponentInChildren<MoneyStar>();
+        moneyStar.OnStarTaking += OnMoneyStarTaking;
+        moneyStar.OnLoseStar += ReturnStarInPool;
+        
+        return moneyStar;
     }
 
+    private void OnMoneyStarTaking(MoneyStar moneyStar)
+    {
+        LevelMoneyStarsCounter.ChangeValue(1);
+        ReturnStarInPool(moneyStar);
+    }
+    
+    private void ReturnStarInPool(MoneyStar moneyStar) => _pool.ReturnElement(moneyStar);
+    
     public static void Spawn(Transform newTransform)
     {
-        if (_instance._projectilesPool.ExtractElement(out MoneyStar newProjectile))
-        {
+        if (_instance._pool.ExtractElement(out MoneyStar newProjectile))
             newProjectile.transform.position = newTransform.position;
-        }
         else
-        {
             Debug.LogWarning("There was no extraction");
-        }
-    } 
+    }
 }

@@ -1,16 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class MoneyStar : MonoBehaviour, PoolSystem.IPoolable<MoneyStar>, IPlayAreaCollision, IHandleUpdate
 {
     [SerializeField] private float moveSpeed;
     
-    public event Action<MoneyStar> ReturnElementEvent;
-    public event Action<MoneyStar> DestroyElementEvent;
+    public event Action<MoneyStar> OnStarTaking;
+    public event Action<MoneyStar> OnLoseStar;
+    public event Action<MoneyStar> OnDestroyElementEvent;
 
     public void HandleUpdate(float time) => Move(time);
 
@@ -25,19 +23,13 @@ public class MoneyStar : MonoBehaviour, PoolSystem.IPoolable<MoneyStar>, IPlayAr
 
     public void EnterInPlayArea() { }
 
-    public void ExitFromPlayerArea() => ReturnElementEvent?.Invoke(this);
+    public void ExitFromPlayerArea() => OnLoseStar?.Invoke(this);
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.TryGetComponent<PlayerSpaceship>(out PlayerSpaceship playerSpaceship))
-        {
-            LevelMoneyStarsCounter.ChangeValue(1);
-            ReturnElementEvent?.Invoke(this);
-        }
+        if (col.TryGetComponent(out PlayerSpaceship playerSpaceship))
+            OnStarTaking?.Invoke(this);
     }
 
-    private void OnDestroy()
-    {
-        DestroyElementEvent?.Invoke(this);
-    }
+    private void OnDestroy() => OnDestroyElementEvent?.Invoke(this);
 }

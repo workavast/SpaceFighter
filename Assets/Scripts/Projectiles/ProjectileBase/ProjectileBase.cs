@@ -12,8 +12,8 @@ public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<
     
     public abstract TEnum PoolId { get; }
     
-    public event Action<TScript> ReturnElementEvent;
-    public event Action<TScript> DestroyElementEvent;
+    public event Action<TScript> OnLifeTimeEnd;
+    public event Action<TScript> OnDestroyElementEvent;
     
     protected abstract bool DestroyableOnCollision { get; }
     protected abstract bool ReturnInPoolOnExitFromPlayArea { get; }
@@ -40,7 +40,7 @@ public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<
         gameObject.SetActive(false);
     }
 
-    public void HandleReturnInPool() => ReturnElementEvent?.Invoke((TScript)this);
+    public void HandleReturnInPool() => OnLifeTimeEnd?.Invoke((TScript)this);
     
     public void EnterInPlayArea() { }
 
@@ -49,9 +49,9 @@ public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<
         if(ReturnInPoolOnExitFromPlayArea) HandleReturnInPool();
     }
 
-    private void OnDisable() => ReturnElementEvent?.Invoke((TScript)this);
+    private void OnDisable() => OnLifeTimeEnd?.Invoke((TScript)this);
     
-    private void OnDestroy() => DestroyElementEvent?.Invoke((TScript)this);
+    private void OnDestroy() => OnDestroyElementEvent?.Invoke((TScript)this);
     
     void OnTriggerEnter2D(Collider2D collider)
     {

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518c909ab408ef64193a09aa89e7a7a1, type: 3}
   m_Name: EnemyGroupConfig 2
   m_EditorClassIdentifier: 
-  <timePause>k__BackingField: 0
-  <subgroupsCount>k__BackingField: 5
+  <StartTimePause>k__BackingField: 0
+  <subgroupsCount>k__BackingField: 1
   <distanceBetweenSubgroups>k__BackingField: 8
   <moveSpeed>k__BackingField: 3
   <distanceBetweenEnemies>k__BackingField: 4

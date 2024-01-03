@@ -18,7 +18,7 @@ public abstract class ShootingEnemySpaceshipBase : EnemySpaceshipBase
         base.OnAwake();
         CanShoot = canShoot;
 
-        OnElementExtractFromPoolEvent += OnElementExtractFromPoolMethod;
+        OnElementExtractFromPool += OnElementExtractFromPoolMethod;
         OnHandleUpdate += TryShoot;
     }
     

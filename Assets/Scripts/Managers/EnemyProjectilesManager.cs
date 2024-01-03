@@ -12,7 +12,7 @@ public class EnemyProjectilesManager : ManagerBase
 
     private static EnemyProjectilesManager _instance;
     
-    private Pool<EnemyProjectileBase, EnemyProjectilesEnum> _projectilesPool;
+    private Pool<EnemyProjectileBase, EnemyProjectilesEnum> _pool;
 
     private Dictionary<EnemyProjectilesEnum, GameObject> _projectilesParents = new Dictionary<EnemyProjectilesEnum, GameObject>();
 
@@ -26,7 +26,7 @@ public class EnemyProjectilesManager : ManagerBase
 
         _instance = this;
         
-        _projectilesPool = new Pool<EnemyProjectileBase, EnemyProjectilesEnum>(EnemySpaceShipInstantiate);
+        _pool = new Pool<EnemyProjectileBase, EnemyProjectilesEnum>(EnemyProjectileInstantiate);
         
         foreach (var enemyShipId in Enum.GetValues(typeof(EnemyProjectilesEnum)).Cast<EnemyProjectilesEnum>())
         {
@@ -37,20 +37,22 @@ public class EnemyProjectilesManager : ManagerBase
 
     public override void GameCycleUpdate()
     {
-        IReadOnlyList<IReadOnlyList<IHandleUpdate>> list = _projectilesPool.BusyElementsValues;
+        IReadOnlyList<IReadOnlyList<IHandleUpdate>> list = _pool.BusyElementsValues;
         for (int i = 0; i < list.Count(); i++)
             for (int j = 0; j < list[i].Count; j++)
                 list[i][j].HandleUpdate(Time.deltaTime);
     }
 
-    private EnemyProjectileBase EnemySpaceShipInstantiate(EnemyProjectilesEnum id)
+    private EnemyProjectileBase EnemyProjectileInstantiate(EnemyProjectilesEnum id)
     {
-        return EnemyProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponentInChildren<EnemyProjectileBase>();
+        var projectile = EnemyProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponentInChildren<EnemyProjectileBase>();
+        projectile.OnLifeTimeEnd += ReturnProjectileInPool;
+        return projectile;
     }
 
     public static bool SpawnProjectile(EnemyProjectilesEnum id, Transform newTransform, out EnemyProjectileBase projectileBase)
     {
-        if (_instance._projectilesPool.ExtractElement(id, out EnemyProjectileBase newProjectile))
+        if (_instance._pool.ExtractElement(id, out EnemyProjectileBase newProjectile))
         {
             projectileBase = newProjectile;
             newProjectile.transform.position = newTransform.position;
@@ -64,4 +66,6 @@ public class EnemyProjectilesManager : ManagerBase
             return false;
         }
     }
+    
+    private void ReturnProjectileInPool(EnemyProjectileBase projectile) => _pool.ReturnElement(projectile);
 }

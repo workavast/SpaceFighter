@@ -56,8 +56,7 @@ namespace PoolSystem
             extractedElement = _freeElements.Dequeue();
             _busyElements.Add(extractedElement);
         
-            extractedElement.DestroyElementEvent += OnDestroyElement;
-            extractedElement.ReturnElementEvent += OnReturnElement;
+            extractedElement.OnDestroyElementEvent += OnDestroyElement;
             extractedElement.OnExtractFromPool();
         
             return true;
@@ -71,10 +70,7 @@ namespace PoolSystem
         private void OnDestroyElement(TElement element)
         {
             if (_busyElements.Remove(element))
-            {
-                element.DestroyElementEvent -= OnDestroyElement;
-                element.ReturnElementEvent -= OnReturnElement;
-            }
+                element.OnDestroyElementEvent -= OnDestroyElement;
         }
 
         private void OnReturnElement(TElement element)
@@ -83,8 +79,7 @@ namespace PoolSystem
             {
                 _freeElements.Enqueue(element);
 
-                element.DestroyElementEvent -= OnDestroyElement;
-                element.ReturnElementEvent -= OnReturnElement;
+                element.OnDestroyElementEvent -= OnDestroyElement;
             
                 _busyElements.Remove(element);
             
@@ -207,8 +202,7 @@ namespace PoolSystem
             extractedElement = _freeElements[id].Dequeue();
             _busyElements[id].Add(extractedElement);
         
-            extractedElement.DestroyElementEvent += OnDestroyElement;
-            extractedElement.ReturnElementEvent += OnReturnElement;
+            extractedElement.OnDestroyElementEvent += OnDestroyElement;
             extractedElement.OnExtractFromPool();
 
             return true;
@@ -242,10 +236,7 @@ namespace PoolSystem
             if (!_busyElements.ContainsKey(element.PoolId)) return;
 
             if (_busyElements[element.PoolId].Remove(element))
-            {
-                element.DestroyElementEvent -= OnDestroyElement;
-                element.ReturnElementEvent -= OnReturnElement;
-            }
+                element.OnDestroyElementEvent -= OnDestroyElement;
         }
 
         private void OnReturnElement(TElement element)
@@ -260,8 +251,7 @@ namespace PoolSystem
             {
                 _freeElements[element.PoolId].Enqueue(element);
 
-                element.DestroyElementEvent -= OnDestroyElement;
-                element.ReturnElementEvent -= OnReturnElement;
+                element.OnDestroyElementEvent -= OnDestroyElement;
             
                 _busyElements[element.PoolId].Remove(element);
             

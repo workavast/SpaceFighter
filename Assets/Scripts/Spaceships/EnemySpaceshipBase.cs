@@ -26,13 +26,13 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     public float CollisionDamage => collisionDamage;
 
     public abstract EnemySpaceshipsEnum PoolId { get; }
-    public event Action<EnemySpaceshipBase> ReturnElementEvent;
-    public event Action<EnemySpaceshipBase> DestroyElementEvent;
+    public event Action<EnemySpaceshipBase> OnDestroyElementEvent;
 
-    protected event Action OnElementExtractFromPoolEvent;
-    protected event Action OnElementReturnInPoolEvent;
+    protected event Action OnElementExtractFromPool;
     protected event Action OnHandleUpdate;
-    public event Action OnReturnWithoutDestroying;
+    
+    public event Action<EnemySpaceshipBase> OnDie; 
+    public event Action<EnemySpaceshipBase> OnEscape; 
     
     protected override void OnAwake()
     {
@@ -72,8 +72,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
                     break;
                 
                 case EnemyPathWayMoveType.OnEndRemove:
-                    OnReturnWithoutDestroying?.Invoke();
-                    ReturnElementEvent?.Invoke(this);
+                    OnEscape?.Invoke(this);
                     return;
                 
                 case EnemyPathWayMoveType.OnEndStop:
@@ -132,13 +131,11 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         
         gameObject.SetActive(true);
         
-        OnElementExtractFromPoolEvent?.Invoke();
+        OnElementExtractFromPool?.Invoke();
     }
 
     public void OnReturnInPool()
     {
-        OnElementReturnInPoolEvent?.Invoke();
-        
         gameObject.SetActive(false);
     }
 
@@ -151,15 +148,15 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
 
         MoneyStarsManager.Spawn(transform);
     }
-
+    
     public void EndDying()
     {
-        ReturnElementEvent?.Invoke(this);
+        OnDie?.Invoke(this);
     }
 
     private void OnDestroy()
     {
-        DestroyElementEvent?.Invoke(this);
+        OnDestroyElementEvent?.Invoke(this);
     }
     
     private void ChangePathWay(PathCreator newPathWay)
