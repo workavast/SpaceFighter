@@ -29,13 +29,17 @@ public class UI_ScreenRepository : MonoBehaviour
     public static TScreen GetScreen<TScreen>() where TScreen : UI_ScreenBase
     {
         if (Instance == null) throw new NullReferenceException($"Instance is null");
-        
-        if(Instance._screens.TryGetValue(typeof(TScreen), out UI_ScreenBase screen)) return (TScreen)screen;
 
-        return default;
+        if (!Instance._screens.TryGetValue(typeof(TScreen), out UI_ScreenBase screen))
+        {
+            Debug.LogWarning("Error: invalid parameter in SetWindow(ScreenEnum screen)");
+            return default;
+        }
+
+        return (TScreen)screen;
     }
     
-    public static UI_ScreenBase GetScreenByEnum(ScreensEnum screensEnum)
+    public static UI_ScreenBase GetScreen(ScreensEnum screensEnum)
     {
         if (Instance == null) throw new NullReferenceException($"Instance is null");
         
@@ -52,7 +56,7 @@ public class UI_ScreenRepository : MonoBehaviour
             case ScreensEnum.GameplayMenuScreen:
                 return GetScreen<GameplayMenuScreen>();
             default:
-                Debug.LogWarning("Error: invalid parameter in SetWindow(ScreenEnum screen)");
+                Debug.LogWarning("Error: invalid parameter in GetScreenByEnum(ScreenEnum screen)");
                 return default;
         }
     }

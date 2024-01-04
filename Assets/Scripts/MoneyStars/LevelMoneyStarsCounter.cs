@@ -20,7 +20,7 @@ public class LevelMoneyStarsCounter : MonoBehaviour
 
     private void Start()
     {
-        _gameplayMainScreen = UI_ScreenRepository.GetScreenByEnum(ScreensEnum.GameplayMainScreen) as GameplayMainScreen;
+        _gameplayMainScreen = UI_ScreenRepository.GetScreen(ScreensEnum.GameplayMainScreen) as GameplayMainScreen;
         _instance._gameplayMainScreen.UpdateLevelMoneyCount(_instance._value);
     }
 
