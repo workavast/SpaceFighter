@@ -25,12 +25,17 @@ public class ZapperProjectile : PlayerProjectileBase
         OnElementExtractFromPoolEvent += ResetTimers;
         OnElementReturnInPoolEvent += StopTimers;
 
-        OnHandleUpdate += _existTimer.Tick;
-        OnHandleUpdate += _damagePause.Tick;
+        OnHandleUpdate += TimersTicks;
         
         ResetTimers();
     }
 
+    private void TimersTicks(float time)
+    {
+        _existTimer.Tick(time);
+        _damagePause.Tick(time);
+    }
+    
     private void ResetTimers()
     {
         _existTimer.Reset();

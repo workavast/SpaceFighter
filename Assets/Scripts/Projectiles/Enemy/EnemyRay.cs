@@ -25,12 +25,12 @@ public class EnemyRay : EnemyProjectileBase
         OnElementExtractFromPoolEvent += ResetTimers;
         OnElementReturnInPoolEvent += StopTimers;
 
-        OnHandleUpdate += TimersTiks;
+        OnHandleUpdate += TimersTicks;
         
         ResetTimers();
     }
 
-    private void TimersTiks(float time)
+    private void TimersTicks(float time)
     {
         _existTimer.Tick(time);
         _damagePause.Tick(time);
