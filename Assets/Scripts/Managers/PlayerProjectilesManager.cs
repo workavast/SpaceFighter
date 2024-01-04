@@ -14,7 +14,7 @@ public class PlayerProjectilesManager : ManagerBase
     
     private Pool<PlayerProjectileBase, PlayerProjectilesEnum> _pool;
 
-    private Dictionary<PlayerProjectilesEnum, GameObject> _projectilesParents = new Dictionary<PlayerProjectilesEnum, GameObject>();
+    private readonly Dictionary<PlayerProjectilesEnum, GameObject> _projectilesParents = new();
 
     protected override void OnAwake()
     {
@@ -44,20 +44,16 @@ public class PlayerProjectilesManager : ManagerBase
     }
     
     private PlayerProjectileBase PlayerProjectileInstantiate(PlayerProjectilesEnum id)
-    {
-        var projectile = PlayerProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponentInChildren<PlayerProjectileBase>();
-        projectile.OnLifeTimeEnd += ReturnProjectileInPool;
-        
-        return projectile;
-    }
+        => PlayerProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponent<PlayerProjectileBase>();
 
-    public static bool SpawnProjectile(PlayerProjectilesEnum id, Transform newTransform, out PlayerProjectileBase projectileBase)
+    public static bool TrySpawnProjectile(PlayerProjectilesEnum id, Transform newTransform, out PlayerProjectileBase projectileBase)
     {
         if (_instance._pool.ExtractElement(id, out PlayerProjectileBase newProjectile))
         {
             projectileBase = newProjectile;
             newProjectile.transform.position = newTransform.position;
             newProjectile.transform.rotation = newTransform.rotation;
+            newProjectile.OnLifeTimeEnd += _instance.ReturnProjectileInPool;
             return true;
         }
         else
@@ -68,5 +64,9 @@ public class PlayerProjectilesManager : ManagerBase
         }
     }
 
-    private void ReturnProjectileInPool(PlayerProjectileBase projectile) => _pool.ReturnElement(projectile);
+    private void ReturnProjectileInPool(PlayerProjectileBase projectile)
+    {
+        projectile.OnLifeTimeEnd -= ReturnProjectileInPool;
+        _pool.ReturnElement(projectile);
+    }
 }

@@ -1,52 +1,63 @@
-using System.Collections;
-using SomeStorages;
+using TimerExtension;
 using UnityEngine;
 
 public class EnemyRay : EnemyProjectileBase
 {
     public override EnemyProjectilesEnum PoolId => EnemyProjectilesEnum.Ray;
     
+    [SerializeField] private float existTime;
+    [SerializeField] private float damagePause;//dont used at the moment, maybe used damage per second??
+    
     protected override bool DestroyableOnCollision => false;
     protected override bool ReturnInPoolOnExitFromPlayArea => false;
-    
-    [SerializeField] private float existTime;
-    [SerializeField] private SomeStorageFloat damagePause;
 
     private Transform _follower;
+
+    private Timer _existTimer;
+    private Timer _damagePause;//dont used at the moment, maybe used damage per second??(but need override OnTargetEnter)
     
     private void Awake()
     {
-        OnElementExtractFromPoolEvent += StartExistTimer;
-        OnElementReturnInPoolEvent += CancelExistTimer;
+        _existTimer = new Timer(existTime);
+        _damagePause = new Timer(damagePause);
+        
+        _existTimer.OnTimerEnd += HandleReturnInPool;
+        OnElementExtractFromPoolEvent += ResetTimers;
+        OnElementReturnInPoolEvent += StopTimers;
+
+        OnHandleUpdate += TimersTiks;
+        
+        ResetTimers();
     }
 
-    protected override void Move(float time)
+    private void TimersTiks(float time)
     {
-        if (_follower)
-        {
-            transform.position = _follower.position;
-            transform.rotation = _follower.rotation;
-        }
-    }
-
-    private void CancelExistTimer()
-    {
-        StopCoroutine(ExistTimer());
+        _existTimer.Tick(time);
+        _damagePause.Tick(time);
     }
     
-    private void StartExistTimer()
+    private void ResetTimers()
     {
-        StartCoroutine(ExistTimer());
+        _existTimer.Reset();
+        _damagePause.Reset();
+        
+        _existTimer.Continue();
+        _damagePause.Continue();
     }
 
-    IEnumerator ExistTimer()
+    private void StopTimers()
     {
-        yield return new WaitForSeconds(existTime);
-        HandleReturnInPool();
+        _existTimer.Stop();
+        _damagePause.Stop();
     }
-
-    public void SetMount(Transform transform)
+    
+    protected override void Move(float time)
     {
-        _follower = transform;
+        if (!_follower) return;
+        
+        transform.position = _follower.position;
+        transform.rotation = _follower.rotation;
     }
+    
+    public void SetMount(Transform transform) => _follower = transform;
 }

@@ -49,11 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   damage: 1
-  existTime: 5
-  damagePause:
-    maxValue: 1
-    currentValue: 0
-    minValue: 0
+  existTime: 4
+  damagePause: 0
 --- !u!95 &4589437194709929436
 Animator:
   serializedVersion: 5

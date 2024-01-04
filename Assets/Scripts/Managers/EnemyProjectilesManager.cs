@@ -14,7 +14,7 @@ public class EnemyProjectilesManager : ManagerBase
     
     private Pool<EnemyProjectileBase, EnemyProjectilesEnum> _pool;
 
-    private Dictionary<EnemyProjectilesEnum, GameObject> _projectilesParents = new Dictionary<EnemyProjectilesEnum, GameObject>();
+    private readonly Dictionary<EnemyProjectilesEnum, GameObject> _projectilesParents = new();
 
     protected override void OnAwake()
     {
@@ -44,19 +44,16 @@ public class EnemyProjectilesManager : ManagerBase
     }
 
     private EnemyProjectileBase EnemyProjectileInstantiate(EnemyProjectilesEnum id)
-    {
-        var projectile = EnemyProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponentInChildren<EnemyProjectileBase>();
-        projectile.OnLifeTimeEnd += ReturnProjectileInPool;
-        return projectile;
-    }
+        => EnemyProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponent<EnemyProjectileBase>();
 
-    public static bool SpawnProjectile(EnemyProjectilesEnum id, Transform newTransform, out EnemyProjectileBase projectileBase)
+    public static bool TrySpawnProjectile(EnemyProjectilesEnum id, Transform newTransform, out EnemyProjectileBase projectileBase)
     {
         if (_instance._pool.ExtractElement(id, out EnemyProjectileBase newProjectile))
         {
             projectileBase = newProjectile;
             newProjectile.transform.position = newTransform.position;
             newProjectile.transform.rotation = newTransform.rotation;
+            newProjectile.OnLifeTimeEnd += _instance.ReturnProjectileInPool;
             return true;
         }
         else
@@ -67,5 +64,9 @@ public class EnemyProjectilesManager : ManagerBase
         }
     }
     
-    private void ReturnProjectileInPool(EnemyProjectileBase projectile) => _pool.ReturnElement(projectile);
+    private void ReturnProjectileInPool(EnemyProjectileBase projectile)
+    {
+        projectile.OnLifeTimeEnd -= ReturnProjectileInPool;
+        _pool.ReturnElement(projectile);
+    }
 }

@@ -18,8 +18,13 @@ public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<
     
     protected event Action OnElementExtractFromPoolEvent;
     protected event Action OnElementReturnInPoolEvent;
+    protected event Action<float> OnHandleUpdate;
     
-    public void HandleUpdate(float time) => Move(time);
+    public void HandleUpdate(float time)
+    {
+        OnHandleUpdate?.Invoke(time);
+        Move(time);
+    }
 
     protected virtual void Move(float time)
     {
@@ -38,22 +43,23 @@ public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<
         gameObject.SetActive(false);
     }
 
-    public void HandleReturnInPool() => OnLifeTimeEnd?.Invoke((TScript)this);
-    
+    public void HandleReturnInPool()
+    {
+        OnLifeTimeEnd?.Invoke((TScript)this);
+    }
+
     public void EnterInPlayArea() { }
 
     public void ExitFromPlayerArea()
     {
         if(ReturnInPoolOnExitFromPlayArea) HandleReturnInPool();
     }
-
-    private void OnDisable() => OnLifeTimeEnd?.Invoke((TScript)this);
     
     private void OnDestroy() => OnDestroyElementEvent?.Invoke((TScript)this);
-    
-    void OnTriggerEnter2D(Collider2D collider)
+
+    private void OnTriggerEnter2D(Collider2D someCollider)
     {
-        if (collider.gameObject.TryGetComponent(out IDamageable iDamageable))
+        if (someCollider.gameObject.TryGetComponent(out IDamageable iDamageable))
         {
             iDamageable.TakeDamage(damage);
 

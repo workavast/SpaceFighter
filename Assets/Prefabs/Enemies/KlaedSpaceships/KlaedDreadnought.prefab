@@ -52,27 +52,14 @@ MonoBehaviour:
     maxValue: 10
     currentValue: 10
     minValue: 0
-  canMove: 1
-  moveSpeed: 0
+  collisionDamage: 1
   shootPositions:
   - {fileID: 7628508026001160851}
   fireRate:
-    maxValue: 2
-    currentValue: 0
+    maxValue: 5
+    currentValue: 2
     minValue: 0
   canShoot: 1
-  pathCreator: {fileID: 9005936212918651771, guid: 524d077c10f92a14b963789e18f42b0f, type: 3}
-  endOfPathInstruction: 0
-  moveType: 0
-  rotationType: 2
-  accelerated: 0
-  acceleration:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  collisionDamage: 1
 --- !u!60 &5720803714915383545
 PolygonCollider2D:
   m_ObjectHideFlags: 0

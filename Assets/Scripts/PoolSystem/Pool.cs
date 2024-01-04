@@ -237,8 +237,8 @@ namespace PoolSystem
             if (_busyElements[element.PoolId].Remove(element))
                 element.OnDestroyElementEvent -= OnDestroyElement;
         }
-
-        private void OnReturnElement(TElement element)
+        
+        public void ReturnElement(TElement element)    
         {
             if (!_busyElements.ContainsKey(element.PoolId))
             {
@@ -261,7 +261,5 @@ namespace PoolSystem
                 Debug.LogWarning("You try return pool element that don't contained in _busyElements["+element.PoolId+"]");
             }
         }
-
-        public void ReturnElement(TElement element) => OnReturnElement(element);
     }
 }

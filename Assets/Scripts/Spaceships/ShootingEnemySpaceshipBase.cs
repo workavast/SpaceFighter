@@ -37,7 +37,7 @@ public abstract class ShootingEnemySpaceshipBase : EnemySpaceshipBase
     
         foreach (var shootPos in shootPositions)
         {
-            EnemyProjectilesManager.SpawnProjectile(ProjectileId, shootPos, out EnemyProjectileBase enemyProjectileBase);
+            EnemyProjectilesManager.TrySpawnProjectile(ProjectileId, shootPos, out EnemyProjectileBase enemyProjectileBase);
         }
     }
     
