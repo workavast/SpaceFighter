@@ -31,7 +31,8 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     protected event Action OnElementExtractFromPool;
     protected event Action OnHandleUpdate;
     
-    public event Action<EnemySpaceshipBase> OnDie; 
+    public event Action OnStartDie; 
+    public event Action<EnemySpaceshipBase> OnEndDie; 
     public event Action<EnemySpaceshipBase> OnEscape; 
     
     protected override void OnAwake()
@@ -144,6 +145,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         if (IsDead) return;
 
         IsDead = true;
+        OnStartDie?.Invoke();
         _animationControllerEnemy.SetDyingTrigger();
 
         MoneyStarsManager.Spawn(transform);
@@ -151,7 +153,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     
     public void EndDying()
     {
-        OnDie?.Invoke(this);
+        OnEndDie?.Invoke(this);
     }
 
     private void OnDestroy()

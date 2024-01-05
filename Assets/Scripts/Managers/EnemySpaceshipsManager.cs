@@ -17,12 +17,11 @@ namespace Managers
         private Pool<EnemySpaceshipBase, EnemySpaceshipsEnum> _pool;
 
         public int ActiveEnemiesCount => _pool.BusyElementsValues.Sum(v => v.Count);
-        
-        private int _destroyedShipsCount;
-        private int _escapedShipsCount;
 
         public event Action OnAllEnemiesGone;
-
+        public event Action OnEnemyDead;
+        public event Action OnEnemyEscape;
+        
         protected override void OnAwake()
         {
             _pool = new Pool<EnemySpaceshipBase, EnemySpaceshipsEnum>(EnemySpaceShipInstantiate);
@@ -44,11 +43,12 @@ namespace Managers
     
         private EnemySpaceshipBase EnemySpaceShipInstantiate(EnemySpaceshipsEnum id)
         {
-            var enemySpaceshipBase = EnemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform)
-                .GetComponentInChildren<EnemySpaceshipBase>();
-            enemySpaceshipBase.OnDie += ReturnDeadEnemy;
-            enemySpaceshipBase.OnEscape += ReturnEscapedEnemy;
-            return enemySpaceshipBase;
+            var enemySpaceship = EnemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform)
+                .GetComponent<EnemySpaceshipBase>();
+            enemySpaceship.OnStartDie += OnEnemyStartDie;
+            enemySpaceship.OnEndDie += ReturnDeadEnemy;
+            enemySpaceship.OnEscape += ReturnEscapedEnemy;
+            return enemySpaceship;
         }
 
         public void SpawnEnemy(EnemySpaceshipsEnum enemySpaceshipsType, EnemyGroupConfig config)
@@ -61,15 +61,13 @@ namespace Managers
             }
         }
 
-        private void ReturnDeadEnemy(EnemySpaceshipBase enemy)
-        {
-            _destroyedShipsCount++;
-            ReturnEnemy(enemy);
-        }
+        private void OnEnemyStartDie() => OnEnemyDead?.Invoke();
+
+        private void ReturnDeadEnemy(EnemySpaceshipBase enemy) => ReturnEnemy(enemy);
 
         private void ReturnEscapedEnemy(EnemySpaceshipBase enemy)
         {
-            _escapedShipsCount++;
+            OnEnemyEscape?.Invoke();
             ReturnEnemy(enemy);
         }
 

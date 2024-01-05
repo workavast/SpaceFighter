@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MissionsDataConfigsSystem
@@ -7,5 +8,7 @@ namespace MissionsDataConfigsSystem
     public class MissionConfig : ScriptableObject
     {
         [field: SerializeField] public List<EnemyWaveConfig> enemyWaves { get; private set; }
+
+        public int TakeEnemiesCount() => enemyWaves.Sum(wave => wave.TakeEnemiesCount());
     }
 }
