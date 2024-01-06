@@ -7,7 +7,7 @@ using UnityEngine;
 namespace GameCycle
 {
     [DefaultExecutionOrder(-10000)]
-    public class GameCycleManager : MonoBehaviour, IGameCycleManager
+    public class GameCycleManager : MonoBehaviour, IGameCycleManager, IGameCycleManagerSwitcher
     {
         private readonly Dictionary<GameStatesType, Dictionary<GameCycleInvokeType, Action>> _actions = new ();
 
@@ -29,15 +29,21 @@ namespace GameCycle
         private void Update() => _actions[CurrentState][GameCycleInvokeType.Update]?.Invoke();
         private void FixedUpdate() => _actions[CurrentState][GameCycleInvokeType.FixedUpdate]?.Invoke();
 
-        public void AddListener(GameStatesType state, IGameCycleUpdate iGameCycleUpdate) 
-            => _actions[state][GameCycleInvokeType.Update] += iGameCycleUpdate.GameCycleUpdate;
+        public void AddListener(GameStatesType state, IGameCycleUpdate iGameCycleUpdate)
+            => AddListener(state, GameCycleInvokeType.Update, iGameCycleUpdate.GameCycleUpdate);
         public void AddListener(GameStatesType state, IGameCycleFixedUpdate iGameCycleFixedUpdate) 
-            => _actions[state][GameCycleInvokeType.FixedUpdate] += iGameCycleFixedUpdate.GameCycleFixedUpdate;
+            => AddListener(state, GameCycleInvokeType.FixedUpdate, iGameCycleFixedUpdate.GameCycleFixedUpdate);
         public void AddListener(GameStatesType state, IGameCycleEnter iGameCycleEnter)
-            => _actions[state][GameCycleInvokeType.StateEnter] += iGameCycleEnter.GameCycleEnter;
+            => AddListener(state, GameCycleInvokeType.StateEnter, iGameCycleEnter.GameCycleEnter);
         public void AddListener(GameStatesType state, IGameCycleExit iGameCycleExit)
-            => _actions[state][GameCycleInvokeType.StateExit] += iGameCycleExit.GameCycleExit;
+            => AddListener(state, GameCycleInvokeType.StateExit, iGameCycleExit.GameCycleExit);
         
+        private void AddListener(GameStatesType state, GameCycleInvokeType invokeType, Action method)
+        {
+            _actions[state][invokeType] -= method;
+            _actions[state][invokeType] += method;
+        }
+
         public void RemoveListener(GameStatesType state, IGameCycleUpdate iGameCycleUpdate) 
             => _actions[state][GameCycleInvokeType.Update] -= iGameCycleUpdate.GameCycleUpdate;
         public void RemoveListener(GameStatesType state, IGameCycleFixedUpdate iGameCycleFixedUpdate) 

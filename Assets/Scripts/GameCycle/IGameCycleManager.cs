@@ -12,7 +12,6 @@
         public void RemoveListener(GameStatesType state, IGameCycleUpdate iGameCycleUpdate);
         public void RemoveListener(GameStatesType state, IGameCycleFixedUpdate iGameCycleFixedUpdate);
         public void RemoveListener(GameStatesType state, IGameCycleEnter iGameCycleEnter);
-        public void RemoveListener(GameStatesType state, IGameCycleExit iGameCycleExit); 
-        public void SwitchState(GameStatesType newState);
+        public void RemoveListener(GameStatesType state, IGameCycleExit iGameCycleExit);
     }
 }

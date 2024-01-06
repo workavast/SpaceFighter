@@ -19,5 +19,7 @@ namespace Managers
         protected virtual void OnAwake() { }
         
         public virtual void GameCycleUpdate() { }
+
+        private void OnDestroy() => _gameCycleManager.RemoveListener(GameStatesType, this as IGameCycleUpdate);
     }
 }

@@ -18,10 +18,10 @@ namespace Managers
 
         public int ActiveEnemiesCount => _pool.BusyElementsValues.Sum(v => v.Count);
 
-        public event Action OnAllEnemiesGone;
         public event Action OnEnemyDead;
         public event Action OnEnemyEscape;
-        
+        public event Action OnAllEnemiesGone;
+
         protected override void OnAwake()
         {
             _pool = new Pool<EnemySpaceshipBase, EnemySpaceshipsEnum>(EnemySpaceShipInstantiate);

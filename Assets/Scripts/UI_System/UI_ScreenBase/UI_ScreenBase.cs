@@ -1,7 +1,8 @@
+using GameCycle;
 using UnityEngine;
 using Zenject;
 
-public class UI_ScreenBase : MonoBehaviour
+public abstract class UI_ScreenBase : MonoBehaviour
 {
     [Inject] protected UI_Controller UIController;
     
@@ -10,15 +11,15 @@ public class UI_ScreenBase : MonoBehaviour
         UIController.SetScreen((ScreensEnum)screen);
     }
     
-    public virtual void _ActivateScreen(int screen)
-    {
-        UIController.SwitchScreen((ScreensEnum)screen, true);
-    }
-    
-    public virtual void _DeactivateScreen(int screen)
-    {
-        UIController.SwitchScreen((ScreensEnum)screen, false);
-    }
+    // public virtual void _ActivateScreen(int screen)
+    // {
+    //     UIController.SwitchScreen((ScreensEnum)screen, true);
+    // }
+    //
+    // public virtual void _DeactivateScreen(int screen)
+    // {
+    //     UIController.SwitchScreen((ScreensEnum)screen, false);
+    // }
     
     public virtual void _LoadScene(int sceneBuildIndex)
     {

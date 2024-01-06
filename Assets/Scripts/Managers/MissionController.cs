@@ -1,4 +1,6 @@
-﻿using MissionsDataConfigsSystem;
+﻿using System;
+using GameCycle;
+using MissionsDataConfigsSystem;
 using SomeStorages;
 using UnityEngine;
 using Zenject;
@@ -15,10 +17,13 @@ namespace Managers
         public IReadOnlySomeStorage<int> DestroyedEnemiesCounter => _destroyedEnemiesCounter;
         public IReadOnlySomeStorage<int> EscapedShipsEnemiesCounter => _escapedEnemiesCounter;
         
+        [Inject] private IGameCycleManager _gameCycleManager;
         [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
         [Inject] private WavesManager _wavesManager;
 
         private MissionConfig _missionConfig;
+
+        public event Action OmMissionCompleted;
         
         private void Start()
         {
@@ -43,7 +48,8 @@ namespace Managers
             if (_wavesCounter.IsFull)
             {
                 Debug.Log("Mission Completed");
-                LevelMoneyStarsCounter.ApplyValue();    
+                LevelMoneyStarsCounter.ApplyValue();
+                OmMissionCompleted?.Invoke();
             }
             else
             {

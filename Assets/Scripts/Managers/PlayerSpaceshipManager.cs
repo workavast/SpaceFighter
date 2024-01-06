@@ -9,7 +9,7 @@ namespace Managers
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
         
-        [SerializeField] private PlayerSpaceship _playerSpaceship;
+        [SerializeField] private PlayerSpaceship playerSpaceship;
         
         [Inject] private IGameCycleManager _gameCycleManager;
         [Inject] private PlayerWeaponConfig _playerWeaponConfig;
@@ -18,17 +18,19 @@ namespace Managers
         
         private PlayerWeaponBase _weapon;
 
+        public Action OnPlayerDie;
+        
         protected override void OnAwake()
         {
-            _playerSpaceship.Initialization(_playerSpaceshipLevelsConfig);
-            _playerSpaceship.OnDead += PlayerIsDead;
+            playerSpaceship.Initialization(_playerSpaceshipLevelsConfig);
+            playerSpaceship.OnDead += PlayerIsDead;
             
             SpawnWeapon();
         }
         
         public override void GameCycleUpdate()
         {
-            _playerSpaceship.HandleUpdate(Time.deltaTime);
+            playerSpaceship.HandleUpdate(Time.deltaTime);
             _weapon.HandleUpdate();
         }
         
@@ -36,7 +38,7 @@ namespace Managers
         {
             if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(PlayerGlobalData.EquippedPlayerWeapon, out GameObject prefab))
             {
-                GameObject weapon = _diContainer.InstantiatePrefab(prefab, _playerSpaceship.WeaponPosition);
+                GameObject weapon = _diContainer.InstantiatePrefab(prefab, playerSpaceship.WeaponPosition);
                 _weapon = weapon.GetComponent<PlayerWeaponBase>();
                 _weapon.Initialization();
             }
@@ -47,7 +49,7 @@ namespace Managers
         private void PlayerIsDead()
         {
             _weapon.StopShoot();
-            _gameCycleManager.SwitchState(GameStatesType.Pause);
+            OnPlayerDie?.Invoke();
         }
     }
 }
