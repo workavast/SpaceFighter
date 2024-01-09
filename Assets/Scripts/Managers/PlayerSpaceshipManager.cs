@@ -11,7 +11,6 @@ namespace Managers
         
         [SerializeField] private PlayerSpaceship playerSpaceship;
         
-        [Inject] private IGameCycleManager _gameCycleManager;
         [Inject] private PlayerWeaponConfig _playerWeaponConfig;
         [Inject] private PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
         [Inject] private DiContainer _diContainer;

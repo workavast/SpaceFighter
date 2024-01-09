@@ -7,21 +7,11 @@ using UnityEngine;
 public class MoneyStarsManager : ManagerBase
 {
     protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
-
-    private static MoneyStarsManager _instance;
     
     private Pool<MoneyStar> _pool;
     
     protected override void OnAwake()
     {
-        if (_instance)
-        {
-            Destroy(this);
-            return;
-        }
-
-        _instance = this;
-        
         _pool = new Pool<MoneyStar>(MoneyStarInstantiate);
     }
     
@@ -49,9 +39,9 @@ public class MoneyStarsManager : ManagerBase
     
     private void ReturnStarInPool(MoneyStar moneyStar) => _pool.ReturnElement(moneyStar);
     
-    public static void Spawn(Transform newTransform)
+    public void Spawn(Transform newTransform)
     {
-        if (_instance._pool.ExtractElement(out MoneyStar newProjectile))
+        if (_pool.ExtractElement(out MoneyStar newProjectile))
             newProjectile.transform.position = newTransform.position;
         else
             Debug.LogWarning("There was no extraction");

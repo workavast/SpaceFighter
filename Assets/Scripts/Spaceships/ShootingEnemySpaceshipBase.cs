@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using SomeStorages;
 using UnityEngine;
+using Zenject;
 
 public abstract class ShootingEnemySpaceshipBase : EnemySpaceshipBase
 {
@@ -10,6 +11,9 @@ public abstract class ShootingEnemySpaceshipBase : EnemySpaceshipBase
     [SerializeField] protected List<Transform> shootPositions;
     [SerializeField] protected SomeStorageFloat fireRate;
     [SerializeField] protected bool canShoot;
+
+    [Inject] protected EnemyProjectilesManager EnemyProjectilesManager;
+
     protected bool CanShoot;
 
     protected override void OnAwake()
@@ -36,9 +40,7 @@ public abstract class ShootingEnemySpaceshipBase : EnemySpaceshipBase
         if(!CanShoot) return;
     
         foreach (var shootPos in shootPositions)
-        {
             EnemyProjectilesManager.TrySpawnProjectile(ProjectileId, shootPos, out EnemyProjectileBase enemyProjectileBase);
-        }
     }
     
     private void OnElementExtractFromPoolMethod()

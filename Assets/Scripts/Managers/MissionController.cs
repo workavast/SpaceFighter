@@ -1,5 +1,6 @@
 ﻿using System;
-using GameCycle;
+using EventBusExtension;
+using Events;
 using MissionsDataConfigsSystem;
 using SomeStorages;
 using UnityEngine;
@@ -7,19 +8,19 @@ using Zenject;
 
 namespace Managers
 {
-    public class MissionController : MonoBehaviour
+    public class MissionController : MonoBehaviour, IEventReceiver<EnemyStartDie>
     {
+        public ReceiverIdentifier ReceiverIdentifier { get; } = new();
+
         private readonly SomeStorageInt _wavesCounter = new();
         private readonly SomeStorageInt _destroyedEnemiesCounter = new();
-        private readonly SomeStorageInt _escapedEnemiesCounter = new();
 
         public IReadOnlySomeStorage<int> WavesCounter => _wavesCounter;
         public IReadOnlySomeStorage<int> DestroyedEnemiesCounter => _destroyedEnemiesCounter;
-        public IReadOnlySomeStorage<int> EscapedShipsEnemiesCounter => _escapedEnemiesCounter;
         
-        [Inject] private IGameCycleManager _gameCycleManager;
         [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
         [Inject] private WavesManager _wavesManager;
+        [Inject] private MissionEventBus _eventBus;
 
         private MissionConfig _missionConfig;
 
@@ -31,12 +32,10 @@ namespace Managers
             
             _wavesCounter.SetMaxValue(_missionConfig.enemyWaves.Count);
             _destroyedEnemiesCounter.SetMaxValue(_missionConfig.TakeEnemiesCount());
-            _escapedEnemiesCounter.SetMaxValue(_missionConfig.TakeEnemiesCount());
             
             _wavesManager.OnWaveSpawned += WaveSpawnEnd;
 
-            _enemySpaceshipsManager.OnEnemyDead += IncreaseDestroyedEnemiesCount;
-            _enemySpaceshipsManager.OnEnemyEscape += IncreaseEscapedEnemiesCount;
+            _eventBus.Subscribe<EnemyStartDie>(this);
             
             TryCallWave();
         }
@@ -67,8 +66,12 @@ namespace Managers
             else
                 _enemySpaceshipsManager.OnAllEnemiesGone += TryCallWave;
         }
+        
+        public void OnEvent(EnemyStartDie ev) => _destroyedEnemiesCounter.ChangeCurrentValue(1);
 
-        private void IncreaseDestroyedEnemiesCount() => _destroyedEnemiesCounter.ChangeCurrentValue(1);
-        private void IncreaseEscapedEnemiesCount() => _escapedEnemiesCounter.ChangeCurrentValue(1);
+        private void OnDestroy()
+        {
+            _eventBus.UnSubscribe<EnemyStartDie>(this);
+        }
     }
 }

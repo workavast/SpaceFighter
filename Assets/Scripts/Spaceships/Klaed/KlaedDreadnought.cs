@@ -17,9 +17,8 @@ public class KlaedDreadnought : ShootingEnemySpaceshipBase
     private void ReturnRays()
     {
         for (int i = 0; i < _rays.Count; i++)
-        {
             _rays[i].HandleReturnInPool();
-        }
+
         _rays.Clear();
     }
     
@@ -30,12 +29,11 @@ public class KlaedDreadnought : ShootingEnemySpaceshipBase
         foreach (var shootPos in shootPositions)
         {
             if (EnemyProjectilesManager.TrySpawnProjectile(ProjectileId, shootPos,
-                    out EnemyProjectileBase enemyProjectileBase))
+                    out EnemyProjectileBase enemyProjectile))
             {
-                (enemyProjectileBase as EnemyRay).SetMount(shootPos);
-                _rays.Add(enemyProjectileBase as EnemyRay);
+                (enemyProjectile as EnemyRay).SetMount(shootPos);
+                _rays.Add(enemyProjectile as EnemyRay);
             }
-                
         }
     }
 }

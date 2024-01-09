@@ -16,10 +16,8 @@ namespace Managers
 
         private Pool<EnemySpaceshipBase, EnemySpaceshipsEnum> _pool;
 
-        public int ActiveEnemiesCount => _pool.BusyElementsValues.Sum(v => v.Count);
+        public int ActiveEnemiesCount => _pool.BusyElementsValues.Sum(e => e.Count);
 
-        public event Action OnEnemyDead;
-        public event Action OnEnemyEscape;
         public event Action OnAllEnemiesGone;
 
         protected override void OnAwake()
@@ -45,9 +43,7 @@ namespace Managers
         {
             var enemySpaceship = EnemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform)
                 .GetComponent<EnemySpaceshipBase>();
-            enemySpaceship.OnStartDie += OnEnemyStartDie;
-            enemySpaceship.OnEndDie += ReturnDeadEnemy;
-            enemySpaceship.OnEscape += ReturnEscapedEnemy;
+            enemySpaceship.OnGone += ReturnEnemy;
             return enemySpaceship;
         }
 
@@ -60,16 +56,10 @@ namespace Managers
                     config.acceleration);
             }
         }
-
-        private void OnEnemyStartDie() => OnEnemyDead?.Invoke();
-
+        
         private void ReturnDeadEnemy(EnemySpaceshipBase enemy) => ReturnEnemy(enemy);
 
-        private void ReturnEscapedEnemy(EnemySpaceshipBase enemy)
-        {
-            OnEnemyEscape?.Invoke();
-            ReturnEnemy(enemy);
-        }
+        private void ReturnEscapedEnemy(EnemySpaceshipBase enemy) => ReturnEnemy(enemy);
 
         private void ReturnEnemy(EnemySpaceshipBase enemy)
         {

@@ -1,13 +1,18 @@
 using System;
+using Events;
+using Managers;
 using UnityEngine;
 using PathCreation;
-using PoolSystem;
+using Zenject;
 
-public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpaceshipBase, EnemySpaceshipsEnum>
+public abstract class EnemySpaceshipBase : SpaceshipBase, PoolSystem.IPoolable<EnemySpaceshipBase, EnemySpaceshipsEnum>
 {
     [Space]
     [SerializeField] private float collisionDamage = 1;
 
+    [Inject] protected MissionEventBus EventBus;
+    [Inject] private MoneyStarsManager _moneyStarsManager;
+    
     private bool _canMove;
     
     private PathCreator _pathCreator;
@@ -31,9 +36,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
     protected event Action OnElementExtractFromPool;
     protected event Action OnHandleUpdate;
     
-    public event Action OnStartDie; 
-    public event Action<EnemySpaceshipBase> OnEndDie; 
-    public event Action<EnemySpaceshipBase> OnEscape; 
+    public event Action<EnemySpaceshipBase> OnGone; 
     
     protected override void OnAwake()
     {
@@ -71,11 +74,9 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
                 case EnemyPathWayMoveType.Loop:
                     _distanceTravelled -= _pathCreator.path.length;
                     break;
-                
                 case EnemyPathWayMoveType.OnEndRemove:
-                    OnEscape?.Invoke(this);
+                    OnGone?.Invoke(this);
                     return;
-                
                 case EnemyPathWayMoveType.OnEndStop:
                     _distanceTravelled = _pathCreator.path.length;
                     _canMove = false;
@@ -95,7 +96,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         switch (_rotationType)
         {
             case EnemyRotationType.Forward:
-                transform.rotation = Quaternion.Euler(0,0,180);
+                transform.rotation = Quaternion.Euler(0, 0, 180);
                 break;
             
             case EnemyRotationType.PlayerTarget:
@@ -106,16 +107,17 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
                 Quaternion oldRotation = transform.rotation;
                 Quaternion newRotation = _pathCreator.path.GetRotationAtDistance(_distanceTravelled, _endOfPathInstruction);
                 if (_prevPosition.x < transform.position.x)
-                    transform.rotation = Quaternion.Euler(oldRotation.eulerAngles.x, oldRotation.eulerAngles.y, -90-newRotation.eulerAngles.x);
+                    transform.rotation = Quaternion.Euler(oldRotation.eulerAngles.x, oldRotation.eulerAngles.y, -90 - newRotation.eulerAngles.x);
                 else
-                    transform.rotation = Quaternion.Euler(oldRotation.eulerAngles.x, oldRotation.eulerAngles.y, +90+newRotation.eulerAngles.x);
+                    transform.rotation = Quaternion.Euler(oldRotation.eulerAngles.x, oldRotation.eulerAngles.y, +90 + newRotation.eulerAngles.x);
                 break;
             
             default: throw new Exception("Undeclared rotationType (enum EnemyRotationType) type");
         }
     }
     
-    void OnPathUpdate() {
+    void OnPathUpdate() 
+    {
         _distanceTravelled = _pathCreator.path.GetClosestDistanceAlongPath(transform.position);
     }
     
@@ -145,16 +147,13 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         if (IsDead) return;
 
         IsDead = true;
-        OnStartDie?.Invoke();
+        EventBus.Invoke(new EnemyStartDie());
         _animationControllerEnemy.SetDyingTrigger();
 
-        MoneyStarsManager.Spawn(transform);
+        _moneyStarsManager.Spawn(transform);
     }
     
-    public void EndDying()
-    {
-        OnEndDie?.Invoke(this);
-    }
+    public void EndDying() => OnGone?.Invoke(this);
 
     private void OnDestroy()
     {
@@ -183,6 +182,5 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, IPoolable<EnemySpacesh
         _acceleration = newAcceleration;
         
         transform.position = _pathCreator.path.GetPointAtDistance(0, _endOfPathInstruction);
-
     }
 }

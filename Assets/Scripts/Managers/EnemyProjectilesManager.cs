@@ -9,23 +9,13 @@ using PoolSystem;
 public class EnemyProjectilesManager : ManagerBase
 {
     protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
-
-    private static EnemyProjectilesManager _instance;
     
     private Pool<EnemyProjectileBase, EnemyProjectilesEnum> _pool;
 
     private readonly Dictionary<EnemyProjectilesEnum, GameObject> _projectilesParents = new();
-
+    
     protected override void OnAwake()
     {
-        if (_instance)
-        {
-            Destroy(this);
-            return;
-        }
-
-        _instance = this;
-        
         _pool = new Pool<EnemyProjectileBase, EnemyProjectilesEnum>(EnemyProjectileInstantiate);
         
         foreach (var enemyShipId in Enum.GetValues(typeof(EnemyProjectilesEnum)).Cast<EnemyProjectilesEnum>())
@@ -46,14 +36,14 @@ public class EnemyProjectilesManager : ManagerBase
     private EnemyProjectileBase EnemyProjectileInstantiate(EnemyProjectilesEnum id)
         => EnemyProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponent<EnemyProjectileBase>();
 
-    public static bool TrySpawnProjectile(EnemyProjectilesEnum id, Transform newTransform, out EnemyProjectileBase projectileBase)
+    public bool TrySpawnProjectile(EnemyProjectilesEnum id, Transform newTransform, out EnemyProjectileBase projectileBase)
     {
-        if (_instance._pool.ExtractElement(id, out EnemyProjectileBase newProjectile))
+        if (_pool.ExtractElement(id, out EnemyProjectileBase newProjectile))
         {
             projectileBase = newProjectile;
             newProjectile.transform.position = newTransform.position;
             newProjectile.transform.rotation = newTransform.rotation;
-            newProjectile.OnLifeTimeEnd += _instance.ReturnProjectileInPool;
+            newProjectile.OnLifeTimeEnd += ReturnProjectileInPool;
             return true;
         }
         else
