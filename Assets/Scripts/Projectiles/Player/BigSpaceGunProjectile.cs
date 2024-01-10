@@ -1,7 +1,10 @@
-public class BigSpaceGunProjectile : PlayerProjectileBase
+namespace Projectiles.Player
 {
-    public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.BigSpaceGun;
+    public class BigSpaceGunProjectile : PlayerProjectileBase
+    {
+        public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.BigSpaceGun;
     
-    protected override bool DestroyableOnCollision => true;
-    protected override bool ReturnInPoolOnExitFromPlayArea => true;
+        protected override bool DestroyableOnCollision => true;
+        protected override bool ReturnInPoolOnExitFromPlayArea => true;
+    }
 }

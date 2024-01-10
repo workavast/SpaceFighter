@@ -1,3 +1,4 @@
+using Configs;
 using TMPro;
 using UnityEngine;
 using Zenject;

@@ -22,9 +22,7 @@ public class SpaceshipBase : MonoBehaviour, IDamageable, IHandleUpdate
         healthPoints.ChangeCurrentValue(-damage);
 
         if (healthPoints.IsEmpty)
-        {
             OnDead?.Invoke();
-        }
     }
 
     public virtual void HandleUpdate(float time) { }

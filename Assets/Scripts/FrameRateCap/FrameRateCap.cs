@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class FrameRateCap : MonoBehaviour
+namespace FrameRateCap
 {
-    private static FrameRateCap _instance;
-    
-    private void Awake()
+    public class FrameRateCap : MonoBehaviour
     {
-        if (_instance)
+        private static FrameRateCap _instance;
+    
+        private void Awake()
         {
-            Destroy(this);
-            return;
-        }
+            if (_instance)
+            {
+                Destroy(this);
+                return;
+            }
 
-        _instance = this;
-        Application.targetFrameRate = 60;
-        DontDestroyOnLoad(this);
+            _instance = this;
+            Application.targetFrameRate = 60;
+            DontDestroyOnLoad(this);
+        }
     }
 }

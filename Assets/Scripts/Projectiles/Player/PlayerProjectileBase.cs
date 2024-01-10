@@ -1,7 +1,10 @@
-public abstract class PlayerProjectileBase : ProjectileBase<PlayerProjectilesEnum, PlayerProjectileBase>
+namespace Projectiles.Player
 {
-    public void SetData(float newDamage)
+    public abstract class PlayerProjectileBase : ProjectileBase<PlayerProjectilesEnum, PlayerProjectileBase>
     {
-        damage = newDamage;
+        public void SetData(float newDamage)
+        {
+            damage = newDamage;
+        }
     }
 }

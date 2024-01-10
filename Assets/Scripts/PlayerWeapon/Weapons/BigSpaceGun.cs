@@ -1,3 +1,5 @@
+using Projectiles.Player;
+
 public class BigSpaceGun : PlayerWeaponBase
 {
     public override PlayerWeaponsEnum PlayerWeaponId => PlayerWeaponsEnum.BigSpaceGun;

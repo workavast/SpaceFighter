@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using PathCreation;
 using UnityEngine;
 
-namespace MissionsDataConfigsSystem
+namespace Configs.Missions
 {
     [CreateAssetMenu(fileName = "EnemyGroupConfig", menuName = "SO/EnemyGroupConfig")]
     public class EnemyGroupConfig : ScriptableObject

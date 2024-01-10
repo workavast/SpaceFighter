@@ -1,63 +1,66 @@
 using TimerExtension;
 using UnityEngine;
 
-public class ZapperProjectile : PlayerProjectileBase
+namespace Projectiles.Player
 {
-    public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.Zapper;
-    
-    [SerializeField] private float existTime;
-    [SerializeField] private float damagePause;//dont used at the moment, maybe used damage per second??
-    
-    protected override bool DestroyableOnCollision => false;
-    protected override bool ReturnInPoolOnExitFromPlayArea => false;
-    
-    private Transform _follower;
-
-    private Timer _existTimer;
-    private Timer _damagePause;//dont used at the moment, maybe used damage per second??(but need override OnTargetEnter)
-    
-    private void Awake()
+    public class ZapperProjectile : PlayerProjectileBase
     {
-        _existTimer = new Timer(existTime);
-        _damagePause = new Timer(damagePause);
+        public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.Zapper;
+    
+        [SerializeField] private float existTime;
+        [SerializeField] private float damagePause;//dont used at the moment, maybe used damage per second??
+    
+        protected override bool DestroyableOnCollision => false;
+        protected override bool ReturnInPoolOnExitFromPlayArea => false;
+    
+        private Transform _follower;
+
+        private Timer _existTimer;
+        private Timer _damagePause;//dont used at the moment, maybe used damage per second??(but need override OnTargetEnter)
+    
+        private void Awake()
+        {
+            _existTimer = new Timer(existTime);
+            _damagePause = new Timer(damagePause);
         
-        _existTimer.OnTimerEnd += HandleReturnInPool;
-        OnElementExtractFromPoolEvent += ResetTimers;
-        OnElementReturnInPoolEvent += StopTimers;
+            _existTimer.OnTimerEnd += HandleReturnInPool;
+            OnElementExtractFromPoolEvent += ResetTimers;
+            OnElementReturnInPoolEvent += StopTimers;
 
-        OnHandleUpdate += TimersTicks;
+            OnHandleUpdate += TimersTicks;
         
-        ResetTimers();
-    }
+            ResetTimers();
+        }
 
-    private void TimersTicks(float time)
-    {
-        _existTimer.Tick(time);
-        _damagePause.Tick(time);
-    }
+        private void TimersTicks(float time)
+        {
+            _existTimer.Tick(time);
+            _damagePause.Tick(time);
+        }
     
-    private void ResetTimers()
-    {
-        _existTimer.Reset();
-        _damagePause.Reset();
+        private void ResetTimers()
+        {
+            _existTimer.Reset();
+            _damagePause.Reset();
         
-        _existTimer.Continue();
-        _damagePause.Continue();
-    }
+            _existTimer.Continue();
+            _damagePause.Continue();
+        }
 
-    private void StopTimers()
-    {
-        _existTimer.Stop();
-        _damagePause.Stop();
-    }
+        private void StopTimers()
+        {
+            _existTimer.Stop();
+            _damagePause.Stop();
+        }
     
-    protected override void Move(float time)
-    {
-        if (_follower) transform.position = _follower.position;
-    }
+        protected override void Move(float time)
+        {
+            if (_follower) transform.position = _follower.position;
+        }
 
-    public void SetMount(Transform transform)
-    {
-        _follower = transform;
+        public void SetMount(Transform transform)
+        {
+            _follower = transform;
+        }
     }
 }

@@ -1,7 +1,10 @@
-public enum PlayerProjectilesEnum
+namespace Projectiles.Player
 {
-    AutoCannon,
-    BigSpaceGun,
-    Rocket,
-    Zapper
+    public enum PlayerProjectilesEnum
+    {
+        AutoCannon,
+        BigSpaceGun,
+        Rocket,
+        Zapper
+    }
 }

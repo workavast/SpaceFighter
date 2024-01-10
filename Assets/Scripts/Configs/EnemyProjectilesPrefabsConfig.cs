@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using Projectiles.Enemy;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyProjectilesPrefabsConfig", menuName = "SO/Factories/EnemyProjectilesPrefabsConfig")]
-public class EnemyProjectilesPrefabsConfig : ScriptableObject
+namespace Configs
 {
-    [SerializeField] private DictionaryInspector<EnemyProjectilesEnum, GameObject> data;
-    public IReadOnlyDictionary<EnemyProjectilesEnum, GameObject> Data => data;
+    [CreateAssetMenu(fileName = "EnemyProjectilesPrefabsConfig", menuName = "SO/Factories/EnemyProjectilesPrefabsConfig")]
+    public class EnemyProjectilesPrefabsConfig : ScriptableObject
+    {
+        [SerializeField] private DictionaryInspector<EnemyProjectilesEnum, GameObject> data;
+        public IReadOnlyDictionary<EnemyProjectilesEnum, GameObject> Data => data;
+    }
 }

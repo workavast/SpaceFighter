@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Configs.Missions;
 using GameCycle;
 using MissionsDataConfigsSystem;
 using SomeStorages;

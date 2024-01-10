@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class RocketProjectile : PlayerProjectileBase
+namespace Projectiles.Player
 {
-    public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.Rocket;
-    
-    protected override bool DestroyableOnCollision => true;
-    protected override bool ReturnInPoolOnExitFromPlayArea => true;
-    
-    protected override void Move(float time)
+    public class RocketProjectile : PlayerProjectileBase
     {
-        transform.Translate(Vector3.up * (moveSpeed * time));
+        public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.Rocket;
+    
+        protected override bool DestroyableOnCollision => true;
+        protected override bool ReturnInPoolOnExitFromPlayArea => true;
+    
+        protected override void Move(float time)
+        {
+            transform.Translate(Vector3.up * (moveSpeed * time));
+        }
     }
 }

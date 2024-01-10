@@ -1,7 +1,10 @@
-public class EnemyWaveProjectile : EnemyProjectileBase
+namespace Projectiles.Enemy
 {
-    public override EnemyProjectilesEnum PoolId => EnemyProjectilesEnum.Wave;
+    public class EnemyWaveProjectile : EnemyProjectileBase
+    {
+        public override EnemyProjectilesEnum PoolId => EnemyProjectilesEnum.Wave;
     
-    protected override bool DestroyableOnCollision => true;
-    protected override bool ReturnInPoolOnExitFromPlayArea => true;
+        protected override bool DestroyableOnCollision => true;
+        protected override bool ReturnInPoolOnExitFromPlayArea => true;
+    }
 }

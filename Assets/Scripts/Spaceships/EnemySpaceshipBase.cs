@@ -1,5 +1,6 @@
 using System;
-using Events;
+using EventBus;
+using EventBus.Events;
 using Managers;
 using UnityEngine;
 using PathCreation;

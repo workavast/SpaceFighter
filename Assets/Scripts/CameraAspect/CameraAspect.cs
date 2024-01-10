@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class CameraAspect : MonoBehaviour
+namespace CameraAspect
 {
-    [SerializeField] private Camera someCamera;
-    [SerializeField] private float aspect;
-
-    private void Update()
+    public class CameraAspect : MonoBehaviour
     {
-        float width = Screen.height * aspect;
-        float w = width / Screen.width;
-        float x = (1 - w) / 2f;
-        someCamera.rect = new Rect(x, 0,w, 1);
+        [SerializeField] private Camera someCamera;
+        [SerializeField] private float aspect;
+
+        private void Update()
+        {
+            float width = Screen.height * aspect;
+            float w = width / Screen.width;
+            float x = (1 - w) / 2f;
+            someCamera.rect = new Rect(x, 0,w, 1);
+        }
     }
 }

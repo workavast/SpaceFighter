@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Configs.Missions;
+using Factories;
 using GameCycle;
 using UnityEngine;
 using MissionsDataConfigsSystem;
 using PoolSystem;
+using Zenject;
 
 namespace Managers
 {
@@ -16,6 +19,8 @@ namespace Managers
 
         private Pool<EnemySpaceshipBase, EnemySpaceshipsEnum> _pool;
 
+        [Inject] private EnemySpaceshipsFactory _enemySpaceshipsFactory;
+        
         public int ActiveEnemiesCount => _pool.BusyElementsValues.Sum(e => e.Count);
 
         public event Action OnAllEnemiesGone;
@@ -41,7 +46,7 @@ namespace Managers
     
         private EnemySpaceshipBase EnemySpaceShipInstantiate(EnemySpaceshipsEnum id)
         {
-            var enemySpaceship = EnemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform)
+            var enemySpaceship = _enemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform)
                 .GetComponent<EnemySpaceshipBase>();
             enemySpaceship.OnGone += ReturnEnemy;
             return enemySpaceship;

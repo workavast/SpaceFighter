@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using MissionsDataConfigsSystem;
 using UnityEngine;
 
-namespace MissionsDataConfigsSystem
+namespace Configs.Missions
 {
     [CreateAssetMenu(fileName = "MissionConfig", menuName = "SO/MissionConfig")]
     public class MissionConfig : ScriptableObject

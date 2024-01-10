@@ -1,8 +1,11 @@
-public enum EnemyProjectilesEnum
+namespace Projectiles.Enemy
 {
-    BigBullet,
-    Bullet,
-    Ray,
-    Torpedo,
-    Wave
+    public enum EnemyProjectilesEnum
+    {
+        BigBullet,
+        Bullet,
+        Ray,
+        Torpedo,
+        Wave
+    }
 }

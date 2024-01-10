@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerSpaceshipLevelsConfig", menuName = "SO/PlayerSpaceshipLevelsConfig")]
-public class PlayerSpaceshipLevelsConfig : ScriptableObject
+namespace Configs
 {
-    [Serializable]
-    private class SpaceshipLevelData
+    [CreateAssetMenu(fileName = "PlayerSpaceshipLevelsConfig", menuName = "SO/PlayerSpaceshipLevelsConfig")]
+    public class PlayerSpaceshipLevelsConfig : ScriptableObject
     {
-        [field: SerializeField] public int HealthPoints { get; private set; }
-        [field: SerializeField] public int Price { get; private set; }
-    }
+        [Serializable]
+        private class SpaceshipLevelData
+        {
+            [field: SerializeField] public int HealthPoints { get; private set; }
+            [field: SerializeField] public int Price { get; private set; }
+        }
     
-    [SerializeField] private List<SpaceshipLevelData> data;
+        [SerializeField] private List<SpaceshipLevelData> data;
 
-    public int LevelsCount => data.Count;
-    public IReadOnlyList<int> LevelsHealthPoints => data.Select(x => x.HealthPoints).ToList();
-    public IReadOnlyList<int> LevelsPrices => data.Select(x => x.Price).ToList();
+        public int LevelsCount => data.Count;
+        public IReadOnlyList<int> LevelsHealthPoints => data.Select(x => x.HealthPoints).ToList();
+        public IReadOnlyList<int> LevelsPrices => data.Select(x => x.Price).ToList();
+    }
 }

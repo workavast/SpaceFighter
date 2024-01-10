@@ -1,7 +1,10 @@
-public class AutoCannonProjectile : PlayerProjectileBase
+namespace Projectiles.Player
 {
-    public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.AutoCannon;
+    public class AutoCannonProjectile : PlayerProjectileBase
+    {
+        public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.AutoCannon;
 
-    protected override bool DestroyableOnCollision => true;
-    protected override bool ReturnInPoolOnExitFromPlayArea => true;
+        protected override bool DestroyableOnCollision => true;
+        protected override bool ReturnInPoolOnExitFromPlayArea => true;
+    }
 }

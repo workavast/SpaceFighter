@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using EventBus;
+using Managers;
 using Zenject;
 
 namespace Installers

@@ -1,4 +1,5 @@
 ﻿using System;
+using Configs;
 using GameCycle;
 using UnityEngine;
 using Zenject;
