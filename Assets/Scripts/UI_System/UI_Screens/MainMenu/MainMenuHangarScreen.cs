@@ -1,5 +1,6 @@
 using Configs;
 using TMPro;
+using UI_System.UI_Screens;
 using UnityEngine;
 using Zenject;
 

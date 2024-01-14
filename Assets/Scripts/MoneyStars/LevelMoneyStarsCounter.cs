@@ -1,3 +1,5 @@
+using UI_System;
+using UI_System.UI_Screens.Gameplay;
 using UnityEngine;
 
 public class LevelMoneyStarsCounter : MonoBehaviour
