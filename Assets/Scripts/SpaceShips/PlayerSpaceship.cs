@@ -46,7 +46,7 @@ public class PlayerSpaceship : SpaceshipBase
 
         _currentDamageSprite = new SomeStorageInt(damageAnimatorTriggerData.Count - 1);
         
-        float healthPointsValue = playerSpaceshipLevelsConfig.LevelsHealthPoints[PlayerGlobalData.CurrentSpaceshipLevel];
+        float healthPointsValue = playerSpaceshipLevelsConfig.LevelsHealthPoints[PlayerGlobalData.CurrentSpaceshipLevel - 1];
         healthPoints = new SomeStorageFloat(healthPointsValue,healthPointsValue);
     }
     
