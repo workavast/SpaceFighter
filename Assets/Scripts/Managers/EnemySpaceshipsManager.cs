@@ -5,7 +5,6 @@ using Configs.Missions;
 using Factories;
 using GameCycle;
 using UnityEngine;
-using MissionsDataConfigsSystem;
 using PoolSystem;
 using Zenject;
 
@@ -61,10 +60,6 @@ namespace Managers
                     config.acceleration);
             }
         }
-        
-        private void ReturnDeadEnemy(EnemySpaceshipBase enemy) => ReturnEnemy(enemy);
-
-        private void ReturnEscapedEnemy(EnemySpaceshipBase enemy) => ReturnEnemy(enemy);
 
         private void ReturnEnemy(EnemySpaceshipBase enemy)
         {

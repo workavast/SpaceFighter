@@ -1,3 +1,4 @@
+using Controllers;
 using Managers;
 using TMPro;
 using UI_System.UI_Elements;
@@ -11,11 +12,14 @@ public class GameplayMainScreen : UI_ScreenBase
     [SerializeField] private UI_Counter killsCounter;
 
     [Inject] private MissionController _missionController;
+
+    [Inject] private KillsCounterController _killsCounterController;
+    [Inject] private WavesController _wavesController;
     
     private void Start()
     {
-        killsCounter.Init(_missionController.DestroyedEnemiesCounter);
-        wavesCounter.Init(_missionController.WavesCounter);
+        killsCounter.Init(_killsCounterController.DestroyedEnemiesCounter);
+        wavesCounter.Init(_wavesController.WavesCounter);
     }
     
     public void UpdateLevelMoneyCount(int currentCount)

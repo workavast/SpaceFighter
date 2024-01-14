@@ -7,31 +7,23 @@ namespace MissionsDataConfigsSystem
     public class SelectedMissionData : MonoBehaviour
     {
         [Inject] private MissionsConfig _missionsConfig;
-        private static SelectedMissionData _instance;
 
-        private MissionConfig _missionConfig;
-        public static MissionConfig MissionConfig => _instance._missionConfig;
-
-        private void Awake()
+        private static MissionConfig _missionConfig;
+        
+        public void SetMissionData(int missionNum)
         {
-            if (_instance)
-            {
-                Destroy(this);
-                return;
-            }
-
-            _instance = this;
-
-            _missionConfig = null;
-
-            DontDestroyOnLoad(this);
-            
-            SetMissionData(0);
+            _missionConfig = _missionsConfig.GetMissionData(missionNum);
         }
 
-        public static void SetMissionData(int missionNum)
+        public MissionConfig TakeMissionData()
         {
-            _instance._missionConfig = _instance._missionsConfig.GetMissionData(missionNum);
+            if (_missionConfig is null)
+            {
+                Debug.LogWarning($"mission config is null");
+                SetMissionData(0);
+            }
+            
+            return _missionConfig;
         }
     }
 }

@@ -1,7 +1,6 @@
 using Configs.Missions;
 using UnityEngine;
 using Zenject;
-using MissionsDataConfigsSystem;
 
 public class MissionsConfigInstaller : MonoInstaller
 {

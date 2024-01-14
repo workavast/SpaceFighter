@@ -19,9 +19,13 @@ namespace Managers
         private List<WaveGroupSpawner> _waveGroupsSpawners;
         
         public event Action OnWaveSpawned;
+
+        private bool _invokeWave;
         
         public override void GameCycleUpdate()
         {
+            if(!_invokeWave) return;
+
             var time = Time.deltaTime;
             foreach (var group in _waveGroupsSpawners)
                 group.HandleUpdate(time);
@@ -29,6 +33,8 @@ namespace Managers
         
         public void CallWave(EnemyWaveConfig waveConfig)
         {
+            _invokeWave = true;
+            
             _waveGroupsSpawners = new List<WaveGroupSpawner>();
             foreach (var groupConfig in waveConfig.GroupsConfigs)
             {
@@ -51,7 +57,9 @@ namespace Managers
         {
             Debug.Log("Wave spawned");
             _waveGroupsSpawners = new List<WaveGroupSpawner>();
-            OnWaveSpawned?.Invoke();
+            _invokeWave = false;
+
+            OnWaveSpawned?.Invoke(); 
         }
         
         private void EnemyInstanceDelegate(int enemyIndex, EnemyGroupConfig enemyGroupConfig)

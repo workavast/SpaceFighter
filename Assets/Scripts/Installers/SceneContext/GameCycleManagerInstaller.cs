@@ -9,5 +9,6 @@ public class GameCycleManagerInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<IGameCycleManager>().FromInstance(gameCycleManager).AsSingle();
+        Container.Bind<IGameCycleManagerSwitcher>().FromInstance(gameCycleManager).AsSingle();
     }
 }

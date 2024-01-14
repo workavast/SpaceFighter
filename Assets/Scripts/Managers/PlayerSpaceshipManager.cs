@@ -18,12 +18,13 @@ namespace Managers
         
         private PlayerWeaponBase _weapon;
 
-        public Action OnPlayerDie;
+        public event Action OnPlayerDie;
+        public bool PlayerIsDead { get; private set; }
         
         protected override void OnAwake()
         {
             playerSpaceship.Initialization(_playerSpaceshipLevelsConfig);
-            playerSpaceship.OnDead += PlayerIsDead;
+            playerSpaceship.OnDead += OnPlayerDead;
             
             SpawnWeapon();
         }
@@ -46,7 +47,7 @@ namespace Managers
                 throw new Exception("Dictionary don't contain this WeaponsEnum");
         }
         
-        private void PlayerIsDead()
+        private void OnPlayerDead()
         {
             _weapon.StopShoot();
             OnPlayerDie?.Invoke();
