@@ -7,7 +7,7 @@ namespace Configs
     [CreateAssetMenu(fileName = "PlayerProjectilesConfig", menuName = "SO/PlayerProjectilesConfig")]
     public class PlayerProjectilesConfig : ScriptableObject
     {
-        [SerializeField] private DictionaryInspector<PlayerProjectilesEnum, GameObject> data;
-        public IReadOnlyDictionary<PlayerProjectilesEnum, GameObject> Data => data;
+        [SerializeField] private DictionaryInspector<PlayerProjectileType, GameObject> data;
+        public IReadOnlyDictionary<PlayerProjectileType, GameObject> Data => data;
     }
 }

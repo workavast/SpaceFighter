@@ -30,26 +30,26 @@ namespace Controllers
             Debug.Log($"Mission completed");
             _gameCycleManager.SwitchState(GameStatesType.Pause);
             LevelMoneyStarsCounter.ApplyValue();
-            _uiController.SetScreen(ScreensEnum.GameplayMissionEnd);
+            _uiController.SetScreen(ScreenType.GameplayMissionEnd);
         }
         
         private void OnPlayerDie()
         {
             _gameCycleManager.SwitchState(GameStatesType.Pause);
-            _uiController.SetScreen(ScreensEnum.GameplayMissionEnd);
+            _uiController.SetScreen(ScreenType.GameplayMissionEnd);
         }
 
-        private void OnScreenSwitch(ScreensEnum screen)
+        private void OnScreenSwitch(ScreenType screen)
         {
             switch (screen)
             {
-                case ScreensEnum.GameplayMain:
+                case ScreenType.GameplayMain:
                     OnDeactivatePause();
                     break;
-                case ScreensEnum.GameplayMenu:
+                case ScreenType.GameplayMenu:
                     OnActivatePause();
                     break;
-                case ScreensEnum.GameplayMissionEnd:
+                case ScreenType.GameplayMissionEnd:
                     break;
                 default:
                     return;

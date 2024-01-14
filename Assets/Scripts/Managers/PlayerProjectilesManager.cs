@@ -14,17 +14,17 @@ namespace Managers
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
     
-        private Pool<PlayerProjectileBase, PlayerProjectilesEnum> _pool;
+        private Pool<PlayerProjectileBase, PlayerProjectileType> _pool;
 
-        private readonly Dictionary<PlayerProjectilesEnum, GameObject> _projectilesParents = new();
+        private readonly Dictionary<PlayerProjectileType, GameObject> _projectilesParents = new();
 
         [Inject] private PlayerProjectilesFactory _playerProjectilesFactory;
     
         protected override void OnAwake()
         {
-            _pool = new Pool<PlayerProjectileBase, PlayerProjectilesEnum>(PlayerProjectileInstantiate);
+            _pool = new Pool<PlayerProjectileBase, PlayerProjectileType>(PlayerProjectileInstantiate);
         
-            foreach (var enemyShipId in Enum.GetValues(typeof(PlayerProjectilesEnum)).Cast<PlayerProjectilesEnum>())
+            foreach (var enemyShipId in Enum.GetValues(typeof(PlayerProjectileType)).Cast<PlayerProjectileType>())
             {
                 GameObject parent = new GameObject(enemyShipId.ToString()) { transform = { parent = transform } };
                 _projectilesParents.Add(enemyShipId, parent);
@@ -39,10 +39,10 @@ namespace Managers
                 list[i][j].HandleUpdate(Time.deltaTime);
         }
     
-        private PlayerProjectileBase PlayerProjectileInstantiate(PlayerProjectilesEnum id)
+        private PlayerProjectileBase PlayerProjectileInstantiate(PlayerProjectileType id)
             => _playerProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponent<PlayerProjectileBase>();
 
-        public bool TrySpawnProjectile(PlayerProjectilesEnum id, Transform newTransform, out PlayerProjectileBase projectileBase)
+        public bool TrySpawnProjectile(PlayerProjectileType id, Transform newTransform, out PlayerProjectileBase projectileBase)
         {
             if (_pool.ExtractElement(id, out PlayerProjectileBase newProjectile))
             {

@@ -1,6 +1,6 @@
 namespace Projectiles.Player
 {
-    public enum PlayerProjectilesEnum
+    public enum PlayerProjectileType
     {
         AutoCannon,
         BigSpaceGun,

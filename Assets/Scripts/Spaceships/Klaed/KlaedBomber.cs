@@ -1,4 +1,4 @@
 public class KlaedBomber : UnShootingEnemySpaceshipBase
 {
-    public override EnemySpaceshipsEnum PoolId => EnemySpaceshipsEnum.KlaedBomber;
+    public override EnemySpaceshipType PoolId => EnemySpaceshipType.KlaedBomber;
 }

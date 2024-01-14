@@ -6,13 +6,14 @@ using UnityEngine;
 using PathCreation;
 using Zenject;
 
-public abstract class EnemySpaceshipBase : SpaceshipBase, PoolSystem.IPoolable<EnemySpaceshipBase, EnemySpaceshipsEnum>
+public abstract class EnemySpaceshipBase : SpaceshipBase, PoolSystem.IPoolable<EnemySpaceshipBase, EnemySpaceshipType>
 {
     [Space]
     [SerializeField] private float collisionDamage = 1;
 
     [Inject] protected MissionEventBus EventBus;
     [Inject] private MoneyStarsManager _moneyStarsManager;
+    [Inject] private PlayerSpaceshipManager _playerSpaceshipManager;
     
     private bool _canMove;
     
@@ -31,7 +32,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, PoolSystem.IPoolable<E
     private Vector3 _prevPosition;
     public float CollisionDamage => collisionDamage;
 
-    public abstract EnemySpaceshipsEnum PoolId { get; }
+    public abstract EnemySpaceshipType PoolId { get; }
     public event Action<EnemySpaceshipBase> OnDestroyElementEvent;
 
     protected event Action OnElementExtractFromPool;
@@ -101,7 +102,7 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, PoolSystem.IPoolable<E
                 break;
             
             case EnemyRotationType.PlayerTarget:
-                transform.up = PlayerSpaceship.Instance.transform.position - transform.position;
+                transform.up = _playerSpaceshipManager.PlayerSpaceship.transform.position - transform.position;
                 break;
             
             case EnemyRotationType.PathWayRotation:

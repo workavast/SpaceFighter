@@ -67,10 +67,10 @@ public class MainMenuHangarScreen : UI_ScreenBase
 
     private void UpdateWeaponsLocks()
     {
-        autoCannonLock.SetActive(PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponsEnum.AutoCannon] <= 0);
-        bigSpaceGunLock.SetActive(PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponsEnum.BigSpaceGun] <= 0);
-        rocketsLock.SetActive(PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponsEnum.Rockets] <= 0);
-        zapperLock.SetActive(PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponsEnum.Zapper] <= 0);
+        autoCannonLock.SetActive(PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponType.AutoCannon] <= 0);
+        bigSpaceGunLock.SetActive(PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponType.BigSpaceGun] <= 0);
+        rocketsLock.SetActive(PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponType.Rockets] <= 0);
+        zapperLock.SetActive(PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponType.Zapper] <= 0);
     }
     
     private void UpdateEquippedWeapon()
@@ -82,16 +82,16 @@ public class MainMenuHangarScreen : UI_ScreenBase
         
         switch (PlayerGlobalData.EquippedPlayerWeapon)
         {
-            case PlayerWeaponsEnum.AutoCannon:
+            case PlayerWeaponType.AutoCannon:
                 autoCannonVisualisation.SetActive(true);
                 break;
-            case PlayerWeaponsEnum.BigSpaceGun:
+            case PlayerWeaponType.BigSpaceGun:
                 bigSpaceGunVisualisation.SetActive(true);
                 break;
-            case PlayerWeaponsEnum.Rockets:
+            case PlayerWeaponType.Rockets:
                 rocketsVisualisation.SetActive(true);
                 break;
-            case PlayerWeaponsEnum.Zapper:
+            case PlayerWeaponType.Zapper:
                 zapperVisualisation.SetActive(true);
                 break;
             default:
@@ -131,26 +131,26 @@ public class MainMenuHangarScreen : UI_ScreenBase
         //         ? "Equipped"
         //         : "Equip";
         
-        PlayerWeaponsEnum weaponsEnum;
+        PlayerWeaponType weaponType;
         switch (_currentHangarSelectItem)
         {
             case HangarSelectItemEnum.Spaceship:
                 equipOrEquippedText.text = "Equipped";
                 return;
 
-            case HangarSelectItemEnum.AutoCannon: weaponsEnum = PlayerWeaponsEnum.AutoCannon; break;
-            case HangarSelectItemEnum.BigSpaceGun: weaponsEnum = PlayerWeaponsEnum.BigSpaceGun; break;
-            case HangarSelectItemEnum.Rockets: weaponsEnum = PlayerWeaponsEnum.Rockets; break;
-            case HangarSelectItemEnum.Zapper: weaponsEnum = PlayerWeaponsEnum.Zapper; break;
+            case HangarSelectItemEnum.AutoCannon: weaponType = PlayerWeaponType.AutoCannon; break;
+            case HangarSelectItemEnum.BigSpaceGun: weaponType = PlayerWeaponType.BigSpaceGun; break;
+            case HangarSelectItemEnum.Rockets: weaponType = PlayerWeaponType.Rockets; break;
+            case HangarSelectItemEnum.Zapper: weaponType = PlayerWeaponType.Zapper; break;
             default:
                 Debug.LogWarning("Undefined HangarSelectItemEnum");
                 return;
         }
         
-        if (PlayerGlobalData.CurrentWeaponsLevels[weaponsEnum] <= 0)
+        if (PlayerGlobalData.CurrentWeaponsLevels[weaponType] <= 0)
             equipOrEquippedText.text = "Locked";
         else
-            equipOrEquippedText.text = weaponsEnum == PlayerGlobalData.EquippedPlayerWeapon
+            equipOrEquippedText.text = weaponType == PlayerGlobalData.EquippedPlayerWeapon
                 ? "Equipped"
                 : "Equip";
     }
@@ -174,7 +174,7 @@ public class MainMenuHangarScreen : UI_ScreenBase
         // buyOrLevelUpOrMaxLevelText.text += "\nby " + _playerWeaponConfig.WeaponPricesData[_currentSelectedWeapon][currentSelectedWeaponLevel];
         
         
-        PlayerWeaponsEnum weaponsEnum;
+        PlayerWeaponType weaponType;
         switch (_currentHangarSelectItem)
         {
             case HangarSelectItemEnum.Spaceship:
@@ -189,30 +189,30 @@ public class MainMenuHangarScreen : UI_ScreenBase
                 buyOrLevelUpOrMaxLevelText.text += "\nby " + _playerSpaceshipLevelsConfig.LevelsPrices[currentSpaceshipLevel];
                 return;
 
-            case HangarSelectItemEnum.AutoCannon: weaponsEnum = PlayerWeaponsEnum.AutoCannon; break;
-            case HangarSelectItemEnum.BigSpaceGun: weaponsEnum = PlayerWeaponsEnum.BigSpaceGun; break;
-            case HangarSelectItemEnum.Rockets: weaponsEnum = PlayerWeaponsEnum.Rockets; break;
-            case HangarSelectItemEnum.Zapper: weaponsEnum = PlayerWeaponsEnum.Zapper; break;
+            case HangarSelectItemEnum.AutoCannon: weaponType = PlayerWeaponType.AutoCannon; break;
+            case HangarSelectItemEnum.BigSpaceGun: weaponType = PlayerWeaponType.BigSpaceGun; break;
+            case HangarSelectItemEnum.Rockets: weaponType = PlayerWeaponType.Rockets; break;
+            case HangarSelectItemEnum.Zapper: weaponType = PlayerWeaponType.Zapper; break;
             default:
                 Debug.LogWarning("Undefined HangarSelectItemEnum");
                 return;
         }
         
-        if (!PlayerGlobalData.CurrentWeaponsLevels.ContainsKey(weaponsEnum))
+        if (!PlayerGlobalData.CurrentWeaponsLevels.ContainsKey(weaponType))
         {
             Debug.LogWarning("Undefined weapon enum");
             return;
         }
 
-        int currentSelectedWeaponLevel = PlayerGlobalData.CurrentWeaponsLevels[weaponsEnum];
-        if ( currentSelectedWeaponLevel >= _playerWeaponConfig.WeaponsLevelsData[weaponsEnum].Count)
+        int currentSelectedWeaponLevel = PlayerGlobalData.CurrentWeaponsLevels[weaponType];
+        if ( currentSelectedWeaponLevel >= _playerWeaponConfig.WeaponsLevelsData[weaponType].Count)
         {
             buyOrLevelUpOrMaxLevelText.text = "Max level";
             return;
         }
         
         buyOrLevelUpOrMaxLevelText.text = currentSelectedWeaponLevel <= 0 ? "Buy" : "Level Up";
-        buyOrLevelUpOrMaxLevelText.text += "\nby " + _playerWeaponConfig.WeaponPricesData[weaponsEnum][currentSelectedWeaponLevel];
+        buyOrLevelUpOrMaxLevelText.text += "\nby " + _playerWeaponConfig.WeaponPricesData[weaponType][currentSelectedWeaponLevel];
     }
     
     #endregion
@@ -229,27 +229,27 @@ public class MainMenuHangarScreen : UI_ScreenBase
     
     public void _TryChangeEquippedWeapon()
     {
-        PlayerWeaponsEnum playerWeapon;
+        PlayerWeaponType playerWeapon;
         switch (_currentHangarSelectItem)
         {
             case HangarSelectItemEnum.Spaceship:
                 Debug.LogWarning("You try equip spaceship");
                 return;
             case HangarSelectItemEnum.AutoCannon:
-                playerWeapon = PlayerWeaponsEnum.AutoCannon;
+                playerWeapon = PlayerWeaponType.AutoCannon;
                 break;
             case HangarSelectItemEnum.BigSpaceGun:
-                playerWeapon = PlayerWeaponsEnum.BigSpaceGun;
+                playerWeapon = PlayerWeaponType.BigSpaceGun;
                 break;
             case HangarSelectItemEnum.Rockets:
-                playerWeapon = PlayerWeaponsEnum.Rockets;
+                playerWeapon = PlayerWeaponType.Rockets;
                 break;
             case HangarSelectItemEnum.Zapper:
-                playerWeapon = PlayerWeaponsEnum.Zapper;
+                playerWeapon = PlayerWeaponType.Zapper;
                 break;
             default:
                 Debug.LogWarning("Undefined HangarSelectItemEnum(PlayerWeaponsEnum)");
-                playerWeapon = PlayerWeaponsEnum.AutoCannon;
+                playerWeapon = PlayerWeaponType.AutoCannon;
                 break;
         }
         
@@ -281,16 +281,16 @@ public class MainMenuHangarScreen : UI_ScreenBase
                 TryLevelUpSpaceship();
                 break;
             case HangarSelectItemEnum.AutoCannon:
-                TryLevelUpWeapon(PlayerWeaponsEnum.AutoCannon);
+                TryLevelUpWeapon(PlayerWeaponType.AutoCannon);
                 break;
             case HangarSelectItemEnum.BigSpaceGun:
-                TryLevelUpWeapon(PlayerWeaponsEnum.BigSpaceGun);
+                TryLevelUpWeapon(PlayerWeaponType.BigSpaceGun);
                 break;
             case HangarSelectItemEnum.Rockets:
-                TryLevelUpWeapon(PlayerWeaponsEnum.Rockets);
+                TryLevelUpWeapon(PlayerWeaponType.Rockets);
                 break;
             case HangarSelectItemEnum.Zapper:
-                TryLevelUpWeapon(PlayerWeaponsEnum.Zapper);
+                TryLevelUpWeapon(PlayerWeaponType.Zapper);
                 break;
             default:
                 Debug.LogWarning("Undefined HangarSelectItemEnum");
@@ -320,7 +320,7 @@ public class MainMenuHangarScreen : UI_ScreenBase
         UpdateScreen();
     }
     
-    private void TryLevelUpWeapon(PlayerWeaponsEnum playerWeapon)
+    private void TryLevelUpWeapon(PlayerWeaponType playerWeapon)
     {
         if (!PlayerGlobalData.CurrentWeaponsLevels.ContainsKey(playerWeapon))
         {

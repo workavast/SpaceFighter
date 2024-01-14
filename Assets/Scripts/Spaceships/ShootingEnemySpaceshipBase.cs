@@ -7,7 +7,7 @@ using Zenject;
 
 public abstract class ShootingEnemySpaceshipBase : EnemySpaceshipBase
 {
-    protected abstract EnemyProjectilesEnum ProjectileId { get; }
+    protected abstract EnemyProjectileType ProjectileId { get; }
     
     [Space]
     [SerializeField] protected List<Transform> shootPositions;

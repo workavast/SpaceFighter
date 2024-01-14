@@ -5,7 +5,7 @@ namespace Projectiles.Player
 {
     public class ZapperProjectile : PlayerProjectileBase
     {
-        public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.Zapper;
+        public override PlayerProjectileType PoolId => PlayerProjectileType.Zapper;
     
         [SerializeField] private float existTime;
         [SerializeField] private float damagePause;//dont used at the moment, maybe used damage per second??

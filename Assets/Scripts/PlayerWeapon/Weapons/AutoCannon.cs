@@ -2,6 +2,6 @@ using Projectiles.Player;
 
 public class AutoCannon : PlayerWeaponBase
 {
-    public override PlayerWeaponsEnum PlayerWeaponId => PlayerWeaponsEnum.AutoCannon;
-    public override PlayerProjectilesEnum ProjectileId => PlayerProjectilesEnum.AutoCannon;
+    public override PlayerWeaponType PlayerWeaponId => PlayerWeaponType.AutoCannon;
+    public override PlayerProjectileType ProjectileId => PlayerProjectileType.AutoCannon;
 }

@@ -6,7 +6,7 @@ namespace Configs
     [CreateAssetMenu(fileName = "EnemySpaceshipsPrefabsConfig", menuName = "SO/Factories/EnemySpaceshipsPrefabsConfig")]
     public class EnemySpaceshipsPrefabsConfig : ScriptableObject
     {
-        [SerializeField] private DictionaryInspector<EnemySpaceshipsEnum, GameObject> data;
-        public IReadOnlyDictionary<EnemySpaceshipsEnum, GameObject> Data => data;
+        [SerializeField] private DictionaryInspector<EnemySpaceshipType, GameObject> data;
+        public IReadOnlyDictionary<EnemySpaceshipType, GameObject> Data => data;
     }
 }

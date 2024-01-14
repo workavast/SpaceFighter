@@ -17,9 +17,7 @@ public class PlayerSpaceship : SpaceshipBase
     [Inject] private PlayArea _playArea;
     
     public Transform WeaponPosition => weaponPosition;
-
-    public static PlayerSpaceship Instance { get; private set; }
-   
+    
     private Transform _playAreaLeftDownPivot;
     private Camera _camera;
     private SomeStorageInt _currentDamageSprite;
@@ -28,14 +26,6 @@ public class PlayerSpaceship : SpaceshipBase
 
     public void Initialization(PlayerSpaceshipLevelsConfig playerSpaceshipLevelsConfig)
     {
-        if (Instance)
-        {
-            Destroy(this);
-            return;
-        }
-        
-        Instance = this;
-        
         _camera = Camera.main;
 
         if (!spaceshipModelAnimator)

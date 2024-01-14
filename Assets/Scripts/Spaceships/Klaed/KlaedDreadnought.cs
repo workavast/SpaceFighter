@@ -3,8 +3,8 @@ using Projectiles.Enemy;
 
 public class KlaedDreadnought : ShootingEnemySpaceshipBase
 {
-    public override EnemySpaceshipsEnum PoolId => EnemySpaceshipsEnum.KlaedDreadnought;
-    protected override EnemyProjectilesEnum ProjectileId => EnemyProjectilesEnum.Ray;
+    public override EnemySpaceshipType PoolId => EnemySpaceshipType.KlaedDreadnought;
+    protected override EnemyProjectileType ProjectileId => EnemyProjectileType.Ray;
 
     private List<EnemyRay> _rays = new List<EnemyRay>();
 

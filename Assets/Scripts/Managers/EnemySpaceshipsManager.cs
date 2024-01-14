@@ -14,9 +14,9 @@ namespace Managers
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
     
-        private readonly Dictionary<EnemySpaceshipsEnum, GameObject> _spaceshipsParents = new();
+        private readonly Dictionary<EnemySpaceshipType, GameObject> _spaceshipsParents = new();
 
-        private Pool<EnemySpaceshipBase, EnemySpaceshipsEnum> _pool;
+        private Pool<EnemySpaceshipBase, EnemySpaceshipType> _pool;
 
         [Inject] private EnemySpaceshipsFactory _enemySpaceshipsFactory;
         
@@ -26,9 +26,9 @@ namespace Managers
 
         protected override void OnAwake()
         {
-            _pool = new Pool<EnemySpaceshipBase, EnemySpaceshipsEnum>(EnemySpaceShipInstantiate);
+            _pool = new Pool<EnemySpaceshipBase, EnemySpaceshipType>(EnemySpaceShipInstantiate);
         
-            foreach (var enemyShipId in Enum.GetValues(typeof(EnemySpaceshipsEnum)).Cast<EnemySpaceshipsEnum>())
+            foreach (var enemyShipId in Enum.GetValues(typeof(EnemySpaceshipType)).Cast<EnemySpaceshipType>())
             {
                 GameObject parent = new GameObject(enemyShipId.ToString()) { transform = { parent = transform } };
                 _spaceshipsParents.Add(enemyShipId, parent);
@@ -43,7 +43,7 @@ namespace Managers
                 list[i][j].HandleUpdate(Time.deltaTime);
         }
     
-        private EnemySpaceshipBase EnemySpaceShipInstantiate(EnemySpaceshipsEnum id)
+        private EnemySpaceshipBase EnemySpaceShipInstantiate(EnemySpaceshipType id)
         {
             var enemySpaceship = _enemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform)
                 .GetComponent<EnemySpaceshipBase>();
@@ -51,7 +51,7 @@ namespace Managers
             return enemySpaceship;
         }
 
-        public void SpawnEnemy(EnemySpaceshipsEnum enemySpaceshipsType, EnemyGroupConfig config)
+        public void SpawnEnemy(EnemySpaceshipType enemySpaceshipsType, EnemyGroupConfig config)
         {
             if(_pool.ExtractElement(enemySpaceshipsType, out EnemySpaceshipBase enemySpaceShip))
             {

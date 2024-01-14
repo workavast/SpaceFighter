@@ -12,7 +12,7 @@ namespace UI_System
         private List<GameObject> _uiPrevActivies = new List<GameObject>();
         private List<GameObject> _buffer = new List<GameObject>();
 
-        public event Action<ScreensEnum> OnScreenSwitch;
+        public event Action<ScreenType> OnScreenSwitch;
     
         void Start()
         {
@@ -34,7 +34,7 @@ namespace UI_System
         //         addScreen.gameObject.SetActive(setActive);
         // }
     
-        public void SetScreen(ScreensEnum screen)
+        public void SetScreen(ScreenType screen)
         {
             for (int i = 0; i < _uiActivies.Count; i++)
                 _uiActivies[i].SetActive(false);

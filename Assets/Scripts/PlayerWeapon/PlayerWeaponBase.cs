@@ -9,8 +9,8 @@ using SomeStorages;
 
 public abstract class PlayerWeaponBase : MonoBehaviour
 {
-    public abstract PlayerWeaponsEnum PlayerWeaponId { get; }
-    public abstract PlayerProjectilesEnum ProjectileId { get; }
+    public abstract PlayerWeaponType PlayerWeaponId { get; }
+    public abstract PlayerProjectileType ProjectileId { get; }
     
     [Inject] protected PlayerWeaponConfig PlayerWeaponConfig;
     [Inject] protected PlayerProjectilesManager PlayerProjectilesManager;

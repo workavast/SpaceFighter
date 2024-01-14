@@ -4,7 +4,7 @@ namespace Projectiles.Player
 {
     public class RocketProjectile : PlayerProjectileBase
     {
-        public override PlayerProjectilesEnum PoolId => PlayerProjectilesEnum.Rocket;
+        public override PlayerProjectileType PoolId => PlayerProjectileType.Rocket;
     
         protected override bool DestroyableOnCollision => true;
         protected override bool ReturnInPoolOnExitFromPlayArea => true;

@@ -2,6 +2,6 @@ using Projectiles.Enemy;
 
 public class KlaedBattlecruiser : ShootingEnemySpaceshipBase
 {
-    public override EnemySpaceshipsEnum PoolId => EnemySpaceshipsEnum.KlaedBattlecruiser;
-    protected override EnemyProjectilesEnum ProjectileId => EnemyProjectilesEnum.Wave;
+    public override EnemySpaceshipType PoolId => EnemySpaceshipType.KlaedBattlecruiser;
+    protected override EnemyProjectileType ProjectileId => EnemyProjectileType.Wave;
 }

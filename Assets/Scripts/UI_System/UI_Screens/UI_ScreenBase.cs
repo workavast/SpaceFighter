@@ -9,7 +9,7 @@ namespace UI_System.UI_Screens
     
         public virtual void _SetScreen(int screen)
         {
-            UIController.SetScreen((ScreensEnum)screen);
+            UIController.SetScreen((ScreenType)screen);
         }
     
         // public virtual void _ActivateScreen(int screen)

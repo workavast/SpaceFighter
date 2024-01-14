@@ -44,23 +44,23 @@ namespace UI_System
             return (TScreen)screen;
         }
     
-        public static UI_ScreenBase GetScreen(ScreensEnum screensEnum)
+        public static UI_ScreenBase GetScreen(ScreenType screenType)
         {
             if (_instance == null) throw new NullReferenceException($"Instance is null");
         
-            switch (screensEnum)
+            switch (screenType)
             {     
-                case ScreensEnum.MainMenuHangar:
+                case ScreenType.MainMenuHangar:
                     return GetScreen<MainMenuHangarScreen>();
-                case ScreensEnum.MainMenuLevelSelection:
+                case ScreenType.MainMenuLevelSelection:
                     return GetScreen<MainMenuMissionSelectionScreen>();
-                case ScreensEnum.MainMenuSettings:
+                case ScreenType.MainMenuSettings:
                     return GetScreen<MainMenuSettingsScreen>();
-                case ScreensEnum.GameplayMain:
+                case ScreenType.GameplayMain:
                     return GetScreen<GameplayMainScreen>();
-                case ScreensEnum.GameplayMenu:
+                case ScreenType.GameplayMenu:
                     return GetScreen<GameplayMenuScreen>();
-                case ScreensEnum.GameplayMissionEnd:
+                case ScreenType.GameplayMissionEnd:
                     return GetScreen<GameplayMissionEndScreen>();
                 default:
                     Debug.LogWarning("Error: invalid parameter in GetScreenByEnum(ScreenEnum screen)");

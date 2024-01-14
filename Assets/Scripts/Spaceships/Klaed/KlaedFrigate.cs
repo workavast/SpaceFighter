@@ -2,6 +2,6 @@ using Projectiles.Enemy;
 
 public class KlaedFrigate : ShootingEnemySpaceshipBase
 {
-    public override EnemySpaceshipsEnum PoolId => EnemySpaceshipsEnum.KlaedFrigate;
-    protected override EnemyProjectilesEnum ProjectileId => EnemyProjectilesEnum.BigBullet;
+    public override EnemySpaceshipType PoolId => EnemySpaceshipType.KlaedFrigate;
+    protected override EnemyProjectileType ProjectileId => EnemyProjectileType.BigBullet;
 }

@@ -12,7 +12,7 @@ namespace Configs.Missions
         [field: SerializeField] [field: Range(0, 20)] public float distanceBetweenSubgroups { get; private set; }
         [field: SerializeField] [field: Range(0, 10)] public float moveSpeed { get; private set; }
         [field: SerializeField] [field: Range(0, 20)] public float distanceBetweenEnemies { get; private set; }
-        [field: SerializeField] public List<EnemySpaceshipsEnum> enemySubgroup { get; private set; }
+        [field: SerializeField] public List<EnemySpaceshipType> enemySubgroup { get; private set; }
         
         [field: Space]
         [field: SerializeField] public PathCreator path { get; private set; }

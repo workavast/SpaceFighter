@@ -1,6 +1,6 @@
 namespace Projectiles.Enemy
 {
-    public abstract class EnemyProjectileBase : ProjectileBase<EnemyProjectilesEnum, EnemyProjectileBase>
+    public abstract class EnemyProjectileBase : ProjectileBase<EnemyProjectileType, EnemyProjectileBase>
     {
 
     }

@@ -1,6 +1,6 @@
 namespace Projectiles.Enemy
 {
-    public enum EnemyProjectilesEnum
+    public enum EnemyProjectileType
     {
         BigBullet,
         Bullet,

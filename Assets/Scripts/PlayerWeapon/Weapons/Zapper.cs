@@ -2,6 +2,6 @@ using Projectiles.Player;
 
 public class Zapper : PlayerWeaponBase
 {
-    public override PlayerWeaponsEnum PlayerWeaponId => PlayerWeaponsEnum.Zapper;
-    public override PlayerProjectilesEnum ProjectileId => PlayerProjectilesEnum.Zapper;
+    public override PlayerWeaponType PlayerWeaponId => PlayerWeaponType.Zapper;
+    public override PlayerProjectileType ProjectileId => PlayerProjectileType.Zapper;
 }

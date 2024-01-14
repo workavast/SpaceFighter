@@ -1,6 +1,6 @@
 namespace UI_System
 {
-    public enum ScreensEnum
+    public enum ScreenType
     {
         MainMenuHangar = 0,
         MainMenuLevelSelection = 10,

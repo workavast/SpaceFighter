@@ -1,4 +1,4 @@
-public enum PlayerWeaponsEnum
+public enum PlayerWeaponType
 {
     AutoCannon,
     BigSpaceGun,

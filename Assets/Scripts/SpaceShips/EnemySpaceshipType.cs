@@ -1,4 +1,4 @@
-public enum EnemySpaceshipsEnum
+public enum EnemySpaceshipType
 {
     KlaedBattlecruiser,
     KlaedBomber,

@@ -12,9 +12,9 @@ namespace Factories
         [Inject] private EnemyProjectilesPrefabsConfig _enemyPrefabsConfig;
         [Inject] private DiContainer _diContainer;
 
-        private IReadOnlyDictionary<EnemyProjectilesEnum, GameObject> SpaceShipsData => _enemyPrefabsConfig.Data;
+        private IReadOnlyDictionary<EnemyProjectileType, GameObject> SpaceShipsData => _enemyPrefabsConfig.Data;
     
-        public GameObject Create(EnemyProjectilesEnum id)
+        public GameObject Create(EnemyProjectileType id)
         {
             if (SpaceShipsData.TryGetValue(id, out GameObject prefab)) 
                 return _diContainer.InstantiatePrefab(prefab);
@@ -22,7 +22,7 @@ namespace Factories
             throw new Exception("Dictionary don't contain this EnemySpaceshipsEnum");
         }
     
-        public GameObject Create(EnemyProjectilesEnum id, Transform parent)
+        public GameObject Create(EnemyProjectileType id, Transform parent)
         {
             if (SpaceShipsData.TryGetValue(id, out GameObject prefab)) 
                 return _diContainer.InstantiatePrefab(prefab, parent);
@@ -30,7 +30,7 @@ namespace Factories
             throw new Exception("Dictionary don't contain this EnemySpaceshipsEnum");
         }
         
-        public GameObject Create(EnemyProjectilesEnum id, Vector3 position, Quaternion rotation, Transform parent = null)
+        public GameObject Create(EnemyProjectileType id, Vector3 position, Quaternion rotation, Transform parent = null)
         {
             if (SpaceShipsData.TryGetValue(id, out GameObject prefab)) 
                 return _diContainer.InstantiatePrefab(prefab, position, rotation, parent);

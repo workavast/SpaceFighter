@@ -2,7 +2,7 @@ namespace Projectiles.Enemy
 {
     public class EnemyTorpedo : EnemyProjectileBase
     {
-        public override EnemyProjectilesEnum PoolId => EnemyProjectilesEnum.Torpedo;
+        public override EnemyProjectileType PoolId => EnemyProjectileType.Torpedo;
     
         protected override bool DestroyableOnCollision => true;
         protected override bool ReturnInPoolOnExitFromPlayArea => true;

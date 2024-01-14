@@ -5,7 +5,7 @@ namespace Projectiles.Enemy
 {
     public class EnemyRay : EnemyProjectileBase
     {
-        public override EnemyProjectilesEnum PoolId => EnemyProjectilesEnum.Ray;
+        public override EnemyProjectileType PoolId => EnemyProjectileType.Ray;
     
         [SerializeField] private float existTime;
         [SerializeField] private float damagePause;//dont used at the moment, maybe used damage per second??

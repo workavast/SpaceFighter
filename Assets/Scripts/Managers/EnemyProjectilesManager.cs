@@ -14,17 +14,17 @@ namespace Managers
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
     
-        private readonly Dictionary<EnemyProjectilesEnum, GameObject> _projectilesParents = new();
+        private readonly Dictionary<EnemyProjectileType, GameObject> _projectilesParents = new();
 
         [Inject] private EnemyProjectilesFactory _enemyProjectilesFactory;
 
-        private Pool<EnemyProjectileBase, EnemyProjectilesEnum> _pool;
+        private Pool<EnemyProjectileBase, EnemyProjectileType> _pool;
     
         protected override void OnAwake()
         {
-            _pool = new Pool<EnemyProjectileBase, EnemyProjectilesEnum>(EnemyProjectileInstantiate);
+            _pool = new Pool<EnemyProjectileBase, EnemyProjectileType>(EnemyProjectileInstantiate);
         
-            foreach (var enemyShipId in Enum.GetValues(typeof(EnemyProjectilesEnum)).Cast<EnemyProjectilesEnum>())
+            foreach (var enemyShipId in Enum.GetValues(typeof(EnemyProjectileType)).Cast<EnemyProjectileType>())
             {
                 GameObject parent = new GameObject(enemyShipId.ToString()) { transform = { parent = transform } };
                 _projectilesParents.Add(enemyShipId, parent);
@@ -39,10 +39,10 @@ namespace Managers
                 list[i][j].HandleUpdate(Time.deltaTime);
         }
 
-        private EnemyProjectileBase EnemyProjectileInstantiate(EnemyProjectilesEnum id)
+        private EnemyProjectileBase EnemyProjectileInstantiate(EnemyProjectileType id)
             => _enemyProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponent<EnemyProjectileBase>();
 
-        public bool TrySpawnProjectile(EnemyProjectilesEnum id, Transform newTransform, out EnemyProjectileBase projectileBase)
+        public bool TrySpawnProjectile(EnemyProjectileType id, Transform newTransform, out EnemyProjectileBase projectileBase)
         {
             if (_pool.ExtractElement(id, out EnemyProjectileBase newProjectile))
             {
