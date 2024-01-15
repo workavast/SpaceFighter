@@ -22,15 +22,15 @@ namespace Controllers
         public KillsCounter KillsCounter { get; private set; }
 
         private MissionGameCycleController _missionGameCycleController;
-        public MissionStarsController MissionStarsController { get; private set; }
+        public MissionStarsController StarsController { get; private set; }
         
         private void Awake()
         {
-            MissionStarsController = new MissionStarsController(_missionEventBus.EventBus, this);
+            StarsController = new MissionStarsController(_missionEventBus.EventBus, this, _selectedMissionData.TakeMissionIndex());
             KillsCounter = new KillsCounter(_selectedMissionData.TakeMissionData().TakeEnemiesCount(), _missionEventBus.EventBus);
 
             _missionGameCycleController = new MissionGameCycleController(_gameCycleManager, _uiController,
-                _playerSpaceshipManager, _wavesManager, _moneyStarsManager, _enemySpaceshipsManager, MissionStarsController);
+                _playerSpaceshipManager, _wavesManager, _moneyStarsManager, _enemySpaceshipsManager, StarsController);
         }
         
         private void Start()

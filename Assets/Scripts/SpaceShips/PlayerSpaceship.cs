@@ -9,7 +9,8 @@ using Zenject;
 
 public class PlayerSpaceship : SpaceshipBase
 {
-    [Space] [SerializeField] private Animator spaceshipModelAnimator;
+    [Space] 
+    [SerializeField] private Animator spaceshipModelAnimator;
     [SerializeField] private List<DamageAnimatorTriggerData> damageAnimatorTriggerData;
     [SerializeField] private Transform weaponPosition;
     [SerializeField] protected bool canMove;
@@ -24,8 +25,6 @@ public class PlayerSpaceship : SpaceshipBase
     private Camera _camera;
     private SomeStorageInt _currentDamageSprite;
     
-    public event Action OnTakeDamage;
-
     public void Initialization(PlayerSpaceshipLevelsConfig playerSpaceshipLevelsConfig)
     {
         _camera = Camera.main;

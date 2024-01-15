@@ -14,13 +14,14 @@ namespace UI_System.UI_Screens.Gameplay
         [SerializeField] private TextMeshProUGUI kills;
         [SerializeField] private TextMeshProUGUI moneyStars;
         [SerializeField] private GameObject darkBackground;
+        [SerializeField] private StarsBlock starsBlock;
         
         [Inject] private MissionController _missionController;
         [Inject] private MoneyStarsManager _moneyStarsManager;
         
         private void OnEnable()
         {
-            if (_missionController.MissionStarsController.MissionSuccess)
+            if (_missionController.StarsController.MissionSuccess)
             {
                 darkBackground.SetActive(false);
                 missionCompleted.text = "Mission success";
@@ -31,7 +32,7 @@ namespace UI_System.UI_Screens.Gameplay
                 missionCompleted.text = "Mission loose";
             }            
             
-            if(_missionController.MissionStarsController.PlayerTakeDamage)
+            if(_missionController.StarsController.PlayerTakeDamage)
                 withoutDamage.UnSuccess();
             else
                 withoutDamage.Success();
@@ -40,10 +41,37 @@ namespace UI_System.UI_Screens.Gameplay
                          $"/{_missionController.KillsCounter.DestroyedEnemiesCounter.MaxValue}";
 
             moneyStars.text = $"{_moneyStarsManager.MoneyStarsCounter.CurrentValue}";
+            
+            starsBlock.ShowStars(_missionController.StarsController.StarsCount);
         }
 
         [Serializable]
-        private struct SuccessMark
+        private class StarsBlock
+        {
+            [SerializeField] private GameObject[] earnedStars;
+
+            public void ShowStars(int starsCount)
+            {
+#if UNITY_EDITOR
+                if(starsCount < 0 || starsCount > earnedStars.Length)
+                    Debug.LogError($"starsCount[{starsCount}] | earnedStars.Length[{earnedStars.Length}]");
+#endif
+
+                foreach (var star in earnedStars)
+                    star.SetActive(false);
+
+                if (starsCount < 0) starsCount = 0;
+                var i = starsCount >= earnedStars.Length 
+                        ? earnedStars.Length 
+                        : starsCount;
+
+                for (int j = 0; j < i; j++)
+                    earnedStars[j].SetActive(true);
+            }
+        }
+        
+        [Serializable]
+        private class SuccessMark
         {
             [SerializeField] private GameObject successMark;
             [SerializeField] private GameObject unSuccessMark;

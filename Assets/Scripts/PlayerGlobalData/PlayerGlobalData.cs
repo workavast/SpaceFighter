@@ -59,9 +59,11 @@ public class PlayerGlobalData : MonoBehaviour
         Debug.Log(_instance._data.MoneyStarsCount);
     }
     
-    public static void ChangeMissionData(int missionNum, int starCount)
+    public static void ChangeMissionData(int missionIndex, int starCount)
     {
-        if (missionNum < 0 && missionNum > MissionsData.Count) throw new Exception("Unsigned level num");
+        Debug.LogWarning($"mission index for saving {missionIndex}");
+
+        if (missionIndex < 0 && missionIndex > MissionsData.Count) throw new Exception("Unsigned level num");
         if (starCount < 0) throw new Exception("Unsigned level num");
 
         MissionCell newMissionCell;
@@ -73,8 +75,8 @@ public class PlayerGlobalData : MonoBehaviour
             default: newMissionCell = new MissionCell(true, true, true); break;
         }
         
-        MissionCell oldMissionCell = _instance._data.MissionsData[missionNum];
-        _instance._data.MissionsData[missionNum] = new MissionCell(oldMissionCell.star_1 || newMissionCell.star_1, oldMissionCell.star_2 || newMissionCell.star_2, oldMissionCell.star_3 || newMissionCell.star_3);
+        MissionCell oldMissionCell = _instance._data.MissionsData[missionIndex];
+        _instance._data.MissionsData[missionIndex] = new MissionCell(oldMissionCell.star_1 || newMissionCell.star_1, oldMissionCell.star_2 || newMissionCell.star_2, oldMissionCell.star_3 || newMissionCell.star_3);
         
         SaveData();
     }
@@ -113,7 +115,7 @@ public class PlayerGlobalData : MonoBehaviour
             {
                 _instance._data.MissionsData.Add(new MissionCell());
             }
-            _instance._data.MissionsData[0] = new MissionCell(true,true, false);
+            // _instance._data.MissionsData[0] = new MissionCell(true,true, false);
 
             _instance._data.MoneyStarsCount = 1000;
             _instance._data.EquippedPlayerWeapon = PlayerWeaponType.AutoCannon;

@@ -9,10 +9,13 @@ namespace MissionsDataConfigsSystem
         [Inject] private MissionsConfig _missionsConfig;
 
         private static MissionConfig _missionConfig;
+        private static int _missionIndex;
         
-        public void SetMissionData(int missionNum)
+        public void SetMissionData(int missionIndex)
         {
-            _missionConfig = _missionsConfig.GetMissionData(missionNum);
+            Debug.LogWarning($"Mission index for loading {missionIndex}");
+            _missionIndex = missionIndex;
+            _missionConfig = _missionsConfig.GetMissionData(_missionIndex);
         }
 
         public MissionConfig TakeMissionData()
@@ -24,6 +27,18 @@ namespace MissionsDataConfigsSystem
             }
             
             return _missionConfig;
+        }
+        
+        public int TakeMissionIndex()
+        {
+            if (_missionConfig is null)
+            {
+                Debug.LogWarning($"mission config is null");
+                return 0;
+            }
+            
+            Debug.LogWarning($"mission index for return {_missionIndex}");
+            return _missionIndex;
         }
     }
 }

@@ -837,6 +837,11 @@ MonoBehaviour:
   kills: {fileID: 2649426267655441514}
   moneyStars: {fileID: 8545236606951734834}
   darkBackground: {fileID: 1175006889865382734}
+  starsBlock:
+    earnedStars:
+    - {fileID: 6810528916682475554}
+    - {fileID: 2523571334880816415}
+    - {fileID: 9214037570426962340}
 --- !u!1 &2343944214924695681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,7 +1803,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -130}
+  m_AnchoredPosition: {x: 0, y: -140}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8981165392958782676

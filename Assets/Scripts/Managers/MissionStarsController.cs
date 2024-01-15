@@ -1,6 +1,7 @@
 using Controllers;
 using EventBus.Events;
 using EventBusExtension;
+using UnityEngine;
 
 namespace Managers
 {
@@ -10,16 +11,19 @@ namespace Managers
 
         private readonly EventBusExtension.EventBus  _eventBus;
         private readonly MissionController _missionController;
-        
+        private int _missionIndex { get; }
+
         public int StarsCount { get; private set; } = 3;
         public bool PlayerTakeDamage { get; private set; } = false;
         public bool MissionSuccess { get; private set; } = false;
         public bool KillAllEnemies { get; private set; } = false;
         
-        public MissionStarsController(EventBusExtension.EventBus eventBus, MissionController missionController)
+        public MissionStarsController(EventBusExtension.EventBus eventBus, MissionController missionController, int missionIndex)
         {
+            Debug.LogWarning($"mission index for setting {_missionIndex}");
             _eventBus = eventBus;
             _missionController = missionController;
+            _missionIndex = missionIndex;
             
             _eventBus.Subscribe(this);
         }
@@ -36,6 +40,8 @@ namespace Managers
             MissionSuccess = true;
             KillAllEnemies = _missionController.KillsCounter.DestroyedEnemiesCounter.IsFull;
             if (!KillAllEnemies) StarsCount -= 1;
+
+            ApplyStars();
         }
 
         public void OnMissionLoosed()
@@ -48,7 +54,8 @@ namespace Managers
         
         private void ApplyStars()
         {
-            PlayerGlobalData.ChangeMissionData(0, StarsCount);
+            Debug.LogWarning($"mission index for saving pgd inv {_missionIndex}");
+            PlayerGlobalData.ChangeMissionData(_missionIndex, StarsCount);
         }
     }
 }
