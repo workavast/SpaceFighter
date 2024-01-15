@@ -1,35 +1,53 @@
-﻿using GameCycle;
+﻿using DefaultNamespace;
+using GameCycle;
 using Managers;
 using UI_System;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class MissionGameCycleController
+    public class MissionGameCycleController : Disposable
     {
         private readonly IGameCycleManagerSwitcher _gameCycleManager;
         private readonly UI_Controller _uiController;
         private readonly PlayerSpaceshipManager _playerSpaceshipManager;
         private readonly WavesManager _wavesManager;
         private readonly MoneyStarsManager _moneyStarsManager;
-
-        public MissionGameCycleController(IGameCycleManagerSwitcher gameCycleManager, UI_Controller uiController, 
-            PlayerSpaceshipManager playerSpaceshipManager, WavesManager wavesManager, MoneyStarsManager moneyStarsManager)
+        private readonly EnemySpaceshipsManager _enemySpaceshipsManager;
+        private readonly MissionStarsController _missionStarsController;
+        
+        public MissionGameCycleController(IGameCycleManagerSwitcher gameCycleManager, UI_Controller uiController,
+            PlayerSpaceshipManager playerSpaceshipManager, WavesManager wavesManager,
+            MoneyStarsManager moneyStarsManager, EnemySpaceshipsManager enemySpaceshipsManager, MissionStarsController missionStarsController)
         {
             _gameCycleManager = gameCycleManager;
             _uiController = uiController;
             _playerSpaceshipManager = playerSpaceshipManager;
             _wavesManager = wavesManager;
             _moneyStarsManager = moneyStarsManager;
+            _enemySpaceshipsManager = enemySpaceshipsManager;
+            _missionStarsController = missionStarsController;
             
             _uiController.OnScreenSwitch += OnScreenSwitch;
             _playerSpaceshipManager.OnPlayerDie += OnPlayerDie;
-            _wavesManager.OnWavesEnd += OnMissionCompleted;
+            _wavesManager.OnWavesEnd += OnWavesEnd;
         }
 
+        private void OnWavesEnd()
+        {
+            _wavesManager.OnWavesEnd -= OnWavesEnd;
+            if (_enemySpaceshipsManager.ActiveEnemiesCount > 0)
+            {
+                _enemySpaceshipsManager.OnAllEnemiesGone += OnMissionCompleted;
+                return;
+            }
+
+            OnMissionCompleted();
+        }
+        
         private void OnMissionCompleted()
         {
-            Debug.Log($"Mission completed");
+            _missionStarsController.OnMissionCompleted();
             _gameCycleManager.SwitchState(GameStatesType.Pause);
             _moneyStarsManager.ApplyMoneyStars();
             _uiController.SetScreen(ScreenType.GameplayMissionEnd);
@@ -37,6 +55,7 @@ namespace Controllers
         
         private void OnPlayerDie()
         {
+            _missionStarsController.OnMissionLoosed();
             _gameCycleManager.SwitchState(GameStatesType.Pause);
             _uiController.SetScreen(ScreenType.GameplayMissionEnd);
         }
@@ -72,6 +91,14 @@ namespace Controllers
             }
             
             _gameCycleManager.SwitchState(GameStatesType.Gameplay);
+        }
+
+        protected override void OnDispose()
+        {
+            if(_uiController != null) _uiController.OnScreenSwitch -= OnScreenSwitch;
+            if (_playerSpaceshipManager != null) _playerSpaceshipManager.OnPlayerDie -= OnPlayerDie;
+            if (_wavesManager != null) _wavesManager.OnWavesEnd -= OnWavesEnd; 
+            if (_enemySpaceshipsManager != null) _enemySpaceshipsManager.OnAllEnemiesGone -= OnMissionCompleted;
         }
     }
 }

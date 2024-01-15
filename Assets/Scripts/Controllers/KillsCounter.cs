@@ -1,19 +1,17 @@
-﻿using System;
+﻿using DefaultNamespace;
 using EventBus.Events;
 using EventBusExtension;
 using SomeStorages;
 
 namespace Controllers
 {
-    public class KillsCounter : IEventReceiver<EnemyStartDie>, IDisposable
+    public class KillsCounter : Disposable, IEventReceiver<EnemyStartDie>
     {
         public ReceiverIdentifier ReceiverIdentifier { get; } = new();
 
         private readonly EventBusExtension.EventBus _eventBus;
         private readonly SomeStorageInt _destroyedEnemiesCounter;
         
-        private bool _disposed;
-
         public IReadOnlySomeStorage<int> DestroyedEnemiesCounter => _destroyedEnemiesCounter;
 
         public KillsCounter(int enemiesCount, EventBusExtension.EventBus missionEventBus)
@@ -25,12 +23,9 @@ namespace Controllers
 
         public void OnEvent(EnemyStartDie @event) => _destroyedEnemiesCounter.ChangeCurrentValue(1);
         
-        public void Dispose()
+        protected override void OnDispose()
         {
-            if(_disposed) return;
-
-            _eventBus.UnSubscribe<EnemyStartDie>(this);
-            _disposed = true;
+            _eventBus?.UnSubscribe<EnemyStartDie>(this);
         }
     }
 }

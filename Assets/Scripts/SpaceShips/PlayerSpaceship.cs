@@ -1,21 +1,23 @@
 using System;
 using System.Collections.Generic;
 using Configs;
+using EventBus;
+using EventBus.Events;
 using UnityEngine;
 using SomeStorages;
 using Zenject;
 
 public class PlayerSpaceship : SpaceshipBase
 {
-    [Space]
-    [SerializeField] private Animator spaceshipModelAnimator;
+    [Space] [SerializeField] private Animator spaceshipModelAnimator;
     [SerializeField] private List<DamageAnimatorTriggerData> damageAnimatorTriggerData;
     [SerializeField] private Transform weaponPosition;
     [SerializeField] protected bool canMove;
     [SerializeField] protected float moveSpeed;
 
     [Inject] private PlayArea _playArea;
-    
+    [Inject] private MissionEventBus _eventBus;
+
     public Transform WeaponPosition => weaponPosition;
     
     private Transform _playAreaLeftDownPivot;
@@ -81,7 +83,7 @@ public class PlayerSpaceship : SpaceshipBase
     {
         base.TakeDamage(damage);
 
-        OnTakeDamage?.Invoke();
+        _eventBus.Invoke(new PlayerTakeDamage());
         if (_currentDamageSprite.CurrentValue >= 0 && _currentDamageSprite.CurrentValue < damageAnimatorTriggerData.Count)
         {
             if (!_currentDamageSprite.IsFull && damageAnimatorTriggerData[_currentDamageSprite.CurrentValue + 1].healthPointsPercent > healthPoints.FillingPercentage)

@@ -1,4 +1,5 @@
-﻿using EventBus;
+﻿using System;
+using EventBus;
 using GameCycle;
 using Managers;
 using MissionsDataConfigsSystem;
@@ -16,19 +17,22 @@ namespace Controllers
         [Inject] private SelectedMissionData _selectedMissionData;
         [Inject] private MissionEventBus _missionEventBus;
         [Inject] private MoneyStarsManager _moneyStarsManager;
+        [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
         
         public KillsCounter KillsCounter { get; private set; }
 
         private MissionGameCycleController _missionGameCycleController;
+        public MissionStarsController MissionStarsController { get; private set; }
         
         private void Awake()
         {
-            _missionGameCycleController = new MissionGameCycleController(_gameCycleManager, _uiController,
-                _playerSpaceshipManager, _wavesManager, _moneyStarsManager);
-            
+            MissionStarsController = new MissionStarsController(_missionEventBus.EventBus, this);
             KillsCounter = new KillsCounter(_selectedMissionData.TakeMissionData().TakeEnemiesCount(), _missionEventBus.EventBus);
-        }
 
+            _missionGameCycleController = new MissionGameCycleController(_gameCycleManager, _uiController,
+                _playerSpaceshipManager, _wavesManager, _moneyStarsManager, _enemySpaceshipsManager, MissionStarsController);
+        }
+        
         private void Start()
         {
             _wavesManager.StartWaves();
@@ -36,6 +40,7 @@ namespace Controllers
 
         private void OnDestroy()
         {
+            _missionGameCycleController.Dispose();
             KillsCounter.Dispose();
         }
     }

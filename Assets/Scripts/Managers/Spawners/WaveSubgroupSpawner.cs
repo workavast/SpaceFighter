@@ -1,8 +1,6 @@
 ﻿using System;
 using Configs.Missions;
-using EventBus;
 using EventBus.Events;
-using EventBusExtension;
 using SomeStorages;
 using TimerExtension;
 
@@ -50,7 +48,6 @@ namespace Managers.Spawners
         
         private void SpawnEnemy()
         {
-            //_enemySpaceshipsManager.SpawnEnemy(_enemyGroupConfig.enemySubgroup[_enemiesCounter.CurrentValue], _enemyGroupConfig);
             _eventBus.Invoke(new SpawnEnemy(_enemiesCounter.CurrentValue, _enemyGroupConfig));
             
             _enemiesCounter.ChangeCurrentValue(1);

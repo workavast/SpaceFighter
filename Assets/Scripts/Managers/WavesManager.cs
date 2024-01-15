@@ -44,12 +44,10 @@ namespace Managers
 
             if (_wavesCounter.IsFull)
             {
-                Debug.Log("All waves completed");
                 OnWavesEnd?.Invoke();
             }
             else
             {
-                Debug.Log($"Current wave index: {_wavesCounter.CurrentValue}");
                 _waveSpawner.CallWave(_selectedMissionData.TakeMissionData().enemyWaves[_wavesCounter.CurrentValue]);
                 _wavesCounter.ChangeCurrentValue(1);
             }
@@ -57,7 +55,6 @@ namespace Managers
         
         private void WaveSpawnEnd()
         {
-            Debug.Log("wave spawned");
             if (_enemySpaceshipsManager.ActiveEnemiesCount <= 0)
                 TryCallWave();
             else
