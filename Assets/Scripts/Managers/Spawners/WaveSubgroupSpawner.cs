@@ -1,30 +1,31 @@
 ﻿using System;
 using Configs.Missions;
-using MissionsDataConfigsSystem;
+using EventBus;
+using EventBus.Events;
+using EventBusExtension;
 using SomeStorages;
 using TimerExtension;
 
-namespace Managers
+namespace Managers.Spawners
 {
     public class WaveSubgroupSpawner : IHandleUpdate
     {
         private readonly SomeStorageInt _enemiesCounter;
         private readonly SomeStorageFloat _spawnPause;
         private readonly Timer _timer;
-        private readonly EnemyGroupConfig _enemyGroup;
+        private readonly EnemyGroupConfig _enemyGroupConfig;
+        private readonly EventBusExtension.EventBus _eventBus;
 
         public event Action OnEndSpawn;
         private event Action<float> OnHandleUpdate;
-
-        public event Action<int, EnemyGroupConfig> EnemyInstanceDelegate;
         
-        public WaveSubgroupSpawner(EnemyGroupConfig enemyGroup, Action<int, EnemyGroupConfig> enemyInstanceDelegate)
+        public WaveSubgroupSpawner(EnemyGroupConfig enemyGroupConfig, EventBusExtension.EventBus eventBus)
         {
-            _enemyGroup = enemyGroup;
-            EnemyInstanceDelegate = enemyInstanceDelegate;
-            _enemiesCounter = new SomeStorageInt(_enemyGroup.enemySubgroup.Count);
+            _enemyGroupConfig = enemyGroupConfig;
+            _enemiesCounter = new SomeStorageInt(_enemyGroupConfig.enemySubgroup.Count);
+            _eventBus = eventBus;
             
-            _timer = new Timer(_enemyGroup.EnemiesTimePause);
+            _timer = new Timer(_enemyGroupConfig.EnemiesTimePause);
             _timer.OnTimerEnd += PauseEnd;
 
             OnHandleUpdate += _timer.Tick;
@@ -49,8 +50,9 @@ namespace Managers
         
         private void SpawnEnemy()
         {
-            EnemyInstanceDelegate?.Invoke(_enemiesCounter.CurrentValue, _enemyGroup);
-                
+            //_enemySpaceshipsManager.SpawnEnemy(_enemyGroupConfig.enemySubgroup[_enemiesCounter.CurrentValue], _enemyGroupConfig);
+            _eventBus.Invoke(new SpawnEnemy(_enemiesCounter.CurrentValue, _enemyGroupConfig));
+            
             _enemiesCounter.ChangeCurrentValue(1);
             if (_enemiesCounter.IsFull)
             {

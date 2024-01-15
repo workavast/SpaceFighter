@@ -1,4 +1,5 @@
 using Controllers;
+using Managers;
 using TMPro;
 using UI_System.UI_Elements;
 using UnityEngine;
@@ -13,19 +14,20 @@ namespace UI_System.UI_Screens.Gameplay
         [SerializeField] private UI_Counter killsCounter;
 
         [Inject] private MissionController _missionController;
-
-        [Inject] private KillsCounterController _killsCounterController;
-        [Inject] private WavesController _wavesController;
-    
+        [Inject] private WavesManager _wavesManager;
+        [Inject] private MoneyStarsManager _moneyStarsManager;
+        
         private void Start()
         {
-            killsCounter.Init(_killsCounterController.DestroyedEnemiesCounter);
-            wavesCounter.Init(_wavesController.WavesCounter);
+            killsCounter.Init(_missionController.KillsCounter.DestroyedEnemiesCounter);
+            wavesCounter.Init(_wavesManager.WavesCounter);
+            _moneyStarsManager.MoneyStarsCounter.OnChange += UpdateLevelMoneyCount;
+            UpdateLevelMoneyCount();
         }
     
-        public void UpdateLevelMoneyCount(int currentCount)
+        private void UpdateLevelMoneyCount()
         {
-            levelMoneyCounter.text = $"{currentCount}";
+            levelMoneyCounter.text = $"{_moneyStarsManager.MoneyStarsCounter.CurrentValue}";
         }
     }
 }

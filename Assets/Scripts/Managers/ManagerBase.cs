@@ -20,6 +20,12 @@ namespace Managers
         
         public virtual void GameCycleUpdate() { }
 
-        private void OnDestroy() => _gameCycleManager.RemoveListener(GameStatesType, this as IGameCycleUpdate);
+        private void OnDestroy()
+        {
+            _gameCycleManager.RemoveListener(GameStatesType, this as IGameCycleUpdate);
+            OnDestroyVirtual();
+        }
+
+        protected virtual void OnDestroyVirtual() { }
     }
 }

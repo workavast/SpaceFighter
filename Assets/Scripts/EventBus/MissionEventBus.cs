@@ -4,7 +4,7 @@ namespace EventBus
 {
     public class MissionEventBus
     {
-        private EventBusExtension.EventBus EventBus { get; } = new();
+        public EventBusExtension.EventBus EventBus { get; private set; } = new();
 
         public void Subscribe<T>(IEventReceiver<T> receiver) where T : struct, IEvent
             => EventBus.Subscribe(receiver);

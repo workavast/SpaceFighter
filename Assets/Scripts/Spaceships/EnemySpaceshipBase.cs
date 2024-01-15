@@ -12,7 +12,6 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, PoolSystem.IPoolable<E
     [SerializeField] private float collisionDamage = 1;
 
     [Inject] protected MissionEventBus EventBus;
-    [Inject] private MoneyStarsManager _moneyStarsManager;
     [Inject] private PlayerSpaceshipManager _playerSpaceshipManager;
     
     private bool _canMove;
@@ -149,10 +148,8 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, PoolSystem.IPoolable<E
         if (IsDead) return;
 
         IsDead = true;
-        EventBus.Invoke(new EnemyStartDie());
+        EventBus.Invoke(new EnemyStartDie(transform.position));
         _animationControllerEnemy.SetDyingTrigger();
-
-        _moneyStarsManager.Spawn(transform);
     }
     
     public void EndDying() => OnGone?.Invoke(this);

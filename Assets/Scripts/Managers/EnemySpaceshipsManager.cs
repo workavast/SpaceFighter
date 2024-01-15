@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Configs.Missions;
+using EventBus;
+using EventBus.Events;
+using EventBusExtension;
 using Factories;
 using GameCycle;
 using UnityEngine;
@@ -10,15 +13,18 @@ using Zenject;
 
 namespace Managers
 {
-    public class EnemySpaceshipsManager : ManagerBase
+    public class EnemySpaceshipsManager : ManagerBase, IEventReceiver<SpawnEnemy>
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
     
         private readonly Dictionary<EnemySpaceshipType, GameObject> _spaceshipsParents = new();
 
+        public ReceiverIdentifier ReceiverIdentifier { get; } = new();
+
         private Pool<EnemySpaceshipBase, EnemySpaceshipType> _pool;
 
         [Inject] private EnemySpaceshipsFactory _enemySpaceshipsFactory;
+        [Inject] private MissionEventBus _missionEventBus;
         
         public int ActiveEnemiesCount => _pool.BusyElementsValues.Sum(e => e.Count);
 
@@ -26,6 +32,7 @@ namespace Managers
 
         protected override void OnAwake()
         {
+            _missionEventBus.Subscribe(this);
             _pool = new Pool<EnemySpaceshipBase, EnemySpaceshipType>(EnemySpaceShipInstantiate);
         
             foreach (var enemyShipId in Enum.GetValues(typeof(EnemySpaceshipType)).Cast<EnemySpaceshipType>())
@@ -43,6 +50,8 @@ namespace Managers
                 list[i][j].HandleUpdate(Time.deltaTime);
         }
     
+        public void OnEvent(SpawnEnemy @event) => SpawnEnemy(@event.EnemySpaceshipType, @event.EnemyGroupConfig);
+
         private EnemySpaceshipBase EnemySpaceShipInstantiate(EnemySpaceshipType id)
         {
             var enemySpaceship = _enemySpaceshipsFactory.Create(id, _spaceshipsParents[id].transform)
@@ -51,7 +60,7 @@ namespace Managers
             return enemySpaceship;
         }
 
-        public void SpawnEnemy(EnemySpaceshipType enemySpaceshipsType, EnemyGroupConfig config)
+        private void SpawnEnemy(EnemySpaceshipType enemySpaceshipsType, EnemyGroupConfig config)
         {
             if(_pool.ExtractElement(enemySpaceshipsType, out EnemySpaceshipBase enemySpaceShip))
             {
@@ -67,6 +76,13 @@ namespace Managers
             
             if(ActiveEnemiesCount <= 0)
                 OnAllEnemiesGone?.Invoke();
+        }
+
+        protected override void OnDestroyVirtual()
+        {
+            base.OnDestroyVirtual();
+            
+            _missionEventBus.UnSubscribe(this);
         }
     }
 }

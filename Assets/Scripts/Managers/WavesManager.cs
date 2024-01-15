@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using Configs.Missions;
+using EventBus;
 using GameCycle;
+using Managers.Spawners;
 using MissionsDataConfigsSystem;
 using SomeStorages;
 using UnityEngine;
@@ -12,59 +12,56 @@ namespace Managers
     public class WavesManager : ManagerBase
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+
+        private SomeStorageInt _wavesCounter;
+        private WaveSpawner _waveSpawner;
         
         [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
-
-        private SomeStorageInt _spawnedGroupsCount;
-        private List<WaveGroupSpawner> _waveGroupsSpawners;
+        [Inject] private SelectedMissionData _selectedMissionData;
+        [Inject] private MissionEventBus _missionEventBus;
         
-        public event Action OnWaveSpawned;
+        public IReadOnlySomeStorage<int> WavesCounter => _wavesCounter;
 
-        private bool _invokeWave;
+        public event Action OnWavesEnd;
+        
+        protected override void OnAwake()
+        {
+            _waveSpawner = new WaveSpawner(_missionEventBus.EventBus);
+            _wavesCounter = new SomeStorageInt(_selectedMissionData.TakeMissionData().enemyWaves.Count);
+            _waveSpawner.OnWaveSpawned += WaveSpawnEnd;
+        }
         
         public override void GameCycleUpdate()
         {
-            if(!_invokeWave) return;
-
-            var time = Time.deltaTime;
-            foreach (var group in _waveGroupsSpawners)
-                group.HandleUpdate(time);
+            _waveSpawner.HandleUpdate(Time.deltaTime);
         }
         
-        public void CallWave(EnemyWaveConfig waveConfig)
+        public void StartWaves() => TryCallWave();
+        
+        private void TryCallWave()
         {
-            _invokeWave = true;
-            
-            _waveGroupsSpawners = new List<WaveGroupSpawner>();
-            foreach (var groupConfig in waveConfig.GroupsConfigs)
-            {
-                var waveGroupSpawner = new WaveGroupSpawner(groupConfig, EnemyInstanceDelegate);
-                waveGroupSpawner.OnGroupSpawnEnd += GroupSpawnEnd;
-                _waveGroupsSpawners.Add(waveGroupSpawner);
-            }
-            
-            _spawnedGroupsCount = new SomeStorageInt(_waveGroupsSpawners.Count);
-        }
+            _enemySpaceshipsManager.OnAllEnemiesGone -= TryCallWave;
 
-        private void GroupSpawnEnd()
-        {
-            _spawnedGroupsCount.ChangeCurrentValue(1);
-            if(_spawnedGroupsCount.IsFull)
-                WaveSpawnEnd();
+            if (_wavesCounter.IsFull)
+            {
+                Debug.Log("All waves completed");
+                OnWavesEnd?.Invoke();
+            }
+            else
+            {
+                Debug.Log($"Current wave index: {_wavesCounter.CurrentValue}");
+                _waveSpawner.CallWave(_selectedMissionData.TakeMissionData().enemyWaves[_wavesCounter.CurrentValue]);
+                _wavesCounter.ChangeCurrentValue(1);
+            }
         }
         
         private void WaveSpawnEnd()
         {
-            Debug.Log("Wave spawned");
-            _waveGroupsSpawners = new List<WaveGroupSpawner>();
-            _invokeWave = false;
-
-            OnWaveSpawned?.Invoke(); 
-        }
-        
-        private void EnemyInstanceDelegate(int enemyIndex, EnemyGroupConfig enemyGroupConfig)
-        {
-            _enemySpaceshipsManager.SpawnEnemy(enemyGroupConfig.enemySubgroup[enemyIndex], enemyGroupConfig);
+            Debug.Log("wave spawned");
+            if (_enemySpaceshipsManager.ActiveEnemiesCount <= 0)
+                TryCallWave();
+            else
+                _enemySpaceshipsManager.OnAllEnemiesGone += TryCallWave;
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 using Configs.Missions;
-using MissionsDataConfigsSystem;
+using EventBus;
 using SomeStorages;
 using TimerExtension;
 
-namespace Managers
+namespace Managers.Spawners
 {
     public class WaveGroupSpawner : IHandleUpdate
     {
@@ -16,12 +16,12 @@ namespace Managers
         public event Action OnGroupSpawnEnd;
         private event Action<float> OnHandleUpdate;
         
-        public WaveGroupSpawner(EnemyGroupConfig enemyGroupConfig, Action<int, EnemyGroupConfig> enemyInstanceDelegate)
+        public WaveGroupSpawner(EnemyGroupConfig enemyGroupConfig, EventBusExtension.EventBus eventBus)
         {
             _enemyGroupConfig = enemyGroupConfig;
             _subgroupsCounter = new SomeStorageInt(enemyGroupConfig.subgroupsCount);
 
-            _waveSubgroupSpawner = new WaveSubgroupSpawner(enemyGroupConfig, enemyInstanceDelegate);
+            _waveSubgroupSpawner = new WaveSubgroupSpawner(enemyGroupConfig, eventBus);
             _waveSubgroupSpawner.OnEndSpawn += SubgroupSpawned;
             
             _timer = new Timer(_enemyGroupConfig.StartTimePause);
