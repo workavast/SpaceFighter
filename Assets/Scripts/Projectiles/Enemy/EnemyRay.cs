@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TimerExtension;
 using UnityEngine;
 
@@ -5,62 +6,74 @@ namespace Projectiles.Enemy
 {
     public class EnemyRay : EnemyProjectileBase
     {
-        public override EnemyProjectileType PoolId => EnemyProjectileType.Ray;
-    
         [SerializeField] private float existTime;
-        [SerializeField] private float damagePause;//dont used at the moment, maybe used damage per second??
     
+        public override EnemyProjectileType PoolId => EnemyProjectileType.Ray;
+        
+        private readonly List<IDamageable> _damageables = new();
+
         protected override bool DestroyableOnCollision => false;
         protected override bool ReturnInPoolOnExitFromPlayArea => false;
 
-        private Transform _follower;
-
+        private Transform _parent;
         private Timer _existTimer;
-        private Timer _damagePause;//dont used at the moment, maybe used damage per second??(but need override OnTargetEnter)
     
         private void Awake()
         {
             _existTimer = new Timer(existTime);
-            _damagePause = new Timer(damagePause);
         
             _existTimer.OnTimerEnd += HandleReturnInPool;
-            OnElementExtractFromPoolEvent += ResetTimers;
-            OnElementReturnInPoolEvent += StopTimers;
+            OnElementExtractFromPoolEvent += ResetTimer;
+            OnElementReturnInPoolEvent += StopTimer;
 
-            OnHandleUpdate += TimersTicks;
-        
-            ResetTimers();
+            OnHandleUpdate += TimerTick;
+            OnHandleUpdate += DamagePerSecond;
+                
+            ResetTimer();
         }
 
-        private void TimersTicks(float time)
+        public void SetMount(Transform parentTransform) => _parent = parentTransform;
+        
+        private void TimerTick(float time)
         {
             _existTimer.Tick(time);
-            _damagePause.Tick(time);
         }
     
-        private void ResetTimers()
+        private void ResetTimer()
         {
             _existTimer.Reset();
-            _damagePause.Reset();
         
             _existTimer.Continue();
-            _damagePause.Continue();
         }
 
-        private void StopTimers()
+        private void StopTimer()
         {
             _existTimer.Stop();
-            _damagePause.Stop();
         }
     
         protected override void Move(float time)
         {
-            if (!_follower) return;
+            if (!_parent) return;
         
-            transform.position = _follower.position;
-            transform.rotation = _follower.rotation;
+            transform.position = _parent.position;
+            transform.rotation = _parent.rotation;
         }
-    
-        public void SetMount(Transform transform) => _follower = transform;
+
+        private void DamagePerSecond(float time)
+        {
+            foreach (var damageable in _damageables)
+                damageable.TakeDamage(damage * time);
+        }
+        
+        protected override void OnIDamageableTriggerEnter(IDamageable iDamageable)
+        {
+            _damageables.Add(iDamageable);
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.TryGetComponent(out IDamageable iDamageable))
+                _damageables.Remove(iDamageable);
+        }
     }
 }

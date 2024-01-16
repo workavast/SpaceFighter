@@ -7,6 +7,7 @@ namespace Installers.SceneContext
     public class ControllersInstaller : MonoInstaller
     {
         [SerializeField] private ControllerBase[] controllers;
+        
         public override void InstallBindings()
         {
             foreach (var controller in controllers)

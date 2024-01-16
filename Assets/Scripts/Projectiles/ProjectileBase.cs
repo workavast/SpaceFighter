@@ -62,11 +62,14 @@ namespace Projectiles
         private void OnTriggerEnter2D(Collider2D someCollider)
         {
             if (someCollider.gameObject.TryGetComponent(out IDamageable iDamageable))
-            {
-                iDamageable.TakeDamage(damage);
+                OnIDamageableTriggerEnter(iDamageable);
+        }
 
-                if (DestroyableOnCollision) HandleReturnInPool();
-            }
+        protected virtual void OnIDamageableTriggerEnter(IDamageable iDamageable)
+        {
+            iDamageable.TakeDamage(damage);
+
+            if (DestroyableOnCollision) HandleReturnInPool();
         }
     }
 }
