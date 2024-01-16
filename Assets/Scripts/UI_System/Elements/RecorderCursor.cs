@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI_System.UI_Elements
+namespace UI_System.Elements
 {
     public class RecorderCursor : MonoBehaviour
     {

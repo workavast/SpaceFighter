@@ -3,7 +3,7 @@ using SomeStorages;
 using TMPro;
 using UnityEngine;
 
-namespace UI_System.UI_Elements
+namespace UI_System.Elements
 {
     [Serializable]
     public class UI_Counter

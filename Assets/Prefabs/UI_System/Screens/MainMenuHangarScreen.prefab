@@ -1369,7 +1369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f8c97704cb7934c8409e0a7c472387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hangarSelectItemEnum: 0
+  hangarSelectItemType: 0
+  hangarScreen: {fileID: 4845157324330791256}
 --- !u!1 &4181743812042259193
 GameObject:
   m_ObjectHideFlags: 0
@@ -2795,7 +2796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f8c97704cb7934c8409e0a7c472387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hangarSelectItemEnum: 4
+  hangarSelectItemType: 4
+  hangarScreen: {fileID: 4845157324330791256}
 --- !u!1 &6018901943868069346
 GameObject:
   m_ObjectHideFlags: 0
@@ -3174,7 +3176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f8c97704cb7934c8409e0a7c472387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hangarSelectItemEnum: 2
+  hangarSelectItemType: 2
+  hangarScreen: {fileID: 4845157324330791256}
 --- !u!1 &6601497730990398919
 GameObject:
   m_ObjectHideFlags: 0
@@ -3745,7 +3748,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f8c97704cb7934c8409e0a7c472387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hangarSelectItemEnum: 3
+  hangarSelectItemType: 3
+  hangarScreen: {fileID: 4845157324330791256}
 --- !u!1 &7858512351239148293
 GameObject:
   m_ObjectHideFlags: 0
@@ -4197,7 +4201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f8c97704cb7934c8409e0a7c472387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hangarSelectItemEnum: 1
+  hangarSelectItemType: 1
+  hangarScreen: {fileID: 4845157324330791256}
 --- !u!1 &9190023968306301707
 GameObject:
   m_ObjectHideFlags: 0

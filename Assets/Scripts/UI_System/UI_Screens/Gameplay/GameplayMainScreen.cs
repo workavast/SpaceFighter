@@ -1,7 +1,7 @@
 using Controllers;
 using Managers;
 using TMPro;
-using UI_System.UI_Elements;
+using UI_System.Elements;
 using UnityEngine;
 using Zenject;
 

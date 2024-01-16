@@ -1,7 +1,6 @@
 using Controllers;
 using EventBus.Events;
 using EventBusExtension;
-using UnityEngine;
 
 namespace Managers
 {
@@ -20,7 +19,6 @@ namespace Managers
         
         public MissionStarsController(EventBusExtension.EventBus eventBus, MissionController missionController, int missionIndex)
         {
-            Debug.LogWarning($"mission index for setting {_missionIndex}");
             _eventBus = eventBus;
             _missionController = missionController;
             _missionIndex = missionIndex;
@@ -54,7 +52,6 @@ namespace Managers
         
         private void ApplyStars()
         {
-            Debug.LogWarning($"mission index for saving pgd inv {_missionIndex}");
             PlayerGlobalData.ChangeMissionData(_missionIndex, StarsCount);
         }
     }

@@ -13,7 +13,6 @@ namespace MissionsDataConfigsSystem
         
         public void SetMissionData(int missionIndex)
         {
-            Debug.LogWarning($"Mission index for loading {missionIndex}");
             _missionIndex = missionIndex;
             _missionConfig = _missionsConfig.GetMissionData(_missionIndex);
         }
@@ -37,7 +36,6 @@ namespace MissionsDataConfigsSystem
                 return 0;
             }
             
-            Debug.LogWarning($"mission index for return {_missionIndex}");
             return _missionIndex;
         }
     }
