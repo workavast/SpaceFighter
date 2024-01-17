@@ -13,7 +13,7 @@ using Zenject;
 
 namespace Managers
 {
-    public class EnemySpaceshipsManager : ManagerBase, IEventReceiver<SpawnEnemy>
+    public class EnemySpaceshipsManager : GameCycleManager, IEventReceiver<SpawnEnemy>
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
     
@@ -32,6 +32,8 @@ namespace Managers
 
         protected override void OnAwake()
         {
+            base.OnAwake();
+            
             _missionEventBus.Subscribe(this);
             _pool = new Pool<EnemySpaceshipBase, EnemySpaceshipType>(EnemySpaceShipInstantiate);
         

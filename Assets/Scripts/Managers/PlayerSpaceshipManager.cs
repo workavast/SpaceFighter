@@ -9,7 +9,7 @@ using Zenject;
 
 namespace Managers
 {
-    public class PlayerSpaceshipManager : ManagerBase
+    public class PlayerSpaceshipManager : GameCycleManager
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
         
@@ -26,6 +26,8 @@ namespace Managers
         
         protected override void OnAwake()
         {
+            base.OnAwake();
+
             PlayerSpaceship.Initialization(_playerSpaceshipLevelsConfig);
             PlayerSpaceship.OnDead += OnPlayerDead;
             

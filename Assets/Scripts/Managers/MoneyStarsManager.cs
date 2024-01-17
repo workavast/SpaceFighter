@@ -11,7 +11,7 @@ using Zenject;
 
 namespace Managers
 {
-    public class MoneyStarsManager : ManagerBase, IEventReceiver<EnemyStartDie>
+    public class MoneyStarsManager : GameCycleManager, IEventReceiver<EnemyStartDie>
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
 
@@ -28,6 +28,8 @@ namespace Managers
         
         protected override void OnAwake()
         {
+            base.OnAwake();
+
             _moneyStarsCounter = new SomeStorageInt(int.MaxValue, 0);
             _pool = new Pool<MoneyStar>(MoneyStarInstantiate);
             _missionEventBus.Subscribe<EnemyStartDie>(this);

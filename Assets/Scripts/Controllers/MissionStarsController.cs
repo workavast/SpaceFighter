@@ -1,8 +1,7 @@
-using Controllers;
 using EventBus.Events;
 using EventBusExtension;
 
-namespace Managers
+namespace Controllers
 {
     public class MissionStarsController : IEventReceiver<PlayerTakeDamage>
     {

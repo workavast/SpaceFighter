@@ -9,7 +9,7 @@ using Zenject;
 
 namespace Managers
 {
-    public class WavesManager : ManagerBase
+    public class WavesManager : GameCycleManager
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
 
@@ -26,6 +26,8 @@ namespace Managers
         
         protected override void OnAwake()
         {
+            base.OnAwake();
+
             _waveSpawner = new WaveSpawner(_missionEventBus.EventBus);
             _wavesCounter = new SomeStorageInt(_selectedMissionData.TakeMissionData().enemyWaves.Count);
             _waveSpawner.OnWaveSpawned += WaveSpawnEnd;

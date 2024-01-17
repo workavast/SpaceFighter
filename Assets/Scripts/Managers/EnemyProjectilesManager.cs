@@ -10,7 +10,7 @@ using Zenject;
 
 namespace Managers
 {
-    public class EnemyProjectilesManager : ManagerBase
+    public class EnemyProjectilesManager : GameCycleManager
     {
         protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
     
@@ -22,6 +22,8 @@ namespace Managers
     
         protected override void OnAwake()
         {
+            base.OnAwake();
+
             _pool = new Pool<EnemyProjectileBase, EnemyProjectileType>(EnemyProjectileInstantiate);
         
             foreach (var enemyShipId in Enum.GetValues(typeof(EnemyProjectileType)).Cast<EnemyProjectileType>())

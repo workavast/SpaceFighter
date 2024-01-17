@@ -1,31 +1,11 @@
-﻿using GameCycle;
-using UnityEngine;
-using Zenject;
+﻿using UnityEngine;
 
 namespace Managers
 {
-    public abstract class ManagerBase : MonoBehaviour, IGameCycleUpdate
+    public abstract class ManagerBase : MonoBehaviour
     {
-        [Inject] private IGameCycleManager _gameCycleManager;
-        protected abstract GameStatesType GameStatesType { get; } 
-        
-        private void Awake()
-        {
-            _gameCycleManager.AddListener(GameStatesType, this as IGameCycleUpdate);
-            
-            OnAwake();
-        }
+        private void Awake() => OnAwake();
         
         protected virtual void OnAwake() { }
-        
-        public virtual void GameCycleUpdate() { }
-
-        private void OnDestroy()
-        {
-            _gameCycleManager.RemoveListener(GameStatesType, this as IGameCycleUpdate);
-            OnDestroyVirtual();
-        }
-
-        protected virtual void OnDestroyVirtual() { }
     }
 }

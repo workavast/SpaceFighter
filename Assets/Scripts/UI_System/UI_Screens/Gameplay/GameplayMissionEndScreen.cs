@@ -2,6 +2,7 @@
 using Controllers;
 using Managers;
 using TMPro;
+using UI_System.Elements;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +10,7 @@ namespace UI_System.UI_Screens.Gameplay
 {
     public class GameplayMissionEndScreen : UI_ScreenBase
     {
-        [SerializeField] private TextMeshProUGUI missionCompleted;
+        [SerializeField] private MissionCompletedBar missionCompletedBar;
         [SerializeField] private SuccessMark withoutDamage;
         [SerializeField] private TextMeshProUGUI kills;
         [SerializeField] private TextMeshProUGUI moneyStars;
@@ -18,18 +19,23 @@ namespace UI_System.UI_Screens.Gameplay
         
         [Inject] private MissionController _missionController;
         [Inject] private MoneyStarsManager _moneyStarsManager;
-        
+
+        private void Awake()
+        {
+            missionCompletedBar.Init();
+        }
+
         private void OnEnable()
         {
             if (_missionController.StarsController.MissionSuccess)
             {
                 darkBackground.SetActive(false);
-                missionCompleted.text = "Mission success";
+                missionCompletedBar.SetMissionCompletedText();
             }            
             else
             {
                 darkBackground.SetActive(true);
-                missionCompleted.text = "Mission loose";
+                missionCompletedBar.SetMissionLooseText();
             }            
             
             if(_missionController.StarsController.PlayerTakeDamage)
