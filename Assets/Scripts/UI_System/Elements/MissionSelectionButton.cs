@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -11,15 +12,16 @@ namespace UI_System.Elements
         [SerializeField] private GameObject earnedStar3;
         [SerializeField] private TextMeshProUGUI textMeshPro;
 
+        public event Action<int> OnLoadMission;
+        
         private void Awake()
         {
             textMeshPro.text = $"{levelIndex + 1}";
         }
 
-        private void Start()
-        {
-            UpdateEarnedStars(PlayerGlobalData.MissionsStarsData[levelIndex]);
-        }
+        public void _LoadMission() => OnLoadMission?.Invoke(levelIndex);
+
+        private void Start() => UpdateEarnedStars(PlayerGlobalData.MissionsStarsData[levelIndex]);
         
         private void UpdateEarnedStars(int starsCount)
         {

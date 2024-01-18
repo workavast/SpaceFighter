@@ -2,7 +2,7 @@ using Configs.Missions;
 using UnityEngine;
 using Zenject;
 
-namespace MissionsDataConfigsSystem
+namespace SelectedMissionData
 {
     public class SelectedMissionData : MonoBehaviour
     {

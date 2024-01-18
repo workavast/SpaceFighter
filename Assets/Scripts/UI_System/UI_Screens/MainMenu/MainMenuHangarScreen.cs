@@ -33,7 +33,13 @@ namespace UI_System.UI_Screens.MainMenu
         [Inject] private PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
     
         private HangarSelectItemType _currentHangarSelectItem;
-    
+
+        private void Awake()
+        {
+            equipButton.Init();
+            levelUpButton.Init();
+        }
+
         private void Start()
         {
             _currentHangarSelectItem = HangarSelectItemType.Spaceship;

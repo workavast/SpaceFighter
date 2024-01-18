@@ -21,6 +21,7 @@ namespace UI_System.UI_Screens.Gameplay
         {
             killsCounter.Init(_missionController.KillsCounter.DestroyedEnemiesCounter);
             wavesCounter.Init(_wavesManager.WavesCounter);
+            
             _moneyStarsManager.MoneyStarsCounter.OnChange += UpdateLevelMoneyCount;
             UpdateLevelMoneyCount();
         }

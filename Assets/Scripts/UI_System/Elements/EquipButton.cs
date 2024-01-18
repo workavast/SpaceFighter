@@ -14,7 +14,7 @@ namespace UI_System.Elements
         
         private LocalizedPair _currentPair;
         
-        private void Awake()
+        public void Init()
         { 
             equip.Init();
             equipped.Init();
