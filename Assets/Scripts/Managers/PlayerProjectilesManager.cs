@@ -10,9 +10,9 @@ using Zenject;
 
 namespace Managers
 {
-    public class PlayerProjectilesManager : GameCycleManager
+    public class PlayerProjectilesManager : GameCycleManager, IGameCycleEnter, IGameCycleExit
     {
-        protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+        protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
     
         private Pool<PlayerProjectileBase, PlayerProjectileType> _pool;
 
@@ -24,6 +24,9 @@ namespace Managers
         {
             base.OnAwake();
 
+            GameCycleController.AddListener(GameCycleState, this as IGameCycleEnter);
+            GameCycleController.AddListener(GameCycleState, this as IGameCycleExit);
+            
             _pool = new Pool<PlayerProjectileBase, PlayerProjectileType>(PlayerProjectileInstantiate);
         
             foreach (var enemyShipId in Enum.GetValues(typeof(PlayerProjectileType)).Cast<PlayerProjectileType>())
@@ -41,8 +44,19 @@ namespace Managers
                 list[i][j].HandleUpdate(Time.deltaTime);
         }
     
-        private PlayerProjectileBase PlayerProjectileInstantiate(PlayerProjectileType id)
-            => _playerProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponent<PlayerProjectileBase>();
+        public void GameCycleEnter()
+        {
+            foreach (var projectiles in _pool.BusyElementsValues)
+            foreach (var projectile in projectiles)
+                projectile.ChangeAnimatorState(true);
+        }
+
+        public void GameCycleExit()
+        {
+            foreach (var projectiles in _pool.BusyElementsValues)
+            foreach (var projectile in projectiles)
+                projectile.ChangeAnimatorState(false);
+        }
 
         public bool TrySpawnProjectile(PlayerProjectileType id, Transform newTransform, out PlayerProjectileBase projectileBase)
         {
@@ -62,10 +76,21 @@ namespace Managers
             }
         }
 
+        private PlayerProjectileBase PlayerProjectileInstantiate(PlayerProjectileType id)
+            => _playerProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponent<PlayerProjectileBase>();
+        
         private void ReturnProjectileInPool(PlayerProjectileBase projectile)
         {
             projectile.OnLifeTimeEnd -= ReturnProjectileInPool;
             _pool.ReturnElement(projectile);
+        }
+
+        protected override void OnDestroyVirtual()
+        {
+            base.OnDestroyVirtual();
+            
+            GameCycleController.RemoveListener(GameCycleState, this as IGameCycleEnter);
+            GameCycleController.RemoveListener(GameCycleState, this as IGameCycleExit);
         }
     }
 }

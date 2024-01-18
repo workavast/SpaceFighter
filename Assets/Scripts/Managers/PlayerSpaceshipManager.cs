@@ -9,9 +9,9 @@ using Zenject;
 
 namespace Managers
 {
-    public class PlayerSpaceshipManager : GameCycleManager
+    public class PlayerSpaceshipManager : GameCycleManager, IGameCycleEnter, IGameCycleExit
     {
-        protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+        protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
         
         [field: SerializeField] public PlayerSpaceship PlayerSpaceship { get; private set; }
         
@@ -28,6 +28,9 @@ namespace Managers
         {
             base.OnAwake();
 
+            GameCycleController.AddListener(GameCycleState, this as IGameCycleEnter);
+            GameCycleController.AddListener(GameCycleState, this as IGameCycleExit);
+            
             PlayerSpaceship.Initialization(_playerSpaceshipLevelsConfig);
             PlayerSpaceship.OnDead += OnPlayerDead;
             
@@ -39,6 +42,10 @@ namespace Managers
             PlayerSpaceship.HandleUpdate(Time.deltaTime);
             _weapon.HandleUpdate();
         }
+        
+        public void GameCycleEnter() => PlayerSpaceship.ChangeAnimatorState(true);
+
+        public void GameCycleExit() => PlayerSpaceship.ChangeAnimatorState(false);
         
         private void SpawnWeapon()
         {
@@ -57,6 +64,14 @@ namespace Managers
             _weapon.StopShoot();
             PlayerIsDead = true;
             OnPlayerDie?.Invoke();
+        }
+
+        protected override void OnDestroyVirtual()
+        {
+            base.OnDestroyVirtual();
+            
+            GameCycleController.RemoveListener(GameCycleState, this as IGameCycleEnter);
+            GameCycleController.RemoveListener(GameCycleState, this as IGameCycleExit);
         }
     }
 }

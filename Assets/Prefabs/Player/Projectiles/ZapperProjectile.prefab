@@ -133,6 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   damage: 2
+  animator: {fileID: 8916808810005289808}
   existTime: 1
 --- !u!95 &8916808810005289808
 Animator:

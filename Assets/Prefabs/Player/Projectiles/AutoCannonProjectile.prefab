@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   damage: 1
+  animator: {fileID: 4356446673930774197}
 --- !u!95 &4356446673930774197
 Animator:
   serializedVersion: 5

@@ -10,7 +10,7 @@ namespace Managers
 {
     public class WavesManager : GameCycleManager
     {
-        protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+        protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
 
         private SomeStorageInt _wavesCounter;
         private WaveSpawner _waveSpawner;

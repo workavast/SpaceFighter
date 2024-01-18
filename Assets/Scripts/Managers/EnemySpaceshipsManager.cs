@@ -13,9 +13,9 @@ using Zenject;
 
 namespace Managers
 {
-    public class EnemySpaceshipsManager : GameCycleManager, IEventReceiver<SpawnEnemy>
+    public class EnemySpaceshipsManager : GameCycleManager, IGameCycleEnter, IGameCycleExit, IEventReceiver<SpawnEnemy>
     {
-        protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+        protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
     
         private readonly Dictionary<EnemySpaceshipType, GameObject> _spaceshipsParents = new();
 
@@ -33,6 +33,9 @@ namespace Managers
         protected override void OnAwake()
         {
             base.OnAwake();
+            
+            GameCycleController.AddListener(GameCycleState, this as IGameCycleEnter);
+            GameCycleController.AddListener(GameCycleState, this as IGameCycleExit);
             
             _missionEventBus.Subscribe(this);
             _pool = new Pool<EnemySpaceshipBase, EnemySpaceshipType>(EnemySpaceShipInstantiate);
@@ -52,6 +55,20 @@ namespace Managers
                 list[i][j].HandleUpdate(Time.deltaTime);
         }
     
+        public void GameCycleEnter()
+        {
+            foreach (var enemies in _pool.BusyElementsValues)
+                foreach (var enemy in enemies)
+                    enemy.ChangeAnimatorState(true);
+        }
+
+        public void GameCycleExit()
+        {
+            foreach (var enemies in _pool.BusyElementsValues)
+                foreach (var enemy in enemies)
+                    enemy.ChangeAnimatorState(false);
+        }
+        
         public void OnEvent(SpawnEnemy @event) => SpawnEnemy(@event.EnemySpaceshipType, @event.EnemyGroupConfig);
 
         private EnemySpaceshipBase EnemySpaceShipInstantiate(EnemySpaceshipType id)
@@ -85,6 +102,9 @@ namespace Managers
             base.OnDestroyVirtual();
             
             _missionEventBus.UnSubscribe(this);
+            
+            GameCycleController.RemoveListener(GameCycleState, this as IGameCycleEnter);
+            GameCycleController.RemoveListener(GameCycleState, this as IGameCycleExit);
         }
     }
 }

@@ -49,7 +49,10 @@ public class PlayerGlobalData : MonoBehaviour
             starCount = 3;
             Debug.LogError("Unsigned level num");
         }
-        
+
+        var oldStarsCount = _instance._data.MissionsStarsData[missionIndex];
+        if(starCount <= oldStarsCount) return;
+
         _instance._data.MissionsStarsData[missionIndex] = starCount;
         
         SaveData();

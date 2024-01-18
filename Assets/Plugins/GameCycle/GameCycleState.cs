@@ -1,6 +1,6 @@
 ﻿namespace GameCycle
 {
-    public enum GameStatesType
+    public enum GameCycleState
     {
         Gameplay = 0,
         Pause = 10

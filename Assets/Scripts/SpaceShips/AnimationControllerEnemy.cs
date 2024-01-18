@@ -27,4 +27,6 @@ public class AnimationControllerEnemy : MonoBehaviour
         SetAliveTrigger();
         _enemySpaceshipBase.EndDying();
     }
+    
+    public void ChangeAnimatorState(bool animatorEnabled) => _animator.enabled = animatorEnabled;
 }

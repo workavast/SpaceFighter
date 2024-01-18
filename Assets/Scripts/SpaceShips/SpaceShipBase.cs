@@ -3,7 +3,7 @@ using UnityEngine;
 using SomeStorages;
 
 [RequireComponent(typeof(PolygonCollider2D), typeof(Rigidbody2D))]
-public class SpaceshipBase : MonoBehaviour, IDamageable, IHandleUpdate
+public abstract class SpaceshipBase : MonoBehaviour, IDamageable, IHandleUpdate
 {
     [SerializeField] protected SomeStorageFloat healthPoints;
     
@@ -16,6 +16,8 @@ public class SpaceshipBase : MonoBehaviour, IDamageable, IHandleUpdate
 
     protected virtual void OnAwake() { }
     protected virtual void OnStart() { }
+    
+    public abstract void ChangeAnimatorState(bool animatorEnabled);
     
     public virtual void TakeDamage(float damage)
     {

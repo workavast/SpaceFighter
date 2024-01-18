@@ -60,6 +60,9 @@ public abstract class EnemySpaceshipBase : SpaceshipBase, PoolSystem.IPoolable<E
         OnHandleUpdate?.Invoke();
     }
 
+    public override void ChangeAnimatorState(bool animatorEnabled) =>
+        _animationControllerEnemy.ChangeAnimatorState(animatorEnabled);
+
     private void Move(float time)
     {
         if (_accelerated)

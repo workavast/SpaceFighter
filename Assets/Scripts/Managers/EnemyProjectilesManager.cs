@@ -10,9 +10,9 @@ using Zenject;
 
 namespace Managers
 {
-    public class EnemyProjectilesManager : GameCycleManager
+    public class EnemyProjectilesManager : GameCycleManager, IGameCycleEnter, IGameCycleExit
     {
-        protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+        protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
     
         private readonly Dictionary<EnemyProjectileType, GameObject> _projectilesParents = new();
 
@@ -24,6 +24,9 @@ namespace Managers
         {
             base.OnAwake();
 
+            GameCycleController.AddListener(GameCycleState, this as IGameCycleEnter);
+            GameCycleController.AddListener(GameCycleState, this as IGameCycleExit);
+            
             _pool = new Pool<EnemyProjectileBase, EnemyProjectileType>(EnemyProjectileInstantiate);
         
             foreach (var enemyShipId in Enum.GetValues(typeof(EnemyProjectileType)).Cast<EnemyProjectileType>())
@@ -41,6 +44,20 @@ namespace Managers
                 list[i][j].HandleUpdate(Time.deltaTime);
         }
 
+        public void GameCycleEnter()
+        {
+            foreach (var projectiles in _pool.BusyElementsValues)
+                foreach (var projectile in projectiles)
+                    projectile.ChangeAnimatorState(true);
+        }
+
+        public void GameCycleExit()
+        {
+            foreach (var projectiles in _pool.BusyElementsValues)
+                foreach (var projectile in projectiles)
+                    projectile.ChangeAnimatorState(false);
+        }
+        
         private EnemyProjectileBase EnemyProjectileInstantiate(EnemyProjectileType id)
             => _enemyProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponent<EnemyProjectileBase>();
 
@@ -66,6 +83,14 @@ namespace Managers
         {
             projectile.OnLifeTimeEnd -= ReturnProjectileInPool;
             _pool.ReturnElement(projectile);
+        }
+
+        protected override void OnDestroyVirtual()
+        {
+            base.OnDestroyVirtual();
+            
+            GameCycleController.RemoveListener(GameCycleState, this as IGameCycleEnter);
+            GameCycleController.RemoveListener(GameCycleState, this as IGameCycleExit);
         }
     }
 }

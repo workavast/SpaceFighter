@@ -13,7 +13,7 @@ namespace Managers
 {
     public class MoneyStarsManager : GameCycleManager, IEventReceiver<EnemyStartDie>
     {
-        protected override GameStatesType GameStatesType => GameStatesType.Gameplay;
+        protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
 
         public ReceiverIdentifier ReceiverIdentifier { get; } = new();
    

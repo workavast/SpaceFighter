@@ -8,7 +8,7 @@ namespace Controllers
 {
     public class MissionGameCycleController : Disposable
     {
-        private readonly IGameCycleManagerSwitcher _gameCycleManager;
+        private readonly IGameCycleSwitcher _gameCycleSwitcher;
         private readonly UI_Controller _uiController;
         private readonly PlayerSpaceshipManager _playerSpaceshipManager;
         private readonly WavesManager _wavesManager;
@@ -16,11 +16,11 @@ namespace Controllers
         private readonly EnemySpaceshipsManager _enemySpaceshipsManager;
         private readonly MissionStarsController _missionStarsController;
         
-        public MissionGameCycleController(IGameCycleManagerSwitcher gameCycleManager, UI_Controller uiController,
+        public MissionGameCycleController(IGameCycleSwitcher gameCycleSwitcher, UI_Controller uiController,
             PlayerSpaceshipManager playerSpaceshipManager, WavesManager wavesManager,
             MoneyStarsManager moneyStarsManager, EnemySpaceshipsManager enemySpaceshipsManager, MissionStarsController missionStarsController)
         {
-            _gameCycleManager = gameCycleManager;
+            _gameCycleSwitcher = gameCycleSwitcher;
             _uiController = uiController;
             _playerSpaceshipManager = playerSpaceshipManager;
             _wavesManager = wavesManager;
@@ -48,7 +48,7 @@ namespace Controllers
         private void OnMissionCompleted()
         {
             _missionStarsController.OnMissionCompleted();
-            _gameCycleManager.SwitchState(GameStatesType.Pause);
+            _gameCycleSwitcher.SwitchState(GameCycleState.Pause);
             _moneyStarsManager.ApplyMoneyStars();
             _uiController.SetScreen(ScreenType.GameplayMissionEnd);
         }
@@ -56,7 +56,7 @@ namespace Controllers
         private void OnPlayerDie()
         {
             _missionStarsController.OnMissionLoosed();
-            _gameCycleManager.SwitchState(GameStatesType.Pause);
+            _gameCycleSwitcher.SwitchState(GameCycleState.Pause);
             _uiController.SetScreen(ScreenType.GameplayMissionEnd);
         }
 
@@ -79,7 +79,7 @@ namespace Controllers
         
         private void OnActivatePause()
         {
-            _gameCycleManager.SwitchState(GameStatesType.Pause);
+            _gameCycleSwitcher.SwitchState(GameCycleState.Pause);
         }
 
         private void OnDeactivatePause()
@@ -90,7 +90,7 @@ namespace Controllers
                 return;
             }
             
-            _gameCycleManager.SwitchState(GameStatesType.Gameplay);
+            _gameCycleSwitcher.SwitchState(GameCycleState.Gameplay);
         }
 
         protected override void OnDispose()

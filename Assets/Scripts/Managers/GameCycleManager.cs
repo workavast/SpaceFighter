@@ -5,19 +5,19 @@ namespace Managers
 {
     public abstract class GameCycleManager : ManagerBase, IGameCycleUpdate
     {
-        [Inject] private IGameCycleManager _gameCycleManager;
-        protected abstract GameStatesType GameStatesType { get; } 
+        [Inject] protected IGameCycleController GameCycleController;
+        protected abstract GameCycleState GameCycleState { get; } 
         
         protected override void OnAwake()
         {
-            _gameCycleManager.AddListener(GameStatesType, this as IGameCycleUpdate);
+            GameCycleController.AddListener(GameCycleState, this as IGameCycleUpdate);
         }
         
         public virtual void GameCycleUpdate() { }
 
         private void OnDestroy()
         {
-            _gameCycleManager.RemoveListener(GameStatesType, this as IGameCycleUpdate);
+            GameCycleController.RemoveListener(GameCycleState, this as IGameCycleUpdate);
             OnDestroyVirtual();
         }
         

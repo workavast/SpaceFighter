@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731f394c36d8d5c468aa80c5682a0e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameCycleManager: {fileID: 1425016711}
+  gameCycleController: {fileID: 1425016711}
 --- !u!1 &1124678983
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   damage: 1
+  animator: {fileID: 4589437194709929436}
   existTime: 4
 --- !u!95 &4589437194709929436
 Animator:

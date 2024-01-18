@@ -4,11 +4,11 @@ using Zenject;
 
 public class GameCycleManagerInstaller : MonoInstaller
 {
-    [SerializeField] private GameCycleManager gameCycleManager;
+    [SerializeField] private GameCycleController gameCycleController;
 
     public override void InstallBindings()
     {
-        Container.Bind<IGameCycleManager>().FromInstance(gameCycleManager).AsSingle();
-        Container.Bind<IGameCycleManagerSwitcher>().FromInstance(gameCycleManager).AsSingle();
+        Container.Bind<IGameCycleController>().FromInstance(gameCycleController).AsSingle();
+        Container.Bind<IGameCycleSwitcher>().FromInstance(gameCycleController).AsSingle();
     }
 }

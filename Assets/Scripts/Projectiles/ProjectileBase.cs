@@ -9,7 +9,7 @@ namespace Projectiles
     {
         [SerializeField] protected float moveSpeed;
         [SerializeField] protected float damage;
-    
+        [SerializeField] protected Animator animator;
         public abstract TEnum PoolId { get; }
     
         public event Action<TScript> OnLifeTimeEnd;
@@ -28,11 +28,8 @@ namespace Projectiles
             Move(time);
         }
 
-        protected virtual void Move(float time)
-        {
-            transform.Translate(Vector3.up * (moveSpeed * time));
-        }
-    
+        public void ChangeAnimatorState(bool animatorEnabled) => animator.enabled = animatorEnabled;
+        
         public void OnExtractFromPool()
         {
             gameObject.SetActive(true);
@@ -57,6 +54,11 @@ namespace Projectiles
             if(ReturnInPoolOnExitFromPlayArea) HandleReturnInPool();
         }
     
+        protected virtual void Move(float time)
+        {
+            transform.Translate(Vector3.up * (moveSpeed * time));
+        }
+        
         private void OnDestroy() => OnDestroyElementEvent?.Invoke((TScript)this);
 
         private void OnTriggerEnter2D(Collider2D someCollider)

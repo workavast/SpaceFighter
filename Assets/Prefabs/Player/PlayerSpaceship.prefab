@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 4094511103671874395}
   - component: {fileID: 8438538068274407657}
   m_Layer: 6
-  m_Name: PlayerShip
+  m_Name: PlayerSpaceship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
     maxValue: 100
     currentValue: 100
     minValue: 0
-  spaceshipModelAnimator: {fileID: 3522066648862070055}
+  animator: {fileID: 3522066648862070055}
   damageAnimatorTriggerData:
   - animatorTriggerName: 0
     healthPointsPercent: 1
@@ -313,7 +313,12 @@ MonoBehaviour:
   weaponPosition: {fileID: 3616244429633581169}
   canMove: 1
   moveSpeed: 10
-  canShoot: 0
+  stoppableAnimators:
+  - {fileID: 3522066648862070055}
+  - {fileID: 1238691052019236614}
+  - {fileID: 2658007648887957162}
+  - {fileID: 801247073297325118}
+  - {fileID: 4880446292728817434}
 --- !u!60 &2511909709696665914
 PolygonCollider2D:
   m_ObjectHideFlags: 0
