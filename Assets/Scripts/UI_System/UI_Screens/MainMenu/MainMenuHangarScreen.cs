@@ -1,4 +1,5 @@
 using Configs;
+using PlayerWeapon;
 using TMPro;
 using UI_System.Elements;
 using UnityEngine;

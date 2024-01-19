@@ -1,5 +1,6 @@
 ﻿using Configs.Missions;
 using EventBusExtension;
+using SpaceShips.Enemies;
 
 namespace EventBus.Events
 {

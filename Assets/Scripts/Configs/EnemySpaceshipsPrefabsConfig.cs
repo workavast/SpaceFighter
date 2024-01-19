@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SpaceShips.Enemies;
 using UnityEngine;
 
 namespace Configs

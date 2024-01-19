@@ -2,15 +2,18 @@ using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 
-public class LocalizationLoading : MonoBehaviour
+namespace Localization
 {
-    private void Start() => InitLocalizationSettings();
-    
-    private async void InitLocalizationSettings()
+    public class LocalizationLoading : MonoBehaviour
     {
-        var handleTask = LocalizationSettings.InitializationOperation;
-        await handleTask.Task;
+        private void Start() => InitLocalizationSettings();
+    
+        private async void InitLocalizationSettings()
+        {
+            var handleTask = LocalizationSettings.InitializationOperation;
+            await handleTask.Task;
         
-        SceneManager.LoadScene(1);
+            SceneManager.LoadScene(1);
+        }
     }
 }

@@ -2,13 +2,16 @@ using GameCycle;
 using UnityEngine;
 using Zenject;
 
-public class GameCycleManagerInstaller : MonoInstaller
+namespace Installers.SceneContext
 {
-    [SerializeField] private GameCycleController gameCycleController;
-
-    public override void InstallBindings()
+    public class GameCycleManagerInstaller : MonoInstaller
     {
-        Container.Bind<IGameCycleController>().FromInstance(gameCycleController).AsSingle();
-        Container.Bind<IGameCycleSwitcher>().FromInstance(gameCycleController).AsSingle();
+        [SerializeField] private GameCycleController gameCycleController;
+
+        public override void InstallBindings()
+        {
+            Container.Bind<IGameCycleController>().FromInstance(gameCycleController).AsSingle();
+            Container.Bind<IGameCycleSwitcher>().FromInstance(gameCycleController).AsSingle();
+        }
     }
 }

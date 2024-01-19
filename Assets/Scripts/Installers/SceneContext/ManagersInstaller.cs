@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Installers
+namespace Installers.SceneContext
 {
     public class ManagersInstaller : MonoInstaller
     {

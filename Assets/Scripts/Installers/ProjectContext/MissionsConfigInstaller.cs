@@ -2,12 +2,15 @@ using Configs.Missions;
 using UnityEngine;
 using Zenject;
 
-public class MissionsConfigInstaller : MonoInstaller
+namespace Installers.ProjectContext
 {
-    [SerializeField] private MissionsConfig missionsConfig;
-
-    public override void InstallBindings()
+    public class MissionsConfigInstaller : MonoInstaller
     {
-        Container.Bind<MissionsConfig>().FromInstance(missionsConfig).AsSingle();
+        [SerializeField] private MissionsConfig missionsConfig;
+
+        public override void InstallBindings()
+        {
+            Container.Bind<MissionsConfig>().FromInstance(missionsConfig).AsSingle();
+        }
     }
 }

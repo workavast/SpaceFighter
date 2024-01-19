@@ -1,7 +1,10 @@
-public enum PlayerWeaponType
+namespace PlayerWeapon
 {
-    AutoCannon,
-    BigSpaceGun,
-    Rockets,
-    Zapper
+    public enum PlayerWeaponType
+    {
+        AutoCannon,
+        BigSpaceGun,
+        Rockets,
+        Zapper
+    }
 }

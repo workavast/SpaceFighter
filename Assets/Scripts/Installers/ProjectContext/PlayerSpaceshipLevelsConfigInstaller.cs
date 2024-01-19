@@ -2,12 +2,15 @@ using Configs;
 using UnityEngine;
 using Zenject;
 
-public class PlayerSpaceshipLevelsConfigInstaller : MonoInstaller
+namespace Installers.ProjectContext
 {
-    [SerializeField] private PlayerSpaceshipLevelsConfig playerSpaceshipLevelsConfig;
-
-    public override void InstallBindings()
+    public class PlayerSpaceshipLevelsConfigInstaller : MonoInstaller
     {
-        Container.Bind<PlayerSpaceshipLevelsConfig>().FromInstance(playerSpaceshipLevelsConfig).AsSingle();
+        [SerializeField] private PlayerSpaceshipLevelsConfig playerSpaceshipLevelsConfig;
+
+        public override void InstallBindings()
+        {
+            Container.Bind<PlayerSpaceshipLevelsConfig>().FromInstance(playerSpaceshipLevelsConfig).AsSingle();
+        }
     }
 }

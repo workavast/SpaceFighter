@@ -2,12 +2,15 @@ using Configs;
 using UnityEngine;
 using Zenject;
 
-public class PlayerWeaponConfigInstaller : MonoInstaller
+namespace Installers.ProjectContext
 {
-    [SerializeField] private PlayerWeaponConfig playerWeaponConfig;
-
-    public override void InstallBindings()
+    public class PlayerWeaponConfigInstaller : MonoInstaller
     {
-        Container.Bind<PlayerWeaponConfig>().FromInstance(playerWeaponConfig).AsSingle();
+        [SerializeField] private PlayerWeaponConfig playerWeaponConfig;
+
+        public override void InstallBindings()
+        {
+            Container.Bind<PlayerWeaponConfig>().FromInstance(playerWeaponConfig).AsSingle();
+        }
     }
 }

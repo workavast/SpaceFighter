@@ -1,23 +1,20 @@
 ﻿using System;
 
-namespace DefaultNamespace
+public class Disposable : IDisposable
 {
-    public class Disposable : IDisposable
-    {
-        protected bool Disposed;
+    protected bool Disposed;
         
-        public void Dispose()
-        {
-            if(Disposed) return;
+    public void Dispose()
+    {
+        if(Disposed) return;
 
-            OnDispose();
+        OnDispose();
             
-            Disposed = true;
-        }
+        Disposed = true;
+    }
 
-        protected virtual void OnDispose()
-        {
+    protected virtual void OnDispose()
+    {
             
-        }
     }
 }

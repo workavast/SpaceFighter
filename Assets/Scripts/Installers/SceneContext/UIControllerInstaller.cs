@@ -2,12 +2,15 @@ using UI_System;
 using UnityEngine;
 using Zenject;
 
-public class UIControllerInstaller : MonoInstaller
+namespace Installers.SceneContext
 {
-    [SerializeField] private UI_Controller uiController;
-
-    public override void InstallBindings()
+    public class UIControllerInstaller : MonoInstaller
     {
-        Container.Bind<UI_Controller>().FromInstance(uiController).AsSingle();
+        [SerializeField] private UI_Controller uiController;
+
+        public override void InstallBindings()
+        {
+            Container.Bind<UI_Controller>().FromInstance(uiController).AsSingle();
+        }
     }
 }

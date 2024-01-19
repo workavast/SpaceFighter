@@ -1,8 +1,7 @@
 ﻿using EventBus;
-using Managers;
 using Zenject;
 
-namespace Installers
+namespace Installers.SceneContext
 {
     public class MissionEventBusInstaller : MonoInstaller
     {

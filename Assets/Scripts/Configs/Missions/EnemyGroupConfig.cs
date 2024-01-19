@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using PathCreation;
+using SpaceShips.Enemies;
 using UnityEngine;
 
 namespace Configs.Missions

@@ -5,11 +5,11 @@ namespace Installers.SceneContext
 {
     public class SelectedMissionDataInstaller : MonoInstaller
     {
-        [SerializeField] private SelectedMissionData.SelectedMissionData selectedMissionData;
+        [SerializeField] private SelectedMissionData selectedMissionData;
         
         public override void InstallBindings()
         {
-            Container.Bind<SelectedMissionData.SelectedMissionData>().FromInstance(selectedMissionData).AsSingle();
+            Container.Bind<SelectedMissionData>().FromInstance(selectedMissionData).AsSingle();
         }
     }
 }

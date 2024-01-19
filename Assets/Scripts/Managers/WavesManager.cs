@@ -1,9 +1,9 @@
 ﻿using System;
 using EventBus;
 using GameCycle;
-using Managers.Spawners;
 using SomeStorages;
 using UnityEngine;
+using WaveSpawnerSystem;
 using Zenject;
 
 namespace Managers
@@ -16,7 +16,7 @@ namespace Managers
         private WaveSpawner _waveSpawner;
         
         [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
-        [Inject] private SelectedMissionData.SelectedMissionData _selectedMissionData;
+        [Inject] private SelectedMissionData _selectedMissionData;
         [Inject] private MissionEventBus _missionEventBus;
         
         public IReadOnlySomeStorage<int> WavesCounter => _wavesCounter;

@@ -2,11 +2,14 @@ using UI_System.UI_Screens.MainMenu;
 using UnityEngine;
 using Zenject;
 
-public class MainMenuHangarScreenInstaller : MonoInstaller
+namespace Installers.SceneContext
 {
-    [SerializeField] private MainMenuHangarScreen mainMenuHangarScreen;
-    public override void InstallBindings()
+    public class MainMenuHangarScreenInstaller : MonoInstaller
     {
-        Container.Bind<MainMenuHangarScreen>().FromInstance(mainMenuHangarScreen).AsSingle();
+        [SerializeField] private MainMenuHangarScreen mainMenuHangarScreen;
+        public override void InstallBindings()
+        {
+            Container.Bind<MainMenuHangarScreen>().FromInstance(mainMenuHangarScreen).AsSingle();
+        }
     }
 }

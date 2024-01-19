@@ -12,7 +12,7 @@ namespace Controllers
         [Inject] private UI_Controller _uiController;
         [Inject] private PlayerSpaceshipManager _playerSpaceshipManager;
         [Inject] private WavesManager _wavesManager;
-        [Inject] private SelectedMissionData.SelectedMissionData _selectedMissionData;
+        [Inject] private SelectedMissionData _selectedMissionData;
         [Inject] private MissionEventBus _missionEventBus;
         [Inject] private MoneyStarsManager _moneyStarsManager;
         [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;

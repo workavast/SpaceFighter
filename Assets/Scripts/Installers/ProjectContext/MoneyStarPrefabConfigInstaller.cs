@@ -2,12 +2,15 @@ using Configs;
 using UnityEngine;
 using Zenject;
 
-public class MoneyStarPrefabConfigInstaller : MonoInstaller
+namespace Installers.ProjectContext
 {
-    [SerializeField] private MoneyStarPrefabConfig moneyStarPrefabConfig;
-
-    public override void InstallBindings()
+    public class MoneyStarPrefabConfigInstaller : MonoInstaller
     {
-        Container.Bind<MoneyStarPrefabConfig>().FromInstance(moneyStarPrefabConfig).AsSingle();
+        [SerializeField] private MoneyStarPrefabConfig moneyStarPrefabConfig;
+
+        public override void InstallBindings()
+        {
+            Container.Bind<MoneyStarPrefabConfig>().FromInstance(moneyStarPrefabConfig).AsSingle();
+        }
     }
 }

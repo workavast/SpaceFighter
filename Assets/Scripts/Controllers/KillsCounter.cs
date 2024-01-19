@@ -1,5 +1,4 @@
-﻿using DefaultNamespace;
-using EventBus.Events;
+﻿using EventBus.Events;
 using EventBusExtension;
 using SomeStorages;
 

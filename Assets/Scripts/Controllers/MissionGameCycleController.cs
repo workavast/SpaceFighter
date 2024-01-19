@@ -1,5 +1,4 @@
-﻿using DefaultNamespace;
-using GameCycle;
+﻿using GameCycle;
 using Managers;
 using UI_System;
 using UnityEngine;

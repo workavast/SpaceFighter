@@ -1,8 +1,11 @@
 using Projectiles.Player;
 
-public class BigSpaceGun : PlayerWeaponBase
+namespace PlayerWeapon.Weapons
 {
-    public override PlayerWeaponType PlayerWeaponId => PlayerWeaponType.BigSpaceGun;
-    public override PlayerProjectileType ProjectileId => PlayerProjectileType.BigSpaceGun;
+    public class BigSpaceGun : PlayerWeaponBase
+    {
+        public override PlayerWeaponType PlayerWeaponId => PlayerWeaponType.BigSpaceGun;
+        public override PlayerProjectileType ProjectileId => PlayerProjectileType.BigSpaceGun;
+    }
 }
 

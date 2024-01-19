@@ -2,12 +2,15 @@ using Configs;
 using UnityEngine;
 using Zenject;
 
-public class EnemySpaceshipsPrefabsConfigInstaller : MonoInstaller
+namespace Installers.ProjectContext
 {
-    [SerializeField] private EnemySpaceshipsPrefabsConfig enemySpaceshipsPrefabsConfig;
-    
-    public override void InstallBindings()
+    public class EnemySpaceshipsPrefabsConfigInstaller : MonoInstaller
     {
-        Container.Bind<EnemySpaceshipsPrefabsConfig>().FromInstance(enemySpaceshipsPrefabsConfig).AsSingle();
+        [SerializeField] private EnemySpaceshipsPrefabsConfig enemySpaceshipsPrefabsConfig;
+    
+        public override void InstallBindings()
+        {
+            Container.Bind<EnemySpaceshipsPrefabsConfig>().FromInstance(enemySpaceshipsPrefabsConfig).AsSingle();
+        }
     }
 }

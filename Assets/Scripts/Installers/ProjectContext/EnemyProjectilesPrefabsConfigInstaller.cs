@@ -2,12 +2,15 @@ using Configs;
 using UnityEngine;
 using Zenject;
 
-public class EnemyProjectilesPrefabsConfigInstaller : MonoInstaller
+namespace Installers.ProjectContext
 {
-    [SerializeField] private EnemyProjectilesPrefabsConfig enemyProjectilesPrefabsConfig;
-    
-    public override void InstallBindings()
+    public class EnemyProjectilesPrefabsConfigInstaller : MonoInstaller
     {
-        Container.Bind<EnemyProjectilesPrefabsConfig>().FromInstance(enemyProjectilesPrefabsConfig).AsSingle();
+        [SerializeField] private EnemyProjectilesPrefabsConfig enemyProjectilesPrefabsConfig;
+    
+        public override void InstallBindings()
+        {
+            Container.Bind<EnemyProjectilesPrefabsConfig>().FromInstance(enemyProjectilesPrefabsConfig).AsSingle();
+        }
     }
 }

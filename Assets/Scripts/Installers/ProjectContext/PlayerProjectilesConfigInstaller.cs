@@ -2,12 +2,15 @@ using Configs;
 using UnityEngine;
 using Zenject;
 
-public class PlayerProjectilesConfigInstaller : MonoInstaller
+namespace Installers.ProjectContext
 {
-    [SerializeField] private PlayerProjectilesConfig playerProjectilesConfig;
-
-    public override void InstallBindings()
+    public class PlayerProjectilesConfigInstaller : MonoInstaller
     {
-        Container.Bind<PlayerProjectilesConfig>().FromInstance(playerProjectilesConfig).AsSingle();
+        [SerializeField] private PlayerProjectilesConfig playerProjectilesConfig;
+
+        public override void InstallBindings()
+        {
+            Container.Bind<PlayerProjectilesConfig>().FromInstance(playerProjectilesConfig).AsSingle();
+        }
     }
 }
