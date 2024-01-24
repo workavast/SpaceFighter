@@ -48,14 +48,14 @@ namespace Managers
         {
             foreach (var projectiles in _pool.BusyElementsValues)
             foreach (var projectile in projectiles)
-                projectile.ChangeAnimatorState(true);
+                projectile.GameCycleStateEnter();
         }
 
         public void GameCycleExit()
         {
             foreach (var projectiles in _pool.BusyElementsValues)
             foreach (var projectile in projectiles)
-                projectile.ChangeAnimatorState(false);
+                projectile.GameCycleStateExit();
         }
 
         public bool TrySpawnProjectile(PlayerProjectileType id, Transform newTransform, out PlayerProjectileBase projectileBase)
@@ -77,8 +77,13 @@ namespace Managers
         }
 
         private PlayerProjectileBase PlayerProjectileInstantiate(PlayerProjectileType id)
-            => _playerProjectilesFactory.Create(id, _projectilesParents[id].transform).GetComponent<PlayerProjectileBase>();
-        
+        {
+            var projectile = _playerProjectilesFactory.Create(id, _projectilesParents[id].transform)
+                .GetComponent<PlayerProjectileBase>();
+            projectile.Init(GameCycleController.CurrentState == GameCycleState); 
+            return projectile;
+        }
+
         private void ReturnProjectileInPool(PlayerProjectileBase projectile)
         {
             projectile.OnLifeTimeEnd -= ReturnProjectileInPool;

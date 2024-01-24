@@ -8,7 +8,10 @@ public class PlayerGlobalData : MonoBehaviour
     private static PlayerGlobalData _instance;
     
     private Data _data;
+    private readonly VolumeSaveDataController _volumeSaveDataController = new();
 
+    public static VolumeSaveDataController VolumeSaveDataController => _instance._volumeSaveDataController;
+    
     public static IReadOnlyList<int> MissionsStarsData => _instance._data.MissionsStarsData;
     public static IReadOnlyDictionary<PlayerWeaponType, int> CurrentWeaponsLevels => _instance._data.CurrentWeaponsLevels;
     public static int CurrentSpaceshipLevel => _instance._data.CurrentSpaceshipLevel;
@@ -110,6 +113,8 @@ public class PlayerGlobalData : MonoBehaviour
                 { PlayerWeaponType.Zapper, 0 }
             };
         }
+
+        _instance._volumeSaveDataController.LoadData();
     }
 
     public static void ChangeEquippedWeapon(PlayerWeaponType weaponType)

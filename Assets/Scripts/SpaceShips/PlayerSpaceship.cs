@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Configs;
-using EventBus;
-using EventBus.Events;
+using EventBusEvents;
+using EventBusExtension;
 using SomeStorages;
 using SpaceShips.Enemies;
 using UnityEngine;
@@ -21,7 +21,7 @@ namespace SpaceShips
         [SerializeField] private Animator[] stoppableAnimators;
     
         [Inject] private PlayArea _playArea;
-        [Inject] private MissionEventBus _eventBus;
+        [Inject] private EventBus _eventBus;
 
         public Transform WeaponPosition => weaponPosition;
     

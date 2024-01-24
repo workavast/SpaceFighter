@@ -9,13 +9,15 @@ namespace GameCycle
     [DefaultExecutionOrder(-10000)]
     public class GameCycleController : MonoBehaviour, IGameCycleController, IGameCycleSwitcher
     {
+        [SerializeField] private GameCycleState startState;
+        
         private readonly Dictionary<GameCycleState, Dictionary<GameCycleInvokeType, Action>> _actions = new ();
 
         public GameCycleState CurrentState { get; private set; }
 
         private void Awake()
         {
-            CurrentState = GameCycleState.Gameplay;
+            CurrentState = startState;
             var gameStatesTypes = EnumValuesTool.GetValues<GameCycleState>();
             var gameCycleInvokeTypes = EnumValuesTool.GetValues<GameCycleInvokeType>().ToList();
             foreach (var state in gameStatesTypes)

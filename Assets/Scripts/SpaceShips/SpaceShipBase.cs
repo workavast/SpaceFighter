@@ -23,6 +23,8 @@ namespace SpaceShips
     
         public virtual void TakeDamage(float damage)
         {
+            if(IsDead) return;
+            
             healthPoints.ChangeCurrentValue(-damage);
 
             if (healthPoints.IsEmpty)

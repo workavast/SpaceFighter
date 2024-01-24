@@ -8,7 +8,9 @@ namespace Managers
         [Inject] protected IGameCycleController GameCycleController;
         protected abstract GameCycleState GameCycleState { get; } 
         
-        protected override void OnAwake()
+        private void Awake() => OnAwake();
+        
+        protected virtual void OnAwake()
         {
             GameCycleController.AddListener(GameCycleState, this as IGameCycleUpdate);
         }

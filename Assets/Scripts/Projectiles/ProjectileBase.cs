@@ -21,23 +21,48 @@ namespace Projectiles
         protected event Action OnElementExtractFromPoolEvent;
         protected event Action OnElementReturnInPoolEvent;
         protected event Action<float> OnHandleUpdate;
-    
+        protected event Action OnGameCycleStateEnter;
+        protected event Action OnGameCycleStateExit;
+        protected bool ExtractedFromPool;
+        protected bool GameCycleActive;
+
+        public virtual void Init(bool gameCycleActive)
+        {
+            GameCycleActive = gameCycleActive;
+        }
+        
         public void HandleUpdate(float time)
         {
             OnHandleUpdate?.Invoke(time);
             Move(time);
         }
 
-        public void ChangeAnimatorState(bool animatorEnabled) => animator.enabled = animatorEnabled;
+        public void GameCycleStateEnter()
+        {
+            GameCycleActive = true;
+            ChangeAnimatorState(true);
+            OnGameCycleStateEnter?.Invoke();
+        }
+        
+        public void GameCycleStateExit()
+        {
+            GameCycleActive = false;
+            ChangeAnimatorState(false);
+            OnGameCycleStateExit?.Invoke();
+        }
+        
+        private void ChangeAnimatorState(bool animatorEnabled) => animator.enabled = animatorEnabled;
         
         public void OnExtractFromPool()
         {
+            ExtractedFromPool = true;
             gameObject.SetActive(true);
             OnElementExtractFromPoolEvent?.Invoke();
         }
 
         public void OnReturnInPool()
         {
+            ExtractedFromPool = false;
             OnElementReturnInPoolEvent?.Invoke();
             gameObject.SetActive(false);
         }

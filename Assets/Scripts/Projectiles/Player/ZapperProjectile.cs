@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using Audio;
 using TimerExtension;
 using UnityEngine;
 
 namespace Projectiles.Player
 {
+    [RequireComponent(typeof(SingleAudioSource))]
     public class ZapperProjectile : PlayerProjectileBase
     {
         public override PlayerProjectileType PoolId => PlayerProjectileType.Zapper;
     
         [SerializeField] private float existTime;
-        
+           
         private readonly List<IDamageable> _damageables = new();
 
         protected override bool DestroyableOnCollision => false;
@@ -17,9 +19,14 @@ namespace Projectiles.Player
 
         private Transform _parent;
         private Timer _existTimer;
-    
-        private void Awake()
+        private SingleAudioSource _singleAudioSource;
+
+        public override void Init(bool gameCycleActive)
         {
+            base.Init(gameCycleActive);
+            
+            _singleAudioSource = GetComponent<SingleAudioSource>();
+            
             _existTimer = new Timer(existTime);
         
             _existTimer.OnTimerEnd += HandleReturnInPool;
@@ -28,7 +35,14 @@ namespace Projectiles.Player
 
             OnHandleUpdate += TimerTick;
             OnHandleUpdate += DamagePerSecond;
-                
+            
+            OnElementExtractFromPoolEvent += TryPlaySound;
+            OnElementReturnInPoolEvent += StopSound;
+            OnGameCycleStateEnter += TryPlaySound;
+            OnGameCycleStateExit += StopSound;
+            
+            TryPlaySound();
+            
             ResetTimer();
         }
 
@@ -75,5 +89,13 @@ namespace Projectiles.Player
             if (other.gameObject.TryGetComponent(out IDamageable iDamageable))
                 _damageables.Remove(iDamageable);
         }
+
+        private void TryPlaySound()
+        {
+            if(ExtractedFromPool && GameCycleActive) PlaySound();
+        }
+        
+        private void PlaySound() => _singleAudioSource.Play();
+        private void StopSound() => _singleAudioSource.Stop();
     }
 }

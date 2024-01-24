@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using EventBus;
-using EventBus.Events;
+using EventBusEvents;
 using EventBusExtension;
 using Factories;
 using GameCycle;
@@ -18,7 +17,7 @@ namespace Managers
         public ReceiverIdentifier ReceiverIdentifier { get; } = new();
    
         [Inject] private MoneyStarsFactory _moneyStarsFactory;
-        [Inject] private MissionEventBus _missionEventBus;
+        [Inject] private EventBus _eventBus;
         
         private Pool<MoneyStar> _pool;
 
@@ -32,7 +31,7 @@ namespace Managers
 
             _moneyStarsCounter = new SomeStorageInt(int.MaxValue, 0);
             _pool = new Pool<MoneyStar>(MoneyStarInstantiate);
-            _missionEventBus.Subscribe<EnemyStartDie>(this);
+            _eventBus.Subscribe<EnemyStartDie>(this);
         }
 
         public override void GameCycleUpdate()
@@ -65,8 +64,8 @@ namespace Managers
         
         private void OnMoneyStarTaking(MoneyStar moneyStar)
         {
-
             _moneyStarsCounter.ChangeCurrentValue(1);
+            _eventBus.Invoke(new MoneyStarPickUp());
             ReturnStarInPool(moneyStar);
         }
         

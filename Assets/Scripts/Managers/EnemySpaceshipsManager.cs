@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Configs.Missions;
-using EventBus;
-using EventBus.Events;
+using EventBusEvents;
 using EventBusExtension;
 using Factories;
 using GameCycle;
@@ -25,7 +24,7 @@ namespace Managers
         private Pool<EnemySpaceshipBase, EnemySpaceshipType> _pool;
 
         [Inject] private EnemySpaceshipsFactory _enemySpaceshipsFactory;
-        [Inject] private MissionEventBus _missionEventBus;
+        [Inject] private EventBus _eventBus;
         
         public int ActiveEnemiesCount => _pool.BusyElementsValues.Sum(e => e.Count);
 
@@ -38,7 +37,7 @@ namespace Managers
             GameCycleController.AddListener(GameCycleState, this as IGameCycleEnter);
             GameCycleController.AddListener(GameCycleState, this as IGameCycleExit);
             
-            _missionEventBus.Subscribe(this);
+            _eventBus.Subscribe(this);
             _pool = new Pool<EnemySpaceshipBase, EnemySpaceshipType>(EnemySpaceShipInstantiate);
         
             foreach (var enemyShipId in Enum.GetValues(typeof(EnemySpaceshipType)).Cast<EnemySpaceshipType>())
@@ -102,7 +101,7 @@ namespace Managers
         {
             base.OnDestroyVirtual();
             
-            _missionEventBus.UnSubscribe(this);
+            _eventBus.UnSubscribe(this);
             
             GameCycleController.RemoveListener(GameCycleState, this as IGameCycleEnter);
             GameCycleController.RemoveListener(GameCycleState, this as IGameCycleExit);

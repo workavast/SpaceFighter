@@ -1,4 +1,4 @@
-using EventBus.Events;
+using EventBusEvents;
 using EventBusExtension;
 
 namespace Controllers
@@ -7,7 +7,7 @@ namespace Controllers
     {
         public ReceiverIdentifier ReceiverIdentifier { get; } = new();
 
-        private readonly EventBusExtension.EventBus  _eventBus;
+        private readonly EventBus  _eventBus;
         private readonly MissionController _missionController;
         private int _missionIndex { get; }
 
@@ -16,7 +16,7 @@ namespace Controllers
         public bool MissionSuccess { get; private set; } = false;
         public bool KillAllEnemies { get; private set; } = false;
         
-        public MissionStarsController(EventBusExtension.EventBus eventBus, MissionController missionController, int missionIndex)
+        public MissionStarsController(EventBus eventBus, MissionController missionController, int missionIndex)
         {
             _eventBus = eventBus;
             _missionController = missionController;

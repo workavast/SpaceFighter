@@ -1,6 +1,6 @@
 using System;
-using EventBus;
-using EventBus.Events;
+using EventBusEvents;
+using EventBusExtension;
 using Managers;
 using PathCreation;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace SpaceShips.Enemies
         [Space]
         [SerializeField] private float collisionDamage = 1;
 
-        [Inject] protected MissionEventBus EventBus;
+        [Inject] protected EventBus EventBus;
         [Inject] private PlayerSpaceshipManager _playerSpaceshipManager;
     
         private bool _canMove;

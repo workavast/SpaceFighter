@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Configs.Missions;
+using EventBusExtension;
 using SomeStorages;
 
 namespace WaveSpawnerSystem
 {
     public class WaveSpawner : IHandleUpdate
     {
-        private readonly EventBusExtension.EventBus _eventBus;
+        private readonly EventBus _eventBus;
 
         private SomeStorageInt _spawnedGroupsCount;
         private List<WaveGroupSpawner> _waveGroupsSpawners;
@@ -16,7 +17,7 @@ namespace WaveSpawnerSystem
 
         public event Action OnWaveSpawned;
 
-        public WaveSpawner(EventBusExtension.EventBus eventBus)
+        public WaveSpawner(EventBus eventBus)
         {
             _eventBus = eventBus;
         }

@@ -1,4 +1,4 @@
-﻿using EventBus.Events;
+﻿using EventBusEvents;
 using EventBusExtension;
 using SomeStorages;
 
@@ -8,12 +8,12 @@ namespace Controllers
     {
         public ReceiverIdentifier ReceiverIdentifier { get; } = new();
 
-        private readonly EventBusExtension.EventBus _eventBus;
+        private readonly EventBus _eventBus;
         private readonly SomeStorageInt _destroyedEnemiesCounter;
         
         public IReadOnlySomeStorage<int> DestroyedEnemiesCounter => _destroyedEnemiesCounter;
 
-        public KillsCounter(int enemiesCount, EventBusExtension.EventBus missionEventBus)
+        public KillsCounter(int enemiesCount, EventBus missionEventBus)
         {
             _eventBus = missionEventBus;
             _destroyedEnemiesCounter = new SomeStorageInt(enemiesCount);

@@ -1,5 +1,5 @@
 ﻿using System;
-using EventBus;
+using EventBusExtension;
 using GameCycle;
 using SomeStorages;
 using UnityEngine;
@@ -17,7 +17,7 @@ namespace Managers
         
         [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
         [Inject] private SelectedMissionData _selectedMissionData;
-        [Inject] private MissionEventBus _missionEventBus;
+        [Inject] private EventBus _eventBus;
         
         public IReadOnlySomeStorage<int> WavesCounter => _wavesCounter;
 
@@ -27,7 +27,7 @@ namespace Managers
         {
             base.OnAwake();
 
-            _waveSpawner = new WaveSpawner(_missionEventBus.EventBus);
+            _waveSpawner = new WaveSpawner(_eventBus);
             _wavesCounter = new SomeStorageInt(_selectedMissionData.TakeMissionData().enemyWaves.Count);
             _waveSpawner.OnWaveSpawned += WaveSpawnEnd;
         }

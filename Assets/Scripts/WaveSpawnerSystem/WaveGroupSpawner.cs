@@ -1,5 +1,6 @@
 ﻿using System;
 using Configs.Missions;
+using EventBusExtension;
 using SomeStorages;
 using TimerExtension;
 
@@ -15,7 +16,7 @@ namespace WaveSpawnerSystem
         public event Action OnGroupSpawnEnd;
         private event Action<float> OnHandleUpdate;
         
-        public WaveGroupSpawner(EnemyGroupConfig enemyGroupConfig, EventBusExtension.EventBus eventBus)
+        public WaveGroupSpawner(EnemyGroupConfig enemyGroupConfig, EventBus eventBus)
         {
             _enemyGroupConfig = enemyGroupConfig;
             _subgroupsCounter = new SomeStorageInt(enemyGroupConfig.subgroupsCount);

@@ -16,7 +16,7 @@ namespace PlayerWeapon.Weapons
                     projectile.SetData(Damage);
 
                     if (projectile.TryCast<ZapperProjectile>(out ZapperProjectile zapperProjectile))
-                        zapperProjectile.SetMount(transform);
+                        zapperProjectile.SetMount(ShootsPositions[i]);
                 }
         }
     }
