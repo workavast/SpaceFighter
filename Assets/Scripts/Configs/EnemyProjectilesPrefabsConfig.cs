@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Configs
 {
-    [CreateAssetMenu(fileName = "EnemyProjectilesPrefabsConfig", menuName = "SO/Factories/EnemyProjectilesPrefabsConfig")]
+    [CreateAssetMenu(fileName = "EnemyProjectilesPrefabsConfig", menuName = "SO/EnemyProjectilesPrefabsConfig")]
     public class EnemyProjectilesPrefabsConfig : ScriptableObject
     {
         [SerializeField] private DictionaryInspector<EnemyProjectileType, GameObject> data;

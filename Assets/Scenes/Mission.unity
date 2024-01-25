@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 592944885}
   - component: {fileID: 592944886}
   m_Layer: 0
-  m_Name: MoneyStarsFactory
+  m_Name: CoinsFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1170,7 +1170,7 @@ GameObject:
   - component: {fileID: 965081087}
   - component: {fileID: 965081088}
   m_Layer: 0
-  m_Name: MoneyStarsManager
+  m_Name: CoinsManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

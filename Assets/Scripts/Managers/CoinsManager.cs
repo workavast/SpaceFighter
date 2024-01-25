@@ -10,16 +10,16 @@ using Zenject;
 
 namespace Managers
 {
-    public class MoneyStarsManager : GameCycleManager, IEventReceiver<EnemyStartDie>
+    public class CoinsManager : GameCycleManager, IEventReceiver<EnemyStartDie>
     {
         protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
 
         public ReceiverIdentifier ReceiverIdentifier { get; } = new();
    
-        [Inject] private MoneyStarsFactory _moneyStarsFactory;
+        [Inject] private CoinsFactory _coinsFactory;
         [Inject] private EventBus _eventBus;
         
-        private Pool<MoneyStar> _pool;
+        private Pool<Coin> _pool;
 
         private SomeStorageInt _moneyStarsCounter;
         public IReadOnlySomeStorage<int> MoneyStarsCounter => _moneyStarsCounter;
@@ -30,7 +30,7 @@ namespace Managers
             base.OnAwake();
 
             _moneyStarsCounter = new SomeStorageInt(int.MaxValue, 0);
-            _pool = new Pool<MoneyStar>(MoneyStarInstantiate);
+            _pool = new Pool<Coin>(CoinInstantiate);
             _eventBus.Subscribe<EnemyStartDie>(this);
         }
 
@@ -41,34 +41,34 @@ namespace Managers
                 list[i].HandleUpdate(Time.deltaTime);
         }
         
-        public void ApplyMoneyStars() => PlayerGlobalData.ChangeMoneyStarsCount(_moneyStarsCounter.CurrentValue);
+        public void ApplyMoneyStars() => PlayerGlobalData.ChangeCoinsCount(_moneyStarsCounter.CurrentValue);
         
         public void OnEvent(EnemyStartDie @event) => Spawn(@event.Position);
 
-        private MoneyStar MoneyStarInstantiate()
+        private Coin CoinInstantiate()
         {
-            var moneyStar = _moneyStarsFactory.Create(transform).GetComponentInChildren<MoneyStar>();
-            moneyStar.OnStarTaking += OnMoneyStarTaking;
-            moneyStar.OnLoseStar += ReturnStarInPool;
+            var coin = _coinsFactory.Create(transform).GetComponentInChildren<Coin>();
+            coin.OnPickUp += OnCoinPickUp;
+            coin.OnLose += ReturnCoinInPool;
         
-            return moneyStar;
+            return coin;
         }
 
         private void Spawn(Vector3 position)
         {
-            if (_pool.ExtractElement(out MoneyStar moneyStar))
+            if (_pool.ExtractElement(out Coin moneyStar))
                 moneyStar.transform.position = position;
             else
                 Debug.LogWarning("There was no extraction");
         }
         
-        private void OnMoneyStarTaking(MoneyStar moneyStar)
+        private void OnCoinPickUp(Coin coin)
         {
             _moneyStarsCounter.ChangeCurrentValue(1);
-            _eventBus.Invoke(new MoneyStarPickUp());
-            ReturnStarInPool(moneyStar);
+            _eventBus.Invoke(new CoinPickUp());
+            ReturnCoinInPool(coin);
         }
         
-        private void ReturnStarInPool(MoneyStar moneyStar) => _pool.ReturnElement(moneyStar);
+        private void ReturnCoinInPool(Coin coin) => _pool.ReturnElement(coin);
     }
 }

@@ -9,7 +9,7 @@ namespace UI_System.UI_Screens.MainMenu
 {
     public class MainMenuHangarScreen : UI_ScreenBase
     {
-        [SerializeField] private TextMeshProUGUI moneyStarsCount;
+        [SerializeField] private TextMeshProUGUI coinsCount;
         [Space]
         [SerializeField] private GameObject autoCannonVisualisation;
         [SerializeField] private GameObject bigSpaceGunVisualisation;
@@ -62,7 +62,7 @@ namespace UI_System.UI_Screens.MainMenu
 
         private void UpdateMoneyStarsCount()
         {
-            moneyStarsCount.text = $"{PlayerGlobalData.MoneyStarsCount}";
+            coinsCount.text = $"{PlayerGlobalData.CoinsCount}";
         }
 
         private void UpdateWeaponsLocks()
@@ -277,14 +277,14 @@ namespace UI_System.UI_Screens.MainMenu
             }
 
             int levelUpPrice = _playerSpaceshipLevelsConfig.LevelsPrices[currentSpaceshipLevel];
-            if (levelUpPrice > PlayerGlobalData.MoneyStarsCount)
+            if (levelUpPrice > PlayerGlobalData.CoinsCount)
             {
-                Debug.LogWarning("Not enough money stars count");
+                Debug.LogWarning("Not enough coins");
                 return;
             }
         
             PlayerGlobalData.LevelUpSpaceship();
-            PlayerGlobalData.ChangeMoneyStarsCount(-levelUpPrice);
+            PlayerGlobalData.ChangeCoinsCount(-levelUpPrice);
             UpdateScreen();
         }
     
@@ -301,10 +301,10 @@ namespace UI_System.UI_Screens.MainMenu
                 return;
             
             int levelUpPrice = _playerWeaponConfig.WeaponPricesData[playerWeapon][currentSelectedWeaponLevel];
-            if (levelUpPrice <= PlayerGlobalData.MoneyStarsCount)
+            if (levelUpPrice <= PlayerGlobalData.CoinsCount)
             {
                 PlayerGlobalData.LevelUpWeapon(playerWeapon);
-                PlayerGlobalData.ChangeMoneyStarsCount(-levelUpPrice);
+                PlayerGlobalData.ChangeCoinsCount(-levelUpPrice);
             }
             else
             {

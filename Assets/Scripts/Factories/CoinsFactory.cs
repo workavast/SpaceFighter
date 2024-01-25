@@ -5,33 +5,33 @@ using Zenject;
 
 namespace Factories
 {
-    public class MoneyStarsFactory : FactoryBase
+    public class CoinsFactory : FactoryBase
     {
-        [Inject] private MoneyStarPrefabConfig _playerProjectilesPrefabConfig;
+        [Inject] private CoinPrefabConfig _prefabConfig;
         [Inject] private DiContainer _diContainer;
 
-        private GameObject MoneyStarPrefab => _playerProjectilesPrefabConfig.Data;
+        private GameObject CoinPrefab => _prefabConfig.Data;
     
         public GameObject Create()
         {
-            if (MoneyStarPrefab) 
-                return _diContainer.InstantiatePrefab(MoneyStarPrefab);
+            if (CoinPrefab) 
+                return _diContainer.InstantiatePrefab(CoinPrefab);
         
             throw new Exception("Dictionary don't contain this prefab");
         }
     
         public GameObject Create(Transform parent)
         {
-            if (MoneyStarPrefab) 
-                return _diContainer.InstantiatePrefab(MoneyStarPrefab, parent);
+            if (CoinPrefab) 
+                return _diContainer.InstantiatePrefab(CoinPrefab, parent);
         
             throw new Exception("Dictionary don't contain this prefab");
         }
         
         public GameObject Create(Vector3 position, Quaternion rotation, Transform parent = null)
         {
-            if (MoneyStarPrefab) 
-                return _diContainer.InstantiatePrefab(MoneyStarPrefab, position, rotation, parent);
+            if (CoinPrefab) 
+                return _diContainer.InstantiatePrefab(CoinPrefab, position, rotation, parent);
         
             throw new Exception("Dictionary don't contain this prefab");
         }

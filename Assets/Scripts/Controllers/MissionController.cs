@@ -14,7 +14,7 @@ namespace Controllers
         [Inject] private WavesManager _wavesManager;
         [Inject] private SelectedMissionData _selectedMissionData;
         [Inject] private EventBus _eventBus;
-        [Inject] private MoneyStarsManager _moneyStarsManager;
+        [Inject] private CoinsManager _coinsManager;
         [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
         
         public KillsCounter KillsCounter { get; private set; }
@@ -28,7 +28,7 @@ namespace Controllers
             KillsCounter = new KillsCounter(_selectedMissionData.TakeMissionData().TakeEnemiesCount(), _eventBus);
 
             _missionGameCycleController = new MissionGameCycleController(_gameCycleSwitcher, _uiController,
-                _playerSpaceshipManager, _wavesManager, _moneyStarsManager, _enemySpaceshipsManager, StarsController);
+                _playerSpaceshipManager, _wavesManager, _coinsManager, _enemySpaceshipsManager, StarsController);
         }
         
         private void Start()

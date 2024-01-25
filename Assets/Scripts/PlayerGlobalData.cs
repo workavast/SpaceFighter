@@ -16,7 +16,7 @@ public class PlayerGlobalData : MonoBehaviour
     public static IReadOnlyDictionary<PlayerWeaponType, int> CurrentWeaponsLevels => _instance._data.CurrentWeaponsLevels;
     public static int CurrentSpaceshipLevel => _instance._data.CurrentSpaceshipLevel;
     public static PlayerWeaponType EquippedPlayerWeapon => _instance._data.EquippedPlayerWeapon;
-    public static int MoneyStarsCount => _instance._data.MoneyStarsCount;
+    public static int CoinsCount => _instance._data.CoinsCount;
 
     private void Awake()
     {
@@ -32,12 +32,12 @@ public class PlayerGlobalData : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    public static void ChangeMoneyStarsCount(int moneyChanged)
+    public static void ChangeCoinsCount(int moneyChanged)
     {
-        _instance._data.MoneyStarsCount += moneyChanged;
+        _instance._data.CoinsCount += moneyChanged;
         SaveData();
         
-        Debug.Log(_instance._data.MoneyStarsCount);
+        Debug.Log(_instance._data.CoinsCount);
     }
     
     public static void ChangeMissionData(int missionIndex, int starCount)
@@ -102,7 +102,7 @@ public class PlayerGlobalData : MonoBehaviour
             for (int i = 0; i < 21; i++)
                 _instance._data.MissionsStarsData.Add(0);
 
-            _instance._data.MoneyStarsCount = 1000;
+            _instance._data.CoinsCount = 1000;
             _instance._data.EquippedPlayerWeapon = PlayerWeaponType.AutoCannon;
             _instance._data.CurrentSpaceshipLevel = 1;
             _instance._data.CurrentWeaponsLevels = new DictionaryInspector<PlayerWeaponType, int>()
@@ -143,7 +143,7 @@ public class PlayerGlobalData : MonoBehaviour
         public List<Pair> CurrentWeaponsLevels;
         public int CurrentSpaceshipLevel;
         public PlayerWeaponType EquippedPlayerWeapon;
-        public int MoneyStarsCount;
+        public int CoinsCount;
         
         public SavingData(Data data)
         {
@@ -155,7 +155,7 @@ public class PlayerGlobalData : MonoBehaviour
             
             CurrentSpaceshipLevel = data.CurrentSpaceshipLevel;
             EquippedPlayerWeapon = data.EquippedPlayerWeapon;
-            MoneyStarsCount = data.MoneyStarsCount;
+            CoinsCount = data.CoinsCount;
         }
     }
     
@@ -165,7 +165,7 @@ public class PlayerGlobalData : MonoBehaviour
         public Dictionary<PlayerWeaponType, int> CurrentWeaponsLevels;
         public int CurrentSpaceshipLevel;
         public PlayerWeaponType EquippedPlayerWeapon;
-        public int MoneyStarsCount; 
+        public int CoinsCount; 
         
         public Data(SavingData savingData)
         {
@@ -177,7 +177,7 @@ public class PlayerGlobalData : MonoBehaviour
             
             CurrentSpaceshipLevel = savingData.CurrentSpaceshipLevel;
             EquippedPlayerWeapon = savingData.EquippedPlayerWeapon;
-            MoneyStarsCount = savingData.MoneyStarsCount;
+            CoinsCount = savingData.CoinsCount;
         }
     }
 }

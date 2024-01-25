@@ -281,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6733614773913526512}
   m_Layer: 5
-  m_Name: MoneyStars
+  m_Name: Coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -876,7 +876,7 @@ MonoBehaviour:
     successMark: {fileID: 1500353284871814766}
     unSuccessMark: {fileID: 7587674553777022312}
   kills: {fileID: 2649426267655441514}
-  moneyStars: {fileID: 8545236606951734834}
+  coins: {fileID: 8545236606951734834}
   darkBackground: {fileID: 1175006889865382734}
   starsBlock:
     earnedStars:

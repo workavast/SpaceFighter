@@ -14,7 +14,7 @@ namespace Controllers
                 PlayerPrefs.DeleteAll();
             
             if (Input.GetKeyDown(KeyCode.M))
-                PlayerGlobalData.ChangeMoneyStarsCount(1000);
+                PlayerGlobalData.ChangeCoinsCount(1000);
 
             if (Input.GetKeyDown(KeyCode.P))
             {

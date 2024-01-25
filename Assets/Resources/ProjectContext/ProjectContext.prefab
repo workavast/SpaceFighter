@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 7397293741004708030}
   - component: {fileID: 5381207944491617329}
   m_Layer: 0
-  m_Name: MoneyStarPrefabConfigInstaller
+  m_Name: CoinPrefabConfigInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44870c95c7f480543bcba76b3b8dca66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyStarPrefabConfig: {fileID: 11400000, guid: fe3b24ae89a76b74e80954b8c7accb83, type: 2}
+  coinPrefabConfig: {fileID: 11400000, guid: fe3b24ae89a76b74e80954b8c7accb83, type: 2}
 --- !u!1 &8850269411741341637
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 
 namespace EventBusEvents
 {
-    public struct MoneyStarPickUp : IEvent
+    public struct CoinPickUp : IEvent
     {
         
     }

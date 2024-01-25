@@ -11,19 +11,19 @@ namespace Controllers
         private readonly UI_Controller _uiController;
         private readonly PlayerSpaceshipManager _playerSpaceshipManager;
         private readonly WavesManager _wavesManager;
-        private readonly MoneyStarsManager _moneyStarsManager;
+        private readonly CoinsManager _coinsManager;
         private readonly EnemySpaceshipsManager _enemySpaceshipsManager;
         private readonly MissionStarsController _missionStarsController;
         
         public MissionGameCycleController(IGameCycleSwitcher gameCycleSwitcher, UI_Controller uiController,
             PlayerSpaceshipManager playerSpaceshipManager, WavesManager wavesManager,
-            MoneyStarsManager moneyStarsManager, EnemySpaceshipsManager enemySpaceshipsManager, MissionStarsController missionStarsController)
+            CoinsManager coinsManager, EnemySpaceshipsManager enemySpaceshipsManager, MissionStarsController missionStarsController)
         {
             _gameCycleSwitcher = gameCycleSwitcher;
             _uiController = uiController;
             _playerSpaceshipManager = playerSpaceshipManager;
             _wavesManager = wavesManager;
-            _moneyStarsManager = moneyStarsManager;
+            _coinsManager = coinsManager;
             _enemySpaceshipsManager = enemySpaceshipsManager;
             _missionStarsController = missionStarsController;
             
@@ -48,7 +48,7 @@ namespace Controllers
         {
             _missionStarsController.OnMissionCompleted();
             _gameCycleSwitcher.SwitchState(GameCycleState.Pause);
-            _moneyStarsManager.ApplyMoneyStars();
+            _coinsManager.ApplyMoneyStars();
             _uiController.SetScreen(ScreenType.GameplayMissionEnd);
         }
         

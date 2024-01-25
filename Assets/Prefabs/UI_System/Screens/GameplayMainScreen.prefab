@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51e2c875694f2c4b87c083339f90166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelMoneyCounter: {fileID: 8265237043457378428}
+  coinsCounter: {fileID: 8265237043457378428}
   wavesCounter:
     counter: {fileID: 842137398244325988}
   killsCounter:
@@ -576,7 +576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8651674126331709022}
   m_Layer: 5
-  m_Name: MoneyStarsData
+  m_Name: CoinsData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 7474768783593271438}
   - component: {fileID: 8265237043457378428}
   m_Layer: 5
-  m_Name: LevelMoneyStarsCount
+  m_Name: MissionCoinsCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 4896128145765621089}
   - component: {fileID: 2286454258464964419}
   m_Layer: 5
-  m_Name: MoneyStarIcon
+  m_Name: CoinIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

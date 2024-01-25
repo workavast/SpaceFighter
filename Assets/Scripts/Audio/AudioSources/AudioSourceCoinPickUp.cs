@@ -2,7 +2,7 @@
 
 namespace Audio.AudioSources
 {
-    public class AudioSourcePickUpCoin : MultiAudioSourceBase<MoneyStarPickUp>
+    public class AudioSourceCoinPickUp : MultiAudioSourceBase<CoinPickUp>
     {
         
     }

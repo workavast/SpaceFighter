@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Configs
 {
-    [CreateAssetMenu(fileName = "EnemySpaceshipsPrefabsConfig", menuName = "SO/Factories/EnemySpaceshipsPrefabsConfig")]
+    [CreateAssetMenu(fileName = "EnemySpaceshipsPrefabsConfig", menuName = "SO/EnemySpaceshipsPrefabsConfig")]
     public class EnemySpaceshipsPrefabsConfig : ScriptableObject
     {
         [SerializeField] private DictionaryInspector<EnemySpaceshipType, GameObject> data;

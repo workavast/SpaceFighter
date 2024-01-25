@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b02dd36247addb8469d448d3305998cb, type: 3}
-  m_Name: MoneyStarPrefabConfig
+  m_Name: CoinPrefabConfig
   m_EditorClassIdentifier: 
   data: {fileID: 8345413670935650433, guid: 72e6c87ee56ae1d47bae6f4431e78770, type: 3}

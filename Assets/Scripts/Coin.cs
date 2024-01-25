@@ -3,13 +3,13 @@ using SpaceShips;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class MoneyStar : MonoBehaviour, PoolSystem.IPoolable<MoneyStar>, IPlayAreaCollision, IHandleUpdate
+public class Coin : MonoBehaviour, PoolSystem.IPoolable<Coin>, IPlayAreaCollision, IHandleUpdate
 {
     [SerializeField] private float moveSpeed;
     
-    public event Action<MoneyStar> OnStarTaking;
-    public event Action<MoneyStar> OnLoseStar;
-    public event Action<MoneyStar> OnDestroyElementEvent;
+    public event Action<Coin> OnPickUp;
+    public event Action<Coin> OnLose;
+    public event Action<Coin> OnDestroyElementEvent;
 
     public void HandleUpdate(float time) => Move(time);
 
@@ -24,12 +24,12 @@ public class MoneyStar : MonoBehaviour, PoolSystem.IPoolable<MoneyStar>, IPlayAr
 
     public void EnterInPlayArea() { }
 
-    public void ExitFromPlayerArea() => OnLoseStar?.Invoke(this);
+    public void ExitFromPlayerArea() => OnLose?.Invoke(this);
     
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.TryGetComponent(out PlayerSpaceship playerSpaceship))
-            OnStarTaking?.Invoke(this);
+            OnPickUp?.Invoke(this);
     }
 
     private void OnDestroy() => OnDestroyElementEvent?.Invoke(this);

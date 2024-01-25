@@ -13,12 +13,12 @@ namespace UI_System.UI_Screens.Gameplay
         [SerializeField] private MissionCompletedBar missionCompletedBar;
         [SerializeField] private SuccessMark withoutDamage;
         [SerializeField] private TextMeshProUGUI kills;
-        [SerializeField] private TextMeshProUGUI moneyStars;
+        [SerializeField] private TextMeshProUGUI coins;
         [SerializeField] private GameObject darkBackground;
         [SerializeField] private StarsBlock starsBlock;
         
         [Inject] private MissionController _missionController;
-        [Inject] private MoneyStarsManager _moneyStarsManager;
+        [Inject] private CoinsManager _coinsManager;
 
         private void Awake()
         {
@@ -46,7 +46,7 @@ namespace UI_System.UI_Screens.Gameplay
             kills.text = $"{_missionController.KillsCounter.DestroyedEnemiesCounter.CurrentValue}" +
                          $"/{_missionController.KillsCounter.DestroyedEnemiesCounter.MaxValue}";
 
-            moneyStars.text = $"{_moneyStarsManager.MoneyStarsCounter.CurrentValue}";
+            coins.text = $"{_coinsManager.MoneyStarsCounter.CurrentValue}";
             
             starsBlock.ShowStars(_missionController.StarsController.StarsCount);
         }

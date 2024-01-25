@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4247489918565961360}
   - component: {fileID: 4789283676592700209}
   m_Layer: 9
-  m_Name: MoneyStar
+  m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
