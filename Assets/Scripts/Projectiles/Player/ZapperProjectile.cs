@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using Audio;
-using TimerExtension;
 using UnityEngine;
 
 namespace Projectiles.Player
@@ -8,94 +6,56 @@ namespace Projectiles.Player
     [RequireComponent(typeof(SingleAudioSource))]
     public class ZapperProjectile : PlayerProjectileBase
     {
-        public override PlayerProjectileType PoolId => PlayerProjectileType.Zapper;
-    
         [SerializeField] private float existTime;
            
-        private readonly List<IDamageable> _damageables = new();
-
+        public override PlayerProjectileType PoolId => PlayerProjectileType.Zapper;
+    
         protected override bool DestroyableOnCollision => false;
         protected override bool ReturnInPoolOnExitFromPlayArea => false;
-
-        private Transform _parent;
-        private Timer _existTimer;
-        private SingleAudioSource _singleAudioSource;
-
+        
+        private Ray _ray;
+        
         public override void Init(bool gameCycleActive)
         {
             base.Init(gameCycleActive);
             
-            _singleAudioSource = GetComponent<SingleAudioSource>();
+            var singleAudioSource = GetComponent<SingleAudioSource>();
+            _ray = new Ray(damage, existTime, singleAudioSource, transform);
             
-            _existTimer = new Timer(existTime);
-        
-            _existTimer.OnTimerEnd += HandleReturnInPool;
-            OnElementExtractFromPoolEvent += ResetTimer;
-            OnElementReturnInPoolEvent += StopTimer;
+            _ray.OnExistTimerEnd += HandleReturnInPool;
+            OnElementExtractFromPoolEvent += _ray.ResetTimer;
+            OnElementReturnInPoolEvent += _ray.StopTimer;
 
-            OnHandleUpdate += TimerTick;
-            OnHandleUpdate += DamagePerSecond;
+            OnHandleUpdate += _ray.TimerTick;
+            OnHandleUpdate += _ray.DamagePerSecond;
             
             OnElementExtractFromPoolEvent += TryPlaySound;
-            OnElementReturnInPoolEvent += StopSound;
+            OnElementReturnInPoolEvent += _ray.StopSound;
             OnGameCycleStateEnter += TryPlaySound;
-            OnGameCycleStateExit += StopSound;
+            OnGameCycleStateExit += _ray.StopSound;
             
             TryPlaySound();
-            
-            ResetTimer();
         }
 
-        public void SetMount(Transform parentTransform) => _parent = parentTransform;
+        public void SetMount(Transform parentTransform)
+            => _ray.SetMount(parentTransform);
         
-        private void TimerTick(float time)
-        {
-            _existTimer.Tick(time);
-        }
-    
-        private void ResetTimer()
-        {
-            _existTimer.Reset();
+        protected override void Move(float time) 
+            => _ray.Move();
         
-            _existTimer.Continue();
-        }
-
-        private void StopTimer()
-        {
-            _existTimer.Stop();
-        }
-    
-        protected override void Move(float time)
-        {
-            if (!_parent) return;
+        protected override void OnIDamageableTriggerEnter(IDamageable iDamageable) 
+            => _ray.OnIDamageableTriggerEnter(iDamageable);
         
-            transform.position = _parent.position;
-            transform.rotation = _parent.rotation;
-        }
-
-        private void DamagePerSecond(float time)
-        {
-            foreach (var damageable in _damageables)
-                damageable.TakeDamage(damage * time);
-        }
-        
-        protected override void OnIDamageableTriggerEnter(IDamageable iDamageable)
-        {
-            _damageables.Add(iDamageable);
-        }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             if (other.gameObject.TryGetComponent(out IDamageable iDamageable))
-                _damageables.Remove(iDamageable);
+                _ray.OnTriggerExit2D(iDamageable);
         }
 
         private void TryPlaySound()
         {
-            if(ExtractedFromPool && GameCycleActive) PlaySound();
+            if(ExtractedFromPool && GameCycleActive) _ray.PlaySound();
         }
-        
-        private void PlaySound() => _singleAudioSource.Play();
-        private void StopSound() => _singleAudioSource.Stop();
     }
 }
