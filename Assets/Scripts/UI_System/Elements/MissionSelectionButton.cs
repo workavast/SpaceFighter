@@ -1,4 +1,5 @@
 using System;
+using Saves;
 using TMPro;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace UI_System.Elements
 
         public void _LoadMission() => OnLoadMission?.Invoke(levelIndex);
 
-        private void Start() => UpdateEarnedStars(PlayerGlobalData.MissionsStarsData[levelIndex]);
+        private void Start() => UpdateEarnedStars(PlayerGlobalData.MissionsSettings.MissionsStarsData[levelIndex]);
         
         private void UpdateEarnedStars(int starsCount)
         {

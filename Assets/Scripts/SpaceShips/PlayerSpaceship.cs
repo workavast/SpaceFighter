@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Configs;
 using EventBusEvents;
 using EventBusExtension;
+using Saves;
 using SomeStorages;
 using SpaceShips.Enemies;
 using UnityEngine;
@@ -41,7 +42,7 @@ namespace SpaceShips
 
             _currentDamageSprite = new SomeStorageInt(damageAnimatorTriggerData.Count - 1);
         
-            float healthPointsValue = playerSpaceshipLevelsConfig.LevelsHealthPoints[PlayerGlobalData.CurrentSpaceshipLevel - 1];
+            float healthPointsValue = playerSpaceshipLevelsConfig.LevelsHealthPoints[PlayerGlobalData.SpaceshipSettings.SpaceshipLevel - 1];
             healthPoints = new SomeStorageFloat(healthPointsValue,healthPointsValue);
         }
     

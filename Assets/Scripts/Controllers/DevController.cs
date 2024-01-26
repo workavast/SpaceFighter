@@ -1,4 +1,5 @@
 ﻿using Managers;
+using Saves;
 using UnityEngine;
 
 namespace Controllers
@@ -14,7 +15,7 @@ namespace Controllers
                 PlayerPrefs.DeleteAll();
             
             if (Input.GetKeyDown(KeyCode.M))
-                PlayerGlobalData.ChangeCoinsCount(1000);
+                PlayerGlobalData.CoinsSettings.ChangeCoinsCount(1000);
 
             if (Input.GetKeyDown(KeyCode.P))
             {

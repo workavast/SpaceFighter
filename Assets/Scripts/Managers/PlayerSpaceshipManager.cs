@@ -4,6 +4,7 @@ using Configs;
 using GameCycle;
 using PlayerWeapon;
 using Projectiles.Player;
+using Saves;
 using SpaceShips;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -51,7 +52,7 @@ namespace Managers
         
         private void SpawnWeapon()
         {
-            if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(PlayerGlobalData.EquippedPlayerWeapon, out GameObject prefab))
+            if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(PlayerGlobalData.WeaponsSettings.EquippedPlayerWeapon, out GameObject prefab))
             {
                 GameObject weapon = _diContainer.InstantiatePrefab(prefab, PlayerSpaceship.WeaponPosition);
                 _weapon = weapon.GetComponent<PlayerWeaponBase>();

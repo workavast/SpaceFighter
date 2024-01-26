@@ -1,3 +1,4 @@
+using Saves;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
@@ -12,7 +13,10 @@ namespace Localization
         {
             var handleTask = LocalizationSettings.InitializationOperation;
             await handleTask.Task;
-        
+
+            LocalizationSettings.SelectedLocale =
+                LocalizationSettings.AvailableLocales.Locales[PlayerGlobalData.LocalizationSettings.LocalizationId];
+            
             SceneManager.LoadScene(1);
         }
     }

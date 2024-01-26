@@ -1,5 +1,6 @@
 using EventBusEvents;
 using EventBusExtension;
+using Saves;
 
 namespace Controllers
 {
@@ -51,7 +52,7 @@ namespace Controllers
         
         private void ApplyStars()
         {
-            PlayerGlobalData.ChangeMissionData(_missionIndex, StarsCount);
+            PlayerGlobalData.MissionsSettings.ChangeMissionData(_missionIndex, StarsCount);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Configs;
 using Managers;
 using Projectiles.Player;
+using Saves;
 using SomeStorages;
 using UnityEngine;
 using Zenject;
@@ -30,7 +31,7 @@ namespace PlayerWeapon
 
             WeaponLevel weaponLevel =
                 PlayerWeaponConfig.WeaponsLevelsData[PlayerWeaponId]
-                    [PlayerGlobalData.CurrentWeaponsLevels[PlayerWeaponId] - 1];
+                    [PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponId] - 1];
 
             Damage = weaponLevel.WeaponDamage;
             FireRate = new SomeStorageFloat(weaponLevel.FireRate);

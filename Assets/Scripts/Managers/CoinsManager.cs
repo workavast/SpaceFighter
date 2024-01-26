@@ -4,6 +4,7 @@ using EventBusExtension;
 using Factories;
 using GameCycle;
 using PoolSystem;
+using Saves;
 using SomeStorages;
 using UnityEngine;
 using Zenject;
@@ -41,7 +42,7 @@ namespace Managers
                 list[i].HandleUpdate(Time.deltaTime);
         }
         
-        public void ApplyMoneyStars() => PlayerGlobalData.ChangeCoinsCount(_moneyStarsCounter.CurrentValue);
+        public void ApplyMoneyStars() => PlayerGlobalData.CoinsSettings.ChangeCoinsCount(_moneyStarsCounter.CurrentValue);
         
         public void OnEvent(EnemyStartDie @event) => Spawn(@event.Position);
 

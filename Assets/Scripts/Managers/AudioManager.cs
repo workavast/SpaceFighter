@@ -1,4 +1,5 @@
 ﻿using Audio;
+using Saves;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -14,7 +15,7 @@ namespace Managers
 
         private void Awake()
         {
-            Volume = new AudioVolumeChanger(mixer, PlayerGlobalData.VolumeSaveDataController);
+            Volume = new AudioVolumeChanger(mixer, PlayerGlobalData.VolumeSettings);
             _pauseableAudioSources = GetComponentsInChildren<PauseableAudioSource>();
         }
         

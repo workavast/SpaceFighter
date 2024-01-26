@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Saves;
+using Saves.Volume;
+using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Audio
@@ -6,21 +8,21 @@ namespace Audio
     public class AudioVolumeChanger
     {
         private readonly AudioMixer _mixer;
-        private readonly VolumeSaveDataController _volumeSaveDataController;
+        private readonly VolumeSettings _volumeSettings;
 
         private const string MasterParam = "Master";
         private const string EffectsParam = "Effects";
         private const string OstParam = "Ost";
 
-        public AudioVolumeChanger(AudioMixer mixer, VolumeSaveDataController volumeSaveDataController)
+        public AudioVolumeChanger(AudioMixer mixer, VolumeSettings volumeSettings)
         {
             _mixer = mixer;
-            _volumeSaveDataController = volumeSaveDataController;
+            _volumeSettings = volumeSettings;
         }
 
-        public float MasterVolume => _volumeSaveDataController.MasterVolume;
-        public float OstVolume => _volumeSaveDataController.OstVolume;
-        public float EffectsVolume => _volumeSaveDataController.EffectsVolume;
+        public float MasterVolume => _volumeSettings.MasterVolume;
+        public float OstVolume => _volumeSettings.OstVolume;
+        public float EffectsVolume => _volumeSettings.EffectsVolume;
 
         public void StartInit()
         {
@@ -32,19 +34,19 @@ namespace Audio
         
         public void SetMasterVolume(float newVolume)
         {
-            _volumeSaveDataController.ChangeMasterVolume(newVolume);
+            _volumeSettings.ChangeMasterVolume(newVolume);
             SetVolume(MasterParam, MasterVolume);
         }
 
         public void SetEffectsVolume(float newVolume)
         {
-            _volumeSaveDataController.ChangeEffectsVolume(newVolume);
+            _volumeSettings.ChangeEffectsVolume(newVolume);
             SetVolume(EffectsParam, EffectsVolume);
         }
 
         public void SetOstVolume(float newVolume)
         {
-            _volumeSaveDataController.ChangeOstVolume(newVolume);
+            _volumeSettings.ChangeOstVolume(newVolume);
             SetVolume(OstParam, OstVolume);
         }
 
