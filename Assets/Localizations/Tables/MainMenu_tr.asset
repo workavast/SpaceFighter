@@ -20,38 +20,39 @@ MonoBehaviour:
     - rid: 5280178485172895765
   m_TableData:
   - m_Id: 20579549184
-    m_Localized: Missions
+    m_Localized: Misyonlar
     m_Metadata:
       m_Items: []
   - m_Id: 154152368013312
-    m_Localized: Equipped
+    m_Localized: "Donan\u0131ml\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 154443771478016
-    m_Localized: Equip
+    m_Localized: Donatmak
     m_Metadata:
       m_Items: []
   - m_Id: 155923836502016
-    m_Localized: Level up by {0}
+    m_Localized: "{0} kar\u015F\u0131l\u0131\u011F\u0131nda y\xFCkseltme"
     m_Metadata:
       m_Items:
       - rid: 5280178485172895765
   - m_Id: 188116843560960
-    m_Localized: Locked
+    m_Localized: "Kapal\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 191032153276416
-    m_Localized: Max level
+    m_Localized: Maksimum seviye
     m_Metadata:
       m_Items: []
   - m_Id: 205063157121024
-    m_Localized: Buy by {0}
+    m_Localized: "{0} 'ya a\xE7"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 5280178485172895765
   references:
     version: 2
     RefIds:
     - rid: 5280178485172895765
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0000e3d8cf8d0000
+        m_Entries: 0000e3d8cf8d00000000a3fc80ba0000

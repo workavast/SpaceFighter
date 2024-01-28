@@ -47,11 +47,12 @@ MonoBehaviour:
   - m_Id: 205063157121024
     m_Localized: Buy by {0}
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 5280178485172895763
   references:
     version: 2
     RefIds:
     - rid: 5280178485172895763
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0000e3d8cf8d0000
+        m_Entries: 0000e3d8cf8d00000000a3fc80ba0000

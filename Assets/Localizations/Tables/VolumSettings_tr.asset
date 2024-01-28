@@ -19,15 +19,15 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 8839692288
-    m_Localized: Master volume
+    m_Localized: Genel ses seviyesi
     m_Metadata:
       m_Items: []
   - m_Id: 165404672000
-    m_Localized: Music
+    m_Localized: "M\xFCzik"
     m_Metadata:
       m_Items: []
   - m_Id: 168797863936
-    m_Localized: Effects
+    m_Localized: Etkiler
     m_Metadata:
       m_Items: []
   references:

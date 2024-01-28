@@ -48,11 +48,12 @@ MonoBehaviour:
   - m_Id: 205063157121024
     m_Localized: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0437\u0430 {0}"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 5280178485172895764
   references:
     version: 2
     RefIds:
     - rid: 5280178485172895764
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0000e3d8cf8d0000
+        m_Entries: 0000e3d8cf8d00000000a3fc80ba0000
