@@ -1,13 +1,12 @@
 ﻿using System;
-using CastExtension;
 using Configs;
+using Control;
 using GameCycle;
+using Initializers;
 using PlayerWeapon;
-using Projectiles.Player;
 using Saves;
 using SpaceShips;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Managers
@@ -21,7 +20,9 @@ namespace Managers
         [Inject] private PlayerWeaponConfig _playerWeaponConfig;
         [Inject] private PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
         [Inject] private DiContainer _diContainer;
-        
+        [Inject] private MobileInputDetector _mobileInputDetector;
+       
+        private IInput _input;
         private PlayerWeaponBase _weapon;
 
         public event Action OnPlayerDie;
@@ -31,6 +32,18 @@ namespace Managers
         {
             base.OnAwake();
 
+            switch (PlayerGlobalData.PlatformType)
+            {
+                case PlatformType.Mobile:
+                    _input = new MobileInput(_mobileInputDetector, PlayerSpaceship.transform);
+                    break;
+                case PlatformType.Desktop:
+                    _input = new DesktopInput(Camera.main);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
             GameCycleController.AddListener(GameCycleState, this as IGameCycleEnter);
             GameCycleController.AddListener(GameCycleState, this as IGameCycleExit);
             
@@ -42,7 +55,7 @@ namespace Managers
         
         public override void GameCycleUpdate()
         {
-            PlayerSpaceship.HandleUpdate(Time.deltaTime);
+            PlayerSpaceship.Move(_input.Position());
             _weapon.HandleUpdate();
         }
         

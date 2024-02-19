@@ -1,14 +1,16 @@
 using Saves;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
-using UnityEngine.SceneManagement;
 
-namespace Localization
+namespace Initializers
 {
-    public class LocalizationLoading : MonoBehaviour
+    public class LocalizationInitializer : InitializerBase
     {
-        private void Start() => InitLocalizationSettings();
-    
+        public override void Init() => InitLocalizationSettings();
+
+        public LocalizationInitializer(InitializerBase[] initializers = null) 
+            : base(initializers) { }
+
         private async void InitLocalizationSettings()
         {
             var handleTask = LocalizationSettings.InitializationOperation;
@@ -17,7 +19,8 @@ namespace Localization
             LocalizationSettings.SelectedLocale =
                 LocalizationSettings.AvailableLocales.Locales[PlayerGlobalData.LocalizationSettings.LocalizationId];
             
-            SceneManager.LoadScene(1);
+            Debug.Log("LocalizationInitializer");
+            OnParentInit?.Invoke();
         }
     }
 }

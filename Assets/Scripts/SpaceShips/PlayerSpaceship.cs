@@ -27,13 +27,10 @@ namespace SpaceShips
         public Transform WeaponPosition => weaponPosition;
     
         private Transform _playAreaLeftDownPivot;
-        private Camera _camera;
         private SomeStorageInt _currentDamageSprite;
     
         public void Initialization(PlayerSpaceshipLevelsConfig playerSpaceshipLevelsConfig)
         {
-            _camera = Camera.main;
-
             if (!animator)
             {
                 animator = GetComponentInChildren<Animator>();
@@ -52,12 +49,7 @@ namespace SpaceShips
         
             _playAreaLeftDownPivot = _playArea.LeftDownPivot;
         }
-
-        public override void HandleUpdate(float time)
-        {
-            if(canMove) Move();
-        }
-
+        
         public override void ChangeAnimatorState(bool animatorEnabled)
         {
             foreach (var stoppableAnimator in stoppableAnimators)
@@ -74,9 +66,10 @@ namespace SpaceShips
             }
         }
     
-        protected void Move()
+        public void Move(Vector3 targetPosition)
         {
-            Vector3 targetPosition = _camera.ScreenToWorldPoint(Input.mousePosition) - _camera.transform.position;
+            if(!canMove) return;
+            
             Vector3 playAreaPivotPosition = _playAreaLeftDownPivot.position;
 
             float x = Mathf.Clamp(targetPosition.x, playAreaPivotPosition.x, -playAreaPivotPosition.x);

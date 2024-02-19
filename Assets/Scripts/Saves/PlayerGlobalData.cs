@@ -1,3 +1,4 @@
+using Initializers;
 using Saves.Coins;
 using Saves.Localization;
 using Saves.Missions;
@@ -5,50 +6,29 @@ using Saves.Savers;
 using Saves.Spaceship;
 using Saves.Volume;
 using Saves.Weapons;
-using UnityEngine;
 
 namespace Saves
 {
-    public class PlayerGlobalData : MonoBehaviour
+    public static class PlayerGlobalData
     {
-        private static PlayerGlobalData _instance;
-    
-        private readonly VolumeSettings _volumeSettings = new(new PlayerPrefsSaver());
-        private readonly MissionsSettings _missionsSettings = new(new PlayerPrefsSaver());
-        private readonly CoinsSettings _coinsSettings = new(new PlayerPrefsSaver());
-        private readonly SpaceshipSettings _spaceshipSettings = new(new PlayerPrefsSaver());
-        private readonly WeaponsSettings _weaponsSettings = new(new PlayerPrefsSaver());
-        private readonly LocalizationSettings _localizationSettings = new(new PlayerPrefsSaver());
+        public static PlatformType PlatformType { get; private set; }
+        public static VolumeSettings VolumeSettings { get; } = new(new PlayerPrefsSaver());
+        public static MissionsSettings MissionsSettings { get; } = new(new PlayerPrefsSaver());
+        public static CoinsSettings CoinsSettings { get; } = new(new PlayerPrefsSaver());
+        public static SpaceshipSettings SpaceshipSettings { get; } = new(new PlayerPrefsSaver());
+        public static WeaponsSettings WeaponsSettings { get; } = new(new PlayerPrefsSaver());
+        public static LocalizationSettings LocalizationSettings { get; } = new(new PlayerPrefsSaver());
         
-        public static VolumeSettings VolumeSettings => _instance._volumeSettings;
-        public static MissionsSettings MissionsSettings => _instance._missionsSettings;
-        public static CoinsSettings CoinsSettings => _instance._coinsSettings;
-        public static SpaceshipSettings SpaceshipSettings => _instance._spaceshipSettings;
-        public static WeaponsSettings WeaponsSettings => _instance._weaponsSettings;
-        public static LocalizationSettings LocalizationSettings => _instance._localizationSettings;
+        public static void SetPlatformType(PlatformType newPlatformType) => PlatformType = newPlatformType;
         
-        private void Awake()
+        public static void LoadData()
         {
-            if (_instance)
-            {
-                Destroy(this);
-                return;
-            }
-        
-            _instance = this;
-            LoadData();
-        
-            DontDestroyOnLoad(this);
-        }
-        
-        private void LoadData()
-        {
-            _volumeSettings.Load();
-            _missionsSettings.Load();
-            _coinsSettings.Load();
-            _spaceshipSettings.Load();
-            _weaponsSettings.Load();
-            _localizationSettings.Load();
+            VolumeSettings.Load();
+            MissionsSettings.Load();
+            CoinsSettings.Load();
+            SpaceshipSettings.Load();
+            WeaponsSettings.Load();
+            LocalizationSettings.Load();
         }
     }
 }
