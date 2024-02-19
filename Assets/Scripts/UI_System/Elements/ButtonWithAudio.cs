@@ -4,9 +4,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Audio
+namespace UI_System.Elements
 {
-    public class CustomButton : Button
+    public class ButtonWithAudio : Button
     {
         [Inject] private EventBus _eventBus;
         
