@@ -5,7 +5,7 @@ namespace Saves.Weapons
 {
     public class WeaponsData : DataBase<WeaponSave>
     {
-        public Dictionary<PlayerWeaponType, int> CurrentWeaponsLevels = new DictionaryInspector<PlayerWeaponType, int>()
+        public Dictionary<PlayerWeaponType, int> CurrentWeaponsLevels = new Dictionary<PlayerWeaponType, int>()
         {
             { PlayerWeaponType.AutoCannon, 1 }, 
             { PlayerWeaponType.BigSpaceGun, 0 }, 
