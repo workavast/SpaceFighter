@@ -27,7 +27,7 @@ namespace EventBusExtension
             where T : struct, IEvent
         {
             var eventHashCode = typeof(T).Name.GetHashCode();
-            var receiverId = receiver.ReceiverIdentifier.Id;
+            var receiverId = receiver.EventBusReceiverIdentifier.Id;
             
             if (_receivers.TryGetValue(eventHashCode, out var receiversById))
             {
@@ -52,7 +52,7 @@ namespace EventBusExtension
             where T : struct, IEvent
         {
             var eventHashCode = typeof(T).Name.GetHashCode();
-            var receiverId = receiver.ReceiverIdentifier.Id;
+            var receiverId = receiver.EventBusReceiverIdentifier.Id;
 
             if (_receivers.TryGetValue(eventHashCode, out var receiversById)
                 && receiversById.TryGetValue(receiverId, out var foundedReceiver))

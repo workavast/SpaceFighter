@@ -15,7 +15,7 @@ namespace Managers
     {
         protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
 
-        public ReceiverIdentifier ReceiverIdentifier { get; } = new();
+        public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
    
         [Inject] private CoinsFactory _coinsFactory;
         [Inject] private EventBus _eventBus;

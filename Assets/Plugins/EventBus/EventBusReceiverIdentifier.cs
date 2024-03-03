@@ -1,6 +1,6 @@
 ﻿namespace EventBusExtension
 {
-    public class ReceiverIdentifier
+    public class EventBusReceiverIdentifier
     {
         private static int _index;
 

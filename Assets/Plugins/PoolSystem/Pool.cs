@@ -92,8 +92,8 @@ namespace PoolSystem
     public class Pool<TElement, TId> where TElement : IPoolable<TElement, TId>
     {
         private readonly Func<TId, TElement> _instantiateDelegate;
-        private readonly Dictionary<TId,Queue<TElement>> _freeElements;
-        private readonly Dictionary<TId,List<TElement>> _busyElements;
+        private readonly Dictionary<TId, Queue<TElement>> _freeElements;
+        private readonly Dictionary<TId, List<TElement>> _busyElements;
         private readonly bool _expandableId;
         private readonly bool _expandableElement;
         private readonly bool _reExtracted;
@@ -101,79 +101,77 @@ namespace PoolSystem
         private readonly Dictionary<TId, int> _capacityElements;
     
         public IReadOnlyDictionary<TId,IReadOnlyList<TElement>> FreeElements
-        {
-            get
-            {
-                return _freeElements.ToDictionary(x => x.Key, x=> x.Value.ToList() as IReadOnlyList<TElement>);
-            }
-        }
-        public IReadOnlyDictionary<TId,IReadOnlyList<TElement>> BusyElements
-        {
-            get
-            {
-                return _busyElements.ToDictionary(x => x.Key, x=> x.Value as IReadOnlyList<TElement>);
-            }
-        }
+            => _freeElements.ToDictionary(x => x.Key, x=> x.Value.ToList() as IReadOnlyList<TElement>);
 
+        public IReadOnlyDictionary<TId,IReadOnlyList<TElement>> BusyElements
+            => _busyElements.ToDictionary(x => x.Key, x=> x.Value as IReadOnlyList<TElement>);
+        
         public IReadOnlyList<IReadOnlyList<TElement>> BusyElementsValues => _busyElements.Values.ToList();
 
-        public Pool(Func<TId, TElement> instantiateDelegate, bool expandableId = true, bool expandableElement = true, bool reExtracted = false,
-        int capacityIds = 0, ReadOnlyDictionary<TId, int> capacityElements = null, ReadOnlyDictionary<TId, int> initialElementsCounts = null)
-    {
-        if (instantiateDelegate == null) throw new Exception("instantiateDelegate is null");
-        
-        if (!expandableId)
+        public Pool(
+            Func<TId, TElement> instantiateDelegate, 
+            bool expandableId = true, 
+            bool expandableElement = true, 
+            bool reExtracted = false,
+            int capacityIds = 0, 
+            ReadOnlyDictionary<TId, int> capacityElements = null, 
+            ReadOnlyDictionary<TId, int> initialElementsCounts = null)
         {
-            if (capacityIds <= 0) throw new Exception("In not expandableId pool maxSizeIds can't be less or equal to 0");
-            if (capacityElements == null) throw new Exception("In not expandableId pool maxSizes can't be null");
-            if (capacityElements.Count <= 0) throw new Exception("In not expandableId pool maxSizes.Count can't be 0");
-            if (capacityElements.Count > capacityIds) throw new Exception("In not expandableId pool maxSizes.Count can't be bigger than maxSizeIds");
-        }
-
-        if (!expandableElement)
-        {
-            if (capacityElements == null) throw new Exception("In not expandableElement pool maxSizes can't be null");
-            if (capacityElements.Count <= 0) throw new Exception("In not expandableElement pool maxSizes.Count can't be 0");
-
-            foreach (var size in capacityElements)
-                if(size.Value <= 0 ) throw new Exception("In not expandableElement pool maxSize of id "+ size.Key +" can't be less or equal to 0");
-        }
-
-        if (!expandableId && !expandableElement && capacityIds != capacityElements.Count)
-            throw new Exception("In not expandableId and expandableElement pool maxSizes of id can't be not equal maxSizeIds");
+            if (instantiateDelegate == null) throw new Exception("instantiateDelegate is null");
         
-        _instantiateDelegate = instantiateDelegate;
-        _freeElements = new Dictionary<TId, Queue<TElement>>();
-        _busyElements = new Dictionary<TId, List<TElement>>();
-        _expandableId = expandableId;
-        _expandableElement = expandableElement;
-        _reExtracted = reExtracted;
-        _capacityIds = capacityIds;
-        _capacityElements = expandableElement ? new Dictionary<TId, int>() : capacityElements.ToDictionary(element => element.Key, element => element.Value) ;
-        
-        if (initialElementsCounts != null)
-        {
-            foreach (var element in initialElementsCounts)
+            if (!expandableId)
             {
-                if(element.Value > 0 && (expandableId || _freeElements.Count < capacityIds))
-                    for (int i = 0; i < element.Value; i++)
-                    {
-                        if (_expandableId && _expandableElement || 
-                            (!_expandableId && _expandableElement && _freeElements.Count < _capacityIds) || 
-                            (_capacityElements.ContainsKey(element.Key) && (!_freeElements.ContainsKey(element.Key) || _freeElements[element.Key].Count < _capacityElements[element.Key])))
-                            InstantiateElement(element.Key);
-                        else break;
-                    }
+                if (capacityIds <= 0) throw new Exception("In not expandableId pool maxSizeIds can't be less or equal to 0");
+                if (capacityElements == null) throw new Exception("In not expandableId pool maxSizes can't be null");
+                if (capacityElements.Count <= 0) throw new Exception("In not expandableId pool maxSizes.Count can't be 0");
+                if (capacityElements.Count > capacityIds) throw new Exception("In not expandableId pool maxSizes.Count can't be bigger than maxSizeIds");
+            }
+
+            if (!expandableElement)
+            {
+                if (capacityElements == null) throw new Exception("In not expandableElement pool maxSizes can't be null");
+                if (capacityElements.Count <= 0) throw new Exception("In not expandableElement pool maxSizes.Count can't be 0");
+
+                foreach (var size in capacityElements)
+                    if(size.Value <= 0 ) throw new Exception("In not expandableElement pool maxSize of id "+ size.Key +" can't be less or equal to 0");
+            }
+
+            if (!expandableId && !expandableElement && capacityIds != capacityElements.Count)
+                throw new Exception("In not expandableId and expandableElement pool maxSizes of id can't be not equal maxSizeIds");
+        
+            _instantiateDelegate = instantiateDelegate;
+            _freeElements = new Dictionary<TId, Queue<TElement>>();
+            _busyElements = new Dictionary<TId, List<TElement>>();
+            _expandableId = expandableId;
+            _expandableElement = expandableElement;
+            _reExtracted = reExtracted;
+            _capacityIds = capacityIds;
+            _capacityElements = expandableElement ? new Dictionary<TId, int>() : capacityElements.ToDictionary(element => element.Key, element => element.Value) ;
+        
+            if (initialElementsCounts != null)
+            {
+                foreach (var element in initialElementsCounts)
+                {
+                    if(element.Value > 0 && (expandableId || _freeElements.Count < capacityIds))
+                        for (int i = 0; i < element.Value; i++)
+                        {
+                            if (_expandableId && _expandableElement || 
+                                (!_expandableId && _expandableElement && _freeElements.Count < _capacityIds) || 
+                                (_capacityElements.ContainsKey(element.Key) && (!_freeElements.ContainsKey(element.Key) || _freeElements[element.Key].Count < _capacityElements[element.Key])))
+                                InstantiateElement(element.Key);
+                            else break;
+                        }
+                }
             }
         }
-    }
 
         public bool ExtractElement(TId id, out TElement extractedElement)
         {
-            if(!_expandableId && _freeElements.Count >= _capacityIds && !_freeElements.ContainsKey(id)) throw new Exception("In not expandableId pool _freeElements dont have this id");
+            if(!_expandableId && _freeElements.Count >= _capacityIds && !_freeElements.ContainsKey(id)) 
+                throw new Exception("In not expandableId pool _freeElements dont have this id");
 
             extractedElement = default;
-        
+
             if (!_freeElements.ContainsKey(id))
             {
                 if (_expandableId && _expandableElement || 
@@ -189,15 +187,16 @@ namespace PoolSystem
                     if (_expandableElement || (_busyElements.ContainsKey(id) && _busyElements[id].Count < _capacityElements[id]))
                     {
                         InstantiateElement(id);
-                        //if (_freeElements[id].Count <= 0) return false;
                     }
                     else
                     {
-                        if (_reExtracted && _busyElements.ContainsKey(id) && _busyElements[id].Count > 0) ReturnElement(_busyElements[id].First());
+                        if (_reExtracted && _busyElements.ContainsKey(id) && _busyElements[id].Count > 0) 
+                            ReturnElement(_busyElements[id].First());
                         else return false;
                     }
                 }
             }
+            
             extractedElement = _freeElements[id].Dequeue();
             _busyElements[id].Add(extractedElement);
         
@@ -211,15 +210,18 @@ namespace PoolSystem
         {
             if (_freeElements.ContainsKey(id))
             {
-                if(_expandableElement || _busyElements[id].Count < _capacityElements[id]) _freeElements[id].Enqueue(_instantiateDelegate(id));
-                else throw new Exception("_busyElements[id].Count >= _capacityElements[id]");
+                if(_expandableElement || _busyElements[id].Count < _capacityElements[id]) 
+                    _freeElements[id].Enqueue(_instantiateDelegate(id));
+                else 
+                    throw new Exception("_busyElements[id].Count >= _capacityElements[id]");
             }
             else
             {
                 if (_expandableId || _freeElements.Count < _capacityIds)
                 {
                     _freeElements.Add(id, new Queue<TElement>());
-                    if (!_busyElements.ContainsKey(id)) _busyElements.Add(id, new List<TElement>());
+                    if (!_busyElements.ContainsKey(id)) 
+                        _busyElements.Add(id, new List<TElement>());
 
                     _freeElements[id].Enqueue(_instantiateDelegate(id));
                 }

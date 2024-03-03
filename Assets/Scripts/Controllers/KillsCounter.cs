@@ -6,7 +6,7 @@ namespace Controllers
 {
     public class KillsCounter : Disposable, IEventReceiver<EnemyStartDie>
     {
-        public ReceiverIdentifier ReceiverIdentifier { get; } = new();
+        public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
 
         private readonly EventBus _eventBus;
         private readonly SomeStorageInt _destroyedEnemiesCounter;

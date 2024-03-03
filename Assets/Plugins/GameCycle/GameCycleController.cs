@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EnumValuesExtension;
 using UnityEngine;
 
 namespace GameCycle
@@ -18,8 +17,8 @@ namespace GameCycle
         private void Awake()
         {
             CurrentState = startState;
-            var gameStatesTypes = EnumValuesTool.GetValues<GameCycleState>();
-            var gameCycleInvokeTypes = EnumValuesTool.GetValues<GameCycleInvokeType>().ToList();
+            var gameStatesTypes = Enum.GetValues(typeof(GameCycleState)).Cast<GameCycleState>();
+            var gameCycleInvokeTypes = Enum.GetValues(typeof(GameCycleInvokeType)).Cast<GameCycleInvokeType>().ToList(); 
             foreach (var state in gameStatesTypes)
             {
                 _actions.Add(state, new Dictionary<GameCycleInvokeType, Action>());

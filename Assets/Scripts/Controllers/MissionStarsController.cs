@@ -6,7 +6,7 @@ namespace Controllers
 {
     public class MissionStarsController : IEventReceiver<PlayerTakeDamage>
     {
-        public ReceiverIdentifier ReceiverIdentifier { get; } = new();
+        public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
 
         private readonly EventBus  _eventBus;
         private readonly MissionController _missionController;

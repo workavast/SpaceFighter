@@ -1,9 +1,9 @@
 ﻿namespace EventBusExtension
 {
-    public interface IEventReceiver<in T> : IEventReceiverBase
+    public interface IEventReceiver<T> : IEventReceiverBase
         where T : struct, IEvent
     {
-        public ReceiverIdentifier ReceiverIdentifier { get; }
+        public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; }
         
         public void OnEvent(T t);
     }

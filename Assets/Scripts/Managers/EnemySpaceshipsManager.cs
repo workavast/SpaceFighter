@@ -19,7 +19,7 @@ namespace Managers
     
         private readonly Dictionary<EnemySpaceshipType, GameObject> _spaceshipsParents = new();
 
-        public ReceiverIdentifier ReceiverIdentifier { get; } = new();
+        public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
 
         private Pool<EnemySpaceshipBase, EnemySpaceshipType> _pool;
 

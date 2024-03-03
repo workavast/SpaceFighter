@@ -1,4 +1,4 @@
-using CastExtension;
+using CastLibrary;
 using Projectiles.Player;
 
 namespace PlayerWeapon.Weapons

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EnumValuesExtension
+namespace EnumValuesLibrary
 {
     public static class EnumValuesTool
     {

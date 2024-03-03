@@ -1,4 +1,4 @@
-﻿namespace CastExtension
+﻿namespace CastLibrary
 {
     public static class CastTool
     {
