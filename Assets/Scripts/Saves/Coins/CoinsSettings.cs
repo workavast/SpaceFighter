@@ -1,19 +1,26 @@
-﻿using Saves.Savers;
+﻿using System;
 
 namespace Saves.Coins
 {
-    public class CoinsSettings : SettingsBase<CoinsData, CoinsSave>
+    public class CoinsSettings : ISettings
     {
-        protected override string SaveKey => "CoinsSettings";
-        
-        public int CoinsCount => Data.CoinsCount;
+        public int CoinsCount;
+        public event Action OnChange;
 
-        public CoinsSettings(ISaver saver) : base(saver) { }
+        public CoinsSettings()
+        {
+            CoinsCount = 1000;
+        }
+        
+        public void SetData(CoinsSettingsSave settingsSave)
+        {
+            CoinsCount = settingsSave.CoinsCount;
+        }        
         
         public void ChangeCoinsCount(int changeValue)
         {
-            Data.CoinsCount += changeValue;
-            Save();
+            CoinsCount += changeValue;
+            OnChange?.Invoke();
         }
     }
 }

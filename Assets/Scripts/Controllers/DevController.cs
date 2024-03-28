@@ -12,10 +12,10 @@ namespace Controllers
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.D))
-                PlayerPrefs.DeleteAll();
+                DeletePlayerPrefsSave();
             
             if (Input.GetKeyDown(KeyCode.M))
-                PlayerGlobalData.CoinsSettings.ChangeCoinsCount(1000);
+                PlayerGlobalData.Instance.CoinsSettings.ChangeCoinsCount(1000);
 
             if (Input.GetKeyDown(KeyCode.P))
             {
@@ -23,5 +23,9 @@ namespace Controllers
                 audioManager.ChangeAudioState(_pause);
             }
         }
+
+        [ContextMenu(nameof(DeletePlayerPrefsSave))]
+        private void DeletePlayerPrefsSave()
+            => PlayerPrefs.DeleteAll();
     }
 }

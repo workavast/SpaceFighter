@@ -15,7 +15,7 @@ namespace Managers
 
         private void Awake()
         {
-            Volume = new AudioVolumeChanger(mixer, PlayerGlobalData.VolumeSettings);
+            Volume = new AudioVolumeChanger(mixer, PlayerGlobalData.Instance.VolumeSettings);
             _pauseableAudioSources = GetComponentsInChildren<PauseableAudioSource>();
         }
         

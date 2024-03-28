@@ -17,7 +17,7 @@ namespace Initializers
             await handleTask.Task;
 
             LocalizationSettings.SelectedLocale =
-                LocalizationSettings.AvailableLocales.Locales[PlayerGlobalData.LocalizationSettings.LocalizationId];
+                LocalizationSettings.AvailableLocales.Locales[PlayerGlobalData.Instance.LocalizationSettings.LocalizationId];
             
             Debug.Log("LocalizationInitializer");
             OnParentInit?.Invoke();

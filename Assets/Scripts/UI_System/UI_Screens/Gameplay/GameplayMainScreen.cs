@@ -23,7 +23,7 @@ namespace UI_System.UI_Screens.Gameplay
 
         private void Awake()
         {
-            mainMenu.SetActive(PlayerGlobalData.PlatformType == PlatformType.Desktop);
+            mainMenu.SetActive(PlayerGlobalData.Instance.PlatformType == PlatformType.Desktop);
         }
 
         private void Start()

@@ -31,7 +31,7 @@ namespace PlayerWeapon
 
             WeaponLevel weaponLevel =
                 PlayerWeaponConfig.WeaponsLevelsData[PlayerWeaponId]
-                    [PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponId] - 1];
+                    [PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponId] - 1];
 
             Damage = weaponLevel.WeaponDamage;
             FireRate = new SomeStorageFloat(weaponLevel.FireRate);

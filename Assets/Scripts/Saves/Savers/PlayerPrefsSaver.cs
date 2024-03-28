@@ -4,29 +4,22 @@ namespace Saves.Savers
 {
     public class PlayerPrefsSaver : ISaver
     {
-        public void Save<TData, TSave>(string saveKey, TData data)
-            where TData : DataBase<TSave>
-            where TSave : SaveBase<TData>, new()
+        public void Save(string saveKey, PlayerGlobalDataSave save)
         {
-            var save = new TSave();
-            save.SetData(data);
-            
             var saveString = JsonUtility.ToJson(save);
             PlayerPrefs.SetString(saveKey, saveString);
             PlayerPrefs.Save();
         }
 
-        public TData Load<TData, TSave>(string saveKey)
-            where TData : DataBase<TSave>, new()
-            where TSave : SaveBase<TData>
+        public bool TryLoad(string saveKey, out PlayerGlobalDataSave save)
         {
-            if (!PlayerPrefs.HasKey(saveKey)) return new TData();
+            save = default;
+            if (!PlayerPrefs.HasKey(saveKey)) 
+                return false;
             
             var saveString = PlayerPrefs.GetString(saveKey);
-            var save = JsonUtility.FromJson<TSave>(saveString);
-            var data = new TData();
-            data.SetData(save);
-            return data;
+            save = JsonUtility.FromJson<PlayerGlobalDataSave>(saveString);
+            return true;
         }
     }
 }

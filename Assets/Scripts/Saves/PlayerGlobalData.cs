@@ -9,26 +9,61 @@ using Saves.Weapons;
 
 namespace Saves
 {
-    public static class PlayerGlobalData
+    public class PlayerGlobalData
     {
-        public static PlatformType PlatformType { get; private set; }
-        public static VolumeSettings VolumeSettings { get; } = new(new PlayerPrefsSaver());
-        public static MissionsSettings MissionsSettings { get; } = new(new PlayerPrefsSaver());
-        public static CoinsSettings CoinsSettings { get; } = new(new PlayerPrefsSaver());
-        public static SpaceshipSettings SpaceshipSettings { get; } = new(new PlayerPrefsSaver());
-        public static WeaponsSettings WeaponsSettings { get; } = new(new PlayerPrefsSaver());
-        public static LocalizationSettings LocalizationSettings { get; } = new(new PlayerPrefsSaver());
+        private const string SaveKey = "PlayerGlobalData";
         
-        public static void SetPlatformType(PlatformType newPlatformType) => PlatformType = newPlatformType;
+        private static PlayerGlobalData _instance;
+        public static PlayerGlobalData Instance => _instance ??= new PlayerGlobalData();
+
+        public PlatformType PlatformType { get; private set; }
+        public readonly VolumeSettings VolumeSettings = new();
+        public readonly MissionsSettings MissionsSettings = new();
+        public readonly CoinsSettings CoinsSettings = new();
+        public readonly SpaceshipSettings SpaceshipSettings = new();
+        public readonly WeaponsSettings WeaponsSettings = new();
+        public readonly LocalizationSettings LocalizationSettings = new();
         
-        public static void LoadData()
+        private readonly ISaver _saver = new PlayerPrefsSaver();
+
+        public void SetPlatformType(PlatformType newPlatformType) 
+            => PlatformType = newPlatformType;
+        
+        private PlayerGlobalData()
         {
-            VolumeSettings.Load();
-            MissionsSettings.Load();
-            CoinsSettings.Load();
-            SpaceshipSettings.Load();
-            WeaponsSettings.Load();
-            LocalizationSettings.Load();
+            LoadData();
+
+            ISettings[] settings =
+            {
+                VolumeSettings, MissionsSettings, CoinsSettings, 
+                SpaceshipSettings, WeaponsSettings, LocalizationSettings
+            };
+            foreach (var setting in settings)
+                setting.OnChange += SaveData;
+        }
+        
+        public void LoadData()
+        {
+            if (!_saver.TryLoad(SaveKey, out var save))
+            {
+                //default values in settings it default save state, so we can just return
+                return;
+            }
+            
+            VolumeSettings.LoadData(save.VolumeSettingsSave);
+            MissionsSettings.SetData(save.missionsSettingsSave);
+            CoinsSettings.SetData(save.coinsSettingsSave);
+            SpaceshipSettings.SetData(save.spaceshipSettingsSave);
+            WeaponsSettings.SetData(save.weaponsSettingsesSave);
+            LocalizationSettings.SetData(save.localizationSettingsSave);
+        }
+
+        public void SaveData()
+        {
+            var save = new PlayerGlobalDataSave(VolumeSettings, MissionsSettings, CoinsSettings, SpaceshipSettings,
+                WeaponsSettings, LocalizationSettings);
+            
+            _saver.Save(SaveKey, save);
         }
     }
 }

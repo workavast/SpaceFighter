@@ -42,7 +42,7 @@ namespace Managers
                 list[i].HandleUpdate(Time.deltaTime);
         }
         
-        public void ApplyMoneyStars() => PlayerGlobalData.CoinsSettings.ChangeCoinsCount(_moneyStarsCounter.CurrentValue);
+        public void ApplyMoneyStars() => PlayerGlobalData.Instance.CoinsSettings.ChangeCoinsCount(_moneyStarsCounter.CurrentValue);
         
         public void OnEvent(EnemyStartDie @event) => Spawn(@event.Position);
 

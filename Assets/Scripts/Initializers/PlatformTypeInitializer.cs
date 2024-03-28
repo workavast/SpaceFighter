@@ -13,7 +13,7 @@ namespace Initializers
         public override void Init()
         {
             Debug.Log("ControlInitializer");
-            PlayerGlobalData.SetPlatformType(_platformType);
+            PlayerGlobalData.Instance.SetPlatformType(_platformType);
             OnParentInit?.Invoke();
         }
     }

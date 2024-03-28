@@ -5,28 +5,41 @@ using Saves.Savers;
 
 namespace Saves.Weapons
 {
-    public class WeaponsSettings : SettingsBase<WeaponsData, WeaponSave>
+    public class WeaponsSettings : ISettings
     {
-        protected override string SaveKey => "WeaponsSettings";
-                                
-        public IReadOnlyDictionary<PlayerWeaponType, int> CurrentWeaponsLevels => Data.CurrentWeaponsLevels;
-        public PlayerWeaponType EquippedPlayerWeapon => Data.EquippedPlayerWeapon;
+        public Dictionary<PlayerWeaponType, int> WeaponsLevels = new Dictionary<PlayerWeaponType, int>()
+        {
+            { PlayerWeaponType.AutoCannon, 1 }, 
+            { PlayerWeaponType.BigSpaceGun, 0 }, 
+            { PlayerWeaponType.Rockets, 0 },
+            { PlayerWeaponType.Zapper, 0 }
+        };
+        public PlayerWeaponType EquippedPlayerWeapon = PlayerWeaponType.AutoCannon;
+        public IReadOnlyDictionary<PlayerWeaponType, int> CurrentWeaponsLevels => WeaponsLevels;
+        public event Action OnChange;
         
-        public WeaponsSettings(ISaver saver) : base(saver) { }
-        
+        public void SetData(WeaponsSettingsSave save)
+        {
+            WeaponsLevels = new Dictionary<PlayerWeaponType, int>();
+            foreach (var weaponLevelData in save.CurrentWeaponsLevels)
+                WeaponsLevels.Add(weaponLevelData.WeaponType, weaponLevelData.WeaponLevel);
+
+            EquippedPlayerWeapon = save.EquippedPlayerWeapon;
+        }
+
         public void LevelUpWeapon(PlayerWeaponType playerWeaponsId)
         {
-            if (Data.CurrentWeaponsLevels.ContainsKey(playerWeaponsId)) 
-                Data.CurrentWeaponsLevels[playerWeaponsId]++;
+            if (WeaponsLevels.ContainsKey(playerWeaponsId)) 
+                WeaponsLevels[playerWeaponsId]++;
             else throw new Exception("Unsigned weapon id");
             
-            Save();
+            OnChange?.Invoke();
         }
 
         public void ChangeEquippedWeapon(PlayerWeaponType weaponType)
         {
-            Data.EquippedPlayerWeapon = weaponType;
-            Save();
+            EquippedPlayerWeapon = weaponType;
+            OnChange?.Invoke();
         }
     }
 }

@@ -1,33 +1,52 @@
-﻿using Saves.Savers;
+﻿using System;
 
 namespace Saves.Volume
 {
-    public sealed class VolumeSettings : SettingsBase<VolumeData, VolumeSave>
+    public sealed class VolumeSettings : ISettings
     {
-        protected override string SaveKey => "VolumeSettings";
+        public float MasterVolume { get; private set; }
+        public float OstVolume { get; private set; }
+        public float EffectsVolume { get; private set; }
         
-        public float MasterVolume => Data.MasterVolume;
-        public float OstVolume => Data.OstVolume;
-        public float EffectsVolume => Data.EffectsVolume;
+        public event Action OnChange;
 
-        public VolumeSettings(ISaver saver) : base(saver) { }
+        public VolumeSettings()
+        {
+            MasterVolume = 0.5f;
+            OstVolume = 0.5f;
+            EffectsVolume = 0.5f;
+        }
+            
+        public VolumeSettings(float masterVolume, float ostVolume, float effectsVolume)
+        {
+            MasterVolume = masterVolume;
+            OstVolume  = ostVolume;
+            EffectsVolume = effectsVolume;
+        }
         
         public void ChangeMasterVolume(float newVolume)
         {
-            Data.MasterVolume = newVolume;
-            Save();
+            MasterVolume = newVolume;
+            OnChange?.Invoke();
         }
     
         public void ChangeOstVolume(float newVolume)
         {
-            Data.OstVolume = newVolume;
-            Save();
+            OstVolume = newVolume;
+            OnChange?.Invoke();
         }
     
         public void ChangeEffectsVolume(float newVolume)
         {
-            Data.EffectsVolume = newVolume;
-            Save();
+            EffectsVolume = newVolume;
+            OnChange?.Invoke();
+        }
+        
+        public void LoadData(VolumeSettingsSave volumeSettings)
+        {
+            MasterVolume = volumeSettings.MasterVolume;
+            OstVolume = volumeSettings.OstVolume;
+            EffectsVolume = volumeSettings.EffectsVolume;
         }
     }
 }

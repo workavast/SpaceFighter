@@ -39,7 +39,7 @@ namespace SpaceShips
 
             _currentDamageSprite = new SomeStorageInt(damageAnimatorTriggerData.Count - 1);
         
-            float healthPointsValue = playerSpaceshipLevelsConfig.LevelsHealthPoints[PlayerGlobalData.SpaceshipSettings.SpaceshipLevel - 1];
+            float healthPointsValue = playerSpaceshipLevelsConfig.LevelsHealthPoints[PlayerGlobalData.Instance.SpaceshipSettings.SpaceshipLevel - 1];
             healthPoints = new SomeStorageFloat(healthPointsValue,healthPointsValue);
         }
     

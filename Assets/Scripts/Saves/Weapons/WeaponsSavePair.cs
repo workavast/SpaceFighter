@@ -4,12 +4,12 @@ using PlayerWeapon;
 namespace Saves.Weapons
 {
     [Serializable]
-    public class WeaponSavePair
+    public class WeaponsSavePair
     {
         public PlayerWeaponType WeaponType;
         public int WeaponLevel;
         
-        public WeaponSavePair(PlayerWeaponType weaponType, int weaponLevel)
+        public WeaponsSavePair(PlayerWeaponType weaponType, int weaponLevel)
         {
             WeaponType = weaponType;
             WeaponLevel = weaponLevel;

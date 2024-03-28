@@ -1,19 +1,24 @@
-﻿using Saves.Savers;
+﻿using System;
 
 namespace Saves.Localization
 {
-    public class LocalizationSettings : SettingsBase<LocalizationData, LocalizationSave>
+    public class LocalizationSettings : ISettings
     {
-        protected override string SaveKey => "LocalizationSettings";
+        public int LocalizationId { get; private set; }
+        public event Action OnChange;
 
-        public int LocalizationId => Data.LocalizationId;
+        public LocalizationSettings()
+        {
+            LocalizationId = 1;
+        }
         
-        public LocalizationSettings(ISaver saver) : base(saver) { }
-
         public void ChangeLocalization(int newLocalizationId)
         {
-            Data.ChangeLocalization(newLocalizationId);
-            Save();
+            LocalizationId = newLocalizationId;
+            OnChange?.Invoke();
         }
+
+        public void SetData(LocalizationSettingsSave settingsSave) 
+            => LocalizationId = settingsSave.LocalizationId;
     }
 }

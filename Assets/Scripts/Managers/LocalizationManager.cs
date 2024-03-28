@@ -11,7 +11,7 @@ namespace Managers
         
         public async void ChangeLocalization(int localizationId)
         {
-            if(_active || PlayerGlobalData.LocalizationSettings.LocalizationId == localizationId)
+            if(_active || PlayerGlobalData.Instance.LocalizationSettings.LocalizationId == localizationId)
                 return;
             
             if (localizationId >= LocalizationSettings.AvailableLocales.Locales.Count || localizationId < 0)
@@ -22,7 +22,7 @@ namespace Managers
             
             await ApplyLocalization(localizationId);
             
-            PlayerGlobalData.LocalizationSettings.ChangeLocalization(localizationId);
+            PlayerGlobalData.Instance.LocalizationSettings.ChangeLocalization(localizationId);
         }
 
         private async Task ApplyLocalization(int localizationId)

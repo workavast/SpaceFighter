@@ -1,19 +1,27 @@
-﻿using Saves.Savers;
+﻿using System;
 
 namespace Saves.Spaceship
 {
-    public class SpaceshipSettings : SettingsBase<SpaceshipData, SpaceshipSave>
+    public class SpaceshipSettings : ISettings
     {
-        protected override string SaveKey => "SpaceshipSettings";
-        
-        public int SpaceshipLevel => Data.CurrentSpaceshipLevel;
+        public int SpaceshipLevel { get; private set; }
+   
+        public event Action OnChange;
 
-        public SpaceshipSettings(ISaver saver) : base(saver) { }
-        
-        public void LevelUpSpaceship()
+        public SpaceshipSettings()
         {
-            Data.IncreaseSpaceshipLevel();
-            Save();
+            SpaceshipLevel = 1;
+        }
+        
+        public void SetData(SpaceshipSettingsSave settingsSave)
+        {
+            SpaceshipLevel = settingsSave.CurrentSpaceshipLevel;
+        }
+
+        public void IncreaseSpaceshipLevel()
+        {
+            SpaceshipLevel++;
+            OnChange?.Invoke();
         }
     }
 }

@@ -63,15 +63,15 @@ namespace UI_System.UI_Screens.MainMenu
 
         private void UpdateMoneyStarsCount()
         {
-            coinsCount.text = $"{PlayerGlobalData.CoinsSettings.CoinsCount}";
+            coinsCount.text = $"{PlayerGlobalData.Instance.CoinsSettings.CoinsCount}";
         }
 
         private void UpdateWeaponsLocks()
         {
-            autoCannonLock.SetActive(PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.AutoCannon] <= 0);
-            bigSpaceGunLock.SetActive(PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.BigSpaceGun] <= 0);
-            rocketsLock.SetActive(PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.Rockets] <= 0);
-            zapperLock.SetActive(PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.Zapper] <= 0);
+            autoCannonLock.SetActive(PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.AutoCannon] <= 0);
+            bigSpaceGunLock.SetActive(PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.BigSpaceGun] <= 0);
+            rocketsLock.SetActive(PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.Rockets] <= 0);
+            zapperLock.SetActive(PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.Zapper] <= 0);
         }
     
         private void UpdateEquippedWeapon()
@@ -81,7 +81,7 @@ namespace UI_System.UI_Screens.MainMenu
             rocketsVisualisation.SetActive(false);
             zapperVisualisation.SetActive(false);
         
-            switch (PlayerGlobalData.WeaponsSettings.EquippedPlayerWeapon)
+            switch (PlayerGlobalData.Instance.WeaponsSettings.EquippedPlayerWeapon)
             {
                 case PlayerWeaponType.AutoCannon:
                     autoCannonVisualisation.SetActive(true);
@@ -134,11 +134,11 @@ namespace UI_System.UI_Screens.MainMenu
                 default: Debug.LogError("Undefined HangarSelectItemEnum"); return;
             }
         
-            if (PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[weaponType] <= 0)
+            if (PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[weaponType] <= 0)
                 equipButton.SetLockedText();
             else
             {
-                if (weaponType == PlayerGlobalData.WeaponsSettings.EquippedPlayerWeapon) 
+                if (weaponType == PlayerGlobalData.Instance.WeaponsSettings.EquippedPlayerWeapon) 
                     equipButton.SetEquippedText();
                 else 
                     equipButton.SetEquipText();
@@ -151,7 +151,7 @@ namespace UI_System.UI_Screens.MainMenu
             switch (_currentHangarSelectItem)
             {
                 case HangarSelectItemType.Spaceship:
-                    int currentSpaceshipLevel = PlayerGlobalData.SpaceshipSettings.SpaceshipLevel;
+                    int currentSpaceshipLevel = PlayerGlobalData.Instance.SpaceshipSettings.SpaceshipLevel;
                     if (currentSpaceshipLevel >= _playerSpaceshipLevelsConfig.LevelsCount)
                     {
                         levelUpButton.SetMaxLevelText();
@@ -171,13 +171,13 @@ namespace UI_System.UI_Screens.MainMenu
                 default: Debug.LogError("Undefined HangarSelectItemType"); return;
             }
         
-            if (!PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels.ContainsKey(weaponType))
+            if (!PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels.ContainsKey(weaponType))
             {
                 Debug.LogError("Undefined PlayerWeaponType");
                 return;
             }
 
-            int currentSelectedWeaponLevel = PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[weaponType];
+            int currentSelectedWeaponLevel = PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[weaponType];
             if ( currentSelectedWeaponLevel >= _playerWeaponConfig.WeaponsLevelsData[weaponType].Count)
             {
                 levelUpButton.SetMaxLevelText();
@@ -226,19 +226,19 @@ namespace UI_System.UI_Screens.MainMenu
                     break;
             }
         
-            if (!PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels.ContainsKey(playerWeapon))
+            if (!PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels.ContainsKey(playerWeapon))
             {
                 Debug.LogError("Undefined weapon enum");
                 return;
             }
         
-            if (PlayerGlobalData.WeaponsSettings.EquippedPlayerWeapon == playerWeapon)
+            if (PlayerGlobalData.Instance.WeaponsSettings.EquippedPlayerWeapon == playerWeapon)
                 return;
 
-            if(PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[playerWeapon] <= 0)
+            if(PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[playerWeapon] <= 0)
                 return;
         
-            PlayerGlobalData.WeaponsSettings.ChangeEquippedWeapon(playerWeapon);
+            PlayerGlobalData.Instance.WeaponsSettings.ChangeEquippedWeapon(playerWeapon);
             UpdateScreen();
         }
 
@@ -271,41 +271,41 @@ namespace UI_System.UI_Screens.MainMenu
 
         private void TryLevelUpSpaceship()
         {
-            int currentSpaceshipLevel = PlayerGlobalData.SpaceshipSettings.SpaceshipLevel;
+            int currentSpaceshipLevel = PlayerGlobalData.Instance.SpaceshipSettings.SpaceshipLevel;
             if(currentSpaceshipLevel >= _playerSpaceshipLevelsConfig.LevelsCount){
                 Debug.LogWarning("Maximal spaceship level");
                 return;
             }
 
             int levelUpPrice = _playerSpaceshipLevelsConfig.LevelsPrices[currentSpaceshipLevel];
-            if (levelUpPrice > PlayerGlobalData.CoinsSettings.CoinsCount)
+            if (levelUpPrice > PlayerGlobalData.Instance.CoinsSettings.CoinsCount)
             {
                 Debug.LogWarning("Not enough coins");
                 return;
             }
         
-            PlayerGlobalData.SpaceshipSettings.LevelUpSpaceship();
-            PlayerGlobalData.CoinsSettings.ChangeCoinsCount(-levelUpPrice);
+            PlayerGlobalData.Instance.SpaceshipSettings.IncreaseSpaceshipLevel();
+            PlayerGlobalData.Instance.CoinsSettings.ChangeCoinsCount(-levelUpPrice);
             UpdateScreen();
         }
     
         private void TryLevelUpWeapon(PlayerWeaponType playerWeapon)
         {
-            if (!PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels.ContainsKey(playerWeapon))
+            if (!PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels.ContainsKey(playerWeapon))
             {
                 Debug.LogError("Undefined weapon enum");
                 return;
             }
         
-            int currentSelectedWeaponLevel = PlayerGlobalData.WeaponsSettings.CurrentWeaponsLevels[playerWeapon];
+            int currentSelectedWeaponLevel = PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[playerWeapon];
             if (currentSelectedWeaponLevel >= _playerWeaponConfig.WeaponsLevelsData[playerWeapon].Count)
                 return;
             
             int levelUpPrice = _playerWeaponConfig.WeaponPricesData[playerWeapon][currentSelectedWeaponLevel];
-            if (levelUpPrice <= PlayerGlobalData.CoinsSettings.CoinsCount)
+            if (levelUpPrice <= PlayerGlobalData.Instance.CoinsSettings.CoinsCount)
             {
-                PlayerGlobalData.WeaponsSettings.LevelUpWeapon(playerWeapon);
-                PlayerGlobalData.CoinsSettings.ChangeCoinsCount(-levelUpPrice);
+                PlayerGlobalData.Instance.WeaponsSettings.LevelUpWeapon(playerWeapon);
+                PlayerGlobalData.Instance.CoinsSettings.ChangeCoinsCount(-levelUpPrice);
             }
             else
             {

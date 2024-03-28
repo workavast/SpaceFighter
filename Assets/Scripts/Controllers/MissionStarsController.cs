@@ -52,7 +52,7 @@ namespace Controllers
         
         private void ApplyStars()
         {
-            PlayerGlobalData.MissionsSettings.ChangeMissionData(_missionIndex, StarsCount);
+            PlayerGlobalData.Instance.MissionsSettings.ChangeMissionData(_missionIndex, StarsCount);
         }
     }
 }

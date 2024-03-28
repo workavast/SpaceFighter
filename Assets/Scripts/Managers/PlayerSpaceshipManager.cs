@@ -32,7 +32,7 @@ namespace Managers
         {
             base.OnAwake();
 
-            switch (PlayerGlobalData.PlatformType)
+            switch (PlayerGlobalData.Instance.PlatformType)
             {
                 case PlatformType.Mobile:
                     _input = new MobileInput(_mobileInputDetector, PlayerSpaceship.transform);
@@ -65,7 +65,7 @@ namespace Managers
         
         private void SpawnWeapon()
         {
-            if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(PlayerGlobalData.WeaponsSettings.EquippedPlayerWeapon, out GameObject prefab))
+            if (_playerWeaponConfig.WeaponsPrefabsData.TryGetValue(PlayerGlobalData.Instance.WeaponsSettings.EquippedPlayerWeapon, out GameObject prefab))
             {
                 GameObject weapon = _diContainer.InstantiatePrefab(prefab, PlayerSpaceship.WeaponPosition);
                 _weapon = weapon.GetComponent<PlayerWeaponBase>();

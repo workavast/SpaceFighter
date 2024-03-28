@@ -11,7 +11,7 @@ namespace Initializers
         public override void Init()
         {
             Debug.Log("PlayerGlobalDataInitializer");
-            PlayerGlobalData.LoadData();
+            PlayerGlobalData.Instance.LoadData();
             OnParentInit?.Invoke();
         }
     }
