@@ -11,12 +11,22 @@ namespace Saves
     [Serializable]
     public class PlayerGlobalDataSave
     {
-        public VolumeSettingsSave VolumeSettingsSave;
+        public VolumeSettingsSave volumeSettingsSave;
         public MissionsSettingsSave missionsSettingsSave;
         public CoinsSettingsSave coinsSettingsSave;
         public SpaceshipSettingsSave spaceshipSettingsSave;
-        public WeaponsSettingsSave weaponsSettingsesSave;
+        public WeaponsSettingsSave weaponsSettingsSave;
         public LocalizationSettingsSave localizationSettingsSave;
+
+        public PlayerGlobalDataSave()
+        {
+            volumeSettingsSave = new();
+            missionsSettingsSave = new();
+            coinsSettingsSave = new();
+            spaceshipSettingsSave = new();
+            weaponsSettingsSave = new();
+            localizationSettingsSave = new();
+        }
         
         public PlayerGlobalDataSave(
             VolumeSettings volumeSettings,
@@ -26,11 +36,11 @@ namespace Saves
             WeaponsSettings weaponsSettings,
             LocalizationSettings localizationSettings)
         {
-            VolumeSettingsSave = new VolumeSettingsSave(volumeSettings);
+            volumeSettingsSave = new VolumeSettingsSave(volumeSettings);
             missionsSettingsSave = new MissionsSettingsSave(missionsSettings);
             coinsSettingsSave = new CoinsSettingsSave(coinsSettings);
             spaceshipSettingsSave = new SpaceshipSettingsSave(spaceshipSettings);
-            weaponsSettingsesSave = new WeaponsSettingsSave(weaponsSettings);
+            weaponsSettingsSave = new WeaponsSettingsSave(weaponsSettings);
             localizationSettingsSave = new LocalizationSettingsSave(localizationSettings);
         }
     }

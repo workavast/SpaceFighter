@@ -30,6 +30,10 @@ MonoBehaviour:
     m_Localized: Effects
     m_Metadata:
       m_Items: []
+  - m_Id: 22780493665562624
+    m_Localized: Reset saves
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

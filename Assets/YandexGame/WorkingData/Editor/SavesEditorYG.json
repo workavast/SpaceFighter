@@ -1,0 +1,75 @@
+{
+    "idSave": 1,
+    "isFirstSession": false,
+    "language": "ru",
+    "promptDone": false,
+    "money": 1,
+    "newPlayerName": "Hello!",
+    "openLevels": [
+        false,
+        true,
+        false
+    ],
+    "playerGlobalDataSave": {
+        "volumeSettingsSave": {
+            "MasterVolume": 0.5,
+            "OstVolume": 0.5,
+            "EffectsVolume": 0.5
+        },
+        "missionsSettingsSave": {
+            "MissionsStarsData": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "coinsSettingsSave": {
+            "CoinsCount": 1000
+        },
+        "spaceshipSettingsSave": {
+            "CurrentSpaceshipLevel": 1
+        },
+        "weaponsSettingsSave": {
+            "CurrentWeaponsLevels": [
+                {
+                    "WeaponType": 0,
+                    "WeaponLevel": 1
+                },
+                {
+                    "WeaponType": 1,
+                    "WeaponLevel": 0
+                },
+                {
+                    "WeaponType": 2,
+                    "WeaponLevel": 0
+                },
+                {
+                    "WeaponType": 3,
+                    "WeaponLevel": 0
+                }
+            ],
+            "EquippedPlayerWeapon": 0
+        },
+        "localizationSettingsSave": {
+            "LocalizationId": 1
+        }
+    }
+}

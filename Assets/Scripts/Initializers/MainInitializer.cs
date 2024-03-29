@@ -12,9 +12,15 @@ namespace Initializers
 
         private readonly InitializerBase[] _initializers =
         {
-            new PlayerGlobalDataInitializer(new InitializerBase[] {
-                new LocalizationInitializer() }),
-            new PlatformTypeInitializer()
+            new YandexSdkInitializer(new InitializerBase[]
+                {
+                    new PlayerGlobalDataInitializer(new InitializerBase[]
+                    {
+                        new LocalizationInitializer(),
+                        new PlatformTypeInitializer()
+                    }),
+                }
+            )
         };
         
         private void Awake()

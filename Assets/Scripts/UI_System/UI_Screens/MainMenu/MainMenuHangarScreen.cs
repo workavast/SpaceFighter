@@ -53,11 +53,17 @@ namespace UI_System.UI_Screens.MainMenu
 
         private void UpdateScreen()
         {
+            Debug.Log("-||- UpdateMoneyStarsCount");
             UpdateMoneyStarsCount();
+            Debug.Log("-||- UpdateWeaponsLocks");
             UpdateWeaponsLocks();
+            Debug.Log("-||- UpdateEquippedWeapon");
             UpdateEquippedWeapon();
+            Debug.Log("-||- UpdateSelectedItem");
             UpdateSelectedItem();
+            Debug.Log("-||- UpdateSelectOrSelectedText");
             UpdateSelectOrSelectedText();
+            Debug.Log("-||- UpdateBuyOrLevelUpOrMaxLevelText");
             UpdateBuyOrLevelUpOrMaxLevelText();
         }
 
@@ -68,6 +74,7 @@ namespace UI_System.UI_Screens.MainMenu
 
         private void UpdateWeaponsLocks()
         {
+            //TODO: fix bug: throw exception "KeyNotFoundException: The given key 'AutoCannon' was not present in the dictionary."
             autoCannonLock.SetActive(PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.AutoCannon] <= 0);
             bigSpaceGunLock.SetActive(PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.BigSpaceGun] <= 0);
             rocketsLock.SetActive(PlayerGlobalData.Instance.WeaponsSettings.CurrentWeaponsLevels[PlayerWeaponType.Rockets] <= 0);

@@ -30,6 +30,10 @@ MonoBehaviour:
     m_Localized: Etkiler
     m_Metadata:
       m_Items: []
+  - m_Id: 22780493665562624
+    m_Localized: "Kaydetmeleri s\u0131f\u0131rla"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -1,4 +1,6 @@
 ﻿
+using Saves;
+
 namespace YG
 {
     [System.Serializable]
@@ -20,6 +22,8 @@ namespace YG
 
         // ...
 
+        public PlayerGlobalDataSave playerGlobalDataSave = new();
+        
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
 
 

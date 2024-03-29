@@ -30,7 +30,7 @@ public class MobileInputDetector : MonoBehaviour, IPointerDownHandler, IPointerU
     public void OnPointerDown(PointerEventData eventData)
     {
         if (_playerTransform == null)
-            throw new NullReferenceException();
+            return;
         
         _pointerEventData = eventData;
         _startPosition =_camera.ScreenToWorldPoint(_pointerEventData.position);

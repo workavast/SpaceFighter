@@ -7,11 +7,16 @@ namespace Initializers
     {
         public PlayerGlobalDataInitializer(InitializerBase[] initializers = null) 
             : base(initializers) { }
-        
+
         public override void Init()
         {
-            Debug.Log("PlayerGlobalDataInitializer");
-            PlayerGlobalData.Instance.LoadData();
+            PlayerGlobalData.Instance.OnInit += InvokeParenInit;
+            PlayerGlobalData.Instance.Initialize();
+        }
+        
+        private void InvokeParenInit()
+        {
+            Debug.Log("-||- PlayerGlobalDataInitializer");
             OnParentInit?.Invoke();
         }
     }

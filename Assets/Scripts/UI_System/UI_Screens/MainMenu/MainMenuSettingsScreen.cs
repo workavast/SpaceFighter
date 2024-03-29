@@ -1,4 +1,5 @@
 using Managers;
+using Saves;
 using Zenject;
 
 namespace UI_System.UI_Screens.MainMenu
@@ -7,6 +8,9 @@ namespace UI_System.UI_Screens.MainMenu
     {
         [Inject] private LocalizationManager _localizationManager;
         
-        public void _ChangeLocalization(int localizationId) => _localizationManager.ChangeLocalization(localizationId);    
+        public void _ChangeLocalization(int localizationId) => _localizationManager.ChangeLocalization(localizationId);
+
+        public void _ResetSaves()
+            => PlayerGlobalData.Instance.ResetSaves();
     }
 }
