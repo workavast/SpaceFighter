@@ -52,8 +52,7 @@ MonoBehaviour:
     maxValue: 10
     currentValue: 10
     minValue: 0
-  canMove: 1
-  moveSpeed: 0
+  collisionDamage: 1
   shootPositions:
   - {fileID: 8710989535741895434}
   fireRate:
@@ -61,18 +60,6 @@ MonoBehaviour:
     currentValue: 0
     minValue: 0
   canShoot: 1
-  pathCreator: {fileID: 9005936212918651771, guid: 524d077c10f92a14b963789e18f42b0f, type: 3}
-  endOfPathInstruction: 0
-  moveType: 0
-  rotationType: 2
-  accelerated: 0
-  acceleration:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  collisionDamage: 1
 --- !u!60 &2785929758509590288
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -206,7 +193,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -290,7 +277,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

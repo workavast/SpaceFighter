@@ -1,5 +1,5 @@
 {
-    "idSave": 1,
+    "idSave": 6,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -69,7 +69,7 @@
             "EquippedPlayerWeapon": 0
         },
         "localizationSettingsSave": {
-            "LocalizationId": 1
+            "LocalizationId": 0
         }
     }
 }
