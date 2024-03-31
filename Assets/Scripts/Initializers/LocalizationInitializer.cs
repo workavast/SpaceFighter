@@ -18,7 +18,7 @@ namespace Initializers
             await handleTask.Task;
 
             int langIndex = 1;
-            if (YandexGame.savesData.isFirstSession)
+            if (PlayerGlobalData.Instance.IsFirstSession)
             {
                 switch (YandexGame.lang)
                 {
@@ -32,13 +32,16 @@ namespace Initializers
                         langIndex = 1;
                         break;
                 }
+                Debug.Log($"-||- InitLocalization isFirstSession: {YandexGame.lang} | {langIndex}");
             }
             else
             {
+                Debug.Log($"-||- InitLocalization not first: {YandexGame.lang} | {langIndex}");
                 langIndex = PlayerGlobalData.Instance.LocalizationSettings.LocalizationId;
             }
             
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[langIndex];
+            PlayerGlobalData.Instance.LocalizationSettings.ChangeLocalization(langIndex);
             
             var handleTask2 = LocalizationSettings.InitializationOperation;
             await handleTask2.Task;

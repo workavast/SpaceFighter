@@ -6,7 +6,7 @@ namespace Initializers
     public class MainInitializer : MonoBehaviour
     {
         [Tooltip("Scene that will be load after initializations")]
-        [SerializeField] private int _sceneIndex;
+        [SerializeField] private int sceneIndex;
         
         private int _inits;
 
@@ -42,7 +42,7 @@ namespace Initializers
             _inits -= 1;
 
             if (_inits <= 0)
-                SceneManager.LoadScene(_sceneIndex);
+                SceneManager.LoadScene(sceneIndex);
         }
     }
 }

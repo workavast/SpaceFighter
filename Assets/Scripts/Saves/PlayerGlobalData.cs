@@ -15,8 +15,6 @@ namespace Saves
     {
         private static PlayerGlobalData _instance;
         public static PlayerGlobalData Instance => _instance ??= new PlayerGlobalData();
-
-        public event Action OnInit;
         
         public PlatformType PlatformType { get; private set; }
         public readonly VolumeSettings VolumeSettings = new();
@@ -25,7 +23,11 @@ namespace Saves
         public readonly SpaceshipSettings SpaceshipSettings = new();
         public readonly WeaponsSettings WeaponsSettings = new();
         public readonly LocalizationSettings LocalizationSettings = new();
+     
+        public bool IsFirstSession { get; private set; }
         
+        public event Action OnInit;
+
         public void SetPlatformType(PlatformType newPlatformType) 
             => PlatformType = newPlatformType;
 
@@ -40,23 +42,19 @@ namespace Saves
         
         private void GetData()
         {
-            if (YandexGame.savesData.isFirstSession)
+            IsFirstSession = YandexGame.savesData.isFirstSession;
+            if (IsFirstSession)
             {
                 YandexGame.savesData.isFirstSession = false;
-                
-                // var save2 = new PlayerGlobalDataSave();
-                //
-                // YandexGame.savesData.playerGlobalDataSave = save2;
-                // YandexGame.SaveProgress();
                 
                 SaveData();
                 Debug.Log("-||- First get data");
                 //default values in settings is a default save values, so we can just return
                 return;
             }
-
-            var save = YandexGame.savesData.playerGlobalDataSave;
+            
             Debug.Log("-||- Not first get data");
+            var save = YandexGame.savesData.playerGlobalDataSave;
             VolumeSettings.LoadData(save.volumeSettingsSave);
             MissionsSettings.SetData(save.missionsSettingsSave);
             CoinsSettings.SetData(save.coinsSettingsSave);
@@ -65,7 +63,7 @@ namespace Saves
             LocalizationSettings.SetData(save.localizationSettingsSave);
         }
 
-        public void ResetSaves()
+        public static void ResetSaves()
         {
             Debug.Log("-||- Reset saves");
             YandexGame.ResetSaveProgress();
