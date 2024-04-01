@@ -19,7 +19,7 @@ namespace WaveSpawnerSystem
         public WaveGroupSpawner(EnemyGroupConfig enemyGroupConfig, EventBus eventBus)
         {
             _enemyGroupConfig = enemyGroupConfig;
-            _subgroupsCounter = new SomeStorageInt(enemyGroupConfig.subgroupsCount);
+            _subgroupsCounter = new SomeStorageInt(enemyGroupConfig.SubgroupsCount);
 
             _waveSubgroupSpawner = new WaveSubgroupSpawner(enemyGroupConfig, eventBus);
             _waveSubgroupSpawner.OnEndSpawn += SubgroupSpawned;

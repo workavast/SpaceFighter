@@ -1,2 +1,2 @@
 Build path: C:/Users/avast/UnityProjects/Builds/SpaceFighter
-Build number: 21
+Build number: 22

@@ -22,12 +22,9 @@ namespace SpaceShips.Enemies
         private EndOfPathInstruction _endOfPathInstruction;
         private EnemyPathWayMoveType _moveType;
         private EnemyRotationType _rotationType;
-        private bool _accelerated;
-        private AnimationCurve _acceleration;
 
         private EnemyAnimationController _enemyAnimationController;
     
-        private float _accelerationTimer = 0;
         private float _distanceTravelled;
         private float _moveSpeed;
         private Vector3 _prevPosition;
@@ -67,12 +64,6 @@ namespace SpaceShips.Enemies
 
         private void Move(float time)
         {
-            if (_accelerated)
-            {
-                _accelerationTimer += time;
-                _moveSpeed += _acceleration.Evaluate(_accelerationTimer) * time;
-            }
-        
             _distanceTravelled += _moveSpeed * time;
             if (_distanceTravelled >= _pathCreator.path.length)
                 switch (_moveType)
@@ -86,7 +77,6 @@ namespace SpaceShips.Enemies
                     case EnemyPathWayMoveType.OnEndStop:
                         _distanceTravelled = _pathCreator.path.length;
                         _canMove = false;
-                        _accelerationTimer = 0;
                         _moveSpeed = 0;
                         break;
                 
@@ -131,7 +121,6 @@ namespace SpaceShips.Enemies
         {
             IsDead = false;
         
-            _accelerationTimer = 0;
             _distanceTravelled = 0;
             _moveSpeed = 0;
             _canMove = true;
@@ -173,18 +162,23 @@ namespace SpaceShips.Enemies
             _pathCreator.pathUpdated += OnPathUpdate;
         }
     
-        public void SetWaveData(float newMoveSpeed, PathCreator newPath, EndOfPathInstruction newEndOfPathInstruction, 
-            EnemyPathWayMoveType newEnemyPathWayMoveType, EnemyRotationType newEnemyRotationType, bool newAccelerated, 
-            AnimationCurve newAcceleration)
+        public void SetWaveData(float newMoveSpeed, PathCreator newPath, EnemyPathWayMoveType newEnemyPathWayMoveType,
+            EnemyRotationType newEnemyRotationType)
         {
             _moveSpeed = newMoveSpeed;
             ChangePathWay(newPath);
-            _endOfPathInstruction = newEndOfPathInstruction;
             _moveType = newEnemyPathWayMoveType;
             _rotationType = newEnemyRotationType;
-            _accelerated = newAccelerated;
-            _acceleration = newAcceleration;
-        
+
+            _endOfPathInstruction = newEnemyPathWayMoveType switch
+            {
+                EnemyPathWayMoveType.Loop => EndOfPathInstruction.Loop,
+                EnemyPathWayMoveType.OnEndRemove => EndOfPathInstruction.Stop,
+                EnemyPathWayMoveType.OnEndStop => EndOfPathInstruction.Stop,
+                _ => throw new ArgumentOutOfRangeException(nameof(newEnemyPathWayMoveType), newEnemyPathWayMoveType,
+                    null)
+            };
+
             transform.position = _pathCreator.path.GetPointAtDistance(0, _endOfPathInstruction);
         }
     }

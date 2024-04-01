@@ -4,6 +4,8 @@ using Zenject;
 
 public class SelectedMissionData : MonoBehaviour
 {
+    [SerializeField] [Range(0, 21)] private int defaultMissionIndex;
+    
     [Inject] private MissionsConfig _missionsConfig;
 
     private static MissionConfig _missionConfig;
@@ -20,7 +22,7 @@ public class SelectedMissionData : MonoBehaviour
         if (_missionConfig is null)
         {
             Debug.LogWarning($"mission config is null");
-            SetMissionData(0);
+            SetMissionData(defaultMissionIndex);
         }
             
         return _missionConfig;
@@ -31,7 +33,7 @@ public class SelectedMissionData : MonoBehaviour
         if (_missionConfig is null)
         {
             Debug.LogWarning($"mission config is null");
-            return 0;
+            return defaultMissionIndex;
         }
             
         return _missionIndex;

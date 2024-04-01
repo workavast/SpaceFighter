@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints:
-    maxValue: 10
-    currentValue: 10
+    maxValue: 15
+    currentValue: 15
     minValue: 0
-  collisionDamage: 1
+  collisionDamage: 5
   shootPositions:
   - {fileID: 8710989535741895434}
   fireRate:

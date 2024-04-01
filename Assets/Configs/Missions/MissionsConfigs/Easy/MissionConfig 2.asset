@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a3169d36eaf9204da994c9e2b4f2882, type: 3}
-  m_Name: EnemyWaveConfig
+  m_Script: {fileID: 11500000, guid: e5b84a86447bd884fb6c216b485e8c99, type: 3}
+  m_Name: MissionConfig 2
   m_EditorClassIdentifier: 
-  <GroupsConfigs>k__BackingField:
-  - {fileID: 11400000, guid: 5bfa0af0fabee8e45b8c2d71c3251c67, type: 2}
+  <enemyWaves>k__BackingField:
+  - {fileID: 11400000, guid: 87b71cb7c4bd07b4a950c0f1c8073eb2, type: 2}
+  - {fileID: 11400000, guid: d2b17bbe6f89416478322ff30f87e55c, type: 2}

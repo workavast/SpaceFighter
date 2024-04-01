@@ -17,7 +17,7 @@ namespace EventBusEvents
         
         public SpawnEnemy(int enemySpaceshipIndex, EnemyGroupConfig enemyGroupConfig)
         {
-            EnemySpaceshipType = enemyGroupConfig.enemySubgroup[enemySpaceshipIndex];
+            EnemySpaceshipType = enemyGroupConfig.EnemySubgroup[enemySpaceshipIndex];
             EnemyGroupConfig = enemyGroupConfig;
         }
     }

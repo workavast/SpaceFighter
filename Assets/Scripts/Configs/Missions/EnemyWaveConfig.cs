@@ -9,6 +9,6 @@ namespace Configs.Missions
     {
         [field: SerializeField] public List<EnemyGroupConfig> GroupsConfigs { get; private set; }
         
-        public int TakeEnemiesCount() => GroupsConfigs.Sum(group => group.enemySubgroup.Count * group.subgroupsCount);
+        public int TakeEnemiesCount() => GroupsConfigs.Sum(group => group.EnemySubgroup.Count * group.SubgroupsCount);
     }
 }

@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: EnemyWaveConfig 1
   m_EditorClassIdentifier: 
   <GroupsConfigs>k__BackingField:
-  - {fileID: 11400000, guid: 2512b2b8f0883d547b24a81eae214333, type: 2}
-  - {fileID: 11400000, guid: f7266c412d81b0245a493b589bfa2cf6, type: 2}
+  - <StartTimePause>k__BackingField: 0
+    <SubgroupsCount>k__BackingField: 1
+    <DistanceBetweenSubgroups>k__BackingField: 0
+    <MoveSpeed>k__BackingField: 1
+    <DistanceBetweenEnemies>k__BackingField: 0
+    <EnemySubgroup>k__BackingField: 04000000
+    <Path>k__BackingField: {fileID: 3264464082801573577, guid: a18abf07e626cc2448f907674c97e818, type: 3}
+    <PathWayMoveType>k__BackingField: 2
+    <RotationType>k__BackingField: 1

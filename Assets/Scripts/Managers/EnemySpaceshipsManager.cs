@@ -82,11 +82,7 @@ namespace Managers
         private void SpawnEnemy(EnemySpaceshipType enemySpaceshipsType, EnemyGroupConfig config)
         {
             if(_pool.ExtractElement(enemySpaceshipsType, out EnemySpaceshipBase enemySpaceShip))
-            {
-                enemySpaceShip.SetWaveData(config.moveSpeed, config.path, config.endOfPathInstruction,
-                    config.pathWayMoveType, config.rotationType, config.accelerated,
-                    config.acceleration);
-            }
+                enemySpaceShip.SetWaveData(config.MoveSpeed, config.Path, config.PathWayMoveType, config.RotationType);
         }
 
         private void ReturnEnemy(EnemySpaceshipBase enemy)

@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints:
-    maxValue: 10
-    currentValue: 10
+    maxValue: 8
+    currentValue: 8
     minValue: 0
-  collisionDamage: 1
+  collisionDamage: 10
 --- !u!60 &5713456777883263648
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -78,8 +78,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.3, y: 0.25}
-      - {x: -0.3, y: 0.25}
+    - - {x: 0.3, y: 0.22}
+      - {x: -0.3, y: 0.22}
       - {x: -0.3, y: -0.3}
       - {x: 0.3, y: -0.3}
 --- !u!50 &6035736402301773839
