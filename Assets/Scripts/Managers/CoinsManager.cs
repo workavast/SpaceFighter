@@ -13,18 +13,20 @@ namespace Managers
 {
     public class CoinsManager : GameCycleManager, IEventReceiver<EnemyStartDie>
     {
-        protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
-
-        public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
-   
+        [SerializeField] private int starsPerCoin;
+        [SerializeField] private int starsPerCoinOffset;
+        [SerializeField] [Range(0, 1)] private float coinDropChance;
+        
         [Inject] private CoinsFactory _coinsFactory;
         [Inject] private EventBus _eventBus;
         
-        private Pool<Coin> _pool;
-
-        private SomeStorageInt _moneyStarsCounter;
+        public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
         public IReadOnlySomeStorage<int> MoneyStarsCounter => _moneyStarsCounter;
         
+        protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
+        
+        private SomeStorageInt _moneyStarsCounter;
+        private Pool<Coin> _pool;
         
         protected override void OnAwake()
         {
@@ -42,9 +44,15 @@ namespace Managers
                 list[i].HandleUpdate(Time.deltaTime);
         }
         
-        public void ApplyMoneyStars() => PlayerGlobalData.Instance.CoinsSettings.ChangeCoinsCount(_moneyStarsCounter.CurrentValue);
+        public void ApplyMoneyStars() 
+            => PlayerGlobalData.Instance.CoinsSettings.ChangeCoinsCount(_moneyStarsCounter.CurrentValue);
         
-        public void OnEvent(EnemyStartDie @event) => Spawn(@event.Position);
+        public void OnEvent(EnemyStartDie @event)
+        {
+            var random = Random.value;
+            if(random <= coinDropChance)
+                Spawn(@event.Position);
+        }
 
         private Coin CoinInstantiate()
         {
@@ -65,11 +73,13 @@ namespace Managers
         
         private void OnCoinPickUp(Coin coin)
         {
-            _moneyStarsCounter.ChangeCurrentValue(1);
+            var offset = Random.Range(-starsPerCoinOffset, starsPerCoinOffset);
+            _moneyStarsCounter.ChangeCurrentValue(starsPerCoin + offset);
             _eventBus.Invoke(new CoinPickUp());
             ReturnCoinInPool(coin);
         }
         
-        private void ReturnCoinInPool(Coin coin) => _pool.ReturnElement(coin);
+        private void ReturnCoinInPool(Coin coin) 
+            => _pool.ReturnElement(coin);
     }
 }

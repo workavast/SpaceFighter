@@ -4,7 +4,7 @@ using Zenject;
 
 public class SelectedMissionData : MonoBehaviour
 {
-    [SerializeField] [Range(0, 21)] private int defaultMissionIndex;
+    [SerializeField] [Range(0, 20)] private int defaultMissionIndex;
     
     [Inject] private MissionsConfig _missionsConfig;
 

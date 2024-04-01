@@ -48,13 +48,18 @@ MonoBehaviour:
     _bezierPath:
       points:
       - {x: 2, y: 6, z: 0}
-      - {x: 2, y: 6, z: 0}
-      - {x: 3, y: 2, z: 0}
+      - {x: 2.3436291, y: 4.6004934, z: 0}
+      - {x: 2.6715374, y: 1.6715374, z: 0}
       - {x: 1.5, y: 0.5, z: 0}
-      - {x: -0.17696786, y: -1.1769679, z: 0}
+      - {x: 0.3284626, y: -0.6715374, z: 0}
+      - {x: -4, y: -1.6568043, z: 0}
       - {x: -4, y: 0, z: 0}
-      - {x: -4, y: 0, z: 0}
-      isClosed: 0
+      - {x: -4, y: 2.9081001, z: 0}
+      - {x: -4.268395, y: 5.536345, z: 0}
+      - {x: -2.3251333, y: 5.968879, z: 0}
+      - {x: -1.6310484, y: 6.1233697, z: 0}
+      - {x: 1.8430873, y: 6.639062, z: 0}
+      isClosed: 1
       space: 1
       controlMode: 0
       autoControlLength: 0.3
@@ -66,9 +71,10 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+      - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 1
+    vertexPathUpToDate: 0
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1

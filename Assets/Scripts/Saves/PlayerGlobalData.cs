@@ -15,8 +15,8 @@ namespace Saves
     {
         private static PlayerGlobalData _instance;
         public static PlayerGlobalData Instance => _instance ??= new PlayerGlobalData();
-        
-        public PlatformType PlatformType { get; private set; }
+
+        public PlatformType PlatformType { get; private set; } = PlatformType.Desktop;
         public readonly VolumeSettings VolumeSettings = new();
         public readonly MissionsSettings MissionsSettings = new();
         public readonly CoinsSettings CoinsSettings = new();
