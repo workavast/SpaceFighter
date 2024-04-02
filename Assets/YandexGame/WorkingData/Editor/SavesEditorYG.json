@@ -1,5 +1,5 @@
 {
-    "idSave": 8,
+    "idSave": 6,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -42,7 +42,7 @@
             ]
         },
         "coinsSettingsSave": {
-            "CoinsCount": 1000
+            "CoinsCount": 0
         },
         "spaceshipSettingsSave": {
             "CurrentSpaceshipLevel": 1
@@ -69,7 +69,7 @@
             "EquippedPlayerWeapon": 0
         },
         "localizationSettingsSave": {
-            "LocalizationId": 1
+            "LocalizationId": 2
         }
     }
 }

@@ -41,11 +41,11 @@ namespace Initializers
             }
             
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[langIndex];
-            PlayerGlobalData.Instance.LocalizationSettings.ChangeLocalization(langIndex);
             
             var handleTask2 = LocalizationSettings.InitializationOperation;
             await handleTask2.Task;
-            
+            PlayerGlobalData.Instance.LocalizationSettings.ChangeLocalization(langIndex);
+
             Debug.Log("-||- LocalizationInitializer");
             OnParentInit?.Invoke();
         }
