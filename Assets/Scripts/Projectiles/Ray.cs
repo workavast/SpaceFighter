@@ -59,11 +59,15 @@ namespace Projectiles
                 damageable.TakeDamage(_damage * time);
         }
         
-        public void OnIDamageableTriggerEnter(IDamageable iDamageable) => _damageables.Add(iDamageable);
+        public void OnIDamageableTriggerEnter(IDamageable iDamageable) 
+            => _damageables.Add(iDamageable);
 
-        public void OnTriggerExit2D(IDamageable iDamageable) => _damageables.Remove(iDamageable);
+        public void OnTriggerExit2D(IDamageable iDamageable) 
+            => _damageables.Remove(iDamageable);
         
-        public void PlaySound() => _singleAudioSource.Play();
-        public void StopSound() => _singleAudioSource.Stop();
+        public void PlaySound() 
+            => _singleAudioSource.Play();
+        public void StopSound() 
+            => _singleAudioSource.Stop();
     }
 }

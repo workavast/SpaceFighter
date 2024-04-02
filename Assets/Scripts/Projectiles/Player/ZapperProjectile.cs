@@ -18,21 +18,27 @@ namespace Projectiles.Player
         public override void Init(bool gameCycleActive)
         {
             base.Init(gameCycleActive);
-            
+
+            OnSetData += InitRay;
+        }
+
+        private void InitRay()
+        {
             var singleAudioSource = GetComponent<SingleAudioSource>();
             _ray = new Ray(damage, existTime, singleAudioSource, transform);
-            
             _ray.OnExistTimerEnd += HandleReturnInPool;
+            
             OnElementExtractFromPoolEvent += _ray.ResetTimer;
             OnElementReturnInPoolEvent += _ray.StopTimer;
 
             OnHandleUpdate += _ray.TimerTick;
             OnHandleUpdate += _ray.DamagePerSecond;
             
-            OnElementExtractFromPoolEvent += TryPlaySound;
             OnElementReturnInPoolEvent += _ray.StopSound;
-            OnGameCycleStateEnter += TryPlaySound;
+            OnElementExtractFromPoolEvent += TryPlaySound;
+            
             OnGameCycleStateExit += _ray.StopSound;
+            OnGameCycleStateEnter += TryPlaySound;
             
             TryPlaySound();
         }
@@ -46,7 +52,6 @@ namespace Projectiles.Player
         protected override void OnIDamageableTriggerEnter(IDamageable iDamageable) 
             => _ray.OnIDamageableTriggerEnter(iDamageable);
         
-
         private void OnTriggerExit2D(Collider2D other)
         {
             if (other.gameObject.TryGetComponent(out IDamageable iDamageable))

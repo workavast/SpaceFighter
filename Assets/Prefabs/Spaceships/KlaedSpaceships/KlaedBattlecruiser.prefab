@@ -57,7 +57,7 @@ MonoBehaviour:
   shootPositions:
   - {fileID: 8710989535741895434}
   fireRate:
-    maxValue: 2.2
+    maxValue: 2
     currentValue: 0
     minValue: 0
   canShoot: 1

@@ -18,7 +18,7 @@ MonoBehaviour:
     <DistanceBetweenSubgroups>k__BackingField: 0
     <MoveSpeed>k__BackingField: 1
     <DistanceBetweenEnemies>k__BackingField: 0
-    <EnemySubgroup>k__BackingField: 04000000
+    <EnemySubgroup>k__BackingField: 00000000
     <Path>k__BackingField: {fileID: 3264464082801573577, guid: a18abf07e626cc2448f907674c97e818, type: 3}
     <PathWayMoveType>k__BackingField: 2
     <RotationType>k__BackingField: 1

@@ -1,5 +1,6 @@
 using CastLibrary;
 using Projectiles.Player;
+using UnityEngine;
 
 namespace PlayerWeapon.Weapons
 {
@@ -10,12 +11,13 @@ namespace PlayerWeapon.Weapons
 
         protected override void Shoot()
         {
+            Debug.Log(Damage);
             for (int i = 0; i < ShootsPositions.Count; i++)
                 if (PlayerProjectilesManager.TrySpawnProjectile(ProjectileId, ShootsPositions[i], out var projectile))
                 {
                     projectile.SetData(Damage);
 
-                    if (projectile.TryCast<ZapperProjectile>(out ZapperProjectile zapperProjectile))
+                    if (projectile.TryCast(out ZapperProjectile zapperProjectile))
                         zapperProjectile.SetMount(ShootsPositions[i]);
                 }
         }
