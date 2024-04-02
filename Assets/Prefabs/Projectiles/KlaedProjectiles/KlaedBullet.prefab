@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
-  damage: 1
+  damage: 7.5
   animator: {fileID: 4589437194709929436}
 --- !u!95 &4589437194709929436
 Animator:

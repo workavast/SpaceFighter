@@ -52,7 +52,7 @@ MonoBehaviour:
     maxValue: 8
     currentValue: 8
     minValue: 0
-  collisionDamage: 10
+  collisionDamage: 15
 --- !u!60 &5713456777883263648
 PolygonCollider2D:
   m_ObjectHideFlags: 0

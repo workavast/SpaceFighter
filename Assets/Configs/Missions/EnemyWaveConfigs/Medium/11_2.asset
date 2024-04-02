@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3169d36eaf9204da994c9e2b4f2882, type: 3}
+  m_Name: 11_2
+  m_EditorClassIdentifier: 
+  <GroupsConfigs>k__BackingField:
+  - <StartTimePause>k__BackingField: 0
+    <SubgroupsCount>k__BackingField: 4
+    <DistanceBetweenSubgroups>k__BackingField: 2
+    <MoveSpeed>k__BackingField: 1.75
+    <DistanceBetweenEnemies>k__BackingField: 1
+    <EnemySubgroup>k__BackingField: 0300000003000000
+    <Path>k__BackingField: {fileID: 8056223986488643368, guid: 97ba1ebca46e6dd4b92a73477751b909, type: 3}
+    <PathWayMoveType>k__BackingField: 0
+    <RotationType>k__BackingField: 2
+  - <StartTimePause>k__BackingField: 1.5
+    <SubgroupsCount>k__BackingField: 3
+    <DistanceBetweenSubgroups>k__BackingField: 3
+    <MoveSpeed>k__BackingField: 1.5
+    <DistanceBetweenEnemies>k__BackingField: 1
+    <EnemySubgroup>k__BackingField: 04000000
+    <Path>k__BackingField: {fileID: 2464789233207978788, guid: 9942eae8f00dd554eae14e4f704a1d81, type: 3}
+    <PathWayMoveType>k__BackingField: 1
+    <RotationType>k__BackingField: 1

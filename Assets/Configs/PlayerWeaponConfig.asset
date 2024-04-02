@@ -25,11 +25,11 @@ MonoBehaviour:
         - <WeaponDamage>k__BackingField: 3
           <FireRate>k__BackingField: 0.25
           <ShootsCountScale>k__BackingField: 1
-          <Price>k__BackingField: 100
+          <Price>k__BackingField: 250
         - <WeaponDamage>k__BackingField: 4
-          <FireRate>k__BackingField: 0.125
+          <FireRate>k__BackingField: 0.15
           <ShootsCountScale>k__BackingField: 1
-          <Price>k__BackingField: 200
+          <Price>k__BackingField: 750
     - key: 1
       value:
         <WeaponPrefab>k__BackingField: {fileID: 2233624589621918819, guid: de32da1f07937e14595307f151d86fe9, type: 3}

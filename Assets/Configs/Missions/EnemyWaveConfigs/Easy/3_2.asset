@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3169d36eaf9204da994c9e2b4f2882, type: 3}
+  m_Name: 3_2
+  m_EditorClassIdentifier: 
+  <GroupsConfigs>k__BackingField:
+  - <StartTimePause>k__BackingField: 1
+    <SubgroupsCount>k__BackingField: 2
+    <DistanceBetweenSubgroups>k__BackingField: 2
+    <MoveSpeed>k__BackingField: 2
+    <DistanceBetweenEnemies>k__BackingField: 1
+    <EnemySubgroup>k__BackingField: 010000000100000001000000
+    <Path>k__BackingField: {fileID: 3624107939439327252, guid: 8a8819260852d2f4295cfd4f0b0179ce, type: 3}
+    <PathWayMoveType>k__BackingField: 1
+    <RotationType>k__BackingField: 2
+  - <StartTimePause>k__BackingField: 6
+    <SubgroupsCount>k__BackingField: 2
+    <DistanceBetweenSubgroups>k__BackingField: 2
+    <MoveSpeed>k__BackingField: 2
+    <DistanceBetweenEnemies>k__BackingField: 1
+    <EnemySubgroup>k__BackingField: 010000000100000001000000
+    <Path>k__BackingField: {fileID: 2464789233207978788, guid: 9942eae8f00dd554eae14e4f704a1d81, type: 3}
+    <PathWayMoveType>k__BackingField: 1
+    <RotationType>k__BackingField: 2
+  - <StartTimePause>k__BackingField: 0
+    <SubgroupsCount>k__BackingField: 1
+    <DistanceBetweenSubgroups>k__BackingField: 0
+    <MoveSpeed>k__BackingField: 1.5
+    <DistanceBetweenEnemies>k__BackingField: 0
+    <EnemySubgroup>k__BackingField: 03000000
+    <Path>k__BackingField: {fileID: 3500791800374391170, guid: 60ad094a2937b0d4e82ed3b2284203f0, type: 3}
+    <PathWayMoveType>k__BackingField: 2
+    <RotationType>k__BackingField: 1
+  - <StartTimePause>k__BackingField: 0.25
+    <SubgroupsCount>k__BackingField: 1
+    <DistanceBetweenSubgroups>k__BackingField: 0
+    <MoveSpeed>k__BackingField: 1.5
+    <DistanceBetweenEnemies>k__BackingField: 0
+    <EnemySubgroup>k__BackingField: 03000000
+    <Path>k__BackingField: {fileID: 3264464082801573577, guid: a18abf07e626cc2448f907674c97e818, type: 3}
+    <PathWayMoveType>k__BackingField: 2
+    <RotationType>k__BackingField: 1

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MissionConfig 16
   m_EditorClassIdentifier: 
   <enemyWaves>k__BackingField:
-  - {fileID: 11400000, guid: 569648f66631e0645a56b74bb796bc05, type: 2}
-  - {fileID: 11400000, guid: c0291580eb40ffd4cad71b0a854f1b1c, type: 2}
+  - {fileID: 11400000, guid: 6406c7246c2230147987dd1777cc8eca, type: 2}
+  - {fileID: 11400000, guid: 2cd5c84af9b478d4583a6f4c3dc14a76, type: 2}

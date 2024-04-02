@@ -12,13 +12,11 @@ namespace UI_System.UI_Screens.Gameplay
     public class GameplayMainScreen : UI_ScreenBase
     {
         [SerializeField] private TextMeshProUGUI coinsCounter;
-        [SerializeField] private UI_Counter wavesCounter;
         [SerializeField] private UI_Counter killsCounter;
 
         [SerializeField] private GameObject mainMenu;
         
         [Inject] private MissionController _missionController;
-        [Inject] private WavesManager _wavesManager;
         [Inject] private CoinsManager _coinsManager;
 
         private void Awake()
@@ -29,7 +27,6 @@ namespace UI_System.UI_Screens.Gameplay
         private void Start()
         {
             killsCounter.Init(_missionController.KillsCounter.DestroyedEnemiesCounter);
-            wavesCounter.Init(_wavesManager.WavesCounter);
             
             _coinsManager.MoneyStarsCounter.OnChange += UpdateLevelMoneyCount;
             UpdateLevelMoneyCount();

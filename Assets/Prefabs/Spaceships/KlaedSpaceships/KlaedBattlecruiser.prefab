@@ -50,14 +50,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints:
-    maxValue: 50
-    currentValue: 50
+    maxValue: 80
+    currentValue: 80
     minValue: 0
-  collisionDamage: 100
+  collisionDamage: 30
   shootPositions:
   - {fileID: 8710989535741895434}
   fireRate:
-    maxValue: 2
+    maxValue: 2.2
     currentValue: 0
     minValue: 0
   canShoot: 1
@@ -86,14 +86,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.475, y: 0.83}
-      - {x: 0.175, y: 1}
-      - {x: -0.175, y: 1}
-      - {x: -0.475, y: 0.83}
-      - {x: -0.725, y: 0.175}
-      - {x: -0.725, y: -0.75}
-      - {x: 0.725, y: -0.75}
-      - {x: 0.725, y: 0.175}
+    - - {x: 0.15, y: 0.9}
+      - {x: -0.15, y: 0.9}
+      - {x: -0.65, y: 0.075}
+      - {x: -0.65, y: -0.67}
+      - {x: 0.65, y: -0.67}
+      - {x: 0.65, y: 0.075}
 --- !u!50 &2843661434754992466
 Rigidbody2D:
   serializedVersion: 4
@@ -314,7 +312,7 @@ Transform:
   m_GameObject: {fileID: 4546139524227581183}
   m_LocalRotation: {x: -0, y: -0, z: 0.0000004768371, w: -1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5055710339442987545}
