@@ -5,11 +5,11 @@ namespace Saves.Coins
     [Serializable]
     public sealed class CoinsSettingsSave
     {
-        public int CoinsCount = 1000;
+        public int CoinsCount = 0;
 
         public CoinsSettingsSave()
         {
-            CoinsCount = 1000;
+            CoinsCount = 0;
         }
         
         public CoinsSettingsSave(CoinsSettings settings)

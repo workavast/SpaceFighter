@@ -8,12 +8,10 @@ namespace Controllers
     {
         [SerializeField] private AudioManager audioManager;
         private bool _pause = false;
-        
+     
+#if UNITY_EDITOR   
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.D))
-                DeletePlayerPrefsSave();
-            
             if (Input.GetKeyDown(KeyCode.M))
                 PlayerGlobalData.Instance.CoinsSettings.ChangeCoinsCount(1000);
 
@@ -23,9 +21,6 @@ namespace Controllers
                 audioManager.ChangeAudioState(_pause);
             }
         }
-
-        [ContextMenu(nameof(DeletePlayerPrefsSave))]
-        private void DeletePlayerPrefsSave()
-            => PlayerPrefs.DeleteAll();
+#endif
     }
 }

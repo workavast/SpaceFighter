@@ -9,7 +9,7 @@ namespace Saves.Coins
 
         public CoinsSettings()
         {
-            CoinsCount = 1000;
+            CoinsCount = 0;
         }
         
         public void SetData(CoinsSettingsSave settingsSave)
