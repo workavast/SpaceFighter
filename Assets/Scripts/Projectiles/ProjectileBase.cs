@@ -10,21 +10,21 @@ namespace Projectiles
         [SerializeField] protected float moveSpeed;
         [SerializeField] protected float damage;
         [SerializeField] protected Animator animator;
+        
         public abstract TEnum PoolId { get; }
-    
-        public event Action<TScript> OnLifeTimeEnd;
-        public event Action<TScript> OnDestroyElementEvent;
-    
+        
+        protected bool ExtractedFromPool;
+        protected bool GameCycleActive;
+        
         protected abstract bool DestroyableOnCollision { get; }
         protected abstract bool ReturnInPoolOnExitFromPlayArea { get; }
-    
-        protected event Action OnElementExtractFromPoolEvent;
-        protected event Action OnElementReturnInPoolEvent;
+        
         protected event Action<float> OnHandleUpdate;
         protected event Action OnGameCycleStateEnter;
         protected event Action OnGameCycleStateExit;
-        protected bool ExtractedFromPool;
-        protected bool GameCycleActive;
+
+        public event Action<TScript> ReturnElementEvent;
+        public event Action<TScript> DestroyElementEvent;
 
         public virtual void Init(bool gameCycleActive)
         {
@@ -51,32 +51,21 @@ namespace Projectiles
             OnGameCycleStateExit?.Invoke();
         }
         
-        private void ChangeAnimatorState(bool animatorEnabled) => animator.enabled = animatorEnabled;
-        
-        public void OnExtractFromPool()
-        {
-            ExtractedFromPool = true;
-            gameObject.SetActive(true);
-            OnElementExtractFromPoolEvent?.Invoke();
-        }
+        private void ChangeAnimatorState(bool animatorEnabled) 
+            => animator.enabled = animatorEnabled;
 
-        public void OnReturnInPool()
+        protected void ReturnInPool()
         {
-            ExtractedFromPool = false;
-            OnElementReturnInPoolEvent?.Invoke();
-            gameObject.SetActive(false);
-        }
-
-        public void HandleReturnInPool()
-        {
-            OnLifeTimeEnd?.Invoke((TScript)this);
+            if(ExtractedFromPool)
+                ReturnElementEvent?.Invoke((TScript)this);
         }
 
         public void EnterInPlayArea() { }
 
         public void ExitFromPlayerArea()
         {
-            if(ReturnInPoolOnExitFromPlayArea) HandleReturnInPool();
+            if(ReturnInPoolOnExitFromPlayArea) 
+                ReturnInPool();
         }
     
         protected virtual void Move(float time)
@@ -84,7 +73,8 @@ namespace Projectiles
             transform.Translate(Vector3.up * (moveSpeed * time));
         }
         
-        private void OnDestroy() => OnDestroyElementEvent?.Invoke((TScript)this);
+        private void OnDestroy() 
+            => DestroyElementEvent?.Invoke((TScript)this);
 
         private void OnTriggerEnter2D(Collider2D someCollider)
         {
@@ -96,7 +86,20 @@ namespace Projectiles
         {
             iDamageable.TakeDamage(damage);
 
-            if (DestroyableOnCollision) HandleReturnInPool();
+            if (DestroyableOnCollision)
+                ReturnInPool();
+        }
+        
+        public virtual void OnElementExtractFromPool()
+        {
+            ExtractedFromPool = true;
+            gameObject.SetActive(true);
+        }
+
+        public virtual void OnElementReturnInPool()
+        {
+            ExtractedFromPool = false;
+            gameObject.SetActive(false);
         }
     }
 }

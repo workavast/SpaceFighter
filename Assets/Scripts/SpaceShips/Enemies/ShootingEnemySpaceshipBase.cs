@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Managers;
+using Factories;
 using Projectiles.Enemy;
 using SomeStorages;
 using UnityEngine;
@@ -7,7 +7,7 @@ using Zenject;
 
 namespace SpaceShips.Enemies
 {
-    public abstract class ShootingEnemySpaceshipBase : EnemySpaceshipBase
+    public abstract class ShootingEnemySpaceshipBase : EnemySpaceshipBase, IPlayAreaCollision
     {
         protected abstract EnemyProjectileType ProjectileId { get; }
     
@@ -16,40 +16,45 @@ namespace SpaceShips.Enemies
         [SerializeField] protected SomeStorageFloat fireRate;
         [SerializeField] protected bool canShoot;
 
-        [Inject] protected EnemyProjectilesManager EnemyProjectilesManager;
+        [Inject] protected EnemyProjectilesFactory EnemyProjectilesFactory;
 
-        protected bool CanShoot;
+        private bool _canShoot;
+        private bool _inPlayArea;
 
         protected override void OnAwake()
         {
             base.OnAwake();
-            CanShoot = canShoot;
+            _canShoot = canShoot;
 
-            OnElementExtractFromPool += OnElementExtractFromPoolMethod;
+            OnElementExtractFromPoolEvent += OnElementExtractFromPoolMethod;
             OnHandleUpdate += TryShoot;
         }
-    
-        protected void TryShoot()
+
+        public void EnterInPlayArea()
+            => _inPlayArea = true;
+        
+        public void ExitFromPlayerArea()
+            => _inPlayArea = false;
+        
+        private void TryShoot()
         {
             fireRate.ChangeCurrentValue(Time.deltaTime);
-            if (fireRate.IsFull)
+            if (fireRate.IsFull && _inPlayArea && _canShoot)
             {
                 Shoot();
                 fireRate.SetCurrentValue(0);
             }
         }
-    
-        protected virtual void Shoot()
+
+        private void Shoot()
         {
-            if(!CanShoot) return;
-    
             foreach (var shootPos in shootPositions)
-                EnemyProjectilesManager.TrySpawnProjectile(ProjectileId, shootPos, out EnemyProjectileBase enemyProjectileBase);
+                EnemyProjectilesFactory.Create(ProjectileId, shootPos);
         }
     
         private void OnElementExtractFromPoolMethod()
         {
-            CanShoot = canShoot;
+            _canShoot = canShoot;
             fireRate.SetCurrentValue(0);
         }
     }

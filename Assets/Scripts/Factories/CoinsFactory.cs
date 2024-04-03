@@ -1,5 +1,6 @@
 using System;
 using Configs;
+using PoolSystem;
 using UnityEngine;
 using Zenject;
 
@@ -10,30 +11,32 @@ namespace Factories
         [Inject] private CoinPrefabConfig _prefabConfig;
         [Inject] private DiContainer _diContainer;
 
+        private Pool<Coin> _pool;
+        
         private GameObject CoinPrefab => _prefabConfig.Data;
-    
-        public GameObject Create()
-        {
-            if (CoinPrefab) 
-                return _diContainer.InstantiatePrefab(CoinPrefab);
         
-            throw new Exception("Dictionary don't contain this prefab");
-        }
-    
-        public GameObject Create(Transform parent)
+        public event Action<Coin> OnCreate;
+
+        private void Awake()
         {
-            if (CoinPrefab) 
-                return _diContainer.InstantiatePrefab(CoinPrefab, parent);
-        
-            throw new Exception("Dictionary don't contain this prefab");
+            _pool = new Pool<Coin>(CoinInstantiate);
         }
         
-        public GameObject Create(Vector3 position, Quaternion rotation, Transform parent = null)
+        public Coin Create(Vector3 position)
         {
-            if (CoinPrefab) 
-                return _diContainer.InstantiatePrefab(CoinPrefab, position, rotation, parent);
+            if(!_pool.ExtractElement(out var coin))
+                throw new Exception($"coin wasn't extract from pool");
+
+            coin.transform.position = position;
+            OnCreate?.Invoke(coin);
+            return coin;
+        }
         
-            throw new Exception("Dictionary don't contain this prefab");
+        private Coin CoinInstantiate()
+        {
+            var coin = _diContainer.InstantiatePrefab(CoinPrefab, transform).GetComponent<Coin>();
+            
+            return coin;
         }
     }
 }

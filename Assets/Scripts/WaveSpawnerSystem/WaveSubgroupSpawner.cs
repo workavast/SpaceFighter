@@ -2,6 +2,7 @@
 using Configs.Missions;
 using EventBusEvents;
 using EventBusExtension;
+using Factories;
 using SomeStorages;
 using TimerExtension;
 
@@ -13,16 +14,16 @@ namespace WaveSpawnerSystem
         private readonly SomeStorageFloat _spawnPause;
         private readonly Timer _timer;
         private readonly EnemyGroupConfig _enemyGroupConfig;
-        private readonly EventBus _eventBus;
+        private readonly EnemySpaceshipsFactory _enemySpaceshipsFactory;
 
         public event Action OnEndSpawn;
         private event Action<float> OnHandleUpdate;
         
-        public WaveSubgroupSpawner(EnemyGroupConfig enemyGroupConfig, EventBus eventBus)
+        public WaveSubgroupSpawner(EnemyGroupConfig enemyGroupConfig, EnemySpaceshipsFactory enemySpaceshipsFactory)
         {
             _enemyGroupConfig = enemyGroupConfig;
             _enemiesCounter = new SomeStorageInt(_enemyGroupConfig.EnemySubgroup.Count);
-            _eventBus = eventBus;
+            _enemySpaceshipsFactory = enemySpaceshipsFactory;
             
             _timer = new Timer(_enemyGroupConfig.EnemiesTimePause);
             _timer.OnTimerEnd += PauseEnd;
@@ -49,7 +50,8 @@ namespace WaveSpawnerSystem
         
         private void SpawnEnemy()
         {
-            _eventBus.Invoke(new SpawnEnemy(_enemiesCounter.CurrentValue, _enemyGroupConfig));
+            var enemy = _enemySpaceshipsFactory.Create(_enemyGroupConfig.EnemySubgroup[_enemiesCounter.CurrentValue]);
+            enemy.SetWaveData(_enemyGroupConfig);
             
             _enemiesCounter.ChangeCurrentValue(1);
             if (_enemiesCounter.IsFull)

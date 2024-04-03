@@ -26,21 +26,31 @@ namespace Projectiles.Player
         {
             var singleAudioSource = GetComponent<SingleAudioSource>();
             _ray = new Ray(damage, existTime, singleAudioSource, transform);
-            _ray.OnExistTimerEnd += HandleReturnInPool;
+            _ray.OnExistTimerEnd += ReturnInPool;
             
-            OnElementExtractFromPoolEvent += _ray.ResetTimer;
-            OnElementReturnInPoolEvent += _ray.StopTimer;
-
             OnHandleUpdate += _ray.TimerTick;
             OnHandleUpdate += _ray.DamagePerSecond;
-            
-            OnElementReturnInPoolEvent += _ray.StopSound;
-            OnElementExtractFromPoolEvent += TryPlaySound;
             
             OnGameCycleStateExit += _ray.StopSound;
             OnGameCycleStateEnter += TryPlaySound;
             
             TryPlaySound();
+        }
+
+        public override void OnElementExtractFromPool()
+        {
+            base.OnElementExtractFromPool();
+            
+            _ray.ResetTimer();
+            TryPlaySound();
+        }
+
+        public override void OnElementReturnInPool()
+        {
+            base.OnElementReturnInPool();
+            
+            _ray.StopTimer();
+            _ray.StopSound();
         }
 
         public void SetMount(Transform parentTransform)

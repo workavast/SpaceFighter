@@ -1,4 +1,5 @@
 using System;
+using Configs.Missions;
 using EventBusEvents;
 using EventBusExtension;
 using Managers;
@@ -33,10 +34,11 @@ namespace SpaceShips.Enemies
         public abstract EnemySpaceshipType PoolId { get; }
         public event Action<EnemySpaceshipBase> OnDestroyElementEvent;
 
-        protected event Action OnElementExtractFromPool;
+        protected event Action OnElementExtractFromPoolEvent;
         protected event Action OnHandleUpdate;
     
-        public event Action<EnemySpaceshipBase> OnGone; 
+        public event Action<EnemySpaceshipBase> ReturnElementEvent;
+        public event Action<EnemySpaceshipBase> DestroyElementEvent;
     
         protected override void OnAwake()
         {
@@ -62,6 +64,52 @@ namespace SpaceShips.Enemies
         public override void ChangeAnimatorState(bool animatorEnabled) =>
             _enemyAnimationController.ChangeAnimatorState(animatorEnabled);
 
+        public void OnElementExtractFromPool()
+        {
+            IsDead = false;
+        
+            _distanceTravelled = 0;
+            _moveSpeed = 0;
+            _canMove = true;
+        
+            healthPoints.SetCurrentValue(healthPoints.MaxValue);
+        
+            gameObject.SetActive(true);
+        
+            OnElementExtractFromPoolEvent?.Invoke();
+        }
+
+        public void OnElementReturnInPool()
+        {
+            gameObject.SetActive(false);
+        }
+        
+        public void EndDying()
+            => ReturnElementEvent?.Invoke(this);
+
+        public void SetWaveData(EnemyGroupConfig groupConfig)
+            => SetWaveData(groupConfig.MoveSpeed, groupConfig.Path, groupConfig.PathWayMoveType, groupConfig.RotationType);
+        
+        public void SetWaveData(float newMoveSpeed, PathCreator newPath, EnemyPathWayMoveType newEnemyPathWayMoveType,
+            EnemyRotationType newEnemyRotationType)
+        {
+            _moveSpeed = newMoveSpeed;
+            ChangePathWay(newPath);
+            _moveType = newEnemyPathWayMoveType;
+            _rotationType = newEnemyRotationType;
+
+            _endOfPathInstruction = newEnemyPathWayMoveType switch
+            {
+                EnemyPathWayMoveType.Loop => EndOfPathInstruction.Loop,
+                EnemyPathWayMoveType.OnEndRemove => EndOfPathInstruction.Stop,
+                EnemyPathWayMoveType.OnEndStop => EndOfPathInstruction.Stop,
+                _ => throw new ArgumentOutOfRangeException(nameof(newEnemyPathWayMoveType), newEnemyPathWayMoveType,
+                    null)
+            };
+
+            transform.position = _pathCreator.path.GetPointAtDistance(0, _endOfPathInstruction);
+        }
+        
         private void Move(float time)
         {
             _distanceTravelled += _moveSpeed * time;
@@ -72,7 +120,7 @@ namespace SpaceShips.Enemies
                         _distanceTravelled -= _pathCreator.path.length;
                         break;
                     case EnemyPathWayMoveType.OnEndRemove:
-                        OnGone?.Invoke(this);
+                        ReturnElementEvent?.Invoke(this);
                         return;
                     case EnemyPathWayMoveType.OnEndStop:
                         _distanceTravelled = _pathCreator.path.length;
@@ -111,30 +159,10 @@ namespace SpaceShips.Enemies
                 default: throw new Exception("Undeclared rotationType (enum EnemyRotationType) type");
             }
         }
-    
-        void OnPathUpdate() 
+
+        private void OnPathUpdate() 
         {
             _distanceTravelled = _pathCreator.path.GetClosestDistanceAlongPath(transform.position);
-        }
-    
-        public virtual void OnExtractFromPool()
-        {
-            IsDead = false;
-        
-            _distanceTravelled = 0;
-            _moveSpeed = 0;
-            _canMove = true;
-        
-            healthPoints.SetCurrentValue(healthPoints.MaxValue);
-        
-            gameObject.SetActive(true);
-        
-            OnElementExtractFromPool?.Invoke();
-        }
-
-        public void OnReturnInPool()
-        {
-            gameObject.SetActive(false);
         }
 
         private void StartDying()
@@ -145,8 +173,6 @@ namespace SpaceShips.Enemies
             EventBus.Invoke(new EnemyStartDie(transform.position));
             _enemyAnimationController.SetDyingTrigger();
         }
-    
-        public void EndDying() => OnGone?.Invoke(this);
 
         private void OnDestroy()
         {
@@ -160,26 +186,6 @@ namespace SpaceShips.Enemies
             _pathCreator = newPathWay;
             _distanceTravelled = 0;
             _pathCreator.pathUpdated += OnPathUpdate;
-        }
-    
-        public void SetWaveData(float newMoveSpeed, PathCreator newPath, EnemyPathWayMoveType newEnemyPathWayMoveType,
-            EnemyRotationType newEnemyRotationType)
-        {
-            _moveSpeed = newMoveSpeed;
-            ChangePathWay(newPath);
-            _moveType = newEnemyPathWayMoveType;
-            _rotationType = newEnemyRotationType;
-
-            _endOfPathInstruction = newEnemyPathWayMoveType switch
-            {
-                EnemyPathWayMoveType.Loop => EndOfPathInstruction.Loop,
-                EnemyPathWayMoveType.OnEndRemove => EndOfPathInstruction.Stop,
-                EnemyPathWayMoveType.OnEndStop => EndOfPathInstruction.Stop,
-                _ => throw new ArgumentOutOfRangeException(nameof(newEnemyPathWayMoveType), newEnemyPathWayMoveType,
-                    null)
-            };
-
-            transform.position = _pathCreator.path.GetPointAtDistance(0, _endOfPathInstruction);
         }
     }
 }

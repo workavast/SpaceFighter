@@ -1,5 +1,6 @@
 ﻿using System;
 using EventBusExtension;
+using Factories;
 using GameCycle;
 using SomeStorages;
 using UnityEngine;
@@ -11,33 +12,30 @@ namespace Managers
     public class WavesManager : GameCycleManager
     {
         protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
-
-        private SomeStorageInt _wavesCounter;
-        private WaveSpawner _waveSpawner;
         
         [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
         [Inject] private SelectedMissionData _selectedMissionData;
-        [Inject] private EventBus _eventBus;
+        [Inject] private EnemySpaceshipsFactory _enemySpaceshipsFactory;
         
-        public IReadOnlySomeStorage<int> WavesCounter => _wavesCounter;
-
+        private SomeStorageInt _wavesCounter;
+        private WaveSpawner _waveSpawner;
+        
         public event Action OnWavesEnd;
         
         protected override void OnAwake()
         {
             base.OnAwake();
 
-            _waveSpawner = new WaveSpawner(_eventBus);
+            _waveSpawner = new WaveSpawner(_enemySpaceshipsFactory);
             _wavesCounter = new SomeStorageInt(_selectedMissionData.TakeMissionData().enemyWaves.Count);
             _waveSpawner.OnWaveSpawned += WaveSpawnEnd;
         }
         
         public override void GameCycleUpdate()
-        {
-            _waveSpawner.HandleUpdate(Time.deltaTime);
-        }
+            => _waveSpawner.HandleUpdate(Time.deltaTime);
         
-        public void StartWaves() => TryCallWave();
+        public void StartWaves() 
+            => TryCallWave();
         
         private void TryCallWave()
         {

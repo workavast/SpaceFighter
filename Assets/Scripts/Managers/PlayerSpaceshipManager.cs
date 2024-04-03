@@ -22,11 +22,12 @@ namespace Managers
         [Inject] private DiContainer _diContainer;
         [Inject] private MobileInputDetector _mobileInputDetector;
        
-        private IInput _input;
         private PlayerWeaponBase _weapon;
+        private IInput _input;
 
-        public event Action OnPlayerDie;
         public bool PlayerIsDead { get; private set; }
+        
+        public event Action OnPlayerDie;
         
         protected override void OnAwake()
         {

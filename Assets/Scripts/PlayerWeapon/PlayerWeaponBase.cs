@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Configs;
-using Managers;
+using Factories;
 using Projectiles.Player;
 using Saves;
 using SomeStorages;
@@ -16,7 +16,7 @@ namespace PlayerWeapon
         public abstract PlayerProjectileType ProjectileId { get; }
     
         [Inject] protected PlayerWeaponConfig PlayerWeaponConfig;
-        [Inject] protected PlayerProjectilesManager PlayerProjectilesManager;
+        [Inject] protected PlayerProjectilesFactory PlayerProjectilesFactory;
     
         [SerializeField] protected List<Transform> ShootsPositions;
 
@@ -52,8 +52,10 @@ namespace PlayerWeapon
         protected virtual void Shoot()
         {
             for (int i = 0; i < ShootsPositions.Count; i++)
-                if (PlayerProjectilesManager.TrySpawnProjectile(ProjectileId, ShootsPositions[i], out var playerProjectile))
-                    playerProjectile.SetData(Damage);
+            {
+                var projectile = PlayerProjectilesFactory.Create(ProjectileId, ShootsPositions[i]);
+                projectile.SetData(Damage);
+            }
         }
 
         public void StopShoot()

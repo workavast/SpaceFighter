@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using Configs.Missions;
 using EventBusExtension;
+using Factories;
 using SomeStorages;
 
 namespace WaveSpawnerSystem
 {
     public class WaveSpawner : IHandleUpdate
     {
-        private readonly EventBus _eventBus;
+        private readonly EnemySpaceshipsFactory _enemySpaceshipsFactory;
 
         private SomeStorageInt _spawnedGroupsCount;
         private List<WaveGroupSpawner> _waveGroupsSpawners;
@@ -17,9 +18,9 @@ namespace WaveSpawnerSystem
 
         public event Action OnWaveSpawned;
 
-        public WaveSpawner(EventBus eventBus)
+        public WaveSpawner(EnemySpaceshipsFactory enemySpaceshipsFactory)
         {
-            _eventBus = eventBus;
+            _enemySpaceshipsFactory = enemySpaceshipsFactory;
         }
         
         public void HandleUpdate(float time)
@@ -37,7 +38,7 @@ namespace WaveSpawnerSystem
             _waveGroupsSpawners = new List<WaveGroupSpawner>();
             foreach (var groupConfig in waveConfig.GroupsConfigs)
             {
-                var waveGroupSpawner = new WaveGroupSpawner(groupConfig, _eventBus);
+                var waveGroupSpawner = new WaveGroupSpawner(groupConfig, _enemySpaceshipsFactory);
                 waveGroupSpawner.OnGroupSpawnEnd += GroupSpawnEnd;
                 _waveGroupsSpawners.Add(waveGroupSpawner);
             }

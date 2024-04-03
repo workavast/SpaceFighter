@@ -4,10 +4,11 @@ namespace PoolSystem
 {
     public interface IPoolable<TElement>
     {
-        public event Action<TElement> OnDestroyElementEvent;
+        public event Action<TElement> ReturnElementEvent;
+        public event Action<TElement> DestroyElementEvent;
     
-        public void OnExtractFromPool();
-        public void OnReturnInPool();
+        public void OnElementExtractFromPool();
+        public void OnElementReturnInPool();
     }
 
     public interface IPoolable<TElement, TId> : IPoolable<TElement>
