@@ -46,19 +46,21 @@ namespace Managers
         
         public void OnEvent(EnemyStartDie @event)
         {
-            var random = Random.value;
-            if (random <= coinDropChance)
+            var dropChance = Random.value;
+            if (dropChance <= coinDropChance)
             {
                 var coin = _coinsFactory.Create(@event.Position);
+                coin.SetStarsCountScale(@event.StarsValueScale);
                 coin.OnPickUp += OnCoinPickUp;
                 coin.ReturnElementEvent += OnReturnCoinInPool;
             }
         }
         
-        private void OnCoinPickUp()
+        private void OnCoinPickUp(float starsValueScale)
         {
-            var offset = Random.Range(-starsPerCoinOffset, starsPerCoinOffset);
-            _moneyStarsCounter.ChangeCurrentValue(starsPerCoin + offset);
+            var starsCountOffset = Random.Range(-starsPerCoinOffset, starsPerCoinOffset);
+            int starsCount = (int)(starsValueScale * (starsPerCoin + starsCountOffset));
+            _moneyStarsCounter.ChangeCurrentValue(starsCount);
             _eventBus.Invoke(new CoinPickUp());
         }
 

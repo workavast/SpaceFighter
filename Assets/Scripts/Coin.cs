@@ -1,23 +1,35 @@
 using System;
+using Configs;
 using SpaceShips;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Coin : MonoBehaviour, PoolSystem.IPoolable<Coin>, IPlayAreaCollision, IHandleUpdate
 {
-    [SerializeField] private float moveSpeed;
+    [Inject] private CoinConfig _config;
     
+    private float _moveSpeed;
     private bool _extractedFromPool;
-
-    public event Action OnPickUp;
+    private float _starsCountScale;
+    
+    /// <summary>
+    /// return stars count scale
+    /// </summary>
+    public event Action<float> OnPickUp;
     public event Action<Coin> ReturnElementEvent;
     public event Action<Coin> DestroyElementEvent;
-    
+
+    private void Awake()
+    {
+        _moveSpeed = _config.MoveSpeed;
+    }
+
     public void HandleUpdate(float time) 
         => Move(time);
 
-    private void Move(float time)
-        => transform.Translate(Vector3.down * (moveSpeed * time));
+    public void SetStarsCountScale(float newStarsCountScale)
+        => _starsCountScale = newStarsCountScale;
     
     public void OnElementExtractFromPool()
     {
@@ -36,6 +48,9 @@ public class Coin : MonoBehaviour, PoolSystem.IPoolable<Coin>, IPlayAreaCollisio
     public void ExitFromPlayerArea()
         => ReturnInPool();
     
+    private void Move(float time)
+        => transform.Translate(Vector3.down * (_moveSpeed * time));
+    
     private void ReturnInPool()
     {
         if(_extractedFromPool)
@@ -46,7 +61,7 @@ public class Coin : MonoBehaviour, PoolSystem.IPoolable<Coin>, IPlayAreaCollisio
     {
         if (col.TryGetComponent(out PlayerSpaceship playerSpaceship))
         {
-            OnPickUp?.Invoke();
+            OnPickUp?.Invoke(_starsCountScale);
             ReturnInPool();
         }
     }

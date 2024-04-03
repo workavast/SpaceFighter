@@ -53,6 +53,7 @@ MonoBehaviour:
     currentValue: 8
     minValue: 0
   collisionDamage: 15
+  starsValueScale: 0.8
 --- !u!60 &5713456777883263648
 PolygonCollider2D:
   m_ObjectHideFlags: 0

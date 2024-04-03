@@ -5,11 +5,13 @@ namespace EventBusEvents
 {
     public struct EnemyStartDie : IEvent
     {
-        public Vector3 Position { get; private set; }
+        public readonly Vector3 Position;
+        public readonly float StarsValueScale;
         
-        public EnemyStartDie(Vector3 position)
+        public EnemyStartDie(Vector3 position, float starsValueScale)
         {
             Position = position;
+            StarsValueScale = starsValueScale;
         }
     }
 }

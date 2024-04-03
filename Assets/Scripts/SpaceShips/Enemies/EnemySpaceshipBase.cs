@@ -13,26 +13,23 @@ namespace SpaceShips.Enemies
     {
         [Space]
         [SerializeField] private float collisionDamage = 1;
-
+        [SerializeField] [Range(0, 2)] private float starsValueScale = 1;
+        
         [Inject] protected EventBus EventBus;
         [Inject] private PlayerSpaceshipManager _playerSpaceshipManager;
     
         private bool _canMove;
-    
         private PathCreator _pathCreator;
         private EndOfPathInstruction _endOfPathInstruction;
         private EnemyPathWayMoveType _moveType;
         private EnemyRotationType _rotationType;
-
         private EnemyAnimationController _enemyAnimationController;
-    
         private float _distanceTravelled;
         private float _moveSpeed;
         private Vector3 _prevPosition;
-        public float CollisionDamage => collisionDamage;
-
+        
         public abstract EnemySpaceshipType PoolId { get; }
-        public event Action<EnemySpaceshipBase> OnDestroyElementEvent;
+        public float CollisionDamage => collisionDamage;
 
         protected event Action OnElementExtractFromPoolEvent;
         protected event Action OnHandleUpdate;
@@ -170,13 +167,13 @@ namespace SpaceShips.Enemies
             if (IsDead) return;
 
             IsDead = true;
-            EventBus.Invoke(new EnemyStartDie(transform.position));
+            EventBus.Invoke(new EnemyStartDie(transform.position, starsValueScale));
             _enemyAnimationController.SetDyingTrigger();
         }
 
         private void OnDestroy()
         {
-            OnDestroyElementEvent?.Invoke(this);
+            DestroyElementEvent?.Invoke(this);
         }
     
         private void ChangePathWay(PathCreator newPathWay)

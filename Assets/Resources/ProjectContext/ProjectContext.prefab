@@ -1,95 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1473161600278398095
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1852840109930593717}
-  - component: {fileID: 8912454055834248504}
-  m_Layer: 0
-  m_Name: PlayerWeaponConfigInstaller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1852840109930593717
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1473161600278398095}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8133169780408886010}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8912454055834248504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1473161600278398095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ce6db827f063b04ab889d5bf12996de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerWeaponConfig: {fileID: 11400000, guid: cfac1df866b877745aef91bbe1f2bd4f, type: 2}
---- !u!1 &2386011718623060655
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8554129824906358675}
-  - component: {fileID: 5714306401154576185}
-  m_Layer: 0
-  m_Name: PlayerSpaceshipLevelsConfigInstaller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8554129824906358675
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2386011718623060655}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8133169780408886010}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5714306401154576185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2386011718623060655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91860cef970d2054a8c5f0c80d6db8f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSpaceshipLevelsConfig: {fileID: 11400000, guid: eac3bb0f2743d5b4c87792ba721687e6, type: 2}
 --- !u!1 &3296634557551359509
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,13 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1852840109930593717}
-  - {fileID: 3672876998131799559}
-  - {fileID: 3479648682493207886}
-  - {fileID: 5457456433351719091}
-  - {fileID: 7397293741004708030}
-  - {fileID: 8554129824906358675}
-  - {fileID: 8531239424555799122}
+  - {fileID: 8451956054057808434}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -143,13 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 8912454055834248504}
-  - {fileID: 5808652982235398772}
-  - {fileID: 4153293501806779177}
-  - {fileID: 3632654711809414937}
-  - {fileID: 5381207944491617329}
-  - {fileID: 5714306401154576185}
-  - {fileID: 986822365786091815}
+  - {fileID: 3650088579280054051}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0
@@ -164,7 +62,7 @@ MonoBehaviour:
       _missingHandlerDefaultResponse: 2
       _requireStrictUnsubscribe: 0
       _defaultAsyncTickPriority: 1
---- !u!1 &3412274854195273303
+--- !u!1 &6501924456605712446
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,220 +70,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5457456433351719091}
-  - component: {fileID: 3632654711809414937}
+  - component: {fileID: 8451956054057808434}
+  - component: {fileID: 3650088579280054051}
   m_Layer: 0
-  m_Name: EnemyProjectilesPrefabsInstaller
+  m_Name: ScriptableObjectsInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5457456433351719091
+--- !u!4 &8451956054057808434
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3412274854195273303}
+  m_GameObject: {fileID: 6501924456605712446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8133169780408886010}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3632654711809414937
+--- !u!114 &3650088579280054051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3412274854195273303}
+  m_GameObject: {fileID: 6501924456605712446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1da3a7c5833ded34aab510f341e13ebc, type: 3}
+  m_Script: {fileID: 11500000, guid: e071f79ae932431a9d721f70853a35c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyProjectilesPrefabsConfig: {fileID: 11400000, guid: 233891f3318d5d649b33c8821220c1fc, type: 2}
---- !u!1 &3588509114667593468
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3479648682493207886}
-  - component: {fileID: 4153293501806779177}
-  m_Layer: 0
-  m_Name: EnemySpaceshipsPrefabsConfigInstaller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3479648682493207886
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3588509114667593468}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8133169780408886010}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4153293501806779177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3588509114667593468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5067d2bdfa5ebfc4fb78d380f2cd1282, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemySpaceshipsPrefabsConfig: {fileID: 11400000, guid: 7d0d76e3b9f28314696215653cda8a0e, type: 2}
---- !u!1 &5865878846062524240
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8531239424555799122}
-  - component: {fileID: 986822365786091815}
-  m_Layer: 0
-  m_Name: MissionConfigInstaller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8531239424555799122
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5865878846062524240}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8133169780408886010}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &986822365786091815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5865878846062524240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe0433a42e3ecfa46a17d33605b02bf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  missionsConfig: {fileID: 11400000, guid: 6d50723b623458c46ac75ad9f59d6e04, type: 2}
---- !u!1 &7742637484549090476
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7397293741004708030}
-  - component: {fileID: 5381207944491617329}
-  m_Layer: 0
-  m_Name: CoinPrefabConfigInstaller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7397293741004708030
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7742637484549090476}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8133169780408886010}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5381207944491617329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7742637484549090476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44870c95c7f480543bcba76b3b8dca66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinPrefabConfig: {fileID: 11400000, guid: fe3b24ae89a76b74e80954b8c7accb83, type: 2}
---- !u!1 &8850269411741341637
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3672876998131799559}
-  - component: {fileID: 5808652982235398772}
-  m_Layer: 0
-  m_Name: PlayerProjectilesConfigInstaller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3672876998131799559
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8850269411741341637}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.814723, y: -0.4390577, z: -0.007882357}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8133169780408886010}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5808652982235398772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8850269411741341637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8eeda41a4955e2448925ca591372a61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerProjectilesConfig: {fileID: 11400000, guid: d7968f819ceb58a48aeb817181a1f94c, type: 2}
+  scriptableObjects:
+  - {fileID: 11400000, guid: 6d50723b623458c46ac75ad9f59d6e04, type: 2}
+  - {fileID: 11400000, guid: ce6c884e81ce07448acf7a58c7c2b697, type: 2}
+  - {fileID: 11400000, guid: fe3b24ae89a76b74e80954b8c7accb83, type: 2}
+  - {fileID: 11400000, guid: 233891f3318d5d649b33c8821220c1fc, type: 2}
+  - {fileID: 11400000, guid: 7d0d76e3b9f28314696215653cda8a0e, type: 2}
+  - {fileID: 11400000, guid: d7968f819ceb58a48aeb817181a1f94c, type: 2}
+  - {fileID: 11400000, guid: eac3bb0f2743d5b4c87792ba721687e6, type: 2}
+  - {fileID: 11400000, guid: cfac1df866b877745aef91bbe1f2bd4f, type: 2}
