@@ -14,8 +14,8 @@ namespace Managers
         protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
         
         [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
-        [Inject] private SelectedMissionData _selectedMissionData;
         [Inject] private EnemySpaceshipsFactory _enemySpaceshipsFactory;
+        [Inject] private SelectedMissionData _selectedMissionData;
         
         private SomeStorageInt _wavesCounter;
         private WaveSpawner _waveSpawner;

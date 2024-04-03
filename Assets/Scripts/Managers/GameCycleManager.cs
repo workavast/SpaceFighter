@@ -6,6 +6,7 @@ namespace Managers
     public abstract class GameCycleManager : ManagerBase, IGameCycleUpdate
     {
         [Inject] protected IGameCycleController GameCycleController;
+        
         protected abstract GameCycleState GameCycleState { get; } 
         
         private void Awake() => OnAwake();

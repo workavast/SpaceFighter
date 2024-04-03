@@ -4,20 +4,20 @@ using UnityEngine;
 
 namespace Projectiles
 {
-    public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<TScript, TEnum>, IPlayAreaCollision, IHandleUpdate
+    public abstract class ProjectileBase<TEnum, TScript> : MonoBehaviour, IPoolable<TScript, TEnum>, IPlayAreaCollision
         where TScript : ProjectileBase<TEnum, TScript>
     {
         [SerializeField] protected float moveSpeed;
         [SerializeField] protected float damage;
         [SerializeField] protected Animator animator;
         
-        public abstract TEnum PoolId { get; }
-        
         protected bool ExtractedFromPool;
         protected bool GameCycleActive;
         
-        protected abstract bool DestroyableOnCollision { get; }
+        public abstract TEnum PoolId { get; }
+        
         protected abstract bool ReturnInPoolOnExitFromPlayArea { get; }
+        protected abstract bool DestroyableOnCollision { get; }
         
         protected event Action<float> OnHandleUpdate;
         protected event Action OnGameCycleStateEnter;
@@ -26,7 +26,7 @@ namespace Projectiles
         public event Action<TScript> ReturnElementEvent;
         public event Action<TScript> DestroyElementEvent;
 
-        public virtual void Init(bool gameCycleActive)
+        public void Init(bool gameCycleActive)
         {
             GameCycleActive = gameCycleActive;
         }

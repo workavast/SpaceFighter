@@ -10,12 +10,13 @@ namespace Controllers
 
         private readonly EventBus  _eventBus;
         private readonly MissionController _missionController;
-        private int _missionIndex { get; }
+        private readonly int _missionIndex;
+        
+        private bool KillAllEnemies { get; set; }
 
         public int StarsCount { get; private set; } = 3;
         public bool PlayerTakeDamage { get; private set; } = false;
         public bool MissionSuccess { get; private set; } = false;
-        public bool KillAllEnemies { get; private set; } = false;
         
         public MissionStarsController(EventBus eventBus, MissionController missionController, int missionIndex)
         {

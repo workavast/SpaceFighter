@@ -14,14 +14,13 @@ namespace Projectiles.Player
         protected override bool ReturnInPoolOnExitFromPlayArea => false;
         
         private Ray _ray;
-        
-        public override void Init(bool gameCycleActive)
+
+        private void Awake()
         {
-            base.Init(gameCycleActive);
-
-            OnSetData += InitRay;
+            InitRay();
+            OnSetData += SetRayDamage;
         }
-
+        
         private void InitRay()
         {
             var singleAudioSource = GetComponent<SingleAudioSource>();
@@ -33,15 +32,19 @@ namespace Projectiles.Player
             
             OnGameCycleStateExit += _ray.StopSound;
             OnGameCycleStateEnter += TryPlaySound;
-            
+        }
+        
+        private void SetRayDamage()
+        {
+            _ray.SetDamage(damage);
             TryPlaySound();
         }
-
+        
         public override void OnElementExtractFromPool()
         {
             base.OnElementExtractFromPool();
             
-            _ray.ResetTimer();
+            _ray?.ResetTimer();
             TryPlaySound();
         }
 
@@ -70,7 +73,8 @@ namespace Projectiles.Player
 
         private void TryPlaySound()
         {
-            if(ExtractedFromPool && GameCycleActive) _ray.PlaySound();
+            if(ExtractedFromPool && GameCycleActive) 
+                _ray?.PlaySound();
         }
     }
 }

@@ -94,10 +94,14 @@ namespace Controllers
 
         protected override void OnDispose()
         {
-            if(_uiController != null) _uiController.OnScreenSwitch -= OnScreenSwitch;
-            if (_playerSpaceshipManager != null) _playerSpaceshipManager.OnPlayerDie -= OnPlayerDie;
-            if (_wavesManager != null) _wavesManager.OnWavesEnd -= OnWavesEnd; 
-            if (_enemySpaceshipsManager != null) _enemySpaceshipsManager.OnAllEnemiesGone -= OnMissionCompleted;
+            if(_uiController != null) 
+                _uiController.OnScreenSwitch -= OnScreenSwitch;
+            if (_playerSpaceshipManager != null) 
+                _playerSpaceshipManager.OnPlayerDie -= OnPlayerDie;
+            if (_wavesManager != null) 
+                _wavesManager.OnWavesEnd -= OnWavesEnd; 
+            if (_enemySpaceshipsManager != null) 
+                _enemySpaceshipsManager.OnAllEnemiesGone -= OnMissionCompleted;
         }
     }
 }

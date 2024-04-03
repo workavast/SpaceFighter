@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Configs;
 using Factories;
+using GameCycle;
 using Projectiles.Player;
 using Saves;
 using SomeStorages;
@@ -12,19 +13,19 @@ namespace PlayerWeapon
 {
     public abstract class PlayerWeaponBase : MonoBehaviour
     {
-        public abstract PlayerWeaponType PlayerWeaponId { get; }
-        public abstract PlayerProjectileType ProjectileId { get; }
-    
-        [Inject] protected PlayerWeaponConfig PlayerWeaponConfig;
-        [Inject] protected PlayerProjectilesFactory PlayerProjectilesFactory;
-    
         [SerializeField] protected List<Transform> ShootsPositions;
 
-        protected float Damage;
+        [Inject] protected readonly PlayerWeaponConfig PlayerWeaponConfig;
+        [Inject] protected readonly PlayerProjectilesFactory PlayerProjectilesFactory;
+        
         protected SomeStorageFloat FireRate;
         protected int ShootsCountScale;
         protected bool CanShoot = true;
+        protected float Damage;
 
+        public abstract PlayerWeaponType PlayerWeaponId { get; }
+        public abstract PlayerProjectileType ProjectileId { get; }
+        
         public void Initialization()
         {
             if (!PlayerWeaponConfig.WeaponsLevelsData.ContainsKey(PlayerWeaponId)) throw new Exception("Undefined WeaponsEnum WeaponsId");

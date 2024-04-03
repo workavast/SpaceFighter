@@ -4,8 +4,6 @@ namespace Projectiles.Enemy
     {
         BigBullet,
         Bullet,
-        Ray,
-        Torpedo,
         Wave
     }
 }

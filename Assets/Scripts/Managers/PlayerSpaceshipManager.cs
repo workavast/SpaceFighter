@@ -17,10 +17,10 @@ namespace Managers
         
         [field: SerializeField] public PlayerSpaceship PlayerSpaceship { get; private set; }
         
-        [Inject] private PlayerWeaponConfig _playerWeaponConfig;
         [Inject] private PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
-        [Inject] private DiContainer _diContainer;
         [Inject] private MobileInputDetector _mobileInputDetector;
+        [Inject] private PlayerWeaponConfig _playerWeaponConfig;
+        [Inject] private DiContainer _diContainer;
        
         private PlayerWeaponBase _weapon;
         private IInput _input;
@@ -60,9 +60,11 @@ namespace Managers
             _weapon.HandleUpdate();
         }
         
-        public void GameCycleEnter() => PlayerSpaceship.ChangeAnimatorState(true);
+        public void GameCycleEnter() 
+            => PlayerSpaceship.ChangeAnimatorState(true);
 
-        public void GameCycleExit() => PlayerSpaceship.ChangeAnimatorState(false);
+        public void GameCycleExit() 
+            => PlayerSpaceship.ChangeAnimatorState(false);
         
         private void SpawnWeapon()
         {

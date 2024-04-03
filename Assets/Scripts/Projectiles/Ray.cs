@@ -8,12 +8,12 @@ namespace Projectiles
 {
     public class Ray
     {
-        private readonly float _damage;
-        private readonly List<IDamageable> _damageables = new();
-        private readonly Timer _existTimer;
         private readonly SingleAudioSource _singleAudioSource;
+        private readonly List<IDamageable> _damageables = new();
         private readonly Transform _transform;
+        private readonly Timer _existTimer;
         
+        private float _damage;
         private Transform _parent;
 
         public event Action OnExistTimerEnd;
@@ -31,11 +31,16 @@ namespace Projectiles
             ResetTimer();
         }
 
-        private void ExistTimerEnd() => OnExistTimerEnd?.Invoke();
+        public void SetDamage(float damage)
+        {
+            _damage = damage;
+        }
         
-        public void SetMount(Transform parentTransform) => _parent = parentTransform;
+        public void SetMount(Transform parentTransform) 
+            => _parent = parentTransform;
         
-        public void TimerTick(float time) => _existTimer.Tick(time);
+        public void TimerTick(float time) 
+            => _existTimer.Tick(time);
     
         public void ResetTimer()
         {
@@ -43,7 +48,8 @@ namespace Projectiles
             _existTimer.Continue();
         }
 
-        public void StopTimer() => _existTimer.Stop();
+        public void StopTimer() 
+            => _existTimer.Stop();
     
         public void Move()
         {
@@ -69,5 +75,8 @@ namespace Projectiles
             => _singleAudioSource.Play();
         public void StopSound() 
             => _singleAudioSource.Stop();
+        
+        private void ExistTimerEnd() 
+            => OnExistTimerEnd?.Invoke();
     }
 }

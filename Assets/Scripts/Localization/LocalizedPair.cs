@@ -9,6 +9,7 @@ namespace Localization
     public class LocalizedPair : Disposable
     {
         [SerializeField] protected LocalizedString localizedString;
+        
         public string Str { get; protected set; }
 
         public event Action<string> OnStringChange; 

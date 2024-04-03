@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Factories;
 using Projectiles.Player;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace Managers
         private readonly PlayerProjectilesFactory _factory;
 
         public IReadOnlyList<PlayerProjectileBase> Projectiles => _projectiles;
+
+        public event Action<PlayerProjectileBase> OnAdd;
+        public event Action<PlayerProjectileBase> OnRemove;
         
         public PlayerProjectilesRepository(PlayerProjectilesFactory factory)
         {
@@ -28,6 +32,7 @@ namespace Managers
             
             _projectiles.Add(newProjectile);
             newProjectile.ReturnElementEvent += Remove;
+            OnAdd?.Invoke(newProjectile);
         }
 
         private void Remove(PlayerProjectileBase projectile)
@@ -35,7 +40,10 @@ namespace Managers
             if (!_projectiles.Remove(projectile))
                 Debug.LogWarning($"Repository dont contain {projectile.PoolId}");
             else
+            {
                 projectile.ReturnElementEvent -= Remove;
+                OnRemove?.Invoke(projectile);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using Factories;
 using GameCycle;
+using Projectiles.Player;
 using UnityEngine;
 using Zenject;
 
@@ -20,6 +21,8 @@ namespace Managers
 
             _playerProjectilesRepository = new PlayerProjectilesRepository(_playerProjectilesFactory);
             _playerProjectilesUpdater = new PlayerProjectilesUpdater(_playerProjectilesRepository);
+
+            _playerProjectilesRepository.OnAdd += InitProjectile;
             
             GameCycleController.AddListener(GameCycleState, this as IGameCycleEnter);
             GameCycleController.AddListener(GameCycleState, this as IGameCycleExit);
@@ -33,6 +36,9 @@ namespace Managers
 
         public void GameCycleExit()
             => _playerProjectilesUpdater.GameCycleExit();
+
+        private void InitProjectile(PlayerProjectileBase projectile)
+            => projectile.Init(GameCycleController.CurrentState == GameCycleState);
         
         protected override void OnDestroyVirtual()
         {
