@@ -8,18 +8,18 @@ namespace Controllers
 {
     public class MissionController : ControllerBase
     {
-        [Inject] private IGameCycleSwitcher _gameCycleSwitcher;
-        [Inject] private UI_Controller _uiController;
-        [Inject] private PlayerSpaceshipManager _playerSpaceshipManager;
-        [Inject] private WavesManager _wavesManager;
-        [Inject] private SelectedMissionData _selectedMissionData;
-        [Inject] private EventBus _eventBus;
-        [Inject] private CoinsManager _coinsManager;
-        [Inject] private EnemySpaceshipsManager _enemySpaceshipsManager;
+        [Inject] private readonly IGameCycleSwitcher _gameCycleSwitcher;
+        [Inject] private readonly PlayerSpaceshipManager _playerSpaceshipManager;
+        [Inject] private readonly EnemySpaceshipsManager _enemySpaceshipsManager;
+        [Inject] private readonly SelectedMissionData _selectedMissionData;
+        [Inject] private readonly UI_Controller _uiController;
+        [Inject] private readonly WavesManager _wavesManager;
+        [Inject] private readonly CoinsManager _coinsManager;
+        [Inject] private readonly EventBus _eventBus;
+        
+        private MissionGameCycleController _missionGameCycleController;
         
         public KillsCounter KillsCounter { get; private set; }
-
-        private MissionGameCycleController _missionGameCycleController;
         public MissionStarsController StarsController { get; private set; }
         
         private void Awake()

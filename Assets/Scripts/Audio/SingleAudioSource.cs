@@ -2,8 +2,8 @@
 {
     public class SingleAudioSource : PauseableAudioSource
     {
-        public void Play() => _audioSource.Play();
+        public void Play() => AudioSource.Play();
 
-        public void Stop() => _audioSource.Stop();
+        public void Stop() => AudioSource.Stop();
     }
 }

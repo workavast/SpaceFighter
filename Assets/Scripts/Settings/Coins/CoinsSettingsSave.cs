@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Saves.Coins
+namespace Settings.Coins
 {
     [Serializable]
     public sealed class CoinsSettingsSave

@@ -1,5 +1,5 @@
 ﻿using Audio;
-using Saves;
+using Settings;
 using UnityEngine;
 using UnityEngine.Audio;
 

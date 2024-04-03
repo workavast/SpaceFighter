@@ -1,5 +1,5 @@
 ﻿
-using Saves;
+using Settings;
 
 namespace YG
 {

@@ -4,11 +4,11 @@ namespace Initializers
 {
     public abstract class InitializerBase
     {
+        private readonly InitializerBase[] _initializers;
+        private int _inits;
+
         protected readonly Action OnParentInit;
         public event Action OnInit;
-
-        private int _inits;
-        private readonly InitializerBase[] _initializers;
         
         protected InitializerBase(InitializerBase[] initializers = null)
         {

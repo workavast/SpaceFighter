@@ -7,7 +7,6 @@ namespace UI_System.Elements
     public class MissionCompletedBar : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI textFill;
-        
         [SerializeField] private LocalizedPair missionCompleted;
         [SerializeField] private LocalizedPair missionLoose;
 
@@ -21,8 +20,10 @@ namespace UI_System.Elements
             _currentPair = missionCompleted;
         }
         
-        public void SetMissionCompletedText() => UpdateText(missionCompleted);
-        public void SetMissionLooseText() => UpdateText(missionLoose);
+        public void SetMissionCompletedText() 
+            => UpdateText(missionCompleted);
+        public void SetMissionLooseText() 
+            => UpdateText(missionLoose);
         
         private void UpdateText(LocalizedPair newLocalizedPair)
         {
@@ -33,7 +34,8 @@ namespace UI_System.Elements
             UpdateText(newLocalizedPair.Str);
         }
         
-        private void UpdateText(string newStr) => textFill.text = newStr;
+        private void UpdateText(string newStr) 
+            => textFill.text = newStr;
         
         private void OnDestroy()
         {

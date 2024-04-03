@@ -8,6 +8,7 @@ namespace Configs
     public class EnemyProjectilesPrefabsConfig : ScriptableObject
     {
         [SerializeField] private DictionaryInspector<EnemyProjectileType, GameObject> data;
+        
         public IReadOnlyDictionary<EnemyProjectileType, GameObject> Data => data;
     }
 }

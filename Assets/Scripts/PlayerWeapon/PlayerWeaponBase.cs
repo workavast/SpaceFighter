@@ -4,7 +4,7 @@ using Configs;
 using Factories;
 using GameCycle;
 using Projectiles.Player;
-using Saves;
+using Settings;
 using SomeStorages;
 using UnityEngine;
 using Zenject;
@@ -19,7 +19,6 @@ namespace PlayerWeapon
         [Inject] protected readonly PlayerProjectilesFactory PlayerProjectilesFactory;
         
         protected SomeStorageFloat FireRate;
-        protected int ShootsCountScale;
         protected bool CanShoot = true;
         protected float Damage;
 
@@ -36,7 +35,6 @@ namespace PlayerWeapon
 
             Damage = weaponLevel.WeaponDamage;
             FireRate = new SomeStorageFloat(weaponLevel.FireRate);
-            ShootsCountScale = weaponLevel.ShootsCountScale;
         }
 
         public void HandleUpdate()

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Saves.Spaceship
+namespace Settings.Spaceship
 {
     public class SpaceshipSettings : ISettings
     {

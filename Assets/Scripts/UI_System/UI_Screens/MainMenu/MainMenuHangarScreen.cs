@@ -1,6 +1,6 @@
 using Configs;
 using PlayerWeapon;
-using Saves;
+using Settings;
 using TMPro;
 using UI_System.Elements;
 using UnityEngine;
@@ -31,8 +31,8 @@ namespace UI_System.UI_Screens.MainMenu
         [SerializeField] private EquipButton equipButton;
         [SerializeField] private LevelUpButton levelUpButton;
 
-        [Inject] private PlayerWeaponConfig _playerWeaponConfig;
-        [Inject] private PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
+        [Inject] private readonly PlayerWeaponConfig _playerWeaponConfig;
+        [Inject] private readonly PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
     
         private HangarSelectItemType _currentHangarSelectItem;
 

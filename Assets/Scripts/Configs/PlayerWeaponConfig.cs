@@ -9,13 +9,6 @@ namespace Configs
     [CreateAssetMenu(fileName = "PlayerWeaponsConfig", menuName = "SO/PlayerWeaponsConfig")]
     public class PlayerWeaponConfig : ScriptableObject
     {
-        [Serializable]
-        private struct WeaponDataCell
-        {
-            [field: SerializeField] public GameObject WeaponPrefab { get; private set; }
-            [field: SerializeField] public List<WeaponLevel> WeaponLevels { get; private set; }
-        }
-
         [SerializeField] private DictionaryInspector<PlayerWeaponType, WeaponDataCell> playerWeaponsData;
     
         public IReadOnlyDictionary<PlayerWeaponType, GameObject> WeaponsPrefabsData =>
@@ -24,5 +17,12 @@ namespace Configs
             playerWeaponsData.ToDictionary(x => x.Key, x => x.Value.WeaponLevels);
         public IReadOnlyDictionary<PlayerWeaponType, List<int>> WeaponPricesData =>
             playerWeaponsData.ToDictionary(x => x.Key, x => x.Value.WeaponLevels.Select(y => y.Price).ToList());
+        
+        [Serializable]
+        private struct WeaponDataCell
+        {
+            [field: SerializeField] public GameObject WeaponPrefab { get; private set; }
+            [field: SerializeField] public List<WeaponLevel> WeaponLevels { get; private set; }
+        }
     }
 }

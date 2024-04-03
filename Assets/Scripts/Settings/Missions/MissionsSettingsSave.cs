@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Saves.Missions
+namespace Settings.Missions
 {
     [Serializable]
     public sealed class MissionsSettingsSave

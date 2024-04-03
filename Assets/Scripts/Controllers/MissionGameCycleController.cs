@@ -8,12 +8,12 @@ namespace Controllers
     public class MissionGameCycleController : Disposable
     {
         private readonly IGameCycleSwitcher _gameCycleSwitcher;
-        private readonly UI_Controller _uiController;
+        private readonly EnemySpaceshipsManager _enemySpaceshipsManager;
         private readonly PlayerSpaceshipManager _playerSpaceshipManager;
+        private readonly MissionStarsController _missionStarsController;
+        private readonly UI_Controller _uiController;
         private readonly WavesManager _wavesManager;
         private readonly CoinsManager _coinsManager;
-        private readonly EnemySpaceshipsManager _enemySpaceshipsManager;
-        private readonly MissionStarsController _missionStarsController;
         
         public MissionGameCycleController(IGameCycleSwitcher gameCycleSwitcher, UI_Controller uiController,
             PlayerSpaceshipManager playerSpaceshipManager, WavesManager wavesManager,

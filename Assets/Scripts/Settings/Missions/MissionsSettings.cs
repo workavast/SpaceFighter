@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Saves.Missions
+namespace Settings.Missions
 {
     public sealed class MissionsSettings : ISettings
     {
         private List<int> _missionsStarsData;
+        
         public IReadOnlyList<int> MissionsStarsData => _missionsStarsData;
+        
         public event Action OnChange;
         
         public MissionsSettings(int missionsCount = 21)

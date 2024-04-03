@@ -8,7 +8,8 @@ namespace Initializers
         public YandexSdkInitializer(InitializerBase[] initializers = null) 
             : base(initializers) { }
 
-        public override void Init() => WaitLoad();
+        public override void Init() 
+            => WaitLoad();
 
         private void WaitLoad()
         {

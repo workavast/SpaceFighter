@@ -6,6 +6,7 @@ namespace Configs
     public class CoinPrefabConfig : ScriptableObject
     {
         [SerializeField] private GameObject data;
+   
         public GameObject Data => data;
     }
 }

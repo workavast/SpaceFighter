@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Configs;
 using EventBusEvents;
 using EventBusExtension;
-using Saves;
+using Settings;
 using SomeStorages;
 using SpaceShips.Enemies;
 using UnityEngine;
@@ -21,13 +21,13 @@ namespace SpaceShips
         [SerializeField] protected float moveSpeed;
         [SerializeField] private Animator[] stoppableAnimators;
     
-        [Inject] private PlayArea _playArea;
-        [Inject] private EventBus _eventBus;
+        [Inject] private readonly PlayArea _playArea;
+        [Inject] private readonly EventBus _eventBus;
 
         public Transform WeaponPosition => weaponPosition;
     
-        private Transform _playAreaLeftDownPivot;
         private SomeStorageInt _currentDamageSprite;
+        private Transform _playAreaLeftDownPivot;
     
         public void Initialization(PlayerSpaceshipLevelsConfig playerSpaceshipLevelsConfig)
         {

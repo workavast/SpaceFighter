@@ -11,8 +11,8 @@ namespace Factories
 {
     public class EnemySpaceshipsFactory : FactoryBase
     {
-        [Inject] private EnemySpaceshipsPrefabsConfig _enemySpaceshipsPrefabsConfig;
-        [Inject] private DiContainer _diContainer;
+        [Inject] private readonly EnemySpaceshipsPrefabsConfig _enemySpaceshipsPrefabsConfig;
+        [Inject] private readonly DiContainer _diContainer;
         
         private readonly Dictionary<EnemySpaceshipType, GameObject> _parents = new();
         private Pool<EnemySpaceshipBase, EnemySpaceshipType> _pool;

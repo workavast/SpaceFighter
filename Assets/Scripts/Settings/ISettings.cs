@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Saves
+namespace Settings
 {
     public interface ISettings
     {

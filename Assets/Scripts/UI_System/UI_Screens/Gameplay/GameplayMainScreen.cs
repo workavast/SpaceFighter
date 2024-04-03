@@ -1,7 +1,7 @@
 using Controllers;
 using Initializers;
 using Managers;
-using Saves;
+using Settings;
 using TMPro;
 using UI_System.Elements;
 using UnityEngine;
@@ -13,11 +13,10 @@ namespace UI_System.UI_Screens.Gameplay
     {
         [SerializeField] private TextMeshProUGUI coinsCounter;
         [SerializeField] private UI_Counter killsCounter;
-
         [SerializeField] private GameObject mainMenu;
         
-        [Inject] private MissionController _missionController;
-        [Inject] private CoinsManager _coinsManager;
+        [Inject] private readonly MissionController _missionController;
+        [Inject] private readonly CoinsManager _coinsManager;
 
         private void Awake()
         {

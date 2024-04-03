@@ -1,15 +1,15 @@
 using System;
 using Initializers;
-using Saves.Coins;
-using Saves.Localization;
-using Saves.Missions;
-using Saves.Spaceship;
-using Saves.Volume;
-using Saves.Weapons;
+using Settings.Coins;
+using Settings.Localization;
+using Settings.Missions;
+using Settings.Spaceship;
+using Settings.Volume;
+using Settings.Weapons;
 using UnityEngine;
 using YG;
 
-namespace Saves
+namespace Settings
 {
     public class PlayerGlobalData
     {

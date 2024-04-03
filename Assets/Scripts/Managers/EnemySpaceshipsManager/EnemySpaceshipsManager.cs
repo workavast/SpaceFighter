@@ -11,7 +11,7 @@ namespace Managers
 {
     public class EnemySpaceshipsManager : GameCycleManager, IGameCycleEnter, IGameCycleExit
     {
-        [Inject] private EnemySpaceshipsFactory _enemySpaceshipsFactory;
+        [Inject] private readonly EnemySpaceshipsFactory _enemySpaceshipsFactory;
         
         public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
         public int ActiveEnemiesCount => _enemySpaceshipsRepository.Enemies.Count;

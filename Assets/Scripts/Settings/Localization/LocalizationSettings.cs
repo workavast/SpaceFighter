@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace Saves.Localization
+namespace Settings.Localization
 {
     public class LocalizationSettings : ISettings
     {
         public int LocalizationId { get; private set; }
+        
         public event Action OnChange;
 
         public LocalizationSettings()

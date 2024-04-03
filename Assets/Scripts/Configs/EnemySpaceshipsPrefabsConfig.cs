@@ -8,6 +8,7 @@ namespace Configs
     public class EnemySpaceshipsPrefabsConfig : ScriptableObject
     {
         [SerializeField] private DictionaryInspector<EnemySpaceshipType, GameObject> data;
+       
         public IReadOnlyDictionary<EnemySpaceshipType, GameObject> Data => data;
     }
 }

@@ -1,17 +1,16 @@
 ﻿using System;
 using Configs.Missions;
-using EventBusExtension;
 using Factories;
 using SomeStorages;
 using TimerExtension;
 
 namespace WaveSpawnerSystem
 {
-    public class WaveGroupSpawner : IHandleUpdate
+    public class WaveGroupSpawner
     {
+        private readonly WaveSubgroupSpawner _waveSubgroupSpawner;
         private readonly EnemyGroupConfig _enemyGroupConfig;
         private readonly SomeStorageInt _subgroupsCounter;
-        private readonly WaveSubgroupSpawner _waveSubgroupSpawner;
         private readonly Timer _timer;
 
         public event Action OnGroupSpawnEnd;
@@ -31,7 +30,8 @@ namespace WaveSpawnerSystem
             OnHandleUpdate += _timer.Tick;
         }
 
-        public void HandleUpdate(float time) => OnHandleUpdate?.Invoke(time);
+        public void HandleUpdate(float time) 
+            => OnHandleUpdate?.Invoke(time);
         
         private void StartPauseEnd()
         {

@@ -8,7 +8,7 @@ namespace UI_System.UI_Screens.MainMenu
     {
         [SerializeField] private MissionSelectionButton[] missionButtons;
         
-        [Inject] private SelectedMissionData _selectedMissionData;
+        [Inject] private readonly SelectedMissionData _selectedMissionData;
 
         private void Awake()
         {

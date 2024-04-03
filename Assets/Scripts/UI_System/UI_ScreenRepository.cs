@@ -13,6 +13,7 @@ namespace UI_System
         private Dictionary<Type, UI_ScreenBase> _screens;
 
         private static UI_ScreenRepository _instance;
+        
         public static IReadOnlyList<UI_ScreenBase> Screens => _instance._screens.Values.ToArray();
 
         private void Awake()

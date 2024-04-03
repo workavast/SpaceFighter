@@ -5,7 +5,7 @@ namespace UI_System.UI_Screens
 {
     public abstract class UI_ScreenBase : MonoBehaviour
     {
-        [Inject] protected UI_Controller UIController;
+        [Inject] protected readonly UI_Controller UIController;
     
         public virtual void _SetScreen(int screen)
         {

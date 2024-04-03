@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Configs.Missions;
-using EventBusExtension;
 using Factories;
 using SomeStorages;
 
 namespace WaveSpawnerSystem
 {
-    public class WaveSpawner : IHandleUpdate
+    public class WaveSpawner
     {
         private readonly EnemySpaceshipsFactory _enemySpaceshipsFactory;
-
-        private SomeStorageInt _spawnedGroupsCount;
         private List<WaveGroupSpawner> _waveGroupsSpawners;
-        
+        private SomeStorageInt _spawnedGroupsCount;
         private bool _invokeWave;
 
         public event Action OnWaveSpawned;

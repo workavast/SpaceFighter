@@ -2,9 +2,8 @@
 using Configs;
 using Control;
 using GameCycle;
-using Initializers;
 using PlayerWeapon;
-using Saves;
+using Settings;
 using SpaceShips;
 using UnityEngine;
 using Zenject;
@@ -17,10 +16,10 @@ namespace Managers
         
         [field: SerializeField] public PlayerSpaceship PlayerSpaceship { get; private set; }
         
-        [Inject] private PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
-        [Inject] private MobileInputDetector _mobileInputDetector;
-        [Inject] private PlayerWeaponConfig _playerWeaponConfig;
-        [Inject] private DiContainer _diContainer;
+        [Inject] private readonly PlayerSpaceshipLevelsConfig _playerSpaceshipLevelsConfig;
+        [Inject] private readonly MobileInputDetector _mobileInputDetector;
+        [Inject] private readonly PlayerWeaponConfig _playerWeaponConfig;
+        [Inject] private readonly DiContainer _diContainer;
        
         private PlayerWeaponBase _weapon;
         private IInput _input;

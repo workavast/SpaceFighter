@@ -5,13 +5,13 @@ namespace Audio
     [RequireComponent(typeof(AudioSource))]
     public class PauseableAudioSource : MonoBehaviour
     {
-        protected AudioSource _audioSource;
+        protected AudioSource AudioSource;
 
         protected bool IsGlobalPaused;
         
         private void Awake()
         {
-            _audioSource = GetComponent<AudioSource>();
+            AudioSource = GetComponent<AudioSource>();
             OnAwake();
         }
 
@@ -25,8 +25,8 @@ namespace Audio
 
         protected virtual void ChangeAudioState()
         {
-            if(IsGlobalPaused) _audioSource.Pause();
-            else _audioSource.UnPause();
+            if(IsGlobalPaused) AudioSource.Pause();
+            else AudioSource.UnPause();
         }
     }
 }

@@ -6,7 +6,7 @@ public class SelectedMissionData : MonoBehaviour
 {
     [SerializeField] [Range(0, 20)] private int defaultMissionIndex;
     
-    [Inject] private MissionsConfig _missionsConfig;
+    [Inject] private readonly MissionsConfig _missionsConfig;
 
     private static MissionConfig _missionConfig;
     private static int _missionIndex;

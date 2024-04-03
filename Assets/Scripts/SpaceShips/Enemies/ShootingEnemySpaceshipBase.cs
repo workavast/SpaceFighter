@@ -16,10 +16,10 @@ namespace SpaceShips.Enemies
         [SerializeField] protected SomeStorageFloat fireRate;
         [SerializeField] protected bool canShoot;
 
-        [Inject] protected EnemyProjectilesFactory EnemyProjectilesFactory;
+        [Inject] protected readonly EnemyProjectilesFactory EnemyProjectilesFactory;
 
-        private bool _canShoot;
         private bool _inPlayArea;
+        private bool _canShoot;
 
         protected override void OnAwake()
         {

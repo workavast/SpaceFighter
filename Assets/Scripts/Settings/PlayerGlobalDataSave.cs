@@ -1,12 +1,12 @@
 ﻿using System;
-using Saves.Coins;
-using Saves.Localization;
-using Saves.Missions;
-using Saves.Spaceship;
-using Saves.Volume;
-using Saves.Weapons;
+using Settings.Coins;
+using Settings.Localization;
+using Settings.Missions;
+using Settings.Spaceship;
+using Settings.Volume;
+using Settings.Weapons;
 
-namespace Saves
+namespace Settings
 {
     [Serializable]
     public class PlayerGlobalDataSave

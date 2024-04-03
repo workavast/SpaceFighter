@@ -1,20 +1,18 @@
 ﻿using System;
 using Configs.Missions;
-using EventBusEvents;
-using EventBusExtension;
 using Factories;
 using SomeStorages;
 using TimerExtension;
 
 namespace WaveSpawnerSystem
 {
-    public class WaveSubgroupSpawner : IHandleUpdate
+    public class WaveSubgroupSpawner
     {
+        private readonly EnemySpaceshipsFactory _enemySpaceshipsFactory;
+        private readonly EnemyGroupConfig _enemyGroupConfig;
         private readonly SomeStorageInt _enemiesCounter;
         private readonly SomeStorageFloat _spawnPause;
         private readonly Timer _timer;
-        private readonly EnemyGroupConfig _enemyGroupConfig;
-        private readonly EnemySpaceshipsFactory _enemySpaceshipsFactory;
 
         public event Action OnEndSpawn;
         private event Action<float> OnHandleUpdate;

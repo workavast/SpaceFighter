@@ -1,8 +1,5 @@
-﻿namespace Initializers
+﻿public enum PlatformType
 {
-    public enum PlatformType
-    {
-        Mobile = 0,
-        Desktop = 10
-    }
+    Mobile = 0,
+    Desktop = 10
 }

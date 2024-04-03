@@ -1,6 +1,6 @@
 using EventBusEvents;
 using EventBusExtension;
-using Saves;
+using Settings;
 
 namespace Controllers
 {
@@ -8,15 +8,15 @@ namespace Controllers
     {
         public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
 
-        private readonly EventBus  _eventBus;
         private readonly MissionController _missionController;
+        private readonly EventBus  _eventBus;
         private readonly int _missionIndex;
         
-        private bool KillAllEnemies { get; set; }
-
-        public int StarsCount { get; private set; } = 3;
         public bool PlayerTakeDamage { get; private set; } = false;
         public bool MissionSuccess { get; private set; } = false;
+        public int StarsCount { get; private set; } = 3;
+        
+        private bool KillAllEnemies { get; set; }
         
         public MissionStarsController(EventBus eventBus, MissionController missionController, int missionIndex)
         {

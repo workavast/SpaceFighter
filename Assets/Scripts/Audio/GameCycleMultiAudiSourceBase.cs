@@ -7,9 +7,10 @@ namespace Audio
     public abstract class GameCycleMultiAudiSourceBase<T> : MultiAudioSourceBase<T>, IGameCycleEnter, IGameCycleExit
         where T: struct, IEvent
     {
-        [Inject] private IGameCycleController _gameCycleController;
+        [Inject] private readonly IGameCycleController _gameCycleController;
 
         protected abstract GameCycleState GameCycleState { get; }
+        
         private bool _gameCycleIsActive;
 
         protected override void OnAwake()
@@ -42,8 +43,8 @@ namespace Audio
         
         protected override void ChangeAudioState()
         {
-            if (IsGlobalPaused || !_gameCycleIsActive) _audioSource.Pause();
-            else _audioSource.UnPause();
+            if (IsGlobalPaused || !_gameCycleIsActive) AudioSource.Pause();
+            else AudioSource.UnPause();
         }
     }
 }

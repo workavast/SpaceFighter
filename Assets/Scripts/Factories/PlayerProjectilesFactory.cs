@@ -11,8 +11,8 @@ namespace Factories
 {
     public class PlayerProjectilesFactory : FactoryBase
     {
-        [Inject] private PlayerProjectilesConfig _playerProjectilesConfig;
-        [Inject] private DiContainer _diContainer;
+        [Inject] private readonly PlayerProjectilesConfig _playerProjectilesConfig;
+        [Inject] private readonly DiContainer _diContainer;
         
         private readonly Dictionary<PlayerProjectileType, GameObject> _projectilesParents = new();
         private Pool<PlayerProjectileBase, PlayerProjectileType> _pool;

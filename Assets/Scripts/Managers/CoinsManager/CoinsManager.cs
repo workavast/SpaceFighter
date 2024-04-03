@@ -2,7 +2,7 @@ using EventBusEvents;
 using EventBusExtension;
 using Factories;
 using GameCycle;
-using Saves;
+using Settings;
 using SomeStorages;
 using UnityEngine;
 using Zenject;
@@ -15,8 +15,8 @@ namespace Managers
         [SerializeField] private int starsPerCoinOffset;
         [SerializeField] [Range(0, 1)] private float coinDropChance;
         
-        [Inject] private CoinsFactory _coinsFactory;
-        [Inject] private EventBus _eventBus;
+        [Inject] private readonly CoinsFactory _coinsFactory;
+        [Inject] private readonly EventBus _eventBus;
         
         public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
         public IReadOnlySomeStorage<int> MoneyStarsCounter => _moneyStarsCounter;

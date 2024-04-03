@@ -7,7 +7,7 @@ namespace Audio
     public abstract class MultiAudioSourceBase<TEvent> : PauseableAudioSource, IEventReceiver<TEvent>
         where TEvent : struct, IEvent
     {
-        [Inject] private EventBus _eventBus;
+        [Inject] private readonly EventBus _eventBus;
         
         public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
 
@@ -15,7 +15,7 @@ namespace Audio
         
         protected override void OnAwake()
         {
-            _audioClip = _audioSource.clip;
+            _audioClip = AudioSource.clip;
             _eventBus.Subscribe(this);
         }
         
@@ -29,6 +29,6 @@ namespace Audio
         
         public void OnEvent(TEvent @event) => PlayOneShot();
         
-        private void PlayOneShot() => _audioSource.PlayOneShot(_audioClip);
+        private void PlayOneShot() => AudioSource.PlayOneShot(_audioClip);
     }
 }

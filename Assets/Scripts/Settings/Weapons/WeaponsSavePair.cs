@@ -1,7 +1,7 @@
 ﻿using System;
 using PlayerWeapon;
 
-namespace Saves.Weapons
+namespace Settings.Weapons
 {
     [Serializable]
     public class WeaponsSavePair

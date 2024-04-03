@@ -7,7 +7,6 @@ namespace UI_System.Elements
     public class LevelUpButton : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI buttonText;
-
         [SerializeField] private LocalizedPair maxLevel;
         [SerializeField] private LocalizedPair<int> levelUp;
         [SerializeField] private LocalizedPair<int> buy;
@@ -54,7 +53,8 @@ namespace UI_System.Elements
             UpdateText(buy.Str);
         }
 
-        private void UpdateText(string newStr) => buttonText.text = newStr;
+        private void UpdateText(string newStr) 
+            => buttonText.text = newStr;
         
         private void OnDestroy()
         {

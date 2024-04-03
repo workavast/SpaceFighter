@@ -8,6 +8,7 @@ namespace Configs
     public class PlayerProjectilesConfig : ScriptableObject
     {
         [SerializeField] private DictionaryInspector<PlayerProjectileType, GameObject> data;
+      
         public IReadOnlyDictionary<PlayerProjectileType, GameObject> Data => data;
     }
 }

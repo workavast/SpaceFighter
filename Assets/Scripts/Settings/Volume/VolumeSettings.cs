@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Saves.Volume
+namespace Settings.Volume
 {
     public sealed class VolumeSettings : ISettings
     {

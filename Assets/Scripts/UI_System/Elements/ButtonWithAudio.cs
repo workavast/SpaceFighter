@@ -8,7 +8,7 @@ namespace UI_System.Elements
 {
     public class ButtonWithAudio : Button
     {
-        [Inject] private EventBus _eventBus;
+        [Inject] private readonly EventBus _eventBus;
         
         public override void OnPointerDown(PointerEventData eventData)
         {

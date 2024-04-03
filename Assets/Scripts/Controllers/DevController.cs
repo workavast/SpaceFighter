@@ -1,5 +1,5 @@
 ﻿using Managers;
-using Saves;
+using Settings;
 using UnityEngine;
 
 namespace Controllers
@@ -7,6 +7,7 @@ namespace Controllers
     public class DevController : ControllerBase
     {
         [SerializeField] private AudioManager audioManager;
+        
         private bool _pause = false;
      
 #if UNITY_EDITOR   

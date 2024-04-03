@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using PlayerWeapon;
 using UnityEngine;
 
-namespace Saves.Weapons
+namespace Settings.Weapons
 {
     [Serializable]
     public class WeaponsSettingsSave

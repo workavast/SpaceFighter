@@ -8,8 +8,8 @@ namespace Factories
 {
     public class CoinsFactory : FactoryBase
     {
-        [Inject] private CoinPrefabConfig _prefabConfig;
-        [Inject] private DiContainer _diContainer;
+        [Inject] private readonly CoinPrefabConfig _prefabConfig;
+        [Inject] private readonly DiContainer _diContainer;
 
         private Pool<Coin> _pool;
         

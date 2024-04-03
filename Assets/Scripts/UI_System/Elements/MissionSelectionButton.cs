@@ -1,5 +1,5 @@
 using System;
-using Saves;
+using Settings;
 using TMPro;
 using UnityEngine;
 
@@ -20,9 +20,11 @@ namespace UI_System.Elements
             textMeshPro.text = $"{levelIndex + 1}";
         }
 
-        public void _LoadMission() => OnLoadMission?.Invoke(levelIndex);
-
-        private void Start() => UpdateEarnedStars(PlayerGlobalData.Instance.MissionsSettings.MissionsStarsData[levelIndex]);
+        private void Start() 
+            => UpdateEarnedStars(PlayerGlobalData.Instance.MissionsSettings.MissionsStarsData[levelIndex]);
+        
+        public void _LoadMission() 
+            => OnLoadMission?.Invoke(levelIndex);
         
         private void UpdateEarnedStars(int starsCount)
         {

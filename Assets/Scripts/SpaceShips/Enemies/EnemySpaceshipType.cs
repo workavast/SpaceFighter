@@ -4,11 +4,8 @@ namespace SpaceShips.Enemies
     {
         KlaedBattlecruiser,
         KlaedBomber,
-        KlaedDreadnought,
         KlaedFighter,
         KlaedFrigate,
         KlaedScout,
-        KlaedSupportShip,
-        KlaedTorpedoShip
     }
 }

@@ -15,18 +15,18 @@ namespace SpaceShips.Enemies
         [SerializeField] private float collisionDamage = 1;
         [SerializeField] [Range(0, 2)] private float starsValueScale = 1;
         
-        [Inject] protected EventBus EventBus;
-        [Inject] private PlayerSpaceshipManager _playerSpaceshipManager;
+        [Inject] private readonly PlayerSpaceshipManager _playerSpaceshipManager;
+        [Inject] protected readonly EventBus EventBus;
     
-        private bool _canMove;
-        private PathCreator _pathCreator;
-        private EndOfPathInstruction _endOfPathInstruction;
-        private EnemyPathWayMoveType _moveType;
-        private EnemyRotationType _rotationType;
         private EnemyAnimationController _enemyAnimationController;
+        private EndOfPathInstruction _endOfPathInstruction;
+        private EnemyRotationType _rotationType;
+        private EnemyPathWayMoveType _moveType;
+        private PathCreator _pathCreator;
+        private Vector3 _prevPosition;
         private float _distanceTravelled;
         private float _moveSpeed;
-        private Vector3 _prevPosition;
+        private bool _canMove;
         
         public abstract EnemySpaceshipType PoolId { get; }
         public float CollisionDamage => collisionDamage;
@@ -58,8 +58,8 @@ namespace SpaceShips.Enemies
             OnHandleUpdate?.Invoke();
         }
 
-        public override void ChangeAnimatorState(bool animatorEnabled) =>
-            _enemyAnimationController.ChangeAnimatorState(animatorEnabled);
+        public override void ChangeAnimatorState(bool animatorEnabled) 
+            => _enemyAnimationController.ChangeAnimatorState(animatorEnabled);
 
         public void OnElementExtractFromPool()
         {
@@ -100,8 +100,7 @@ namespace SpaceShips.Enemies
                 EnemyPathWayMoveType.Loop => EndOfPathInstruction.Loop,
                 EnemyPathWayMoveType.OnEndRemove => EndOfPathInstruction.Stop,
                 EnemyPathWayMoveType.OnEndStop => EndOfPathInstruction.Stop,
-                _ => throw new ArgumentOutOfRangeException(nameof(newEnemyPathWayMoveType), newEnemyPathWayMoveType,
-                    null)
+                _ => throw new ArgumentOutOfRangeException(nameof(newEnemyPathWayMoveType), newEnemyPathWayMoveType, null)
             };
 
             transform.position = _pathCreator.path.GetPointAtDistance(0, _endOfPathInstruction);

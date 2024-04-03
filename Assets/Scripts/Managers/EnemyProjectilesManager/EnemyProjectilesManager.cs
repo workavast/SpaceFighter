@@ -10,7 +10,7 @@ namespace Managers
     {
         protected override GameCycleState GameCycleState => GameCycleState.Gameplay;
         
-        [Inject] private EnemyProjectilesFactory _enemyProjectilesFactory;
+        [Inject] private readonly EnemyProjectilesFactory _enemyProjectilesFactory;
 
         private EnemyProjectilesRepository _enemyProjectilesRepository;
         private EnemyProjectilesUpdater _enemyProjectilesUpdater;

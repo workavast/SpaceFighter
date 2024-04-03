@@ -5,9 +5,9 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class Coin : MonoBehaviour, PoolSystem.IPoolable<Coin>, IPlayAreaCollision, IHandleUpdate
+public class Coin : MonoBehaviour, PoolSystem.IPoolable<Coin>, IPlayAreaCollision
 {
-    [Inject] private CoinConfig _config;
+    [Inject] private readonly CoinConfig _config;
     
     private float _moveSpeed;
     private bool _extractedFromPool;

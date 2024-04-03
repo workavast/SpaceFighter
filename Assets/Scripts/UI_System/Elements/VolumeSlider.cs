@@ -11,9 +11,10 @@ namespace UI_System.Elements
     {
         [SerializeField] private VolumeType volumeType;
 
-        [Inject] private AudioManager _audioManager;
+        [Inject] private readonly AudioManager _audioManager;
         
         private Slider _slider;
+        
         private event Action<float> OnValueChange;
         
         private void Awake()

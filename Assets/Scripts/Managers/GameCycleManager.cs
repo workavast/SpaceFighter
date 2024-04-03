@@ -5,7 +5,7 @@ namespace Managers
 {
     public abstract class GameCycleManager : ManagerBase, IGameCycleUpdate
     {
-        [Inject] protected IGameCycleController GameCycleController;
+        [Inject] protected readonly IGameCycleController GameCycleController;
         
         protected abstract GameCycleState GameCycleState { get; } 
         

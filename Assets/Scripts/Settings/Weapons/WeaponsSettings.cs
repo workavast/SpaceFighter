@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using PlayerWeapon;
 
-namespace Saves.Weapons
+namespace Settings.Weapons
 {
     public class WeaponsSettings : ISettings
     {
@@ -15,6 +15,7 @@ namespace Saves.Weapons
         };
         public PlayerWeaponType EquippedPlayerWeapon = PlayerWeaponType.AutoCannon;
         public IReadOnlyDictionary<PlayerWeaponType, int> CurrentWeaponsLevels => WeaponsLevels;
+        
         public event Action OnChange;
         
         public void SetData(WeaponsSettingsSave save)

@@ -5,16 +5,18 @@ using UnityEngine;
 namespace SpaceShips
 {
     [RequireComponent(typeof(PolygonCollider2D), typeof(Rigidbody2D))]
-    public abstract class SpaceshipBase : MonoBehaviour, IDamageable, IHandleUpdate
+    public abstract class SpaceshipBase : MonoBehaviour, IDamageable
     {
         [SerializeField] protected SomeStorageFloat healthPoints;
     
-        public event Action OnDead;
-    
         protected bool IsDead = false;
     
-        private void Awake() => OnAwake();
-        private void Start() => OnStart();
+        public event Action OnDead;
+    
+        private void Awake() 
+            => OnAwake();
+        private void Start() 
+            => OnStart();
 
         protected virtual void OnAwake() { }
         protected virtual void OnStart() { }

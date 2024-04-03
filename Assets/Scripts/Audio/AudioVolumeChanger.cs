@@ -1,5 +1,4 @@
-﻿using Saves;
-using Saves.Volume;
+﻿using Settings.Volume;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -7,8 +6,8 @@ namespace Audio
 {
     public class AudioVolumeChanger
     {
-        private readonly AudioMixer _mixer;
         private readonly VolumeSettings _volumeSettings;
+        private readonly AudioMixer _mixer;
 
         private const string MasterParam = "Master";
         private const string EffectsParam = "Effects";

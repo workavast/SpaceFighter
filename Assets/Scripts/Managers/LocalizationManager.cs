@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Saves;
+using Settings;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 

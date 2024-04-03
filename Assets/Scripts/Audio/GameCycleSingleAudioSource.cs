@@ -9,7 +9,7 @@ namespace Audio
         [SerializeField] [Range(0, 1)] private float volume;
         [SerializeField] private GameCycleState gameCycleState;
         
-        [Inject] private IGameCycleController _gameCycleController;
+        [Inject] private readonly IGameCycleController _gameCycleController;
 
         private float _startVolume;
 
@@ -17,7 +17,7 @@ namespace Audio
         {
             base.OnAwake();
 
-            _startVolume = _audioSource.volume;
+            _startVolume = AudioSource.volume;
             
             _gameCycleController.AddListener(gameCycleState, this as IGameCycleEnter);
             _gameCycleController.AddListener(gameCycleState, this as IGameCycleExit);
@@ -30,6 +30,6 @@ namespace Audio
 
         public void GameCycleExit() => SetVolume(false);
 
-        private void SetVolume(bool isCurrentState) => _audioSource.volume = isCurrentState ? _startVolume : volume;
+        private void SetVolume(bool isCurrentState) => AudioSource.volume = isCurrentState ? _startVolume : volume;
     }
 }

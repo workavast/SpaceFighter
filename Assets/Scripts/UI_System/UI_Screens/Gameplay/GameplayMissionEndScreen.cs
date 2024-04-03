@@ -17,8 +17,8 @@ namespace UI_System.UI_Screens.Gameplay
         [SerializeField] private GameObject darkBackground;
         [SerializeField] private StarsBlock starsBlock;
         
-        [Inject] private MissionController _missionController;
-        [Inject] private CoinsManager _coinsManager;
+        [Inject] private readonly MissionController _missionController;
+        [Inject] private readonly CoinsManager _coinsManager;
 
         private void Awake()
         {

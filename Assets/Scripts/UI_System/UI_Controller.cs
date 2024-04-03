@@ -8,22 +8,22 @@ namespace UI_System
 {
     public class UI_Controller : MonoBehaviour
     {
-        private List<GameObject> _uiActivies = new List<GameObject>();
-        private List<GameObject> _uiPrevActivies = new List<GameObject>();
-        private List<GameObject> _buffer = new List<GameObject>();
+        private List<GameObject> _uiPrevActive = new();
+        private List<GameObject> _uiActive = new();
+        private List<GameObject> _buffer = new();
 
         public event Action<ScreenType> OnScreenSwitch;
-    
-        void Start()
+
+        private void Start()
         {
             var activeScreens = new List<GameObject>();
             foreach (var screen in UI_ScreenRepository.Screens)
                 if (screen.isActiveAndEnabled) activeScreens.Add(screen.gameObject);
 
-            _uiActivies = activeScreens;
-            if (_uiActivies.Count <= 0) Debug.LogWarning("No have active screen");
+            _uiActive = activeScreens;
+            if (_uiActive.Count <= 0) Debug.LogWarning("No have active screen");
         
-            _uiPrevActivies = _uiActivies;
+            _uiPrevActive = _uiActive;
         }
 
         // public void SwitchScreen(ScreensEnum screens, bool setActive)
@@ -36,14 +36,14 @@ namespace UI_System
     
         public void SetScreen(ScreenType screen)
         {
-            for (int i = 0; i < _uiActivies.Count; i++)
-                _uiActivies[i].SetActive(false);
+            for (int i = 0; i < _uiActive.Count; i++)
+                _uiActive[i].SetActive(false);
 
-            _uiActivies = new List<GameObject>();
+            _uiActive = new List<GameObject>();
         
             UI_ScreenBase newScreen = UI_ScreenRepository.GetScreen(screen);
             newScreen.gameObject.SetActive(true);
-            _uiActivies.Add(newScreen.gameObject);
+            _uiActive.Add(newScreen.gameObject);
             OnScreenSwitch?.Invoke(screen);
         }    
     

@@ -7,7 +7,6 @@ namespace UI_System.Elements
     public class EquipButton : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI buttonText;
-    
         [SerializeField] private LocalizedPair equip;
         [SerializeField] private LocalizedPair equipped;
         [SerializeField] private LocalizedPair locked;

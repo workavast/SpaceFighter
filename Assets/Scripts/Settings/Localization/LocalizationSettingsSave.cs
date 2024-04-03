@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Saves.Localization
+namespace Settings.Localization
 {
     [Serializable]
     public sealed class LocalizationSettingsSave
