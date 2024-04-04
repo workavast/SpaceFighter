@@ -43,6 +43,10 @@ MonoBehaviour:
     m_Key: MissionLoose
     m_Metadata:
       m_Items: []
+  - m_Id: 28277276525096960
+    m_Key: EscSpace
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

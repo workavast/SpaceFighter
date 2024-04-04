@@ -46,6 +46,10 @@ MonoBehaviour:
     m_Localized: "G\xF6rev ba\u015Far\u0131s\u0131z oldu"
     m_Metadata:
       m_Items: []
+  - m_Id: 28277276525096960
+    m_Localized: "esc / ara \xE7ubu\u011Fu\r\n"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -1,5 +1,5 @@
 {
-    "idSave": 43,
+    "idSave": 57,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -37,12 +37,12 @@
                 0,
                 0,
                 0,
-                0,
+                3,
                 0
             ]
         },
         "coinsSettingsSave": {
-            "CoinsCount": 2057
+            "CoinsCount": 2186
         },
         "spaceshipSettingsSave": {
             "CurrentSpaceshipLevel": 1
